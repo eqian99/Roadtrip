@@ -7,6 +7,7 @@
 //
 
 #import "SignupViewController.h"
+#import <Parse/Parse.h>
 
 @interface SignupViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
@@ -27,10 +28,60 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)createError:(NSString *)errorMessage{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:errorMessage
+                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         // handle response here.
+                                                     }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:^{
+    }];
+}
+
 - (IBAction)pressedBack:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 - (IBAction)pressedSignUp:(id)sender {
+    PFUser *newUser = [PFUser user];
+    // set user properties
+    newUser.username = self.usernameField.text;
+    newUser.email = self.emailField.text;
+    newUser.password = self.passwordField.text;
+    if(![self.passwordField.text isEqualToString:self.confirmPasswordField.text]){
+        [self createError:@"Passwords don't match"];
+        return;
+    }
+    
+    // call sign up function on the object
+    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+            
+            // there was an error so call helper method to build error message
+            if([self.usernameField.text isEqual:@""] || [self.passwordField.text isEqual:@""] || [self.emailField.text isEqual:@""]){
+                [self createError:@"Missing username or password or email"];
+            }
+            else if([error.localizedDescription rangeOfString:@"Email address format is invalid."].location != NSNotFound){
+                [self createError:@"Email address format is invalid"];
+            }
+            else{
+                [self createError:@"User already exists for that username"];
+            }
+        } else {
+            NSLog(@"User registered successfully");
+            //[self performSegueWithIdentifier:@"chatView" sender:nil];
+            
+            // manually segue to logged in view
+        }
+    }];
 }
 
 /*
