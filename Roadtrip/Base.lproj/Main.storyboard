@@ -62,11 +62,18 @@
                                 <rect key="frame" x="167" y="370" width="38" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="pressedLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Hl-Xk-x0Y"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="passwordField" destination="e9a-C1-NVm" id="eWt-4l-aqd"/>
+                        <outlet property="usernameField" destination="2po-zo-cmq" id="Tbj-QD-umM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -123,11 +130,28 @@
                                 <rect key="frame" x="150" y="459" width="52" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign up"/>
+                                <connections>
+                                    <action selector="pressedSignUp:" destination="I64-wL-KzL" eventType="touchUpInside" id="akY-qE-XT7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBC-Vr-IMy">
+                                <rect key="frame" x="29" y="23" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="back-icon-white"/>
+                                <connections>
+                                    <action selector="pressedBack:" destination="I64-wL-KzL" eventType="touchUpInside" id="pWK-8r-Kw1"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="v08-sV-Vmd"/>
                     </view>
+                    <connections>
+                        <outlet property="confirmPasswordField" destination="ZMz-xd-Hf0" id="wCO-Ad-IMa"/>
+                        <outlet property="emailField" destination="g7j-Jg-NLk" id="AaO-Jk-SOV"/>
+                        <outlet property="passwordField" destination="etL-Vs-OyY" id="JLP-jD-YQ1"/>
+                        <outlet property="usernameField" destination="gUu-IK-3JO" id="g7a-cQ-Tiy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Kg-VJ-FW5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -135,6 +159,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back-icon-white" width="30" height="30"/>
         <image name="cloud" width="1920" height="1080"/>
     </resources>
 </document>

@@ -9,6 +9,10 @@
 #import "SignupViewController.h"
 
 @interface SignupViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UITextField *confirmPasswordField;
 
 @end
 
@@ -22,6 +26,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)pressedBack:(id)sender {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+- (IBAction)pressedSignUp:(id)sender {
 }
 
 /*
