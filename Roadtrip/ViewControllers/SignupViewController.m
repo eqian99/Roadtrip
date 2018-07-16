@@ -72,26 +72,31 @@
             else if([error.localizedDescription rangeOfString:@"Email address format is invalid."].location != NSNotFound){
                 [self createError:@"Email address format is invalid"];
             }
+            else if([error.localizedDescription rangeOfString:@"Account already exists for this email address"].location != NSNotFound){
+                [self createError:@"User already exists for that email address"];
+            }
             else{
                 [self createError:@"User already exists for that username"];
             }
         } else {
             NSLog(@"User registered successfully");
-            //[self performSegueWithIdentifier:@"chatView" sender:nil];
+            [self.delegate didSignUp];
+            [self dismissViewControllerAnimated:true completion:nil];
             
             // manually segue to logged in view
         }
     }];
 }
 
-/*
-#pragma mark - Navigation
 
+#pragma mark - Navigation
+/*
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
 */
+
 
 @end

@@ -7,9 +7,11 @@
 //
 
 #import "LoginViewController.h"
+#import "SignupViewController.h"
 #import <Parse/Parse.h>
+#import "SignupViewController.h"
 
-@interface LoginViewController ()
+@interface LoginViewController () <SignupViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
@@ -44,6 +46,12 @@
     }];
 }
 
+- (void)didSignUp{
+    NSLog(@"hello");
+    [self performSegueWithIdentifier:@"categorySegue" sender:nil];
+}
+
+
 - (IBAction)pressedLogin:(id)sender {
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
@@ -54,20 +62,21 @@
             [self createError:@"Incorrect username or password"];
         } else {
             NSLog(@"User logged in successfully");
-            //[self performSegueWithIdentifier:@"chatView" sender:nil];
+            [self performSegueWithIdentifier:@"categorySegue" sender:nil];
             // display view controller that needs to shown after successful login
         }
     }];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    UINavigationController *navController = [segue destinationViewController];
+    SignupViewController *signUpController = (SignupViewController *)navController;
+    signUpController.delegate = self;
 }
-*/
+
 
 @end
