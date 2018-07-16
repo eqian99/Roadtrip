@@ -17,6 +17,7 @@
 		F6F77C4020FB256600836D65 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C3F20FB256600836D65 /* LoginViewController.m */; };
 		F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4420FC6D7600836D65 /* SignupViewController.m */; };
 		F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4820FD353800836D65 /* CategoryViewController.m */; };
+		F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4C20FD4AC100836D65 /* SelectLocationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,8 @@
 		F6F77C4520FC6D7600836D65 /* SignupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
 		F6F77C4720FD353800836D65 /* CategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		F6F77C4820FD353800836D65 /* CategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
+		F6F77C4B20FD4AC100836D65 /* SelectLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectLocationViewController.h; sourceTree = "<group>"; };
+		F6F77C4C20FD4AC100836D65 /* SelectLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectLocationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,8 @@
 				F6F77C4420FC6D7600836D65 /* SignupViewController.m */,
 				F6F77C4720FD353800836D65 /* CategoryViewController.h */,
 				F6F77C4820FD353800836D65 /* CategoryViewController.m */,
+				F6F77C4B20FD4AC100836D65 /* SelectLocationViewController.h */,
+				F6F77C4C20FD4AC100836D65 /* SelectLocationViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 				F6A23AEA20EFE04D002384E8 /* main.m in Sources */,
 				F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */,
 				F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */,
+				F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */,
 				F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */,
 				F6F77C4020FB256600836D65 /* LoginViewController.m in Sources */,
 			);

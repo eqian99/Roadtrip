@@ -257,10 +257,28 @@
                         <viewLayoutGuide key="safeArea" id="vzR-s4-7nL"/>
                     </view>
                     <navigationItem key="navigationItem" id="osP-Dn-f8C"/>
+                    <connections>
+                        <segue destination="VaR-MT-fcZ" kind="show" identifier="LocationSegue" id="1Fi-z6-h0F"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cxc-ib-ZqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2456.8000000000002" y="128.18590704647679"/>
+        </scene>
+        <!--Select Location View Controller-->
+        <scene sceneID="vgH-80-iCr">
+            <objects>
+                <viewController id="VaR-MT-fcZ" customClass="SelectLocationViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SZy-Jv-XxJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ezo-YO-5cB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="apx-7g-dD3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3265" y="128"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ozr-lp-Iny">
