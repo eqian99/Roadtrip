@@ -9,6 +9,19 @@
 #import "CategoryViewController.h"
 
 @interface CategoryViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *button_music;
+@property (weak, nonatomic) IBOutlet UIButton *button_visual_arts;
+@property (weak, nonatomic) IBOutlet UIButton *button_performing_arts;
+@property (weak, nonatomic) IBOutlet UIButton *button_film;
+@property (weak, nonatomic) IBOutlet UIButton *button_lectures_books;
+@property (weak, nonatomic) IBOutlet UIButton *button_fashion;
+@property (weak, nonatomic) IBOutlet UIButton *button_food_and_drink;
+@property (weak, nonatomic) IBOutlet UIButton *button_festivals_fairs;
+@property (weak, nonatomic) IBOutlet UIButton *button_charities;
+@property (weak, nonatomic) IBOutlet UIButton *button_sports_active_life;
+@property (weak, nonatomic) IBOutlet UIButton *button_nightlife;
+@property (weak, nonatomic) IBOutlet UIButton *button_kids_family;
+@property (weak, nonatomic) IBOutlet UIButton *button_other;
 
 @end
 

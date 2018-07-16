@@ -258,6 +258,19 @@
                     </view>
                     <navigationItem key="navigationItem" id="osP-Dn-f8C"/>
                     <connections>
+                        <outlet property="button_charities" destination="6ET-sT-UxT" id="IM4-DV-Jfi"/>
+                        <outlet property="button_fashion" destination="lRI-U4-i2U" id="x8v-cS-UhJ"/>
+                        <outlet property="button_festivals_fairs" destination="ihK-FX-dgN" id="Zn6-TK-1tu"/>
+                        <outlet property="button_film" destination="a5u-vm-dxB" id="t3l-7B-eHX"/>
+                        <outlet property="button_food_and_drink" destination="huA-1v-79A" id="7Mg-XG-Xyz"/>
+                        <outlet property="button_kids_family" destination="JJE-xX-Y2u" id="oWc-6R-DbB"/>
+                        <outlet property="button_lectures_books" destination="ryo-ev-deg" id="vr6-sg-Ody"/>
+                        <outlet property="button_music" destination="GZf-Id-nZt" id="veC-gb-jOe"/>
+                        <outlet property="button_nightlife" destination="1r4-Yu-VyG" id="CTg-Gq-f7f"/>
+                        <outlet property="button_other" destination="obm-W3-bQk" id="SXa-h8-aWx"/>
+                        <outlet property="button_performing_arts" destination="T00-58-lKC" id="hdg-US-qf8"/>
+                        <outlet property="button_sports_active_life" destination="cXV-Nd-F3L" id="CLF-vY-IZM"/>
+                        <outlet property="button_visual_arts" destination="5sw-ts-Ngb" id="Tt1-06-BNy"/>
                         <segue destination="VaR-MT-fcZ" kind="show" identifier="LocationSegue" id="1Fi-z6-h0F"/>
                     </connections>
                 </viewController>
