@@ -80,8 +80,8 @@
             }
         } else {
             NSLog(@"User registered successfully");
-            [self.delegate didSignUp];
             [self dismissViewControllerAnimated:true completion:nil];
+            [self.delegate didSignUp];
             
             // manually segue to logged in view
         }
