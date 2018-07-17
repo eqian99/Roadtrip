@@ -339,6 +339,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gHQ-rx-Xa0">
+                                <rect key="frame" x="139" y="441" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ezo-YO-5cB"/>
@@ -354,7 +361,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Ozr-lp-Iny">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QnF-9s-EbT" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="categoryChooser" automaticallyAdjustsScrollViewInsets="NO" id="QnF-9s-EbT" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ejL-yU-ADV">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
