@@ -124,6 +124,91 @@ static NSString *const apiKey = @"twGNW7wA2e3-suEKeND9MKXRf_kyK0t7xJ5P-9vpNuUiza
     [task resume];
     
 }
+//Try
+-(void) getFeaturedEventWithLatitude: (double) latitude withLongitude: (double) longitude withCompletion: (void(^)(NSDictionary *dictionary, NSError *error)) completion {
+    
+    
+    NSString *baseUrlString = @"https://api.yelp.com/v3/events/featured";
+    
+    NSString *parametersUrlString = [NSString stringWithFormat:@"?latitude=%f&longitude=%f", latitude, longitude];
+    
+    NSString *urlString = [baseUrlString stringByAppendingString:parametersUrlString];
+    
+    NSLog(urlString);
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10.0];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSString *headerValue = [NSString stringWithFormat:@"Bearer %@", apiKey];
+    
+    [request setValue:headerValue forHTTPHeaderField:@"Authorization"];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        if (error != nil) {
+            
+            completion(nil, error);
+            
+        }
+        else {
+            
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            completion(dataDictionary, nil);
+            
+        }
+        
+    }];
+    [task resume];
+    
+    
+}
+
+//Try
+
+-(void) getBusinessesWithLatitude: (double) latitude withLongitude: (double) longitude withCompletion: (void(^)(NSDictionary *dictionary, NSError *error)) completion{
+    
+    NSString *baseUrlString = @"https://api.yelp.com/v3/businesses/search";
+    
+    NSString *parametersUrlString = [NSString stringWithFormat:@"?latitude=%f&longitude=%f", latitude, longitude];
+    
+    NSString *urlString = [baseUrlString stringByAppendingString:parametersUrlString];
+    
+    NSLog(urlString);
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10.0];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSString *headerValue = [NSString stringWithFormat:@"Bearer %@", apiKey];
+    
+    [request setValue:headerValue forHTTPHeaderField:@"Authorization"];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        if (error != nil) {
+            
+            completion(nil, error);
+            
+        }
+        else {
+            
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            completion(dataDictionary, nil);
+            
+        }
+        
+    }];
+    [task resume];
+    
+}
+
 
 -(NSString *) getCategoriesParameterFormat: (NSArray *) categories {
     
