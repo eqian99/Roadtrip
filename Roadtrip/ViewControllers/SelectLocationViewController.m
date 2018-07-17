@@ -7,8 +7,10 @@
 //
 
 #import "SelectLocationViewController.h"
-
-@interface SelectLocationViewController ()
+@interface SelectLocationViewController () <UINavigationControllerDelegate, MKMapViewDelegate>
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (assign, nonatomic) double latitude;
+@property (assign, nonatomic) double longitude;
 
 @end
 
@@ -17,12 +19,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.mapView.delegate = self;
+    self.locationManager = [[CLLocationManager alloc]init];
+    [self.locationManager requestWhenInUseAuthorization];
+    
+    self.latitude=self.locationManager.location.coordinate.latitude;
+    self.longitude=self.locationManager.location.coordinate.longitude;
+    NSLog(@"%f%f", self.latitude, self.longitude);
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

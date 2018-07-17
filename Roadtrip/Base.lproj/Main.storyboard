@@ -177,80 +177,122 @@
                                 <rect key="frame" x="47" y="134" width="41" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Music"/>
+                                <state key="disabled" title="music"/>
                                 <state key="selected" title="Music">
                                     <color key="titleColor" red="1" green="0.35265804960000002" blue="0.23910785679999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <state key="highlighted" title="music">
                                     <color key="titleColor" red="1" green="0.35265804960000002" blue="0.23910785679999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleShadowColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="cUO-4l-mnC"/>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="v2R-R3-2B9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sw-ts-Ngb">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sw-ts-Ngb">
                                 <rect key="frame" x="232" y="134" width="74" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Visual Arts"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="o6r-vu-2fg"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5u-vm-dxB">
                                 <rect key="frame" x="254" y="206" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Film"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="4rF-iS-Gnc"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRI-U4-i2U">
                                 <rect key="frame" x="243" y="279" width="53" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Fashion"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="nVx-01-kBp"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihK-FX-dgN">
                                 <rect key="frame" x="218" y="359" width="103" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Festival &amp; Fairs"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="qDL-mk-ZIe"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXV-Nd-F3L">
                                 <rect key="frame" x="201" y="437" width="136" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sports &amp; Active Life"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="cMq-ab-6xU"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T00-58-lKC">
                                 <rect key="frame" x="13" y="206" width="109" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Performing Arts"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="yTA-lx-13u"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryo-ev-deg">
                                 <rect key="frame" x="7" y="279" width="121" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Lectures &amp; Books"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="F68-gZ-bbp"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huA-1v-79A">
                                 <rect key="frame" x="22" y="359" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Food &amp; Drink"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="hDk-Z1-PgB"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ET-sT-UxT">
                                 <rect key="frame" x="37" y="437" width="61" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Charities"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="He9-3l-OeR"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1r4-Yu-VyG">
                                 <rect key="frame" x="39" y="508" width="58" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Nightlife"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="DLr-Yy-eju"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJE-xX-Y2u">
                                 <rect key="frame" x="217" y="508" width="104" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Kids &amp; Families"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="rGC-hy-cDL"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obm-W3-bQk">
-                                <rect key="frame" x="48" y="560" width="40" height="30"/>
+                                <rect key="frame" x="48" y="575" width="40" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Other"/>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="zw4-Lt-Yxb"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PEA-pW-kKq">
                                 <rect key="frame" x="155" y="617" width="41" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done!"/>
+                                <connections>
+                                    <action selector="clickedDone:" destination="1pO-zM-6NW" eventType="touchUpInside" id="6L6-Xx-96T"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -285,13 +327,29 @@
                     <view key="view" contentMode="scaleToFill" id="SZy-Jv-XxJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XbZ-sc-STX">
+                                <rect key="frame" x="0.0" y="152" width="375" height="225"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We will use your current location to find events near you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36j-bT-zgc">
+                                <rect key="frame" x="16" y="92" width="343" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ezo-YO-5cB"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="XbZ-sc-STX" id="4aP-xk-h0g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="apx-7g-dD3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3265" y="128"/>
+            <point key="canvasLocation" x="3264.8000000000002" y="127.28635682158921"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ozr-lp-Iny">

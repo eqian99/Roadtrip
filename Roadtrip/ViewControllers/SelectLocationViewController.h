@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 @interface SelectLocationViewController : UIViewController
-
+@property (strong, nonatomic) NSArray * categories;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 @end
