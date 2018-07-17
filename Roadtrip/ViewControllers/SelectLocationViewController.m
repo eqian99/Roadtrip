@@ -1,18 +1,18 @@
 //
-//  LoginViewController.m
+//  SelectLocationViewController.m
 //  Roadtrip
 //
-//  Created by Emma Qian on 7/14/18.
+//  Created by Emma Qian on 7/16/18.
 //  Copyright © 2018 heh17. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "SelectLocationViewController.h"
 
-@interface LoginViewController ()
+@interface SelectLocationViewController ()
 
 @end
 
-@implementation LoginViewController
+@implementation SelectLocationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

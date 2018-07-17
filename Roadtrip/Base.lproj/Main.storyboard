@@ -62,11 +62,19 @@
                                 <rect key="frame" x="167" y="370" width="38" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="pressedLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Hl-Xk-x0Y"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="passwordField" destination="e9a-C1-NVm" id="eWt-4l-aqd"/>
+                        <outlet property="usernameField" destination="2po-zo-cmq" id="Tbj-QD-umM"/>
+                        <segue destination="QnF-9s-EbT" kind="presentation" identifier="categorySegue" id="xkb-EK-fU4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -123,18 +131,189 @@
                                 <rect key="frame" x="150" y="459" width="52" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign up"/>
+                                <connections>
+                                    <action selector="pressedSignUp:" destination="I64-wL-KzL" eventType="touchUpInside" id="akY-qE-XT7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBC-Vr-IMy">
+                                <rect key="frame" x="29" y="23" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="back-icon-white"/>
+                                <connections>
+                                    <action selector="pressedBack:" destination="I64-wL-KzL" eventType="touchUpInside" id="pWK-8r-Kw1"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="v08-sV-Vmd"/>
                     </view>
+                    <connections>
+                        <outlet property="confirmPasswordField" destination="ZMz-xd-Hf0" id="wCO-Ad-IMa"/>
+                        <outlet property="emailField" destination="g7j-Jg-NLk" id="AaO-Jk-SOV"/>
+                        <outlet property="passwordField" destination="etL-Vs-OyY" id="JLP-jD-YQ1"/>
+                        <outlet property="usernameField" destination="gUu-IK-3JO" id="g7a-cQ-Tiy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Kg-VJ-FW5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="852" y="130.88455772113943"/>
         </scene>
+        <!--Category View Controller-->
+        <scene sceneID="cap-N3-wor">
+            <objects>
+                <viewController id="1pO-zM-6NW" customClass="CategoryViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tUK-cr-aeb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose a category!!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6IP-EW-kEn">
+                                <rect key="frame" x="110" y="83" width="154" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZf-Id-nZt">
+                                <rect key="frame" x="47" y="134" width="41" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Music"/>
+                                <state key="selected" title="Music">
+                                    <color key="titleColor" red="1" green="0.35265804960000002" blue="0.23910785679999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <state key="highlighted" title="music">
+                                    <color key="titleColor" red="1" green="0.35265804960000002" blue="0.23910785679999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="cUO-4l-mnC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sw-ts-Ngb">
+                                <rect key="frame" x="232" y="134" width="74" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Visual Arts"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5u-vm-dxB">
+                                <rect key="frame" x="254" y="206" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Film"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRI-U4-i2U">
+                                <rect key="frame" x="243" y="279" width="53" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Fashion"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihK-FX-dgN">
+                                <rect key="frame" x="218" y="359" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Festival &amp; Fairs"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXV-Nd-F3L">
+                                <rect key="frame" x="201" y="437" width="136" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sports &amp; Active Life"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T00-58-lKC">
+                                <rect key="frame" x="13" y="206" width="109" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Performing Arts"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryo-ev-deg">
+                                <rect key="frame" x="7" y="279" width="121" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Lectures &amp; Books"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huA-1v-79A">
+                                <rect key="frame" x="22" y="359" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Food &amp; Drink"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ET-sT-UxT">
+                                <rect key="frame" x="37" y="437" width="61" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Charities"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1r4-Yu-VyG">
+                                <rect key="frame" x="39" y="508" width="58" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Nightlife"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJE-xX-Y2u">
+                                <rect key="frame" x="217" y="508" width="104" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Kids &amp; Families"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obm-W3-bQk">
+                                <rect key="frame" x="48" y="560" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Other"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PEA-pW-kKq">
+                                <rect key="frame" x="155" y="617" width="41" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Done!"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="vzR-s4-7nL"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="osP-Dn-f8C"/>
+                    <connections>
+                        <outlet property="button_charities" destination="6ET-sT-UxT" id="IM4-DV-Jfi"/>
+                        <outlet property="button_fashion" destination="lRI-U4-i2U" id="x8v-cS-UhJ"/>
+                        <outlet property="button_festivals_fairs" destination="ihK-FX-dgN" id="Zn6-TK-1tu"/>
+                        <outlet property="button_film" destination="a5u-vm-dxB" id="t3l-7B-eHX"/>
+                        <outlet property="button_food_and_drink" destination="huA-1v-79A" id="7Mg-XG-Xyz"/>
+                        <outlet property="button_kids_family" destination="JJE-xX-Y2u" id="oWc-6R-DbB"/>
+                        <outlet property="button_lectures_books" destination="ryo-ev-deg" id="vr6-sg-Ody"/>
+                        <outlet property="button_music" destination="GZf-Id-nZt" id="veC-gb-jOe"/>
+                        <outlet property="button_nightlife" destination="1r4-Yu-VyG" id="CTg-Gq-f7f"/>
+                        <outlet property="button_other" destination="obm-W3-bQk" id="SXa-h8-aWx"/>
+                        <outlet property="button_performing_arts" destination="T00-58-lKC" id="hdg-US-qf8"/>
+                        <outlet property="button_sports_active_life" destination="cXV-Nd-F3L" id="CLF-vY-IZM"/>
+                        <outlet property="button_visual_arts" destination="5sw-ts-Ngb" id="Tt1-06-BNy"/>
+                        <segue destination="VaR-MT-fcZ" kind="show" identifier="LocationSegue" id="1Fi-z6-h0F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cxc-ib-ZqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2456.8000000000002" y="128.18590704647679"/>
+        </scene>
+        <!--Select Location View Controller-->
+        <scene sceneID="vgH-80-iCr">
+            <objects>
+                <viewController id="VaR-MT-fcZ" customClass="SelectLocationViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SZy-Jv-XxJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ezo-YO-5cB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="apx-7g-dD3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3265" y="128"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ozr-lp-Iny">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QnF-9s-EbT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ejL-yU-ADV">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1pO-zM-6NW" kind="relationship" relationship="rootViewController" id="WIp-g2-heR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h1K-Pt-t5n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1517.5999999999999" y="128.18590704647679"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="back-icon-white" width="30" height="30"/>
         <image name="cloud" width="1920" height="1080"/>
     </resources>
 </document>
