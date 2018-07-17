@@ -15,5 +15,6 @@
 }
 @property (strong, nonatomic) NSArray * categories;
 @property (weak, nonatomic) IBOutlet UITextField *dateSelectionField;
+@property (weak, nonatomic) IBOutlet UITextField *endDateSelectionField;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @end

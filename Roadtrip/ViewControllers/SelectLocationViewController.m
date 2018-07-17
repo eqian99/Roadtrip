@@ -29,13 +29,22 @@
     datePicker=[[UIDatePicker alloc]init];
     datePicker.datePickerMode=UIDatePickerModeDate;
     [self.dateSelectionField setInputView:datePicker];
-    UIToolbar *toolBar=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
-    [toolBar setTintColor:[UIColor grayColor]];
+    [self.endDateSelectionField setInputView:datePicker];
+    
+    UIToolbar *toolBarStart=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    [toolBarStart setTintColor:[UIColor grayColor]];
     UIBarButtonItem *doneBtn=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(ShowSelectedDate)];
     UIBarButtonItem *space=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [toolBar setItems:[NSArray arrayWithObjects:space,doneBtn, nil]];
-    [self.dateSelectionField setInputAccessoryView:toolBar];
+    [toolBarStart setItems:[NSArray arrayWithObjects:space,doneBtn, nil]];
     
+    UIToolbar *toolBarEnd=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    [toolBarEnd setTintColor:[UIColor grayColor]];
+    UIBarButtonItem *doneBtn2=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(ShowSelectedEndDate)];
+    UIBarButtonItem *space2=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [toolBarEnd setItems:[NSArray arrayWithObjects:space2,doneBtn2, nil]];
+    
+    [self.dateSelectionField setInputAccessoryView:toolBarStart];
+    [self.endDateSelectionField setInputAccessoryView:toolBarEnd];
 }
 
 -(void)ShowSelectedDate
@@ -44,6 +53,14 @@
     [formatter setDateFormat:@"dd/MMM/YYYY hh:min a"];
     self.dateSelectionField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
     [self.dateSelectionField resignFirstResponder];
+}
+
+-(void)ShowSelectedEndDate
+{
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"dd/MMM/YYYY hh:min a"];
+    self.endDateSelectionField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
+    [self.endDateSelectionField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
