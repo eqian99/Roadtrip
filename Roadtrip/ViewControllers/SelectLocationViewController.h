@@ -10,6 +10,10 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 @interface SelectLocationViewController : UIViewController
+{
+    UIDatePicker *datePicker; 
+}
 @property (strong, nonatomic) NSArray * categories;
+@property (weak, nonatomic) IBOutlet UITextField *dateSelectionField;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @end

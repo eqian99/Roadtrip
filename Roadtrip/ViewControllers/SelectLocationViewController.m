@@ -18,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.mapView.delegate = self;
     self.locationManager = [[CLLocationManager alloc]init];
     [self.locationManager requestWhenInUseAuthorization];
@@ -26,6 +25,25 @@
     self.latitude=self.locationManager.location.coordinate.latitude;
     self.longitude=self.locationManager.location.coordinate.longitude;
     NSLog(@"%f%f", self.latitude, self.longitude);
+    
+    datePicker=[[UIDatePicker alloc]init];
+    datePicker.datePickerMode=UIDatePickerModeDate;
+    [self.dateSelectionField setInputView:datePicker];
+    UIToolbar *toolBar=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    [toolBar setTintColor:[UIColor grayColor]];
+    UIBarButtonItem *doneBtn=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(ShowSelectedDate)];
+    UIBarButtonItem *space=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [toolBar setItems:[NSArray arrayWithObjects:space,doneBtn, nil]];
+    [self.dateSelectionField setInputAccessoryView:toolBar];
+    
+}
+
+-(void)ShowSelectedDate
+{
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"dd/MMM/YYYY hh:min a"];
+    self.dateSelectionField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
+    [self.dateSelectionField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
