@@ -16,7 +16,7 @@
     
     
     if(self) {
-        
+        self.name = dictionary[@"name"];
         self.category = dictionary[@"category"];
         self.eventDescription = dictionary[@"description"];
         self.eventSiteUrl = dictionary[@"event_site_url"];
@@ -32,6 +32,21 @@
         formatter.dateFormat = @"yyyy-MM-dd HH:mm";
         
         self.startDate = [formatter dateFromString: dictionary[@"time_start"]];
+        
+        NSString *stringEndDate = [NSString stringWithFormat:@"%@", dictionary[@"time_end"]];
+        
+        if([stringEndDate isEqualToString:@"<null>"]){
+            
+            NSLog(@"Doesn't have date");
+            
+        } else {
+            
+            self.startDate = [formatter dateFromString: dictionary[@"time_end"]];
+
+            
+        }
+        
+        
         
         
     }

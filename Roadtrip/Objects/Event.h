@@ -11,6 +11,7 @@
 @interface Event : NSObject
 
 //Description
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *category;
 @property (nonatomic, strong) NSString *eventDescription;
 @property (nonatomic, strong) NSString *eventSiteUrl;
@@ -25,6 +26,10 @@
 //Time
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
+
+//Cost
+
+@property (nonatomic) double cost;
 
  -(instancetype) initWithDictionary: (NSDictionary *) dictionary;
 

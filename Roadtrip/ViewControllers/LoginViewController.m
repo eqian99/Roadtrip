@@ -10,6 +10,9 @@
 #import "SignupViewController.h"
 #import <Parse/Parse.h>
 #import "SignupViewController.h"
+#import "YelpManager.h"
+#import "Event.h"
+#import "Restaurant.h"
 
 @interface LoginViewController () <SignupViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -22,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
