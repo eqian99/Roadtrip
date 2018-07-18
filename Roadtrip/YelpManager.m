@@ -49,9 +49,11 @@ static NSString *const apiKey = @"twGNW7wA2e3-suEKeND9MKXRf_kyK0t7xJ5P-9vpNuUiza
     
     NSString *baseUrlString = @"https://api.yelp.com/v3/events";
     
-    NSString *parametersUrlString = [NSString stringWithFormat:@"?categories=festivals-fairs&latitude=%f&longitude=%f&start_date=%@&end_date=%@&limit=50", latitude, longitude, startDate, endDate];
+    NSString *parametersUrlString = [NSString stringWithFormat:@"?latitude=%f&longitude=%f&start_date=%@&end_date=%@&limit=50", latitude, longitude, startDate, endDate];
     
     NSString *urlString = [baseUrlString stringByAppendingString:parametersUrlString];
+    
+    NSLog(urlString);
     
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -121,7 +123,7 @@ static NSString *const apiKey = @"twGNW7wA2e3-suEKeND9MKXRf_kyK0t7xJ5P-9vpNuUiza
 
 }
 
-- (void) getEventsWithCategories: (NSArray *) categories withLatitude:(double) latitude withLongitude: (double) longitude withUnixStartDate: (NSString *)startDate withUnixEndDate: (NSString *)endDate withCompletion: (void(^)(NSDictionary *eventsDictionary, NSError *error))completion {
+- (void) getEventsWithCategories: (NSArray *) categories withLatitude:(double) latitude withLongitude: (double) longitude withUnixStartDate: (NSString *)startDate withUnixEndDate: (NSString *)endDate withCompletion: (void(^)(NSArray *eventsDictionary, NSError *error))completion {
     
     NSString *baseUrlString = @"https://api.yelp.com/v3/events";
     

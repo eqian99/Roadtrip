@@ -12,24 +12,20 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (assign, nonatomic) double latitude;
 @property (assign, nonatomic) double longitude;
-<<<<<<< HEAD
 @property(assign, nonatomic)NSTimeInterval startOfDayUnix;
 @property(assign, nonatomic)NSTimeInterval endOfDayUnix;
-<<<<<<< Updated upstream
 @property (nonatomic) BOOL hasSelectedLocation;
 @property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
 @property (strong, nonatomic) NSString *city;
 @property (nonatomic) BOOL hasSelectedLocation;
 @property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
 @property (strong, nonatomic) NSString *city;
-=======
-=======
 @property (nonatomic) BOOL hasSelectedLocation;
 @property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
 @property (strong, nonatomic) NSString *city;
-
->>>>>>> cd5a615597ebfd5ad98e320fd2a0250a076ae1db
->>>>>>> Stashed changes
+@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
+@property (weak, nonatomic) IBOutlet UIButton *useCurrentCityButton;
+>>>>>>> 1a8a1e9e7bd4d0c530f93aa7d6926675de5e5fde
 @end
 
 @implementation SelectLocationViewController
@@ -39,7 +35,9 @@
     
     //Map
     self.mapView.delegate = self;
+    
     self.locationManager = [[CLLocationManager alloc]init];
+    
     [self.locationManager requestWhenInUseAuthorization];
     
     self.latitude=self.locationManager.location.coordinate.latitude;
@@ -71,7 +69,7 @@
             NSString *city = placemark.locality;
             
             self.city = city;
-            
+            self.cityLabel.text = [NSString stringWithFormat:@"City: %@", city ];
             NSLog(@"%@", city);
         }
 
@@ -195,6 +193,8 @@
                 
                 self.city = city;
                 
+                self.cityLabel.text = [NSString stringWithFormat:@"City: %@", city ];
+                
                 NSLog(@"%@", city);
             }
             
@@ -204,6 +204,10 @@
         
     }
 
+    
+    
+}
+- (IBAction)didClickedUseCurrentCity:(id)sender {
     
     
 }

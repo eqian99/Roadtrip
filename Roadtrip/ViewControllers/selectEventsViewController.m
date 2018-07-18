@@ -8,6 +8,7 @@
 
 #import "selectEventsViewController.h"
 #import "YelpManager.h"
+#import "EventCell.h"
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray *events;
@@ -21,18 +22,39 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    //[self getMyEvents];
+    [self getMyEvents];
     // Do any additional setup after loading the view.
 }
-/*
+
 - (void)getMyEvents{
     YelpManager *myManager = [YelpManager new];
+    NSString *startDate = [NSString stringWithFormat:@"%i", (int)self.startOfDayUnix];
+    NSString *endDate = [NSString stringWithFormat:@"%i", (int)self.endOfDayUnix];
     if(self.categories.count == 0){
         [myManager getEventswithLatitude:self.latitude withLongitude:self.longitude withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
             if(eventsDictionary){
-                
+                NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
+                NSLog(@"%@", eventsDictionary);
+                self.events = [myEvents copy];
+                [self.tableView reloadData];
             }
-        }]
+            else{
+                NSLog(@"There was an error");
+            }
+        }];
+    }
+    else{
+        [myManager getEventsWithCategories:self.categories withLatitude:self.latitude withLongitude:self.longitude withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
+            if(eventsDictionary){
+                NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
+                NSLog(@"%@", eventsDictionary);
+                self.events = [myEvents copy];
+                [self.tableView reloadData];
+            }
+            else{
+                NSLog(@"There was an error");
+            }
+        }];
     }
 }
 
@@ -50,16 +72,19 @@
     // Pass the selected object to the new view controller.
 }
 
-
+*/
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
-    <#code#>
+    EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
+    [cell setEvent:self.events[indexPath.row]];
+    Event *myEvent = self.events[indexPath.row];
+    NSLog(@"%@", myEvent.address);
+    return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.events.count;
 }
 
-*/
+
 
 @end
