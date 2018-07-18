@@ -105,7 +105,7 @@
     NSCalendar *const calendar = NSCalendar.currentCalendar;
     NSDate *startOfDay = [calendar startOfDayForDate:datePicker.date];
     NSDateComponents *components = [[NSDateComponents alloc] init];
-    [components setDay:2];
+    [components setDay:1];
     [components setSecond:-1];
     NSDate *endOfDay = [calendar dateByAddingComponents:components toDate:startOfDay options:0];
     self.startOfDayUnix = [startOfDay timeIntervalSince1970];

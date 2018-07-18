@@ -34,9 +34,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.categories = [[NSMutableArray alloc] init];
     [self addButtonsToArray];
     [self createButtonsDict];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    self.categories = [[NSMutableArray alloc] init];
+    [self.categories removeAllObjects];
 }
 
 -(void)addButtonsToArray{
