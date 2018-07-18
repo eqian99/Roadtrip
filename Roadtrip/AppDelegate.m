@@ -23,13 +23,13 @@
         configuration.server = @"http://roadtrip17.herokuapp.com/parse";
     }];
     [Parse initializeWithConfiguration:config];
-    /*
+    
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"categoryChooser"];
     }
-     */
+     
     
     return YES;
 }

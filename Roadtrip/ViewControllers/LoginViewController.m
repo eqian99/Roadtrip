@@ -13,6 +13,8 @@
 #import "YelpManager.h"
 #import "Event.h"
 #import "Restaurant.h"
+#import "GoogleMapsManager.h"
+#import "Landmark.h"
 
 @interface LoginViewController () <SignupViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -24,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     
     
