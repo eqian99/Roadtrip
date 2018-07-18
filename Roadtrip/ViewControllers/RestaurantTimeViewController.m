@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *lunchField;
 @property (weak, nonatomic) IBOutlet UITextField *dinnerField;
 @property (strong, nonatomic)UIDatePicker *datePicker;
+@property (strong, nonatomic)NSCalendar *calendar;
+
 @property (assign, nonatomic)NSTimeInterval breakfastTime;
 @property (assign, nonatomic)NSTimeInterval lunchTime;
 @property (assign, nonatomic)NSTimeInterval dinnerTime;
@@ -22,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.calendar = [NSCalendar currentCalendar];
     self.datePicker=[[UIDatePicker alloc]init];
     self.datePicker.datePickerMode=UIDatePickerModeTime;
     [self.breakfastField setInputView:self.datePicker];
@@ -58,6 +61,16 @@
 -(void)showTimeBreakfast{
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     
+    NSDateComponents *components = [self.calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:self.datePicker.date];
+    
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    NSInteger second = [components second];
+    
+    self.breakfastTime = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
+    
+    NSLog(@"%f", self.breakfastTime);
+    
     [formatter setDateFormat:@"hh:min a"];
     self.breakfastField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
     [self.breakfastField resignFirstResponder];
@@ -66,6 +79,14 @@
 -(void)showTimeLunch{
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     
+    NSDateComponents *components = [self.calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:self.datePicker.date];
+    
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    NSInteger second = [components second];
+    
+    self.breakfastTime = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
+    
     [formatter setDateFormat:@"hh:min a"];
     self.lunchField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
     [self.lunchField resignFirstResponder];
@@ -73,6 +94,14 @@
 
 -(void)showTimeDinner{
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    
+    NSDateComponents *components = [self.calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:self.datePicker.date];
+    
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    NSInteger second = [components second];
+    
+    self.breakfastTime = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
     
     [formatter setDateFormat:@"hh:min a"];
     self.dinnerField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];

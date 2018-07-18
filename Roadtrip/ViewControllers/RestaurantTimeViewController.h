@@ -10,4 +10,6 @@
 
 @interface RestaurantTimeViewController : UIViewController
 
+@property(assign, nonatomic)NSTimeInterval startOfDayUnix;
+
 @end

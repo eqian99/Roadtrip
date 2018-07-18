@@ -100,25 +100,24 @@
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     
     [formatter setDateFormat:@"dd/MMM/YYYY hh:min a"];
+    
     self.dateSelectionField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
     [self.dateSelectionField resignFirstResponder];
+    
     NSCalendar *const calendar = NSCalendar.currentCalendar;
     NSDate *startOfDay = [calendar startOfDayForDate:datePicker.date];
+    
     NSDateComponents *components = [[NSDateComponents alloc] init];
+    
     [components setDay:1];
     [components setSecond:-1];
+    
     NSDate *endOfDay = [calendar dateByAddingComponents:components toDate:startOfDay options:0];
+    
     self.startOfDayUnix = [startOfDay timeIntervalSince1970];
     self.endOfDayUnix = [endOfDay timeIntervalSince1970];
 }
 
--(void)ShowSelectedEndDate
-{
-    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"dd/MMM/YYYY hh:min a"];
-    self.endDateSelectionField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
-    [self.endDateSelectionField resignFirstResponder];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
