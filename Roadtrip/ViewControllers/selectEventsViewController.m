@@ -22,10 +22,10 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
+    [self getMyEvents];
     self.cellsSelected = [NSMutableArray new];
     
-    [self getMyEvents];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -58,6 +58,11 @@
                 NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
                 NSLog(@"%@", eventsDictionary);
                 self.events = [myEvents copy];
+                for(int i = 0; i < self.events.count; i++) {
+                    
+                    [self.cellsSelected addObject: @NO];
+                    
+                }
                 [self.tableView reloadData];
             }
             else{
@@ -72,16 +77,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
+- (IBAction)didClickedDone:(id)sender {
+    
+    [self performSegueWithIdentifier:@"landmarksSelectionSegue" sender:self];
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    
+    
 }
 
-*/
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
     
@@ -91,16 +105,23 @@
     
     NSLog(@"%@", myEvent.address);
     
-    if([[self.cellsSelected objectAtIndex:indexPath.row]isEqual:@YES]){
+    
+    if(self.cellsSelected.count > 0){
         
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    
+        if([[self.cellsSelected objectAtIndex:indexPath.row]isEqual:@YES]){
+            
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+        }
+        else{
+            
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            
+        }
+        
+        
     }
-    else{
     
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    
-    }
     
     return cell;
 }
@@ -113,9 +134,25 @@
     
     EventCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    if(self.cellsSelected.count > 0) {
+        
+        if([self.cellsSelected[indexPath.row] isEqual:@NO]) {
+            
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+            [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
+            
+        } else {
+            
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            
+            [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            
+            
+        }
+        
+    }
     
-    [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
     
 
 }

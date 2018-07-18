@@ -10,4 +10,6 @@
 
 @interface SelectLandmarksViewController : UIViewController
 
+@property (strong, nonatomic) NSArray *eventsSelected;
+
 @end
