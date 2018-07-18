@@ -13,6 +13,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *lunchField;
 @property (weak, nonatomic) IBOutlet UITextField *dinnerField;
 @property (strong, nonatomic)UIDatePicker *datePicker;
+@property (assign, nonatomic)NSTimeInterval breakfastTime;
+@property (assign, nonatomic)NSTimeInterval lunchTime;
+@property (assign, nonatomic)NSTimeInterval dinnerTime;
 @end
 
 @implementation RestaurantTimeViewController
@@ -23,23 +26,28 @@
     self.datePicker.datePickerMode=UIDatePickerModeTime;
     [self.breakfastField setInputView:self.datePicker];
     
-    UIToolbar *toolBarStart=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
-    [toolBarStart setTintColor:[UIColor grayColor]];
+    UIToolbar *toolBarBreakfast=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    [toolBarBreakfast setTintColor:[UIColor grayColor]];
     UIBarButtonItem *doneBtn=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(showTimeBreakfast)];
     UIBarButtonItem *space=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [toolBarStart setItems:[NSArray arrayWithObjects:space,doneBtn, nil]];
-    [self.breakfastField setInputAccessoryView:toolBarStart];
+    [toolBarBreakfast setItems:[NSArray arrayWithObjects:space,doneBtn, nil]];
+    [self.breakfastField setInputAccessoryView:toolBarBreakfast];
     
     [self.lunchField setInputView:self.datePicker];
-    /*
-    UIToolbar *toolBarStart=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
-    [toolBarStart setTintColor:[UIColor grayColor]];
-    UIBarButtonItem *doneBtn=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(showTimeBreakfast)];
-    UIBarButtonItem *space=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [toolBarStart setItems:[NSArray arrayWithObjects:space,doneBtn, nil]];
-    [self.breakfastField setInputAccessoryView:toolBarStart];
-    */
+    UIToolbar *toolBarLunch=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    [toolBarLunch setTintColor:[UIColor grayColor]];
+    UIBarButtonItem *doneBtnLunch=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(showTimeLunch)];
+    UIBarButtonItem *spaceLunch=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [toolBarLunch setItems:[NSArray arrayWithObjects:spaceLunch,doneBtnLunch, nil]];
+    [self.lunchField setInputAccessoryView:toolBarLunch];
     
+    [self.dinnerField setInputView:self.datePicker];
+    UIToolbar *toolBarDinner=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    [toolBarLunch setTintColor:[UIColor grayColor]];
+    UIBarButtonItem *doneBtnDinner=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(showTimeDinner)];
+    UIBarButtonItem *spaceDinner=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [toolBarDinner setItems:[NSArray arrayWithObjects:spaceDinner,doneBtnDinner, nil]];
+    [self.dinnerField setInputAccessoryView:toolBarDinner];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,11 +61,22 @@
     [formatter setDateFormat:@"hh:min a"];
     self.breakfastField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
     [self.breakfastField resignFirstResponder];
-    NSCalendar *const calendar = NSCalendar.currentCalendar;
-    NSDate *startOfDay = [calendar startOfDayForDate:self.datePicker.date];
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    [components setDay:2];
-    [components setSecond:-1];
+}
+
+-(void)showTimeLunch{
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    
+    [formatter setDateFormat:@"hh:min a"];
+    self.lunchField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
+    [self.lunchField resignFirstResponder];
+}
+
+-(void)showTimeDinner{
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    
+    [formatter setDateFormat:@"hh:min a"];
+    self.dinnerField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
+    [self.dinnerField resignFirstResponder];
 }
 
 /*
