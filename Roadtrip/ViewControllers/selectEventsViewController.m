@@ -8,6 +8,7 @@
 
 #import "selectEventsViewController.h"
 #import "YelpManager.h"
+#import "EventCell.h"
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray *events;
@@ -28,11 +29,20 @@
 - (void)getMyEvents{
     YelpManager *myManager = [YelpManager new];
     if(self.categories.count == 0){
+        NSString *startDate = @"1531872000";
+        long endTimeLong = [startDate integerValue] + (60 * 60 * 24);
+        //NSString *endDate = [NSString stringWithFormat:@"%ld", endTimeLong];
+        NSString *endDate = @"1631872000";
         [myManager getEventswithLatitude:self.latitude withLongitude:self.longitude withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
             if(eventsDictionary){
-                
+                NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
+                self.events = [myEvents copy];
+                [self.tableView reloadData];
             }
-        }]
+            else{
+                NSLog(@"There was an error");
+            }
+        }];
     }
 }
 
@@ -52,8 +62,11 @@
 
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
-    <#code#>
+    EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
+    [cell setEvent:self.events[indexPath.row]];
+    Event *myEvent = self.events[indexPath.row];
+    NSLog(@"%@", myEvent.address);
+    return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

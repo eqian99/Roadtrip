@@ -21,4 +21,12 @@
     // Configure the view for the selected state
 }
 
+-(void)setEvent:(Event *)event{
+    _event = event;
+    self.nameLabel.text = event.name;
+    self.descriptionLabel.text = event.eventDescription;
+    NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", event.startDate, event.endDate];
+    self.startEndLabel.text = startEndDate;
+    self.addressLabel.text = event.address;
+}
 @end

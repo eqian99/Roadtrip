@@ -53,6 +53,8 @@ static NSString *const apiKey = @"twGNW7wA2e3-suEKeND9MKXRf_kyK0t7xJ5P-9vpNuUiza
     
     NSString *urlString = [baseUrlString stringByAppendingString:parametersUrlString];
     
+    NSLog(urlString);
+    
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10.0];

@@ -22,8 +22,8 @@
         self.eventSiteUrl = dictionary[@"event_site_url"];
         self.eventId = dictionary[@"id"];
         self.imageUrl = dictionary[@"image_url"];
-        
-        self.address = dictionary[@"display_address"];
+        NSDictionary *locationDict = dictionary[@"location"];
+        self.address = locationDict[@"display_address"][0];
         self.latitude = dictionary[@"latitude"];
         self.longitude = dictionary[@"longitude"];
         
