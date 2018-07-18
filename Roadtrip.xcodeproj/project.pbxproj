@@ -12,6 +12,7 @@
 		5306477E20FEF93D0062432D /* Landmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306477D20FEF93D0062432D /* Landmark.m */; };
 		5306478120FFABD10062432D /* selectEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306478020FFABD10062432D /* selectEventsViewController.m */; };
 		5306478420FFB33A0062432D /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306478320FFB33A0062432D /* EventCell.m */; };
+		5306478720FFED150062432D /* RestaurantTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306478620FFED150062432D /* RestaurantTimeViewController.m */; };
 		72D5332444D19627D346CC57 /* libPods-Roadtrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */; };
 		D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED8D20FD320600D7BAFD /* YelpManager.m */; };
 		D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED9020FD3B0800D7BAFD /* TestingViewController.m */; };
@@ -42,6 +43,8 @@
 		5306478020FFABD10062432D /* selectEventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = selectEventsViewController.m; sourceTree = "<group>"; };
 		5306478220FFB33A0062432D /* EventCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
 		5306478320FFB33A0062432D /* EventCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
+		5306478520FFED150062432D /* RestaurantTimeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestaurantTimeViewController.h; sourceTree = "<group>"; };
+		5306478620FFED150062432D /* RestaurantTimeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RestaurantTimeViewController.m; sourceTree = "<group>"; };
 		B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Roadtrip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C10D3723941B140CC23B1156 /* Pods-Roadtrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roadtrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roadtrip/Pods-Roadtrip.release.xcconfig"; sourceTree = "<group>"; };
 		D656ED8C20FD320600D7BAFD /* YelpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YelpManager.h; sourceTree = "<group>"; };
@@ -170,6 +173,8 @@
 				5306478020FFABD10062432D /* selectEventsViewController.m */,
 				F6F77C4E20FFC2D900836D65 /* SelectLandmarksViewController.h */,
 				F6F77C4F20FFC2D900836D65 /* SelectLandmarksViewController.m */,
+				5306478520FFED150062432D /* RestaurantTimeViewController.h */,
+				5306478620FFED150062432D /* RestaurantTimeViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 				D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */,
 				D670B20C20FDC9DC0064755D /* Restaurant.m in Sources */,
 				D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */,
+				5306478720FFED150062432D /* RestaurantTimeViewController.m in Sources */,
 				F6F77C4020FB256600836D65 /* LoginViewController.m in Sources */,
 				D656ED9420FD446F00D7BAFD /* Event.m in Sources */,
 			);
