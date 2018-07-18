@@ -7,6 +7,7 @@
 //
 
 #import "SelectLocationViewController.h"
+#import "CategoryViewController.h"
 @interface SelectLocationViewController () <UINavigationControllerDelegate, MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (assign, nonatomic) double latitude;
@@ -71,19 +72,22 @@
 - (IBAction)clickedNext:(id)sender {
     
     [self performSegueWithIdentifier:@"eventCategoriesSegue" sender: self];
-    
 }
 
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    CategoryViewController *categoryViewController = [segue destinationViewController];
+    categoryViewController.latitude = self.latitude;
+    categoryViewController.longitude = self.longitude;
+    //Need to pass over data about the start time
 }
-*/
+
 
 @end

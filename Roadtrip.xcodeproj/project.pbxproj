@@ -10,6 +10,8 @@
 		5306477820FE86240062432D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5306477720FE86240062432D /* CoreLocation.framework */; };
 		5306477B20FEEE6A0062432D /* GoogleMapsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306477A20FEEE6A0062432D /* GoogleMapsManager.m */; };
 		5306477E20FEF93D0062432D /* Landmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306477D20FEF93D0062432D /* Landmark.m */; };
+		5306478120FFABD10062432D /* selectEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306478020FFABD10062432D /* selectEventsViewController.m */; };
+		5306478420FFB33A0062432D /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306478320FFB33A0062432D /* EventCell.m */; };
 		72D5332444D19627D346CC57 /* libPods-Roadtrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */; };
 		D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED8D20FD320600D7BAFD /* YelpManager.m */; };
 		D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED9020FD3B0800D7BAFD /* TestingViewController.m */; };
@@ -34,6 +36,10 @@
 		5306477A20FEEE6A0062432D /* GoogleMapsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleMapsManager.m; sourceTree = "<group>"; };
 		5306477C20FEF93D0062432D /* Landmark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Landmark.h; sourceTree = "<group>"; };
 		5306477D20FEF93D0062432D /* Landmark.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Landmark.m; sourceTree = "<group>"; };
+		5306477F20FFABD10062432D /* selectEventsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = selectEventsViewController.h; sourceTree = "<group>"; };
+		5306478020FFABD10062432D /* selectEventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = selectEventsViewController.m; sourceTree = "<group>"; };
+		5306478220FFB33A0062432D /* EventCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
+		5306478320FFB33A0062432D /* EventCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
 		B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Roadtrip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C10D3723941B140CC23B1156 /* Pods-Roadtrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roadtrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roadtrip/Pods-Roadtrip.release.xcconfig"; sourceTree = "<group>"; };
 		D656ED8C20FD320600D7BAFD /* YelpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YelpManager.h; sourceTree = "<group>"; };
@@ -135,6 +141,8 @@
 				F6A23AE920EFE04D002384E8 /* main.m */,
 				5306477920FEEE6A0062432D /* GoogleMapsManager.h */,
 				5306477A20FEEE6A0062432D /* GoogleMapsManager.m */,
+				5306478220FFB33A0062432D /* EventCell.h */,
+				5306478320FFB33A0062432D /* EventCell.m */,
 			);
 			path = Roadtrip;
 			sourceTree = "<group>";
@@ -150,6 +158,8 @@
 				F6F77C4820FD353800836D65 /* CategoryViewController.m */,
 				F6F77C4B20FD4AC100836D65 /* SelectLocationViewController.h */,
 				F6F77C4C20FD4AC100836D65 /* SelectLocationViewController.m */,
+				5306477F20FFABD10062432D /* selectEventsViewController.h */,
+				5306478020FFABD10062432D /* selectEventsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -281,9 +291,11 @@
 				F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */,
 				F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */,
 				5306477E20FEF93D0062432D /* Landmark.m in Sources */,
+				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,
 				F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */,
 				F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */,
 				5306477B20FEEE6A0062432D /* GoogleMapsManager.m in Sources */,
+				5306478420FFB33A0062432D /* EventCell.m in Sources */,
 				D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */,
 				D670B20C20FDC9DC0064755D /* Restaurant.m in Sources */,
 				D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */,

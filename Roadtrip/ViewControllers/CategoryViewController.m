@@ -7,7 +7,7 @@
 //
 
 #import "CategoryViewController.h"
-#import "SelectLocationViewController.h"
+#import "selectEventsViewController.h"
 
 @interface CategoryViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *button_music;
@@ -59,7 +59,7 @@
             [self.categories addObject:self.buttonsDict[button.titleLabel.text]];
         }
     }
-    [self performSegueWithIdentifier:@"LocationSegue" sender:nil];
+    [self performSegueWithIdentifier:@"EventsChooserSegue" sender:nil];
 }
 
 
@@ -77,8 +77,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    SelectLocationViewController *selectLocationViewController = [segue destinationViewController];
-    selectLocationViewController.categories = self.categories;
+    
+    selectEventsViewController *selectEventsViewController = [segue destinationViewController];
+    selectEventsViewController.categories = self.categories;
+    selectEventsViewController.latitude = self.latitude;
+    selectEventsViewController.longitude = self.longitude;
+     
 }
 
 

@@ -44,7 +44,7 @@ static NSString *const apiKey = @"twGNW7wA2e3-suEKeND9MKXRf_kyK0t7xJ5P-9vpNuUiza
     [task resume];
 
 }
-- (void) getEventswithLatitude:(double) latitude withLongitude: (double) longitude withUnixStartDate: (NSString *)startDate withUnixEndDate: (NSString *)endDate withCompletion: (void(^)(NSDictionary *eventsDictionary, NSError *error))completion {
+- (void) getEventswithLatitude:(double) latitude withLongitude: (double) longitude withUnixStartDate: (NSString *)startDate withUnixEndDate: (NSString *)endDate withCompletion: (void(^)(NSArray *eventsDictionary, NSError *error))completion {
     
     
     NSString *baseUrlString = @"https://api.yelp.com/v3/events";

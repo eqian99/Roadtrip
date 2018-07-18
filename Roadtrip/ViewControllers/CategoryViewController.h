@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CategoryViewController : UIViewController
+@property(assign, nonatomic)double latitude;
+@property(assign, nonatomic)double longitude;
 
 @end

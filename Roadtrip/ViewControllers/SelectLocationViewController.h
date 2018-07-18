@@ -13,7 +13,6 @@
 {
     UIDatePicker *datePicker; 
 }
-@property (strong, nonatomic) NSArray * categories;
 @property (weak, nonatomic) IBOutlet UITextField *dateSelectionField;
 @property (weak, nonatomic) IBOutlet UITextField *endDateSelectionField;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
