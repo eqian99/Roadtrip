@@ -14,12 +14,17 @@
 @property (assign, nonatomic) double longitude;
 @property(assign, nonatomic)NSTimeInterval startOfDayUnix;
 @property(assign, nonatomic)NSTimeInterval endOfDayUnix;
+@property (nonatomic) BOOL hasSelectedLocation;
+@property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
+@property (strong, nonatomic) NSString *city;
 @end
 
 @implementation SelectLocationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Map
     self.mapView.delegate = self;
     self.locationManager = [[CLLocationManager alloc]init];
     [self.locationManager requestWhenInUseAuthorization];
@@ -28,6 +33,41 @@
     self.longitude=self.locationManager.location.coordinate.longitude;
     NSLog(@"%f%f", self.latitude, self.longitude);
     
+    UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
+    
+    [self.mapView addGestureRecognizer:gestureRecognizer];
+    
+    self.hasSelectedLocation = false;
+    
+    //Get City
+    CLGeocoder *geocoder = [CLGeocoder new];
+    
+    [geocoder reverseGeocodeLocation: self.locationManager.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+       
+        
+        if (error) {
+            NSLog(@"Geocode failed with error: %@", error);
+            return; // Request failed, log error
+        }
+        
+        // Check if any placemarks were found
+        if (placemarks && placemarks.count > 0)
+        {
+            CLPlacemark *placemark = placemarks[0];
+            
+            NSString *city = placemark.locality;
+            
+            self.city = city;
+            
+            NSLog(@"%@", city);
+        }
+
+        
+        
+    }];
+    
+    
+    //Date
     datePicker=[[UIDatePicker alloc]init];
     datePicker.datePickerMode=UIDatePickerModeDate;
     [self.dateSelectionField setInputView:datePicker];
@@ -52,6 +92,7 @@
 -(void)ShowSelectedDate
 {
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    
     [formatter setDateFormat:@"dd/MMM/YYYY hh:min a"];
     self.dateSelectionField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
     [self.dateSelectionField resignFirstResponder];
@@ -81,6 +122,82 @@
 - (IBAction)clickedNext:(id)sender {
     
     [self performSegueWithIdentifier:@"eventCategoriesSegue" sender: self];
+    
+}
+
+-(void)handleLongPressGesture:(UIGestureRecognizer*)sender {
+    
+    if(sender.state == UIGestureRecognizerStateEnded) {
+        
+        self.hasSelectedLocation = true;
+        
+    } else {
+        
+        if (self.hasSelectedLocation)
+        {
+            [self.mapView removeAnnotation:self.selectedLocationAnnotation];
+            
+        }
+        
+        
+            // Here we get the CGPoint for the touch and convert it to latitude and longitude coordinates to display on the map
+        CGPoint point = [sender locationInView:self.mapView];
+        
+        CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+        
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:locCoord.latitude longitude:locCoord.longitude];
+
+        MKPointAnnotation *annotation = [MKPointAnnotation new];
+        
+        annotation.coordinate = locCoord;
+        
+        [self.mapView addAnnotation:annotation];
+        
+        self.longitude = locCoord.longitude;
+        self.latitude = locCoord.latitude;
+        
+        
+        NSLog(@"Lat: %f Lon: %f", locCoord.latitude, locCoord.longitude);
+        // Then all you have to do is create the annotation and add it to the map
+        
+        self.selectedLocationAnnotation = annotation;
+        
+        
+        CLGeocoder *geocoder = [CLGeocoder new];
+        
+        [geocoder reverseGeocodeLocation: location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+            
+            
+            if (error) {
+                NSLog(@"Geocode failed with error: %@", error);
+                return; // Request failed, log error
+            }
+            
+            // Check if any placemarks were found
+            if (placemarks && placemarks.count > 0)
+            {
+                CLPlacemark *placemark = placemarks[0];
+                
+                NSString *city = placemark.locality;
+                
+                self.city = city;
+                
+                NSLog(@"%@", city);
+            }
+            
+            
+            
+        }];
+        
+    }
+
+    
+    
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    
+    
     
 }
 
