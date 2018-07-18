@@ -453,17 +453,31 @@
                                     <action selector="clickedNext:" destination="VaR-MT-fcZ" eventType="touchUpInside" id="2Jg-5f-zcj"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="City:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMM-26-ygR">
+                                <rect key="frame" x="16" y="391" width="209" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9Z-qY-NmA">
+                                <rect key="frame" x="249" y="386" width="110" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Use current city"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ezo-YO-5cB"/>
                     </view>
                     <navigationItem key="navigationItem" id="SO6-9y-Ett"/>
                     <connections>
+                        <outlet property="cityLabel" destination="OMM-26-ygR" id="fax-sw-gKj"/>
                         <outlet property="dateSelectionField" destination="gHQ-rx-Xa0" id="9nk-Np-Gp2"/>
                         <outlet property="endDateSelectionField" destination="afJ-Io-Y4M" id="NuV-DG-Fqj"/>
                         <outlet property="mapView" destination="XbZ-sc-STX" id="4aP-xk-h0g"/>
                         <outlet property="nextButton" destination="Z2r-jV-NZa" id="1ae-t7-2WG"/>
                         <outlet property="searchDisplayController" destination="Mll-sU-FrB" id="h4p-M9-4hj"/>
+                        <outlet property="useCurrentCityButton" destination="m9Z-qY-NmA" id="Pj7-Jb-M8W"/>
                         <segue destination="1pO-zM-6NW" kind="show" identifier="eventCategoriesSegue" id="XaS-JP-VBY"/>
                     </connections>
                 </viewController>
@@ -477,7 +491,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2335" y="128"/>
+            <point key="canvasLocation" x="2333.5999999999999" y="127.28635682158921"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ozr-lp-Iny">

@@ -17,6 +17,8 @@
 @property (nonatomic) BOOL hasSelectedLocation;
 @property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
 @property (strong, nonatomic) NSString *city;
+@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
+@property (weak, nonatomic) IBOutlet UIButton *useCurrentCityButton;
 @end
 
 @implementation SelectLocationViewController
@@ -26,7 +28,9 @@
     
     //Map
     self.mapView.delegate = self;
+    
     self.locationManager = [[CLLocationManager alloc]init];
+    
     [self.locationManager requestWhenInUseAuthorization];
     
     self.latitude=self.locationManager.location.coordinate.latitude;
@@ -58,7 +62,7 @@
             NSString *city = placemark.locality;
             
             self.city = city;
-            
+            self.cityLabel = [NSString stringWithFormat:@"City: %@", city ];
             NSLog(@"%@", city);
         }
 
