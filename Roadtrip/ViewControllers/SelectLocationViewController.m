@@ -17,6 +17,9 @@
 @property (nonatomic) BOOL hasSelectedLocation;
 @property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
 @property (strong, nonatomic) NSString *city;
+@property (nonatomic) BOOL hasSelectedLocation;
+@property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
+@property (strong, nonatomic) NSString *city;
 @end
 
 @implementation SelectLocationViewController
