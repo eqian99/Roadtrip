@@ -7,5 +7,6 @@ target 'Roadtrip' do
 
   # Pods for Roadtrip
     pod 'Parse'
+    pod 'GoogleMaps'
 
 end

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5306477820FE86240062432D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5306477720FE86240062432D /* CoreLocation.framework */; };
+		5306477B20FEEE6A0062432D /* GoogleMapsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306477A20FEEE6A0062432D /* GoogleMapsManager.m */; };
+		5306477E20FEF93D0062432D /* Landmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306477D20FEF93D0062432D /* Landmark.m */; };
 		72D5332444D19627D346CC57 /* libPods-Roadtrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */; };
 		D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED8D20FD320600D7BAFD /* YelpManager.m */; };
 		D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED9020FD3B0800D7BAFD /* TestingViewController.m */; };
@@ -26,6 +29,11 @@
 
 /* Begin PBXFileReference section */
 		029F8E84BB1D1DE9439CB6EE /* Pods-Roadtrip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roadtrip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roadtrip/Pods-Roadtrip.debug.xcconfig"; sourceTree = "<group>"; };
+		5306477720FE86240062432D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5306477920FEEE6A0062432D /* GoogleMapsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleMapsManager.h; sourceTree = "<group>"; };
+		5306477A20FEEE6A0062432D /* GoogleMapsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleMapsManager.m; sourceTree = "<group>"; };
+		5306477C20FEF93D0062432D /* Landmark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Landmark.h; sourceTree = "<group>"; };
+		5306477D20FEF93D0062432D /* Landmark.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Landmark.m; sourceTree = "<group>"; };
 		B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Roadtrip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C10D3723941B140CC23B1156 /* Pods-Roadtrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roadtrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roadtrip/Pods-Roadtrip.release.xcconfig"; sourceTree = "<group>"; };
 		D656ED8C20FD320600D7BAFD /* YelpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YelpManager.h; sourceTree = "<group>"; };
@@ -60,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5306477820FE86240062432D /* CoreLocation.framework in Frameworks */,
 				72D5332444D19627D346CC57 /* libPods-Roadtrip.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,6 +92,8 @@
 				D656ED9320FD446F00D7BAFD /* Event.m */,
 				D670B20A20FDC9DC0064755D /* Restaurant.h */,
 				D670B20B20FDC9DC0064755D /* Restaurant.m */,
+				5306477C20FEF93D0062432D /* Landmark.h */,
+				5306477D20FEF93D0062432D /* Landmark.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -122,6 +133,8 @@
 				F6A23AE520EFE04D002384E8 /* LaunchScreen.storyboard */,
 				F6A23AE820EFE04D002384E8 /* Info.plist */,
 				F6A23AE920EFE04D002384E8 /* main.m */,
+				5306477920FEEE6A0062432D /* GoogleMapsManager.h */,
+				5306477A20FEEE6A0062432D /* GoogleMapsManager.m */,
 			);
 			path = Roadtrip;
 			sourceTree = "<group>";
@@ -144,6 +157,7 @@
 		FABB7E2BF1D36441DEE86EAE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5306477720FE86240062432D /* CoreLocation.framework */,
 				B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */,
 			);
 			name = Frameworks;
@@ -243,10 +257,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Roadtrip/Pods-Roadtrip-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Parse/Parse.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Parse.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,8 +280,10 @@
 				F6A23AEA20EFE04D002384E8 /* main.m in Sources */,
 				F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */,
 				F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */,
+				5306477E20FEF93D0062432D /* Landmark.m in Sources */,
 				F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */,
 				F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */,
+				5306477B20FEEE6A0062432D /* GoogleMapsManager.m in Sources */,
 				D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */,
 				D670B20C20FDC9DC0064755D /* Restaurant.m in Sources */,
 				D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */,
@@ -412,13 +430,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T43H6FGZD6;
+				DEVELOPMENT_TEAM = 6RN4LVMY9S;
 				INFOPLIST_FILE = Roadtrip/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip;
+				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip977;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -430,13 +448,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T43H6FGZD6;
+				DEVELOPMENT_TEAM = 6RN4LVMY9S;
 				INFOPLIST_FILE = Roadtrip/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip;
+				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip977;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
