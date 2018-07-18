@@ -313,12 +313,11 @@
                         <outlet property="button_performing_arts" destination="T00-58-lKC" id="hdg-US-qf8"/>
                         <outlet property="button_sports_active_life" destination="cXV-Nd-F3L" id="CLF-vY-IZM"/>
                         <outlet property="button_visual_arts" destination="5sw-ts-Ngb" id="Tt1-06-BNy"/>
-                        <segue destination="VaR-MT-fcZ" kind="show" identifier="LocationSegue" id="1Fi-z6-h0F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cxc-ib-ZqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2456.8000000000002" y="128.18590704647679"/>
+            <point key="canvasLocation" x="3159" y="128"/>
         </scene>
         <!--Select Location View Controller-->
         <scene sceneID="vgH-80-iCr">
@@ -367,19 +366,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z2r-jV-NZa">
+                                <rect key="frame" x="171" y="617" width="32" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Next"/>
+                                <connections>
+                                    <action selector="clickedNext:" destination="VaR-MT-fcZ" eventType="touchUpInside" id="2Jg-5f-zcj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ezo-YO-5cB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="SO6-9y-Ett"/>
                     <connections>
                         <outlet property="dateSelectionField" destination="gHQ-rx-Xa0" id="9nk-Np-Gp2"/>
                         <outlet property="endDateSelectionField" destination="afJ-Io-Y4M" id="NuV-DG-Fqj"/>
                         <outlet property="mapView" destination="XbZ-sc-STX" id="4aP-xk-h0g"/>
+                        <outlet property="nextButton" destination="Z2r-jV-NZa" id="1ae-t7-2WG"/>
+                        <segue destination="1pO-zM-6NW" kind="show" id="XaS-JP-VBY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="apx-7g-dD3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3264.8000000000002" y="127.28635682158921"/>
+            <point key="canvasLocation" x="2335" y="128"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ozr-lp-Iny">
@@ -392,7 +402,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="1pO-zM-6NW" kind="relationship" relationship="rootViewController" id="WIp-g2-heR"/>
+                        <segue destination="VaR-MT-fcZ" kind="relationship" relationship="rootViewController" id="8ti-Kf-qUX"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h1K-Pt-t5n" userLabel="First Responder" sceneMemberID="firstResponder"/>

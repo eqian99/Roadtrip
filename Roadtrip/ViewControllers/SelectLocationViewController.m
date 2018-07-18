@@ -68,6 +68,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)clickedNext:(id)sender {
+    
+    
+}
+
+
 
 /*
 #pragma mark - Navigation
