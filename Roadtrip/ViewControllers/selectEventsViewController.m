@@ -7,6 +7,7 @@
 //
 
 #import "selectEventsViewController.h"
+#import "SelectLandmarksViewController.h"
 #import "YelpManager.h"
 #import "EventCell.h"
 
@@ -88,10 +89,17 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
     
+    SelectLandmarksViewController *selectLandmarksViewController = [segue destinationViewController];
+    
+    selectLandmarksViewController.latitude = self.latitude;
+
+    selectLandmarksViewController.longitude = self.longitude;
+
     
 }
 

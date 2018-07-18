@@ -7,9 +7,12 @@
 //
 
 #import "SelectLandmarksViewController.h"
-
+#import "LandmarkCell.h"
+#import "Landmark.h"
+#import "GoogleMapsManager.h"
 
 @interface SelectLandmarksViewController () <UITableViewDataSource, UITableViewDelegate>
+
 @property (nonatomic, strong) NSArray *landmarks;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -19,7 +22,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    [self getMyEvents];
+}
+
+- (void)getMyEvents{
+    GoogleMapsManager *myManager = [GoogleMapsManager new];
+    
+    [myManager getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withCompletion:^(NSArray *placesDictionaries, NSError *error)
+    {
+        if(placesDictionaries)
+        {
+            NSMutableArray *myPlacesArray = [Landmark initWithArray:placesDictionaries];
+            for(Landmark *landmark in self.landmarks)
+            {
+                NSLog(@"%@, %@, %@", landmark.name, landmark.rating, landmark.address);
+            }
+        }
+        else
+        {
+            NSLog(@"No places found");
+        }
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,15 +66,18 @@
 */
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    return nil;
+    LandmarkCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    
+    // [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
+    return cell; 
 }
 
-/*
->>>>>>> Stashed changes
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.landmarks.count;
 }
  
- */
+
 
 @end

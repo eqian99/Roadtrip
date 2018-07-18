@@ -11,5 +11,7 @@
 @interface SelectLandmarksViewController : UIViewController
 
 @property (strong, nonatomic) NSArray *eventsSelected;
+@property (assign, nonatomic)double latitude;
+@property (assign, nonatomic)double longitude;
 
 @end

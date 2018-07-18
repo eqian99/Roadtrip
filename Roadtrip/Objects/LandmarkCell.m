@@ -8,17 +8,31 @@
 
 #import "LandmarkCell.h"
 
+
 @implementation LandmarkCell
 
 - (void)awakeFromNib {
+    
     [super awakeFromNib];
-    // Initialization code
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+}
+
+-(void)setlandmark:(Landmark *)landmark{
+    
+    _lankmark = landmark;
+    
+    self.nameLabel.text = landmark.name;
+    
+    self.addressLabel.text = landmark.address;
+    
+    self.ratingLabel.text = [NSString stringWithFormat:@"%@", landmark.rating];
+    
 }
 
 @end
