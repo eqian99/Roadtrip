@@ -70,6 +70,7 @@
 
 - (IBAction)clickedNext:(id)sender {
     
+    [self performSegueWithIdentifier:@"eventCategoriesSegue" sender: self];
     
 }
 

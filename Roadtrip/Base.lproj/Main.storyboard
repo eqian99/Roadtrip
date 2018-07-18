@@ -384,7 +384,7 @@
                         <outlet property="endDateSelectionField" destination="afJ-Io-Y4M" id="NuV-DG-Fqj"/>
                         <outlet property="mapView" destination="XbZ-sc-STX" id="4aP-xk-h0g"/>
                         <outlet property="nextButton" destination="Z2r-jV-NZa" id="1ae-t7-2WG"/>
-                        <segue destination="1pO-zM-6NW" kind="show" id="XaS-JP-VBY"/>
+                        <segue destination="1pO-zM-6NW" kind="show" identifier="eventCategoriesSegue" id="XaS-JP-VBY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="apx-7g-dD3" userLabel="First Responder" sceneMemberID="firstResponder"/>
