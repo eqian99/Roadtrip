@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) NSArray *landmarks;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *cellsSelected;
 
 @end
 
@@ -26,21 +27,29 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    [self getMyEvents];
+    [self getLandmarks];
+    
+    self.cellsSelected = [NSMutableArray new];
 }
 
-- (void)getMyEvents{
+- (void)getLandmarks{
+    NSLog(@"BEGIN LANDMARK CALL");
     GoogleMapsManager *myManager = [GoogleMapsManager new];
     
     [myManager getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withCompletion:^(NSArray *placesDictionaries, NSError *error)
     {
         if(placesDictionaries)
         {
-            NSMutableArray *myPlacesArray = [Landmark initWithArray:placesDictionaries];
-            for(Landmark *landmark in self.landmarks)
-            {
-                NSLog(@"%@, %@, %@", landmark.name, landmark.rating, landmark.address);
+            NSMutableArray *myLandmarks = [Landmark initWithArray:placesDictionaries];
+            NSLog(@"%@", placesDictionaries);
+            self.landmarks = [myLandmarks copy];
+            
+            for(int i = 0; i < self.landmarks.count; i++) {
+                
+                [self.cellsSelected addObject: @NO];
+                
             }
+            [self.tableView reloadData];
         }
         else
         {
@@ -66,18 +75,63 @@
 */
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    LandmarkCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    LandmarkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LandmarkCell"];
     
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    [cell setLandmark: self.landmarks[indexPath.row]];
     
-    // [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
-    return cell; 
+    
+    if(self.cellsSelected.count > 0){
+        
+        if([[self.cellsSelected objectAtIndex:indexPath.row]isEqual:@YES]){
+            
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+        }
+        else{
+            
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            
+        }
+        
+        
+    }
+    
+    
+    return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     return self.landmarks.count;
+    
 }
- 
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    LandmarkCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if(self.cellsSelected.count > 0) {
+        
+        if([self.cellsSelected[indexPath.row] isEqual:@NO]) {
+            
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+            [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
+            
+        } else {
+            
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            
+            [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            
+            
+        }
+        
+    }
+    
+    
+    
+}
 
 
 @end

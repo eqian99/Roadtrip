@@ -23,9 +23,9 @@
 
 }
 
--(void)setlandmark:(Landmark *)landmark{
+-(void)setLandmark:(Landmark *)landmark{
     
-    _lankmark = landmark;
+    _landmark = landmark;
     
     self.nameLabel.text = landmark.name;
     

@@ -109,10 +109,6 @@
     
     [cell setEvent:self.events[indexPath.row]];
     
-    Event *myEvent = self.events[indexPath.row];
-    
-    NSLog(@"%@", myEvent.address);
-    
     
     if(self.cellsSelected.count > 0){
         

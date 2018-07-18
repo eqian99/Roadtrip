@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 
-@property (strong, nonatomic)Landmark *lankmark;
+@property (strong, nonatomic)Landmark *landmark;
+
+-(void)setLandmark:(Landmark *)landmark;
 
 @end
