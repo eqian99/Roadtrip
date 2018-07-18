@@ -82,7 +82,9 @@
     selectEventsViewController.categories = self.categories;
     selectEventsViewController.latitude = self.latitude;
     selectEventsViewController.longitude = self.longitude;
-     
+    //Pass over data about the start time
+    selectEventsViewController.startOfDayUnix = self.startOfDayUnix;
+    selectEventsViewController.endOfDayUnix = self.endOfDayUnix;
 }
 
 

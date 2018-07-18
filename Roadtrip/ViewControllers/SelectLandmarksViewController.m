@@ -1,39 +1,24 @@
 //
-//  selectEventsViewController.m
+//  SelectLandmarksViewController.m
 //  Roadtrip
 //
-//  Created by Hannah Hsu on 7/18/18.
+//  Created by Emma Qian on 7/18/18.
 //  Copyright © 2018 heh17. All rights reserved.
 //
 
-#import "selectEventsViewController.h"
-#import "YelpManager.h"
+#import "SelectLandmarksViewController.h"
 
-@interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) NSArray *events;
+@interface SelectLandmarksViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) NSArray *landmarks;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
-@implementation selectEventsViewController
+@implementation SelectLandmarksViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    
-    //[self getMyEvents];
     // Do any additional setup after loading the view.
-}
-/*
-- (void)getMyEvents{
-    YelpManager *myManager = [YelpManager new];
-    if(self.categories.count == 0){
-        [myManager getEventswithLatitude:self.latitude withLongitude:self.longitude withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
-            if(eventsDictionary){
-                
-            }
-        }]
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,17 +34,13 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-
+*/
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
-    <#code#>
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.events.count;
+    return self.landmarks.count;
 }
-
-*/
 
 @end

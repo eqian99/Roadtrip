@@ -27,6 +27,8 @@
 		F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4420FC6D7600836D65 /* SignupViewController.m */; };
 		F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4820FD353800836D65 /* CategoryViewController.m */; };
 		F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4C20FD4AC100836D65 /* SelectLocationViewController.m */; };
+		F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4F20FFC2D900836D65 /* SelectLandmarksViewController.m */; };
+		F6F77C5320FFC3EB00836D65 /* LandmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +69,10 @@
 		F6F77C4820FD353800836D65 /* CategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		F6F77C4B20FD4AC100836D65 /* SelectLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectLocationViewController.h; sourceTree = "<group>"; };
 		F6F77C4C20FD4AC100836D65 /* SelectLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectLocationViewController.m; sourceTree = "<group>"; };
+		F6F77C4E20FFC2D900836D65 /* SelectLandmarksViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectLandmarksViewController.h; sourceTree = "<group>"; };
+		F6F77C4F20FFC2D900836D65 /* SelectLandmarksViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectLandmarksViewController.m; sourceTree = "<group>"; };
+		F6F77C5120FFC3EB00836D65 /* LandmarkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LandmarkCell.h; sourceTree = "<group>"; };
+		F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LandmarkCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,8 @@
 		D6CDFAB020FE5D78001F6A61 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F6F77C5120FFC3EB00836D65 /* LandmarkCell.h */,
+				F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */,
 				D656ED9220FD446F00D7BAFD /* Event.h */,
 				D656ED9320FD446F00D7BAFD /* Event.m */,
 				D670B20A20FDC9DC0064755D /* Restaurant.h */,
@@ -160,6 +168,8 @@
 				F6F77C4C20FD4AC100836D65 /* SelectLocationViewController.m */,
 				5306477F20FFABD10062432D /* selectEventsViewController.h */,
 				5306478020FFABD10062432D /* selectEventsViewController.m */,
+				F6F77C4E20FFC2D900836D65 /* SelectLandmarksViewController.h */,
+				F6F77C4F20FFC2D900836D65 /* SelectLandmarksViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -290,7 +300,9 @@
 				F6A23AEA20EFE04D002384E8 /* main.m in Sources */,
 				F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */,
 				F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */,
+				F6F77C5320FFC3EB00836D65 /* LandmarkCell.m in Sources */,
 				5306477E20FEF93D0062432D /* Landmark.m in Sources */,
+				F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */,
 				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,
 				F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */,
 				F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */,

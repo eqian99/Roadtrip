@@ -11,5 +11,7 @@
 @interface CategoryViewController : UIViewController
 @property(assign, nonatomic)double latitude;
 @property(assign, nonatomic)double longitude;
+@property(assign, nonatomic)NSTimeInterval startOfDayUnix;
+@property(assign, nonatomic)NSTimeInterval endOfDayUnix;
 
 @end

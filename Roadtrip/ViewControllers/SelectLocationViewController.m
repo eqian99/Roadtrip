@@ -12,7 +12,8 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (assign, nonatomic) double latitude;
 @property (assign, nonatomic) double longitude;
-
+@property(assign, nonatomic)NSTimeInterval startOfDayUnix;
+@property(assign, nonatomic)NSTimeInterval endOfDayUnix;
 @end
 
 @implementation SelectLocationViewController
@@ -54,6 +55,14 @@
     [formatter setDateFormat:@"dd/MMM/YYYY hh:min a"];
     self.dateSelectionField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
     [self.dateSelectionField resignFirstResponder];
+    NSCalendar *const calendar = NSCalendar.currentCalendar;
+    NSDate *startOfDay = [calendar startOfDayForDate:datePicker.date];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setDay:2];
+    [components setSecond:-1];
+    NSDate *endOfDay = [calendar dateByAddingComponents:components toDate:startOfDay options:0];
+    self.startOfDayUnix = [startOfDay timeIntervalSince1970];
+    self.endOfDayUnix = [endOfDay timeIntervalSince1970];
 }
 
 -(void)ShowSelectedEndDate
@@ -72,6 +81,7 @@
 - (IBAction)clickedNext:(id)sender {
     
     [self performSegueWithIdentifier:@"eventCategoriesSegue" sender: self];
+    
 }
 
 
@@ -86,7 +96,9 @@
     CategoryViewController *categoryViewController = [segue destinationViewController];
     categoryViewController.latitude = self.latitude;
     categoryViewController.longitude = self.longitude;
-    //Need to pass over data about the start time
+    //Pass over data about the start time
+    categoryViewController.startOfDayUnix = self.startOfDayUnix;
+    categoryViewController.endOfDayUnix = self.endOfDayUnix;
 }
 
 
