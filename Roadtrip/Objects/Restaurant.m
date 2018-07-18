@@ -18,6 +18,8 @@
     
     if(self) {
         
+        NSLog(@"%@", dictionary);
+        
         self.rating = [dictionary[@"rating"] doubleValue];
         
         self.price = dictionary[@"price"];
@@ -42,6 +44,21 @@
     
     return self;
     
+}
+
++ (NSMutableArray *) eventsWithArray:(NSArray *) dictionaries {
+    
+    NSMutableArray *restaurants = [NSMutableArray array];
+    
+    for(NSDictionary *dictionary in dictionaries) {
+        
+        Restaurant *restaurant = [[Restaurant alloc] initWithDictionary:dictionary];
+        
+        [restaurants addObject: restaurant];
+        
+    }
+    
+    return restaurants;
     
 }
 

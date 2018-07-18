@@ -25,6 +25,6 @@
 @property (nonatomic, strong) NSString *imageUrl;
 
 -(instancetype) initWithDictionary: (NSDictionary *) dictionary;
-
++ (NSMutableArray *) eventsWithArray:(NSArray *) dictionaries;
 
 @end

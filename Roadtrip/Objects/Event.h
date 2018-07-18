@@ -32,6 +32,7 @@
 @property (nonatomic) double cost;
 
  -(instancetype) initWithDictionary: (NSDictionary *) dictionary;
-
++ (NSMutableArray *) eventsWithArray:(NSArray *) dictionaries;
++(NSArray *) sortEventArrayByEndDate: (NSArray *) array;
 
 @end

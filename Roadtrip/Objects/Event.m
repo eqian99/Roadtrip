@@ -37,22 +37,51 @@
         
         if([stringEndDate isEqualToString:@"<null>"]){
             
-            NSLog(@"Doesn't have date");
+            int hours = 3;
+            
+            NSTimeInterval timeInterval = hours * 60 * 60;
+            
+            self.endDate = [self.startDate dateByAddingTimeInterval:timeInterval];
+            
             
         } else {
             
-            self.startDate = [formatter dateFromString: dictionary[@"time_end"]];
+            self.endDate = [formatter dateFromString: dictionary[@"time_end"]];
 
-            
         }
-        
-        
-        
         
     }
     
     return self;
     
+    
+}
+
++ (NSMutableArray *) eventsWithArray:(NSArray *) dictionaries {
+    
+    NSMutableArray *events = [NSMutableArray array];
+    
+    for(NSDictionary *dictionary in dictionaries) {
+        
+        Event *event = [[Event alloc] initWithDictionary:dictionary];
+        
+        [events addObject:event];
+        
+    }
+    
+    return events;
+    
+}
+
+
+
++ (NSArray *) sortEventArrayByEndDate: (NSArray *) array {
+	
+    NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"endDate" ascending:YES];
+    
+    NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sd]];
+    
+    return sortedArray;
     
 }
 
