@@ -12,14 +12,24 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (assign, nonatomic) double latitude;
 @property (assign, nonatomic) double longitude;
+<<<<<<< HEAD
 @property(assign, nonatomic)NSTimeInterval startOfDayUnix;
 @property(assign, nonatomic)NSTimeInterval endOfDayUnix;
+<<<<<<< Updated upstream
 @property (nonatomic) BOOL hasSelectedLocation;
 @property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
 @property (strong, nonatomic) NSString *city;
 @property (nonatomic) BOOL hasSelectedLocation;
 @property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
 @property (strong, nonatomic) NSString *city;
+=======
+=======
+@property (nonatomic) BOOL hasSelectedLocation;
+@property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
+@property (strong, nonatomic) NSString *city;
+
+>>>>>>> cd5a615597ebfd5ad98e320fd2a0250a076ae1db
+>>>>>>> Stashed changes
 @end
 
 @implementation SelectLocationViewController
