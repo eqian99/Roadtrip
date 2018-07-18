@@ -13,6 +13,7 @@
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray *events;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *cellsSelected;
 @end
 
 @implementation selectEventsViewController
@@ -21,6 +22,8 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    self.cellsSelected = [NSMutableArray new];
     
     [self getMyEvents];
     // Do any additional setup after loading the view.
@@ -36,6 +39,12 @@
                 NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
                 NSLog(@"%@", eventsDictionary);
                 self.events = [myEvents copy];
+                
+                for(int i = 0; i < self.events.count; i++) {
+                    
+                    [self.cellsSelected addObject: @NO];
+                    
+                }
                 [self.tableView reloadData];
             }
             else{
@@ -75,14 +84,40 @@
 */
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
+    
     [cell setEvent:self.events[indexPath.row]];
+    
     Event *myEvent = self.events[indexPath.row];
+    
     NSLog(@"%@", myEvent.address);
+    
+    if([[self.cellsSelected objectAtIndex:indexPath.row]isEqual:@YES]){
+        
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    
+    }
+    else{
+    
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    }
+    
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.events.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    EventCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    
+    [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
+    
+
 }
 
 

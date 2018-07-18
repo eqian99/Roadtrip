@@ -43,6 +43,8 @@
     
     self.hasSelectedLocation = false;
     
+    self.useCurrentCityButton.enabled = false;
+    
     //Get City
     CLGeocoder *geocoder = [CLGeocoder new];
     
@@ -188,6 +190,8 @@
                 
                 self.cityLabel.text = [NSString stringWithFormat:@"City: %@", city ];
                 
+                self.useCurrentCityButton.enabled = true;
+                
                 NSLog(@"%@", city);
             }
             
@@ -202,6 +206,41 @@
 }
 - (IBAction)didClickedUseCurrentCity:(id)sender {
     
+    self.useCurrentCityButton.enabled = false;
+    
+    [self.mapView removeAnnotation:self.selectedLocationAnnotation];
+    
+    self.latitude=self.locationManager.location.coordinate.latitude;
+    
+    self.longitude=self.locationManager.location.coordinate.longitude;
+    
+    self.hasSelectedLocation = false;
+    
+    CLGeocoder *geocoder = [CLGeocoder new];
+    
+    [geocoder reverseGeocodeLocation: self.locationManager.location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        
+        
+        if (error) {
+            NSLog(@"Geocode failed with error: %@", error);
+            return; // Request failed, log error
+        }
+        
+        // Check if any placemarks were found
+        if (placemarks && placemarks.count > 0)
+        {
+            CLPlacemark *placemark = placemarks[0];
+            
+            NSString *city = placemark.locality;
+            
+            self.city = city;
+            self.cityLabel.text = [NSString stringWithFormat:@"City: %@", city ];
+            NSLog(@"%@", city);
+        }
+        
+        
+        
+    }];
     
 }
 

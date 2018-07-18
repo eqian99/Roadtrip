@@ -41,8 +41,12 @@
     return nil;
 }
 
+/*
+>>>>>>> Stashed changes
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.landmarks.count;
 }
+ 
+ */
 
 @end
