@@ -17,15 +17,8 @@
 @property (nonatomic) BOOL hasSelectedLocation;
 @property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
 @property (strong, nonatomic) NSString *city;
-@property (nonatomic) BOOL hasSelectedLocation;
-@property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
-@property (strong, nonatomic) NSString *city;
-@property (nonatomic) BOOL hasSelectedLocation;
-@property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
-@property (strong, nonatomic) NSString *city;
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 @property (weak, nonatomic) IBOutlet UIButton *useCurrentCityButton;
->>>>>>> 1a8a1e9e7bd4d0c530f93aa7d6926675de5e5fde
 @end
 
 @implementation SelectLocationViewController
