@@ -62,7 +62,7 @@
             NSString *city = placemark.locality;
             
             self.city = city;
-            self.cityLabel = [NSString stringWithFormat:@"City: %@", city ];
+            self.cityLabel.text = [NSString stringWithFormat:@"City: %@", city ];
             NSLog(@"%@", city);
         }
 
@@ -186,6 +186,8 @@
                 
                 self.city = city;
                 
+                self.cityLabel.text = [NSString stringWithFormat:@"City: %@", city ];
+                
                 NSLog(@"%@", city);
             }
             
@@ -195,6 +197,10 @@
         
     }
 
+    
+    
+}
+- (IBAction)didClickedUseCurrentCity:(id)sender {
     
     
 }
