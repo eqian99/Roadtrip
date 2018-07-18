@@ -22,20 +22,32 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    //[self getMyEvents];
+    [self getMyEvents];
     // Do any additional setup after loading the view.
 }
-/*
+
 - (void)getMyEvents{
     YelpManager *myManager = [YelpManager new];
+    NSString *startDate = [NSString stringWithFormat:@"%i", (int)self.startOfDayUnix];
+    NSString *endDate = [NSString stringWithFormat:@"%i", (int)self.endOfDayUnix];
     if(self.categories.count == 0){
-        NSString *startDate = @"1531872000";
-        long endTimeLong = [startDate integerValue] + (60 * 60 * 24);
-        //NSString *endDate = [NSString stringWithFormat:@"%ld", endTimeLong];
-        NSString *endDate = @"1631872000";
         [myManager getEventswithLatitude:self.latitude withLongitude:self.longitude withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
             if(eventsDictionary){
                 NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
+                NSLog(@"%@", eventsDictionary);
+                self.events = [myEvents copy];
+                [self.tableView reloadData];
+            }
+            else{
+                NSLog(@"There was an error");
+            }
+        }];
+    }
+    else{
+        [myManager getEventsWithCategories:self.categories withLatitude:self.latitude withLongitude:self.longitude withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
+            if(eventsDictionary){
+                NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
+                NSLog(@"%@", eventsDictionary);
                 self.events = [myEvents copy];
                 [self.tableView reloadData];
             }
@@ -60,7 +72,7 @@
     // Pass the selected object to the new view controller.
 }
 
-
+*/
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
     [cell setEvent:self.events[indexPath.row]];
@@ -73,6 +85,6 @@
     return self.events.count;
 }
 
-*/
+
 
 @end

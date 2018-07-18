@@ -8,6 +8,7 @@
 
 #import "SelectLandmarksViewController.h"
 
+/*
 @interface SelectLandmarksViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray *landmarks;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -25,7 +26,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+*/
 /*
 #pragma mark - Navigation
 
@@ -35,7 +36,7 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+/*
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
 }
 
@@ -44,3 +45,4 @@
 }
 
 @end
+ */

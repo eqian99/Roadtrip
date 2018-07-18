@@ -17,7 +17,7 @@
 
 - (void) getEventsWithCategory: (NSString *) category withLatitude:(double) latitude withLongitude: (double) longitude withUnixStartDate: (NSString *)startDate withUnixEndDate: (NSString *)endDate withCompletion: (void(^)(NSDictionary *eventsDictionary, NSError *error))completion;
 
-- (void) getEventsWithCategories: (NSArray *) categories withLatitude:(double) latitude withLongitude: (double) longitude withUnixStartDate: (NSString *)startDate withUnixEndDate: (NSString *)endDate withCompletion: (void(^)(NSDictionary *eventsDictionary, NSError *error))completion;
+- (void) getEventsWithCategories: (NSArray *) categories withLatitude:(double) latitude withLongitude: (double) longitude withUnixStartDate: (NSString *)startDate withUnixEndDate: (NSString *)endDate withCompletion: (void(^)(NSArray *eventsDictionary, NSError *error))completion;
 
 -(void) getFeaturedEventWithLatitude: (double) latitude withLongitude: (double) longitude withCompletion: (void(^)(NSDictionary *dictionary, NSError *error)) completion;
 

@@ -22,7 +22,7 @@
     
     
     NSArray *categoriesArray = @[@"music", @"fashion"];
-    
+    /*
     [[YelpManager new] getEventsWithCategories:categoriesArray withLatitude:37.773972 withLongitude:-122.431297 withUnixStartDate:@"1531775681" withUnixEndDate:@"1546304461" withCompletion:^(NSDictionary *eventsDictionary, NSError *error) {
        
         
@@ -39,6 +39,7 @@
         
         
     }];
+     */
 }
 
 - (void)didReceiveMemoryWarning {
