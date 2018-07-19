@@ -39,42 +39,40 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)getMyEvents{
-    
-    YelpManager *myManager = [YelpManager new];
-    NSString *startDate = [NSString stringWithFormat:@"%i", (int)self.startOfDayUnix];
-    NSString *endDate = [NSString stringWithFormat:@"%i", (int)self.endOfDayUnix];
-    NSLog(@"%@", startDate);
-    [myManager getEventswithLatitude:37.7749 withLongitude:-122.4194 withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
-        if(eventsDictionary){
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            NSLog(@"%@", eventsDictionary);
-            NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
-            self.events = [myEvents copy];
-=======
-            
-            self.events = [Event eventsWithYelpArray:eventsDictionary];
->>>>>>> Stashed changes
-=======
-            
-            self.events = [Event eventsWithYelpArray:eventsDictionary];
->>>>>>> Stashed changes
-            
-            for(int i = 0; i < self.events.count; i++) {
-                
-                [self.cellsSelected addObject: @NO];
-                
-            }
-            [self getLandmarks];
-        }
-        else{
-            NSLog(@"There was an error");
-        }
-    }];
-    
-    
-}
+//- (void)getMyEvents{
+//
+//    YelpManager *myManager = [YelpManager new];
+//    NSString *startDate = [NSString stringWithFormat:@"%i", (int)self.startOfDayUnix];
+//    NSString *endDate = [NSString stringWithFormat:@"%i", (int)self.endOfDayUnix];
+//    NSLog(@"%@", startDate);
+//    [myManager getEventswithLatitude:37.7749 withLongitude:-122.4194 withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
+//        if(eventsDictionary){
+//
+//            NSLog(@"%@", eventsDictionary);
+//
+//            NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
+//
+//            self.events = [myEvents copy];
+//
+//            self.events = [Event eventsWithYelpArray:eventsDictionary];
+//
+//
+//            self.events = [Event eventsWithYelpArray:eventsDictionary];
+//
+//            for(int i = 0; i < self.events.count; i++) {
+//
+//                [self.cellsSelected addObject: @NO];
+//
+//            }
+//            [self getLandmarks];
+//        }
+//        else{
+//            NSLog(@"There was an error");
+//        }
+//    }];
+//
+//
+//}
 
 -(void) getEventsFromEventbrite {
     
@@ -146,12 +144,9 @@
              NSMutableArray *myLandmarks = [Landmark initWithArray:placesDictionaries];
              
              NSArray *myLandmarksArray = [myLandmarks copy];
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
              self.events = [self.events arrayByAddingObjectsFromArray:myLandmarksArray];
-=======
-=======
->>>>>>> Stashed changes
+
              
              for(Landmark *landmark in myLandmarksArray) {
                  
@@ -160,7 +155,6 @@
              }
              
              NSLog(@"%lu", self.events.count);
->>>>>>> Stashed changes
              
              for(int i = 0; i < self.events.count; i++) {
                  
