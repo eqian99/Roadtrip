@@ -36,8 +36,11 @@
 //Tyep
 @property (assign, nonatomic)Boolean isEvent;
 
- -(instancetype) initWithDictionary: (NSDictionary *) dictionary;
-+ (NSMutableArray *) eventsWithArray:(NSArray *) dictionaries;
+-(instancetype) initWithYelpDictionary: (NSDictionary *) dictionary;
++ (NSMutableArray *) eventsWithYelpArray:(NSArray *) dictionaries;
+
+-(instancetype) initWithEventbriteDictionary: (NSDictionary *) dictionary withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude withAddress: (NSString *) address;
+
 +(NSArray *) sortEventArrayByEndDate: (NSArray *) array;
 
 @end

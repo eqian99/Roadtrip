@@ -40,7 +40,7 @@
     
 }
 
-- (void)getEventsWithCoordinates: (CLLocationCoordinate2D) coordinate completion:(void(^)(NSArray *categories, NSError *error))completion {
+- (void)getEventsWithCoordinates: (CLLocationCoordinate2D) coordinate completion:(void(^)(NSArray *events, NSError *error))completion {
     
     NSString *latitudeString = [NSString stringWithFormat: @"%f", coordinate.latitude];
     
@@ -76,6 +76,38 @@
     }];
     [task resume];
 
+    
+}
+
+- (void)getVenueWithId: (NSString *) stringId completion:(void(^)(NSDictionary *venue, NSError *error))completion {
+    
+    NSString *urlString = [NSString stringWithFormat: @"https://www.eventbriteapi.com/v3/venues/%@/?token=DML5RT7O2YSNEXPFG3ZC", stringId];
+    
+    NSURL *url = [NSURL URLWithString: urlString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        if (error != nil) {
+            
+            completion(nil, error);
+            
+        }
+        else {
+            
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            completion(dataDictionary[@"address"], nil);
+            
+        }
+        
+    }];
+    [task resume];
+
+    
     
 }
 

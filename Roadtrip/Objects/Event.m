@@ -10,7 +10,7 @@
 
 @implementation Event
 
--(instancetype) initWithDictionary: (NSDictionary *) dictionary {
+-(instancetype) initWithYelpDictionary: (NSDictionary *) dictionary {
     
     self = [super init];
     
@@ -63,13 +63,13 @@
     
 }
 
-+ (NSMutableArray *) eventsWithArray:(NSArray *) dictionaries {
++ (NSMutableArray *) eventsWithYelpArray:(NSArray *) dictionaries {
     
     NSMutableArray *events = [NSMutableArray array];
     
     for(NSDictionary *dictionary in dictionaries) {
         
-        Event *event = [[Event alloc] initWithDictionary:dictionary];
+        Event *event = [[Event alloc] initWithYelpDictionary:dictionary];
         
         [events addObject:event];
         
@@ -79,6 +79,70 @@
     
 }
 
+-(instancetype) initWithEventbriteDictionary: (NSDictionary *) dictionary withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude withAddress: (NSString *) address {
+    
+    self = [super init];
+    
+    if(self) {
+        
+        //Event description
+        NSDictionary *nameDictionary = dictionary[@"name"];
+        self.name = nameDictionary[@"text"];
+        
+        self.category = dictionary[@"category_id"];
+        
+        NSDictionary *descriptionDictionary = dictionary[@"description"];
+        self.eventDescription = descriptionDictionary[@"text"];
+        
+        self.eventSiteUrl = dictionary[@"url"];
+        self.eventId = dictionary[@"id"];
+        
+        
+        NSDictionary *logoDictionary = dictionary[@"logo"];
+        NSDictionary *origialLogoDictionary = logoDictionary[@"original"];
+        self.imageUrl = origialLogoDictionary[@"url"];
+        
+        //Event location
+        
+        self.address = address;
+        self.latitude = latitude;
+        self.longitude = longitude;
+        
+        self.isEvent = YES;
+        
+        //Event start and end times
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        
+        NSDictionary *startDictionary = dictionary[@"start"];
+        NSString *localTimeStart = startDictionary[@"local"];
+        
+
+        NSString *dayString = [localTimeStart substringToIndex:10];
+        NSString *timeString = [localTimeStart substringFromIndex:11];
+        
+        localTimeStart = [NSString stringWithFormat:@"%@ %@", dayString, timeString];
+
+        self.startDate = [formatter dateFromString: localTimeStart];
+        
+        
+        NSDictionary *endDictionary = dictionary[@"end"];
+        NSString *localTimeEnd = endDictionary[@"local"];
+        
+        
+        dayString = [localTimeEnd substringToIndex:10];
+        timeString = [localTimeEnd substringFromIndex:11];
+        
+        localTimeEnd = [NSString stringWithFormat:@"%@ %@", dayString, timeString];
+        
+        self.endDate = [formatter dateFromString: localTimeEnd];
+        
+    }
+    
+    return self;
+    
+}
 
 
 + (NSArray *) sortEventArrayByEndDate: (NSArray *) array {

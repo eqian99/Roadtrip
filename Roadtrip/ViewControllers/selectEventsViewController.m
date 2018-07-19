@@ -9,6 +9,7 @@
 #import "selectEventsViewController.h"
 #import "SelectLandmarksViewController.h"
 #import "YelpManager.h"
+#import "EventbriteManager.h"
 #import "EventCell.h"
 #import "SelectLandmarksViewController.h"
 #import "GoogleMapsManager.h"
@@ -16,7 +17,7 @@
 #import "LandmarkCell.h"
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) NSArray *events;
+@property (nonatomic, strong) NSMutableArray *events;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *cellsSelected;
 @end
@@ -27,8 +28,12 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self getMyEvents];
+    //[self getMyEvents];
     self.cellsSelected = [NSMutableArray new];
+    
+    self.events = [NSMutableArray new];
+    
+    [self getEventsFromEventbrite];
     
     
     // Do any additional setup after loading the view.
@@ -42,21 +47,90 @@
     NSLog(@"%@", startDate);
     [myManager getEventswithLatitude:37.7749 withLongitude:-122.4194 withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
         if(eventsDictionary){
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
             NSLog(@"%@", eventsDictionary);
             NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
             self.events = [myEvents copy];
+=======
+            
+            self.events = [Event eventsWithYelpArray:eventsDictionary];
+>>>>>>> Stashed changes
+=======
+            
+            self.events = [Event eventsWithYelpArray:eventsDictionary];
+>>>>>>> Stashed changes
             
             for(int i = 0; i < self.events.count; i++) {
                 
                 [self.cellsSelected addObject: @NO];
                 
             }
-            NSLog(@"%lu", self.events.count);
             [self getLandmarks];
         }
         else{
             NSLog(@"There was an error");
         }
+    }];
+    
+    
+}
+
+-(void) getEventsFromEventbrite {
+    
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(37.7749, -122.4194);
+    
+    [[EventbriteManager new] getEventsWithCoordinates:coordinate completion:^(NSArray *events, NSError *error) {
+       
+    
+        if(error) {
+            
+            
+            NSLog(@"There was an error");
+        } else {
+            
+            for(NSDictionary *event in events) {
+                
+                //For every event dictionary, get the venue id, and get the address and coordinates
+                
+                NSString *venueId = event[@"venue_id"];
+                
+                [[EventbriteManager new] getVenueWithId:venueId completion:^(NSDictionary *venue, NSError *error) {
+                   
+                    
+                    if(error) {
+                        
+                        NSLog(@"Error getting venue: %@", error.description);
+                        
+                    } else {
+                        
+                        
+                        NSString *addressString = venue[@"localized_address_display"];
+                        
+                        NSString *latitude = venue[@"latitude"];
+                        
+                        NSString *longitude = venue[@"longitude"];
+                        
+                        
+                        Event *newEvent = [[Event new] initWithEventbriteDictionary:event withLatitude:latitude withLongitude:longitude withAddress:addressString];
+                        
+                        [self.events addObject:newEvent];
+                        
+                        [self.tableView reloadData];
+                        
+                        
+                    }
+                    
+                }];
+                
+            }
+            
+            
+            
+            
+        }
+        
+        
     }];
     
     
@@ -70,8 +144,23 @@
          if(placesDictionaries)
          {
              NSMutableArray *myLandmarks = [Landmark initWithArray:placesDictionaries];
+             
              NSArray *myLandmarksArray = [myLandmarks copy];
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
              self.events = [self.events arrayByAddingObjectsFromArray:myLandmarksArray];
+=======
+=======
+>>>>>>> Stashed changes
+             
+             for(Landmark *landmark in myLandmarksArray) {
+                 
+                 [self.events addObject:landmark];
+                 
+             }
+             
+             NSLog(@"%lu", self.events.count);
+>>>>>>> Stashed changes
              
              for(int i = 0; i < self.events.count; i++) {
                  
@@ -139,11 +228,15 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
-    if([self.events[indexPath.row] isKindOfClass:[Event class]]){
-        [cell setEvent:self.events[indexPath.row]];
+    
+    if([[self.events objectAtIndex:indexPath.row] isKindOfClass:[Event class]]){
+            
+        [cell setEvent: [self.events objectAtIndex:indexPath.row]];
+    
     }
     else{
-        [cell setLandmark:self.events[indexPath.row]];
+        
+        [cell setLandmark: [self.events objectAtIndex:indexPath.row]];
     }
     
     if(self.cellsSelected.count > 0){
