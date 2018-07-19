@@ -8,6 +8,8 @@
 
 #import "SelectLocationViewController.h"
 #import "CategoryViewController.h"
+#import "LocationTableViewController.h"
+
 @interface SelectLocationViewController () <UINavigationControllerDelegate, MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (assign, nonatomic) double latitude;
@@ -19,6 +21,8 @@
 @property (strong, nonatomic) NSString *city;
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 @property (weak, nonatomic) IBOutlet UIButton *useCurrentCityButton;
+
+@property (strong, nonatomic) UISearchController *citySearchController;
 @end
 
 @implementation SelectLocationViewController
@@ -71,6 +75,28 @@
         
         
     }];
+    
+    //Search controller setup
+    
+    LocationTableViewController *locationTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LocationTableViewController"];
+    
+    self.citySearchController = [[UISearchController alloc]initWithSearchResultsController:locationTableViewController];
+    
+    self.citySearchController.searchResultsUpdater = locationTableViewController;
+    
+    UISearchBar *searchBar = self.citySearchController.searchBar;
+    
+    [searchBar sizeToFit];
+    
+    searchBar.placeholder = @"Search for cities";
+    
+    self.navigationItem.titleView = self.citySearchController.searchBar;
+    
+    self.citySearchController.hidesNavigationBarDuringPresentation = false;
+    
+    self.citySearchController.dimsBackgroundDuringPresentation = true;
+    
+    self.definesPresentationContext = true;
     
     
     //Date

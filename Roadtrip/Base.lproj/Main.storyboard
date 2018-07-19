@@ -198,32 +198,8 @@
                                     <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="o6r-vu-2fg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5u-vm-dxB">
-                                <rect key="frame" x="254" y="206" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Film"/>
-                                <connections>
-                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="4rF-iS-Gnc"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRI-U4-i2U">
-                                <rect key="frame" x="243" y="279" width="53" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Fashion"/>
-                                <connections>
-                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="nVx-01-kBp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihK-FX-dgN">
-                                <rect key="frame" x="218" y="359" width="103" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Festival &amp; Fairs"/>
-                                <connections>
-                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="qDL-mk-ZIe"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXV-Nd-F3L">
-                                <rect key="frame" x="201" y="437" width="136" height="30"/>
+                                <rect key="frame" x="201" y="206" width="136" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sports &amp; Active Life"/>
                                 <connections>
@@ -254,16 +230,8 @@
                                     <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="hDk-Z1-PgB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ET-sT-UxT">
-                                <rect key="frame" x="37" y="437" width="61" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Charities"/>
-                                <connections>
-                                    <action selector="clicked:" destination="1pO-zM-6NW" eventType="touchUpInside" id="He9-3l-OeR"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1r4-Yu-VyG">
-                                <rect key="frame" x="39" y="508" width="58" height="30"/>
+                                <rect key="frame" x="240" y="351" width="58" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Nightlife"/>
                                 <connections>
@@ -271,7 +239,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJE-xX-Y2u">
-                                <rect key="frame" x="217" y="508" width="104" height="30"/>
+                                <rect key="frame" x="217" y="279" width="104" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Kids &amp; Families"/>
                                 <connections>
@@ -279,7 +247,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obm-W3-bQk">
-                                <rect key="frame" x="48" y="575" width="40" height="30"/>
+                                <rect key="frame" x="167" y="410" width="40" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Other"/>
                                 <connections>
@@ -287,11 +255,19 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PEA-pW-kKq">
-                                <rect key="frame" x="155" y="617" width="41" height="30"/>
+                                <rect key="frame" x="158" y="479" width="58" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done!"/>
                                 <connections>
                                     <action selector="clickedDone:" destination="1pO-zM-6NW" eventType="touchUpInside" id="6L6-Xx-96T"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATQ-F9-ygl">
+                                <rect key="frame" x="120" y="567" width="134" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="I don't want events!"/>
+                                <connections>
+                                    <action selector="clickedDontWantEvents:" destination="1pO-zM-6NW" eventType="touchUpInside" id="RfF-oy-tKW"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -300,10 +276,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="osP-Dn-f8C"/>
                     <connections>
-                        <outlet property="button_charities" destination="6ET-sT-UxT" id="IM4-DV-Jfi"/>
-                        <outlet property="button_fashion" destination="lRI-U4-i2U" id="x8v-cS-UhJ"/>
-                        <outlet property="button_festivals_fairs" destination="ihK-FX-dgN" id="Zn6-TK-1tu"/>
-                        <outlet property="button_film" destination="a5u-vm-dxB" id="t3l-7B-eHX"/>
                         <outlet property="button_food_and_drink" destination="huA-1v-79A" id="7Mg-XG-Xyz"/>
                         <outlet property="button_kids_family" destination="JJE-xX-Y2u" id="oWc-6R-DbB"/>
                         <outlet property="button_lectures_books" destination="ryo-ev-deg" id="vr6-sg-Ody"/>
@@ -314,11 +286,12 @@
                         <outlet property="button_sports_active_life" destination="cXV-Nd-F3L" id="CLF-vY-IZM"/>
                         <outlet property="button_visual_arts" destination="5sw-ts-Ngb" id="Tt1-06-BNy"/>
                         <segue destination="reo-xb-MeA" kind="show" identifier="EventsChooserSegue" id="H77-3n-2vz"/>
+                        <segue destination="FEO-3s-rJ2" kind="show" identifier="skipEventsSegue" id="NUc-Bw-Caf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cxc-ib-ZqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3159" y="128"/>
+            <point key="canvasLocation" x="3157.5999999999999" y="127.28635682158921"/>
         </scene>
         <!--Select Events View Controller-->
         <scene sceneID="mdf-FH-AGm">
@@ -475,7 +448,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kRv-zk-WgG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4628" y="122.78860569715144"/>
+            <point key="canvasLocation" x="3556" y="904"/>
         </scene>
         <!--Restaurant Time View Controller-->
         <scene sceneID="GFg-HI-g9b">
@@ -546,7 +519,51 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dCX-gQ-XMG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5824.8000000000002" y="122.78860569715144"/>
+            <point key="canvasLocation" x="5415" y="123"/>
+        </scene>
+        <!--Location Table View Controller-->
+        <scene sceneID="izs-RM-Oiz">
+            <objects>
+                <tableViewController storyboardIdentifier="LocationTableViewController" id="J3H-Lv-YLI" customClass="LocationTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="iLu-V1-OyD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cityCell" textLabel="ZCj-5Z-Xu0" detailTextLabel="BFD-rJ-wup" style="IBUITableViewCellStyleSubtitle" id="s9Z-gz-Sp7">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="s9Z-gz-Sp7" id="SjO-Zv-72U">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZCj-5Z-Xu0">
+                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BFD-rJ-wup">
+                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="J3H-Lv-YLI" id="hD8-Im-Xop"/>
+                            <outlet property="delegate" destination="J3H-Lv-YLI" id="s5h-hl-eFR"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DqE-QC-NVz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2339" y="-585"/>
         </scene>
         <!--Select Location View Controller-->
         <scene sceneID="vgH-80-iCr">
@@ -652,4 +669,7 @@
         <image name="back-icon-white" width="30" height="30"/>
         <image name="cloud" width="1920" height="1080"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="NUc-Bw-Caf"/>
+    </inferredMetricsTieBreakers>
 </document>

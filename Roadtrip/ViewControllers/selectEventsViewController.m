@@ -10,6 +10,7 @@
 #import "SelectLandmarksViewController.h"
 #import "YelpManager.h"
 #import "EventCell.h"
+#import "SelectLandmarksViewController.h"
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray *events;
@@ -93,6 +94,25 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
+    if([segue.identifier isEqualToString:@"landmarksSelectionSegue"]){
+        
+        SelectLandmarksViewController *viewController = [segue destinationViewController];
+        
+        NSMutableArray *mutableArray = [NSMutableArray new];
+        
+        for(int i = 0; i < self.events.count; i++){
+            
+            if([self.cellsSelected[i] isEqual:@YES]){
+                
+                NSLog(@"Is YES");
+                [mutableArray addObject:self.events[i]];
+                
+            }
+        }
+        
+        viewController.eventsSelected = [mutableArray copy];
+        
+    }
     
     SelectLandmarksViewController *selectLandmarksViewController = [segue destinationViewController];
     
