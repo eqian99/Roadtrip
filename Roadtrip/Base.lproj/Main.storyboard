@@ -73,6 +73,7 @@
                     <connections>
                         <outlet property="passwordField" destination="e9a-C1-NVm" id="eWt-4l-aqd"/>
                         <outlet property="usernameField" destination="2po-zo-cmq" id="Tbj-QD-umM"/>
+                        <segue destination="kmg-xS-13V" kind="presentation" identifier="mainSegue" id="ZIU-hB-ARy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -362,7 +363,7 @@
                                 <state key="normal" title="Done"/>
                                 <connections>
                                     <action selector="didClickedDone:" destination="reo-xb-MeA" eventType="touchUpInside" id="dDi-H4-uOx"/>
-                                    <segue destination="Qz7-aA-bvi" kind="show" id="uMP-Rj-0q6"/>
+                                    <segue destination="Qz7-aA-bvi" kind="show" identifier="scheduleSegue" id="uMP-Rj-0q6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -380,7 +381,7 @@
         <!--Schedule View Controller-->
         <scene sceneID="rcK-G3-cWR">
             <objects>
-                <viewController id="Qz7-aA-bvi" customClass="ScheduleViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="scheduleStoryboard" id="Qz7-aA-bvi" customClass="ScheduleViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ThA-XQ-Rs8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -634,19 +635,59 @@
                                     <segue destination="reo-xb-MeA" kind="show" id="LO7-Iy-txO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFc-9m-7Lw">
-                                <rect key="frame" x="16" y="298" width="175" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Breakfast Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qab-9x-xpK">
+                                <rect key="frame" x="16" y="307" width="205" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Select meal times"/>
-                            </button>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lunch Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZEc-Dk-2sy">
+                                <rect key="frame" x="16" y="376" width="205" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Dinner Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cbf-Ey-8ke">
+                                <rect key="frame" x="16" y="446" width="205" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What city will you be in?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ThV-o4-z7n">
+                                <rect key="frame" x="16" y="109" width="184" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Which day?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwM-1P-kgM">
+                                <rect key="frame" x="16" y="184" width="89" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meal Times " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgQ-GW-ibQ">
+                                <rect key="frame" x="16" y="269" width="92" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pjp-3z-RVz"/>
                     </view>
                     <navigationItem key="navigationItem" id="Zeg-zf-QLe"/>
                     <connections>
+                        <outlet property="breakfastField" destination="qab-9x-xpK" id="vbF-dY-c7W"/>
                         <outlet property="dateField" destination="dik-Z9-4kd" id="Guh-0t-VRX"/>
+                        <outlet property="dinnerField" destination="cbf-Ey-8ke" id="sA9-w3-q6N"/>
                         <outlet property="locationField" destination="d2B-pN-Nf9" id="zsz-4t-FSf"/>
+                        <outlet property="lunchField" destination="ZEc-Dk-2sy" id="pks-2s-syE"/>
                         <segue destination="VaR-MT-fcZ" kind="presentation" id="33i-7i-VYL"/>
                         <segue destination="mD6-j1-3JU" kind="presentation" id="Gta-9F-rAm"/>
                     </connections>
@@ -675,9 +716,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z2r-jV-NZa">
-                                <rect key="frame" x="171" y="617" width="32" height="30"/>
+                                <rect key="frame" x="169" y="617" width="37" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Next"/>
+                                <state key="normal" title="Done"/>
                                 <connections>
                                     <action selector="clickedNext:" destination="VaR-MT-fcZ" eventType="touchUpInside" id="2Jg-5f-zcj"/>
                                 </connections>
@@ -725,7 +766,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jfn-KZ-RPN">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kmg-xS-13V" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navController" automaticallyAdjustsScrollViewInsets="NO" id="kmg-xS-13V" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qQB-YS-6gj">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

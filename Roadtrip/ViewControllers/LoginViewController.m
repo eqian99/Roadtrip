@@ -59,7 +59,7 @@
 
 - (void)didSignUp{
     NSLog(@"hello");
-    [self performSegueWithIdentifier:@"categorySegue" sender:nil];
+    [self performSegueWithIdentifier:@"mainSegue" sender:nil];
 }
 
 
@@ -73,7 +73,7 @@
             [self createError:@"Incorrect username or password"];
         } else {
             NSLog(@"User logged in successfully");
-            [self performSegueWithIdentifier:@"categorySegue" sender:nil];
+            [self performSegueWithIdentifier:@"mainSegue" sender:nil];
             // display view controller that needs to shown after successful login
         }
     }];

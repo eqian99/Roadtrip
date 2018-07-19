@@ -35,6 +35,7 @@
     YelpManager *myManager = [YelpManager new];
     NSString *startDate = [NSString stringWithFormat:@"%i", (int)self.startOfDayUnix];
     NSString *endDate = [NSString stringWithFormat:@"%i", (int)self.endOfDayUnix];
+    NSLog(@"%@", startDate);
     if(self.categories.count == 0){
         [myManager getEventswithLatitude:self.latitude withLongitude:self.longitude withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
             if(eventsDictionary){
@@ -82,7 +83,7 @@
 
 - (IBAction)didClickedDone:(id)sender {
     
-    [self performSegueWithIdentifier:@"landmarksSelectionSegue" sender:self];
+    [self performSegueWithIdentifier:@"scheduleSegue" sender:self];
 }
 
 
