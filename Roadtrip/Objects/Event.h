@@ -31,6 +31,9 @@
 
 @property (nonatomic) double cost;
 
+//Tyep
+@property (assign, nonatomic)Boolean isEvent;
+
  -(instancetype) initWithDictionary: (NSDictionary *) dictionary;
 + (NSMutableArray *) eventsWithArray:(NSArray *) dictionaries;
 +(NSArray *) sortEventArrayByEndDate: (NSArray *) array;

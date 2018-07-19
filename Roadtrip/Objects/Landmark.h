@@ -17,4 +17,7 @@
 @property (nonatomic, strong) NSString *address;
 +(NSMutableArray *) initWithArray: (NSArray *) landmarksArray;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+//Tyep
+@property(assign, nonatomic)Boolean isEvent;
 @end

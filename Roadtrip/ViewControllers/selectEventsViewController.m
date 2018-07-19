@@ -11,6 +11,9 @@
 #import "YelpManager.h"
 #import "EventCell.h"
 #import "SelectLandmarksViewController.h"
+#import "GoogleMapsManager.h"
+#import "Landmark.h"
+#import "LandmarkCell.h"
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray *events;
@@ -32,47 +35,56 @@
 }
 
 - (void)getMyEvents{
+    
     YelpManager *myManager = [YelpManager new];
     NSString *startDate = [NSString stringWithFormat:@"%i", (int)self.startOfDayUnix];
     NSString *endDate = [NSString stringWithFormat:@"%i", (int)self.endOfDayUnix];
     NSLog(@"%@", startDate);
-    if(self.categories.count == 0){
-        [myManager getEventswithLatitude:self.latitude withLongitude:self.longitude withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
-            if(eventsDictionary){
-                NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
-                NSLog(@"%@", eventsDictionary);
-                self.events = [myEvents copy];
+    [myManager getEventswithLatitude:37.7749 withLongitude:-122.4194 withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
+        if(eventsDictionary){
+            NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
+            self.events = [myEvents copy];
+            
+            for(int i = 0; i < self.events.count; i++) {
                 
-                for(int i = 0; i < self.events.count; i++) {
-                    
-                    [self.cellsSelected addObject: @NO];
-                    
-                }
-                [self.tableView reloadData];
+                [self.cellsSelected addObject: @NO];
+                
             }
-            else{
-                NSLog(@"There was an error");
-            }
-        }];
-    }
-    else{
-        [myManager getEventsWithCategories:self.categories withLatitude:self.latitude withLongitude:self.longitude withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
-            if(eventsDictionary){
-                NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
-                NSLog(@"%@", eventsDictionary);
-                self.events = [myEvents copy];
-                for(int i = 0; i < self.events.count; i++) {
-                    
-                    [self.cellsSelected addObject: @NO];
-                    
-                }
-                [self.tableView reloadData];
-            }
-            else{
-                NSLog(@"There was an error");
-            }
-        }];
-    }
+            NSLog(@"%lu", self.events.count);
+            [self getLandmarks];
+        }
+        else{
+            NSLog(@"There was an error");
+        }
+    }];
+    
+    
+}
+
+-(void)getLandmarks{
+    GoogleMapsManager *myManagerGoogle = [GoogleMapsManager new];
+    
+    [myManagerGoogle getPlacesNearLatitude:37.7749 nearLongitude:-122.4194 withCompletion:^(NSArray *placesDictionaries, NSError *error)
+     {
+         if(placesDictionaries)
+         {
+             NSMutableArray *myLandmarks = [Landmark initWithArray:placesDictionaries];
+             NSArray *myLandmarksArray = [myLandmarks copy];
+             self.events = [self.events arrayByAddingObjectsFromArray:myLandmarksArray];
+             NSLog(@"%lu", self.events.count);
+             
+             for(int i = 0; i < self.events.count; i++) {
+                 
+                 [self.cellsSelected addObject: @NO];
+                 
+             }
+             [self.tableView reloadData];
+         }
+         else
+         {
+             NSLog(@"No places found");
+         }
+     }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -127,9 +139,12 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
-    
-    [cell setEvent:self.events[indexPath.row]];
-    
+    if([self.events[indexPath.row] isKindOfClass:[Event class]]){
+        [cell setEvent:self.events[indexPath.row]];
+    }
+    else{
+        [cell setLandmark:self.events[indexPath.row]];
+    }
     
     if(self.cellsSelected.count > 0){
         
@@ -152,7 +167,9 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"%lu", self.events.count);
     return self.events.count;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

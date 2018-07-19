@@ -18,6 +18,7 @@
         self.name = dictionary[@"name"];
         self.address = dictionary[@"vicinity"];
         self.rating = dictionary[@"rating"];
+        self.isEvent = NO;
     }
     
     return self;

@@ -26,6 +26,7 @@
         self.address = locationDict[@"display_address"][0];
         self.latitude = dictionary[@"latitude"];
         self.longitude = dictionary[@"longitude"];
+        self.isEvent = YES;
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         

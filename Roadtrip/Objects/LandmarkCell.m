@@ -31,7 +31,7 @@
     
     self.addressLabel.text = landmark.address;
     
-    self.ratingLabel.text = [NSString stringWithFormat:@"%@", landmark.rating];
+    //self.ratingLabel.text = [NSString stringWithFormat:@"%@", landmark.rating];
     
 }
 

@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Event.h"
+#import "Landmark.h"
 @interface EventCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *startEndLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic)Event *event;
+@property(strong, nonatomic)Landmark *landmark;
+
 @end

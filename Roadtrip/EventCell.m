@@ -29,4 +29,14 @@
     self.startEndLabel.text = startEndDate;
     self.addressLabel.text = event.address;
 }
+
+-(void)setLandmark:(Landmark *)landmark{
+    _landmark = landmark;
+    
+    self.nameLabel.text = landmark.name;
+    
+    self.addressLabel.text = landmark.address;
+    self.descriptionLabel.text = @"No event description available";
+    self.startEndLabel.text = @"";
+}
 @end
