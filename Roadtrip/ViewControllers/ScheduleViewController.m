@@ -32,10 +32,10 @@
     
     for(int i = 0; i < self.eventsSelected.count - 1; i++) {
         
-        if (((Event *)self.eventsSelected[i]).endDate > ((Event *)self.eventsSelected[i+1]).startDate) {
+        if (((Event *)self.eventsSelected[i]).endTimeUnix > ((Event *)self.eventsSelected[i+1]).startTimeUnix) {
             
             // add free time between all time intervals
-            [freeBlocks addObject: [NSNumber numberWithFloat: [((Event *)self.eventsSelected[i+1]).startDate timeIntervalSince1970] - [((Event *)self.eventsSelected[i]).endDate timeIntervalSince1970]]];
+            [freeBlocks addObject: [NSNumber numberWithFloat: ((Event *)self.eventsSelected[i+1]).startTimeUnix - ((Event *)self.eventsSelected[i]).endTimeUnix]];
             
         };
         
@@ -45,24 +45,6 @@
     
 }
 
-// Checks whether there are overlaps in the events selected.
-// Should be called whenever anything is selected/deselected.
-- (BOOL) checkOverlap {
-    // sort the events selected
-    self.eventsSelected = [Event sortEventArrayByEndDate:self.eventsSelected];
-    
-    for(int i = 0; i < self.eventsSelected.count - 1; i++) {
-        
-        if (((Event *)self.eventsSelected[i]).endDate > ((Event *)self.eventsSelected[i+1]).startDate) {
-            
-            return true;
-            
-        };
-        
-    }
-    
-    return false;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

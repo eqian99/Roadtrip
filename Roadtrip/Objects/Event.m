@@ -51,6 +51,11 @@
 
         }
         
+        //convert to unix time
+        self.startTimeUnix = [self.startDate timeIntervalSince1970];
+        
+        self.endTimeUnix = [self.endDate timeIntervalSince1970];
+        
     }
     
     return self;

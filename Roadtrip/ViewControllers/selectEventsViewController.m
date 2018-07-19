@@ -180,9 +180,18 @@
         
         if([self.cellsSelected[indexPath.row] isEqual:@NO]) {
             
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            
             [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
+            
+            // check if there are conflicts
+            if ([self checkOverlap])
+            {
+                [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            }
+            
+            else
+            {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
             
         } else {
             
@@ -195,9 +204,42 @@
         
     }
     
-    
-
 }
+
+
+
+// Checks whether there are overlaps in the events selected.
+// Should be called whenever anything is selected/deselected.
+- (BOOL) checkOverlap {
+    
+    NSMutableArray *mutableArray = [NSMutableArray new];
+    
+    for(int i = 0; i < self.events.count; i++){
+        
+        if([self.cellsSelected[i] isEqual:@YES]){
+            
+            [mutableArray addObject:self.events[i]];
+            
+        }
+    }
+    
+    // sort the events selected
+    mutableArray = [NSMutableArray arrayWithArray: [Event sortEventArrayByEndDate:mutableArray]];
+    
+    for(int i = 0; i < mutableArray.count - 1; i++) {
+        
+        if (((Event *)mutableArray[i]).endTimeUnix > ((Event *)mutableArray[i+1]).startTimeUnix) {
+            
+            return true;
+            
+        };
+        
+    }
+    
+    return false;
+}
+
+
 
 
 

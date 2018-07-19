@@ -26,6 +26,8 @@
 //Time
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
+@property(assign, nonatomic)NSTimeInterval startTimeUnix;
+@property(assign, nonatomic)NSTimeInterval endTimeUnix;
 
 //Cost
 
