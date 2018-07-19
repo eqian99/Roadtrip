@@ -603,7 +603,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DqE-QC-NVz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2334" y="1653"/>
+            <point key="canvasLocation" x="4100" y="-1290"/>
         </scene>
         <!--Selection View Controller-->
         <scene sceneID="gRM-6d-gzp">
@@ -657,7 +657,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What city will you be in?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ThV-o4-z7n">
-                                <rect key="frame" x="16" y="109" width="184" height="21"/>
+                                <rect key="frame" x="16" y="95" width="184" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -688,11 +688,20 @@
                         <outlet property="dinnerField" destination="cbf-Ey-8ke" id="sA9-w3-q6N"/>
                         <outlet property="locationField" destination="d2B-pN-Nf9" id="zsz-4t-FSf"/>
                         <outlet property="lunchField" destination="ZEc-Dk-2sy" id="pks-2s-syE"/>
+                        <outlet property="searchDisplayController" destination="FRV-Pj-Ovj" id="fvz-u9-nJp"/>
                         <segue destination="VaR-MT-fcZ" kind="presentation" id="33i-7i-VYL"/>
                         <segue destination="mD6-j1-3JU" kind="presentation" id="Gta-9F-rAm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ETb-GX-yZ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="FRV-Pj-Ovj">
+                    <connections>
+                        <outlet property="delegate" destination="9ty-wB-U7d" id="7v5-Z6-SiR"/>
+                        <outlet property="searchContentsController" destination="9ty-wB-U7d" id="h5E-Y6-uVq"/>
+                        <outlet property="searchResultsDataSource" destination="9ty-wB-U7d" id="tc6-Cf-4DF"/>
+                        <outlet property="searchResultsDelegate" destination="9ty-wB-U7d" id="6zZ-M2-BEw"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="4100" y="-573.46326836581716"/>
         </scene>

@@ -7,13 +7,11 @@
 //
 
 #import "LocationTableViewController.h"
+#import "GoogleMapsManager.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
 @interface LocationTableViewController () <UISearchResultsUpdating>
-
-@property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) NSArray *citiesArray;
 
 @end
 
@@ -37,30 +35,78 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+
+    return self.citiesArray.count;
+
 }
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
+    NSString *searchText = searchController.searchBar.text;
     
+    [[GoogleMapsManager new] autocomplete:searchText withCompletion:^(NSArray *predictionDictionaries, NSError *error) {
+       
+        if(error) {
+            
+            NSLog(@"There was an error");
+            
+        } else {
+            
+            NSMutableArray *mutableCities = [NSMutableArray new];
+            NSMutableArray *mutableSecondaries = [NSMutableArray new];
+
+            for(NSDictionary *cityDictionary in predictionDictionaries) {
+             
+                NSDictionary *structured = cityDictionary[@"structured_formatting"];
+
+                NSLog(@"%@", structured);
+                
+                [mutableCities addObject:structured[@"main_text"]];
+                [mutableSecondaries addObject:structured[@"secondary_text"]];
+                
+            }
+            
+            self.citiesArray = [mutableCities copy];
+            self.secondaryArray = [mutableSecondaries copy];
+            
+            [self.tableView reloadData];
+            
+        }
+        
+    }];
+        
     
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityCell" forIndexPath:indexPath];
+    
+    cell.textLabel.text = self.citiesArray[indexPath.row];
+    
+    cell.detailTextLabel.text = self.secondaryArray[indexPath.row];
     
     // Configure the cell...
     
     return cell;
 }
-*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *city = self.citiesArray[indexPath.row];
+    
+    [self.cityDelegate changeCityText:city];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+}
+
 
 /*
 // Override to support conditional editing of the table view.

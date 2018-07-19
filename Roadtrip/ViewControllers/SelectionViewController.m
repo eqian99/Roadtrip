@@ -8,8 +8,10 @@
 
 #import "SelectionViewController.h"
 #import "selectEventsViewController.h"
+#import "LocationTableViewController.h"
 
-@interface SelectionViewController ()
+
+@interface SelectionViewController () <CityDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *locationField;
 @property (weak, nonatomic) IBOutlet UITextField *dateField;
 @property(assign, nonatomic)NSTimeInterval startOfDayUnix;
@@ -25,12 +27,45 @@
 @property (assign, nonatomic)NSTimeInterval lunchTime;
 @property (assign, nonatomic)NSTimeInterval dinnerTime;
 
+@property (strong, nonatomic) UISearchController *citySearchController;
+
+
 @end
 
 @implementation SelectionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //City
+    
+    //Search controller setup
+    
+    LocationTableViewController *locationTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LocationTableViewController"];
+    
+    self.citySearchController = [[UISearchController alloc]initWithSearchResultsController:locationTableViewController];
+    
+    self.citySearchController.searchResultsUpdater = locationTableViewController;
+    
+    UISearchBar *searchBar = self.citySearchController.searchBar;
+    
+    [searchBar sizeToFit];
+    
+    searchBar.placeholder = @"Search for cities";
+    
+    self.navigationItem.titleView = self.citySearchController.searchBar;
+    
+    self.citySearchController.hidesNavigationBarDuringPresentation = false;
+    
+    self.citySearchController.dimsBackgroundDuringPresentation = true;
+    
+    self.definesPresentationContext = true;
+    
+    locationTableViewController.cityDelegate = self;
+    
+    
+    
+    
     //Date
     datePicker=[[UIDatePicker alloc]init];
     datePicker.datePickerMode=UIDatePickerModeDate;
@@ -38,7 +73,7 @@
     
     UIToolbar *toolBarStart=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [toolBarStart setTintColor:[UIColor grayColor]];
-    UIBarButtonItem *doneBtn=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(ShowSelectedDate)];
+    UIBarButtonItem *doneBtn=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(ShowSelectedDate)];
     UIBarButtonItem *space=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [toolBarStart setItems:[NSArray arrayWithObjects:space,doneBtn, nil]];
     
@@ -51,7 +86,7 @@
     
     UIToolbar *toolBarBreakfast=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [toolBarBreakfast setTintColor:[UIColor grayColor]];
-    UIBarButtonItem *doneBtnBfast=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(showTimeBreakfast)];
+    UIBarButtonItem *doneBtnBfast=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(showTimeBreakfast)];
     UIBarButtonItem *spaceBfast=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [toolBarBreakfast setItems:[NSArray arrayWithObjects:spaceBfast,doneBtnBfast, nil]];
     [self.breakfastField setInputAccessoryView:toolBarBreakfast];
@@ -59,7 +94,7 @@
     [self.lunchField setInputView:self.timePicker];
     UIToolbar *toolBarLunch=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [toolBarLunch setTintColor:[UIColor grayColor]];
-    UIBarButtonItem *doneBtnLunch=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(showTimeLunch)];
+    UIBarButtonItem *doneBtnLunch=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(showTimeLunch)];
     UIBarButtonItem *spaceLunch=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [toolBarLunch setItems:[NSArray arrayWithObjects:spaceLunch,doneBtnLunch, nil]];
     [self.lunchField setInputAccessoryView:toolBarLunch];
@@ -67,11 +102,18 @@
     [self.dinnerField setInputView:self.timePicker];
     UIToolbar *toolBarDinner=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [toolBarLunch setTintColor:[UIColor grayColor]];
-    UIBarButtonItem *doneBtnDinner=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(showTimeDinner)];
+    UIBarButtonItem *doneBtnDinner=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(showTimeDinner)];
     UIBarButtonItem *spaceDinner=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [toolBarDinner setItems:[NSArray arrayWithObjects:spaceDinner,doneBtnDinner, nil]];
     [self.dinnerField setInputAccessoryView:toolBarDinner];
 }
+
+- (void)changeCityText:(NSString *)cityString {
+    
+    self.locationField.text = cityString;
+    
+}
+
 
 -(void)ShowSelectedDate
 {
