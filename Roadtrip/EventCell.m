@@ -28,7 +28,8 @@
     self.descriptionLabel.text = event.eventDescription;
 
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"E MMM d HH:mm Z y";
+    //formatter.dateFormat = @"E MMM d HH:mm Z y";
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm Z y";
     formatter.dateStyle = NSDateFormatterShortStyle;
     formatter.timeStyle = NSDateFormatterNoStyle;
     NSString *startDateString = [formatter stringFromDate:event.startDate];
@@ -47,11 +48,9 @@
         self.startEndLabel.text = startEndDate;
     }
     
-    
-    NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", event.startDate, event.endDate];
-    self.startEndLabel.text = startEndDate;
-
     self.addressLabel.text = event.address;
+}
+- (IBAction)didSelect:(id)sender {
 }
 
 -(void)setLandmark:(Landmark *)landmark{

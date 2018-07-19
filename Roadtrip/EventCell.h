@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic)Event *event;
 @property(strong, nonatomic)Landmark *landmark;
+@property (weak, nonatomic) IBOutlet UIButton *checkBoxButton;
 
 @end

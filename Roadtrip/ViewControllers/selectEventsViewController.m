@@ -15,6 +15,7 @@
 #import "GoogleMapsManager.h"
 #import "Landmark.h"
 #import "LandmarkCell.h"
+#import "EventDetailsViewController.h"
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *events;
@@ -38,6 +39,7 @@
     
     // Do any additional setup after loading the view.
 }
+
 
 //- (void)getMyEvents{
 //
@@ -73,6 +75,39 @@
 //
 //
 //}
+
+/*
+- (void)getMyEvents{
+    
+    YelpManager *myManager = [YelpManager new];
+    NSString *startDate = [NSString stringWithFormat:@"%i", (int)self.startOfDayUnix];
+    NSString *endDate = [NSString stringWithFormat:@"%i", (int)self.endOfDayUnix];
+    NSLog(@"%@", startDate);
+    [myManager getEventswithLatitude:37.7749 withLongitude:-122.4194 withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
+        if(eventsDictionary){
+            NSLog(@"%@", eventsDictionary);
+            NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
+            self.events = [myEvents copy];
+            self.events = [Event eventsWithYelpArray:eventsDictionary];
+            
+            self.events = [Event eventsWithYelpArray:eventsDictionary];
+            
+            for(int i = 0; i < self.events.count; i++) {
+                
+                [self.cellsSelected addObject: @NO];
+                
+            }
+            [self getLandmarks];
+        }
+        else{
+            NSLog(@"There was an error");
+        }
+    }];
+    
+    
+}
+ */
+
 
 -(void) getEventsFromEventbrite {
     
@@ -115,7 +150,7 @@
                         [self.events addObject:newEvent];
                         
                         [self.tableView reloadData];
-                        
+                        [self getLandmarks];
                         
                     }
                     
@@ -143,18 +178,11 @@
          {
              NSMutableArray *myLandmarks = [Landmark initWithArray:placesDictionaries];
              
-             NSArray *myLandmarksArray = [myLandmarks copy];
-
-             self.events = [self.events arrayByAddingObjectsFromArray:myLandmarksArray];
-
-             
-             for(Landmark *landmark in myLandmarksArray) {
+             for(Landmark *landmark in myLandmarks) {
                  
                  [self.events addObject:landmark];
                  
              }
-             
-             NSLog(@"%lu", self.events.count);
              
              for(int i = 0; i < self.events.count; i++) {
                  
@@ -190,6 +218,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
+    /*
     if([segue.identifier isEqualToString:@"landmarksSelectionSegue"]){
         
         SelectLandmarksViewController *viewController = [segue destinationViewController];
@@ -207,6 +236,7 @@
         }
         
         viewController.eventsSelected = [mutableArray copy];
+    
         
     }
     
@@ -216,7 +246,14 @@
 
     selectLandmarksViewController.longitude = self.longitude;
 
+    */
     
+    UITableViewCell *tappedCell = sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+
+    EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+    eventDetailsViewController.activities = self.events;
+    eventDetailsViewController.index = indexPath.row;
 }
 
 
@@ -254,7 +291,6 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"%lu", self.events.count);
     return self.events.count;
     
 }

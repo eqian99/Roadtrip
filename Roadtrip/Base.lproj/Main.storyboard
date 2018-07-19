@@ -350,14 +350,19 @@
                                                     <rect key="frame" x="318" y="99" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="uncheckBox"/>
+                                                    <connections>
+                                                        <action selector="didSelect:" destination="3nZ-nF-GtN" eventType="touchUpInside" id="Kaq-7f-tRK"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addressLabel" destination="JTd-a3-hic" id="O2L-XK-QiM"/>
+                                            <outlet property="checkBoxButton" destination="3iF-Ed-RQ8" id="QAR-gg-PuX"/>
                                             <outlet property="descriptionLabel" destination="AyT-OC-tQI" id="1Zo-iC-lxX"/>
                                             <outlet property="nameLabel" destination="Yb2-fg-pkr" id="0ky-At-9j9"/>
                                             <outlet property="startEndLabel" destination="sLg-8M-nkG" id="dXc-eo-SPC"/>
+                                            <segue destination="t23-fO-til" kind="show" id="eNk-Lg-BIr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -389,6 +394,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z63-bj-qUQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4837.6000000000004" y="-573.46326836581716"/>
+        </scene>
+        <!--Event Details View Controller-->
+        <scene sceneID="O0M-a0-NKc">
+            <objects>
+                <viewController id="t23-fO-til" customClass="EventDetailsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GzJ-53-Yqp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Pc-mJ-Vga">
+                                <rect key="frame" x="16" y="100" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhB-XR-xbN">
+                                <rect key="frame" x="16" y="129" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="zs7-2d-Vhh"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8g8-ra-4P9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4856.8000000000002" y="154.27286356821591"/>
         </scene>
         <!--Schedule View Controller-->
         <scene sceneID="rcK-G3-cWR">
@@ -571,7 +607,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dCX-gQ-XMG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4542" y="163"/>
+            <point key="canvasLocation" x="4722" y="1653"/>
         </scene>
         <!--Location Table View Controller-->
         <scene sceneID="izs-RM-Oiz">
@@ -702,7 +738,6 @@
                         <outlet property="lunchField" destination="ZEc-Dk-2sy" id="pks-2s-syE"/>
                         <outlet property="searchDisplayController" destination="FRV-Pj-Ovj" id="fvz-u9-nJp"/>
                         <segue destination="VaR-MT-fcZ" kind="presentation" id="33i-7i-VYL"/>
-                        <segue destination="mD6-j1-3JU" kind="presentation" id="Gta-9F-rAm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ETb-GX-yZ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
