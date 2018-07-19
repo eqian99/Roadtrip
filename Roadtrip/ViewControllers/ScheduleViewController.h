@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Event.h"
 
 @interface ScheduleViewController : UIViewController
+
+@property (strong, nonatomic) NSArray *eventsSelected;
+
+@property(assign, nonatomic)NSTimeInterval startOfDayUnix;
+
+@property(assign, nonatomic)NSTimeInterval endOfDayUnix;
 
 @end
