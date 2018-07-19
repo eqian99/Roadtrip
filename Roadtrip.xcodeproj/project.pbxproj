@@ -33,6 +33,7 @@
 		F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4F20FFC2D900836D65 /* SelectLandmarksViewController.m */; };
 		F6F77C5320FFC3EB00836D65 /* LandmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */; };
 		F6F77C5C210016FE00836D65 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C5B210016FE00836D65 /* SelectionViewController.m */; };
+		F6F77C5F21003A2500836D65 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C5E21003A2500836D65 /* ScheduleViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,8 @@
 		F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LandmarkCell.m; sourceTree = "<group>"; };
 		F6F77C5A210016FE00836D65 /* SelectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectionViewController.h; sourceTree = "<group>"; };
 		F6F77C5B210016FE00836D65 /* SelectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
+		F6F77C5D21003A2500836D65 /* ScheduleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
+		F6F77C5E21003A2500836D65 /* ScheduleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +193,8 @@
 				D680BC0F20FFF96200C0EBC4 /* LocationTableViewController.m */,
 				F6F77C5A210016FE00836D65 /* SelectionViewController.h */,
 				F6F77C5B210016FE00836D65 /* SelectionViewController.m */,
+				F6F77C5D21003A2500836D65 /* ScheduleViewController.h */,
+				F6F77C5E21003A2500836D65 /* ScheduleViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -336,6 +341,7 @@
 				D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */,
 				5306478720FFED150062432D /* RestaurantTimeViewController.m in Sources */,
 				F6F77C4020FB256600836D65 /* LoginViewController.m in Sources */,
+				F6F77C5F21003A2500836D65 /* ScheduleViewController.m in Sources */,
 				D656ED9420FD446F00D7BAFD /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
