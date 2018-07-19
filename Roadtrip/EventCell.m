@@ -25,8 +25,25 @@
     _event = event;
     self.nameLabel.text = event.name;
     self.descriptionLabel.text = event.eventDescription;
-    NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", event.startDate, event.endDate];
-    self.startEndLabel.text = startEndDate;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"E MMM d HH:mm Z y";
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+    NSString *startDateString = [formatter stringFromDate:event.startDate];
+    NSString *endDateString = [formatter stringFromDate:event.endDate];
+    if([startDateString isEqualToString:endDateString]){
+        [formatter setDateFormat:@"hh:mm a"];
+        [formatter setAMSymbol:@"AM"];
+        [formatter setPMSymbol:@"PM"];
+        NSString *startTimeString = [formatter stringFromDate:event.startDate];
+        NSString *endTimeString = [formatter stringFromDate:event.endDate];
+        NSString *startEndTime = [NSString stringWithFormat:@"%@ %@ - %@", startDateString, startTimeString, endTimeString];
+        self.startEndLabel.text = startEndTime;
+    }
+    else{
+        NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", startDateString, endDateString];
+        self.startEndLabel.text = startEndDate;
+    }
     self.addressLabel.text = event.address;
 }
 

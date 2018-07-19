@@ -42,6 +42,7 @@
     NSLog(@"%@", startDate);
     [myManager getEventswithLatitude:37.7749 withLongitude:-122.4194 withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
         if(eventsDictionary){
+            NSLog(@"%@", eventsDictionary);
             NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
             self.events = [myEvents copy];
             
@@ -71,7 +72,6 @@
              NSMutableArray *myLandmarks = [Landmark initWithArray:placesDictionaries];
              NSArray *myLandmarksArray = [myLandmarks copy];
              self.events = [self.events arrayByAddingObjectsFromArray:myLandmarksArray];
-             NSLog(@"%lu", self.events.count);
              
              for(int i = 0; i < self.events.count; i++) {
                  
