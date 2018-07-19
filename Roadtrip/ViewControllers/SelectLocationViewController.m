@@ -144,6 +144,11 @@
     self.endOfDayUnix = [endOfDay timeIntervalSince1970];
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    //Do what you want here..
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

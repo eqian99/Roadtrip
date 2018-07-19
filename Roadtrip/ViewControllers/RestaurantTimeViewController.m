@@ -85,7 +85,7 @@
     NSInteger minute = [components minute];
     NSInteger second = [components second];
     
-    self.breakfastTime = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
+    self.lunchTime = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
     
     [formatter setDateFormat:@"hh:min a"];
     self.lunchField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];
@@ -101,7 +101,7 @@
     NSInteger minute = [components minute];
     NSInteger second = [components second];
     
-    self.breakfastTime = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
+    self.dinnerTime = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
     
     [formatter setDateFormat:@"hh:min a"];
     self.dinnerField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.datePicker.date]];

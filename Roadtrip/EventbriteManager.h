@@ -14,6 +14,5 @@
 
 - (void)getEventCategories:(void(^)(NSDictionary *categories, NSError *error))completion;
 
-- (void)getEventsWithCoordinates: (CLLocationCoordinate2D) coordinate completion:(void(^)(NSDictionary *categories, NSError *error))completion;
-
+- (void)getEventsWithCoordinates: (CLLocationCoordinate2D) coordinate completion:(void(^)(NSArray *categories, NSError *error))completion;
 @end

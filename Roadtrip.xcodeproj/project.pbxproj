@@ -32,6 +32,7 @@
 		F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4C20FD4AC100836D65 /* SelectLocationViewController.m */; };
 		F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4F20FFC2D900836D65 /* SelectLandmarksViewController.m */; };
 		F6F77C5320FFC3EB00836D65 /* LandmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */; };
+		F6F77C5C210016FE00836D65 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C5B210016FE00836D65 /* SelectionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,8 @@
 		F6F77C4F20FFC2D900836D65 /* SelectLandmarksViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectLandmarksViewController.m; sourceTree = "<group>"; };
 		F6F77C5120FFC3EB00836D65 /* LandmarkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LandmarkCell.h; sourceTree = "<group>"; };
 		F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LandmarkCell.m; sourceTree = "<group>"; };
+		F6F77C5A210016FE00836D65 /* SelectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectionViewController.h; sourceTree = "<group>"; };
+		F6F77C5B210016FE00836D65 /* SelectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +188,8 @@
 				5306478620FFED150062432D /* RestaurantTimeViewController.m */,
 				D680BC0E20FFF96200C0EBC4 /* LocationTableViewController.h */,
 				D680BC0F20FFF96200C0EBC4 /* LocationTableViewController.m */,
+				F6F77C5A210016FE00836D65 /* SelectionViewController.h */,
+				F6F77C5B210016FE00836D65 /* SelectionViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -317,6 +322,7 @@
 				F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */,
 				F6F77C5320FFC3EB00836D65 /* LandmarkCell.m in Sources */,
 				5306477E20FEF93D0062432D /* Landmark.m in Sources */,
+				F6F77C5C210016FE00836D65 /* SelectionViewController.m in Sources */,
 				F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */,
 				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,
 				F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */,
