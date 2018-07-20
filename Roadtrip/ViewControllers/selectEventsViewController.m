@@ -16,6 +16,7 @@
 #import "Landmark.h"
 #import "LandmarkCell.h"
 #import "EventDetailsViewController.h"
+#import "EventMapViewController.h"
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate, EventCellDelegate>
 @property (nonatomic, strong) NSMutableArray *events;
@@ -27,6 +28,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //Change navigation item
+    
+    self.navigationItem.title = [NSString stringWithFormat:@"%@, %@", self.city, self.stateAndCountry];
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     //[self getMyEvents];
@@ -35,47 +40,7 @@
     self.events = [NSMutableArray new];
     
     [self getEventsFromEventbrite];
-    
-    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:self.startOfDayUnix];
-    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:self.endOfDayUnix];
-    
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    
-    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
-    
-    [dateFormatter setTimeZone:timeZone];
-    
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    NSString *startDateString = [dateFormatter stringFromDate:startDate];
-    
-    startDateString = [startDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
-    
-    NSLog(@"Start date: %@", startDateString);
-    
-    NSString *endDateString = [dateFormatter stringFromDate:endDate];
-    
-    endDateString = [endDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
-    
-    NSLog(@"End date: %@", startDateString);
-    
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude, self.longitude);
-
-    [[EventbriteManager new] getEventsWithCoordinates: coordinate withStartDateUTC:startDateString completion:^(NSArray *events, NSError *error) {
-       
-        if(error) {
-            
-            NSLog(@"Error getting events with time ranges");
-            
-        } else {
-            
-            
-            
-        }
-        
-        
-    }];
-    
+   
     
     
     // Do any additional setup after loading the view.
@@ -152,20 +117,37 @@
 
 -(void) getEventsFromEventbrite {
     
+    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:self.startOfDayUnix];
+    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:self.endOfDayUnix];
+    
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    
+    [dateFormatter setTimeZone:timeZone];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *startDateString = [dateFormatter stringFromDate:startDate];
+    
+    startDateString = [startDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
+    
+    NSString *endDateString = [dateFormatter stringFromDate:endDate];
+    
+    endDateString = [endDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
+    
     NSLog(@"Coordinates: %f , %f", self.latitude, self.longitude);
     
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude, self.longitude);
-    //(37.7749, -122.4194);
-    NSLog(@"%f", self.latitude);
     
-    [[EventbriteManager new] getEventsWithCoordinates:coordinate completion:^(NSArray *events, NSError *error) {
-       
-    
+    [[EventbriteManager new] getEventsWithCoordinates: coordinate withStartDateUTC:startDateString completion:^(NSArray *events, NSError *error) {
+        
         if(error) {
             
+            NSLog(@"Error getting events with time ranges");
             
-            NSLog(@"There was an error");
         } else {
+            
             
             for(NSDictionary *event in events) {
                 
@@ -174,29 +156,27 @@
                 NSString *venueId = event[@"venue_id"];
                 
                 [[EventbriteManager new] getVenueWithId:venueId completion:^(NSDictionary *venue, NSError *error) {
-                   
+                    
                     
                     if(error) {
                         
                         NSLog(@"Error getting venue: %@", error.description);
                         
                     } else {
-
+                        
+                        
                         NSString *addressString = venue[@"localized_address_display"];
                         
-                        NSString *latitude = [NSString stringWithFormat:@"%f", self.latitude];
-                        //venue[@"latitude"];
+                        NSString *latitude = venue[@"latitude"];
                         
-                        NSString *longitude = [NSString stringWithFormat:@"%f", self.longitude];
-                        //venue[@"longitude"];
-                        
+                        NSString *longitude = venue[@"longitude"];
                         
                         Event *newEvent = [[Event new] initWithEventbriteDictionary:event withLatitude:latitude withLongitude:longitude withAddress:addressString];
                         
                         [self.events addObject:newEvent];
                         
                         //[self.tableView reloadData];
-                        [self getLandmarks];
+                        
                         
                     }
                     
@@ -205,12 +185,12 @@
             }
             
             
-            
-            
         }
+        [self getLandmarks];
         
         
     }];
+    
     
     
 }
@@ -261,6 +241,15 @@
 
 #pragma mark - Navigation
 
+- (IBAction)didPressMap:(id)sender {
+    
+    
+    [self performSegueWithIdentifier:@"eventsMapSegue" sender:self];
+    
+    
+}
+
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
@@ -307,7 +296,39 @@
         eventDetailsViewController.index = indexPath.row;
         
         
+    } else if ([segue.identifier isEqualToString:@"eventsMapSegue"]) {
+        
+        EventMapViewController *viewController = [segue destinationViewController];
+        
+        NSArray *selectedEvents = [self getEventsSelected];
+        
+        viewController.events = selectedEvents;
+        
     }
+    
+}
+
+-(NSArray *) getEventsSelected {
+    
+    
+    NSMutableArray *mutableArray = [NSMutableArray new];
+    
+    for(int i = 0; i < self.events.count; i++) {
+        
+        if([[self.cellsSelected objectAtIndex:i] isEqual:@YES]) {
+            
+            Event *event = [self.events objectAtIndex:i];
+            
+            NSLog(@"Event: %@. Coorindates: %@ , %@", event.name, event.latitude, event.longitude);
+            
+            [mutableArray addObject:event];
+            
+        }
+        
+        
+    }
+    
+    return [mutableArray copy];
     
 }
 
@@ -356,7 +377,7 @@
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:eventCell];
     
-    NSLog(@"%ld", indexPath.row);
+    NSLog(@"Index of cell selected: %ld", indexPath.row);
     
     if([self.cellsSelected[indexPath.row] isEqual:@NO]) {
         

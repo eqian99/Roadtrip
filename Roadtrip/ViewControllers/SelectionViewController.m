@@ -24,6 +24,8 @@
 
 @property (strong, nonatomic) NSString *latitude;
 @property (strong, nonatomic) NSString *longitude;
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *stateAndCountry;
 
 
 @property (strong, nonatomic)NSCalendar *calendar;
@@ -127,14 +129,19 @@
 }
 
 
-- (void)changeCityText:(NSString *)cityString withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude {
-    
+- (void)changeCityText:(NSString *)cityString withStateAndCountry:(NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude {
+
     self.locationField.text = cityString;
     
+    
+    self.city = cityString;
+    self.stateAndCountry = stateAndCountry;
     self.latitude = latitude;
     self.longitude = longitude;
     
+    
 }
+
 
 
 -(void)ShowSelectedDate
@@ -227,8 +234,8 @@
     selectEventsViewController.latitude = [self.latitude doubleValue];
     selectEventsViewController.longitude = [self.longitude doubleValue];
 
-    //selectEventsViewController.latitude = self.latitude;
-    //selectEventsViewController.longitude = self.longitude;
+    selectEventsViewController.city = self.city;
+    selectEventsViewController.stateAndCountry = self.stateAndCountry;
     //Pass over data about the start time
     selectEventsViewController.startOfDayUnix = self.startOfDayUnix;
     selectEventsViewController.endOfDayUnix = self.endOfDayUnix;

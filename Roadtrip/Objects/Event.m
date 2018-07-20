@@ -84,9 +84,7 @@
     self = [super init];
     
     if(self) {
-        
-        NSLog(@"%@", dictionary);
-        
+                
         //Event description
         NSDictionary *nameDictionary = dictionary[@"name"];
         self.name = nameDictionary[@"text"];
@@ -156,9 +154,8 @@
     
 }
 
-
 + (NSArray *) sortEventArrayByEndDate: (NSArray *) array {
-	
+    
     NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"endDate" ascending:YES];
     
     NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sd]];

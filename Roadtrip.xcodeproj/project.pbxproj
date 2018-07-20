@@ -23,6 +23,7 @@
 		D680BC1020FFF96200C0EBC4 /* LocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D680BC0F20FFF96200C0EBC4 /* LocationTableViewController.m */; };
 		D680BC132100156E00C0EBC4 /* EventbriteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D680BC122100156E00C0EBC4 /* EventbriteManager.m */; };
 		D68C739320FC46D700364D35 /* SWRevealViewController in Resources */ = {isa = PBXBuildFile; fileRef = D68C739220FC46D700364D35 /* SWRevealViewController */; };
+		D6A1E4212102649400EFF016 /* EventMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A1E4202102649400EFF016 /* EventMapViewController.m */; };
 		F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A23ADB20EFE04C002384E8 /* AppDelegate.m */; };
 		F6A23AE220EFE04C002384E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE020EFE04C002384E8 /* Main.storyboard */; };
 		F6A23AE420EFE04D002384E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE320EFE04D002384E8 /* Assets.xcassets */; };
@@ -69,6 +70,8 @@
 		D680BC112100156E00C0EBC4 /* EventbriteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventbriteManager.h; sourceTree = "<group>"; };
 		D680BC122100156E00C0EBC4 /* EventbriteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventbriteManager.m; sourceTree = "<group>"; };
 		D68C739220FC46D700364D35 /* SWRevealViewController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SWRevealViewController; sourceTree = "<group>"; };
+		D6A1E41F2102649400EFF016 /* EventMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventMapViewController.h; sourceTree = "<group>"; };
+		D6A1E4202102649400EFF016 /* EventMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventMapViewController.m; sourceTree = "<group>"; };
 		F6A23AD720EFE04C002384E8 /* Roadtrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roadtrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A23ADA20EFE04C002384E8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F6A23ADB20EFE04C002384E8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -203,6 +206,8 @@
 				F6F77C5E21003A2500836D65 /* ScheduleViewController.m */,
 				53064788210154010062432D /* EventDetailsViewController.h */,
 				53064789210154010062432D /* EventDetailsViewController.m */,
+				D6A1E41F2102649400EFF016 /* EventMapViewController.h */,
+				D6A1E4202102649400EFF016 /* EventMapViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -333,6 +338,7 @@
 			files = (
 				F6A23AEA20EFE04D002384E8 /* main.m in Sources */,
 				F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */,
+				D6A1E4212102649400EFF016 /* EventMapViewController.m in Sources */,
 				F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */,
 				F6F77C5320FFC3EB00836D65 /* LandmarkCell.m in Sources */,
 				5306477E20FEF93D0062432D /* Landmark.m in Sources */,

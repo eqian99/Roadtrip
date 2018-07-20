@@ -18,7 +18,11 @@
 @property(assign, nonatomic)NSTimeInterval endOfDayUnix;
 @property (nonatomic) BOOL hasSelectedLocation;
 @property (strong, nonatomic) MKPointAnnotation *selectedLocationAnnotation;
+
+
 @property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *stateAndCountry;
+
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 @property (weak, nonatomic) IBOutlet UIButton *useCurrentCityButton;
 
@@ -190,6 +194,7 @@
         [self.mapView addAnnotation:annotation];
         
         self.longitude = locCoord.longitude;
+        
         self.latitude = locCoord.latitude;
         
         
@@ -290,10 +295,13 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     CategoryViewController *categoryViewController = [segue destinationViewController];
+    
     categoryViewController.latitude = self.latitude;
+    
     categoryViewController.longitude = self.longitude;
     //Pass over data about the start time
     categoryViewController.startOfDayUnix = self.startOfDayUnix;
+    
     categoryViewController.endOfDayUnix = self.endOfDayUnix;
 }
 

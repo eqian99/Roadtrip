@@ -13,7 +13,7 @@
 
 @protocol CityDelegate
 
--(void) changeCityText: (NSString *) cityString withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude;
+-(void) changeCityText: (NSString *) cityString withStateAndCountry: (NSString *) stateAndCountry withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude;
 
 @end
 

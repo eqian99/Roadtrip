@@ -136,12 +136,15 @@
     
     NSString *city = self.citiesArray[indexPath.row];
     
+    NSString *stateAndCountry = self.secondaryArray[indexPath.row];
+    
     NSString *latitude = self.latitudes[indexPath.row];
     
     NSString *longitude = self.longitudes[indexPath.row];
     
-    [self.cityDelegate changeCityText:city withLatitude: latitude withLongitude: longitude];
-        
+    
+    [self.cityDelegate changeCityText:city withStateAndCountry:stateAndCountry withLatitude:latitude withLongitude:longitude];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
     
     
