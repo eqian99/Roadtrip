@@ -36,6 +36,47 @@
     
     [self getEventsFromEventbrite];
     
+    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:self.startOfDayUnix];
+    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:self.endOfDayUnix];
+    
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    
+    [dateFormatter setTimeZone:timeZone];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *startDateString = [dateFormatter stringFromDate:startDate];
+    
+    startDateString = [startDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
+    
+    NSLog(@"Start date: %@", startDateString);
+    
+    NSString *endDateString = [dateFormatter stringFromDate:endDate];
+    
+    endDateString = [endDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
+    
+    NSLog(@"End date: %@", startDateString);
+    
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+
+    [[EventbriteManager new] getEventsWithCoordinates: coordinate withStartDateUTC:startDateString completion:^(NSArray *events, NSError *error) {
+       
+        if(error) {
+            
+            NSLog(@"Error getting events with time ranges");
+            
+        } else {
+            
+            
+            
+        }
+        
+        
+    }];
+    
+    
     
     // Do any additional setup after loading the view.
 }

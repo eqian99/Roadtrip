@@ -215,6 +215,7 @@
     //Pass over data about the start time
     selectEventsViewController.startOfDayUnix = self.startOfDayUnix;
     selectEventsViewController.endOfDayUnix = self.endOfDayUnix;
+    
 
 }
 
