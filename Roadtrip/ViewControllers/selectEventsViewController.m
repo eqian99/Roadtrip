@@ -111,7 +111,9 @@
 
 -(void) getEventsFromEventbrite {
     
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(37.7749, -122.4194);
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+    //(37.7749, -122.4194);
+    NSLog(@"%f", self.latitude);
     
     [[EventbriteManager new] getEventsWithCoordinates:coordinate completion:^(NSArray *events, NSError *error) {
        
@@ -140,16 +142,18 @@
                         
                         NSString *addressString = venue[@"localized_address_display"];
                         
-                        NSString *latitude = venue[@"latitude"];
+                        NSString *latitude = [NSString stringWithFormat:@"%f", self.latitude];
+                        //venue[@"latitude"];
                         
-                        NSString *longitude = venue[@"longitude"];
+                        NSString *longitude = [NSString stringWithFormat:@"%f", self.longitude];
+                        //venue[@"longitude"];
                         
                         
                         Event *newEvent = [[Event new] initWithEventbriteDictionary:event withLatitude:latitude withLongitude:longitude withAddress:addressString];
                         
                         [self.events addObject:newEvent];
                         
-                        [self.tableView reloadData];
+                        //[self.tableView reloadData];
                         [self getLandmarks];
                         
                     }
@@ -172,7 +176,7 @@
 -(void)getLandmarks{
     GoogleMapsManager *myManagerGoogle = [GoogleMapsManager new];
     
-    [myManagerGoogle getPlacesNearLatitude:37.7749 nearLongitude:-122.4194 withCompletion:^(NSArray *placesDictionaries, NSError *error)
+    [myManagerGoogle getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withCompletion:^(NSArray *placesDictionaries, NSError *error)
      {
          if(placesDictionaries)
          {

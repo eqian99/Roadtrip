@@ -202,8 +202,8 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     selectEventsViewController *selectEventsViewController = [segue destinationViewController];
-    //selectEventsViewController.latitude = self.latitude;
-    //selectEventsViewController.longitude = self.longitude;
+    selectEventsViewController.latitude = self.latitude;
+    selectEventsViewController.longitude = self.longitude;
     //Pass over data about the start time
     selectEventsViewController.startOfDayUnix = self.startOfDayUnix;
     selectEventsViewController.endOfDayUnix = self.endOfDayUnix;

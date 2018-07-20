@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Event.h"
+#import "Landmark.h"
 
 @interface EventDetailsViewController : UIViewController
 @property (strong, nonatomic)NSArray *activities;
