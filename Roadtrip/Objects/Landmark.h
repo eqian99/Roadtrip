@@ -12,7 +12,7 @@
 //Description
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *rating;
-
+@property (nonatomic, strong) NSString *photoReference;
 //Location
 @property (nonatomic, strong) NSString *address;
 +(NSMutableArray *) initWithArray: (NSArray *) landmarksArray;

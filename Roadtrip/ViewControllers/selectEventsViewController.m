@@ -181,8 +181,7 @@
                         NSLog(@"Error getting venue: %@", error.description);
                         
                     } else {
-                        
-                        
+
                         NSString *addressString = venue[@"localized_address_display"];
                         
                         NSString *latitude = [NSString stringWithFormat:@"%f", self.latitude];
@@ -224,6 +223,7 @@
      {
          if(placesDictionaries)
          {
+             NSLog(@"%@", placesDictionaries);
              NSMutableArray *myLandmarks = [Landmark initWithArray:placesDictionaries];
              
              

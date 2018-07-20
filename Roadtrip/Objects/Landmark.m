@@ -19,6 +19,9 @@
         self.address = dictionary[@"vicinity"];
         self.rating = dictionary[@"rating"];
         self.isEvent = NO;
+        NSArray *photos = dictionary[@"photos"];
+        NSDictionary *myPhoto = photos[0];
+        self.photoReference = myPhoto[@"photo_reference"];
     }
     
     return self;

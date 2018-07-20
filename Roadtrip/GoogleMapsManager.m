@@ -7,6 +7,7 @@
 //
 
 #import "GoogleMapsManager.h"
+#import <UIKit/UIKit.h>
 
 @implementation GoogleMapsManager
 
@@ -98,12 +99,41 @@
         
     }];
     [task resume];
-    
-    
-    
 }
 
 -(NSString *) parseParameters:(NSString *) city{
     return [city stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
 }
+
+-(void)getPhoto: (NSString *) photoReference withCompletion: (void(^)(UIImage * image, NSError *error))completion{
+    NSString *baseUrlString = @"https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc";
+    
+    NSString *parametersString = [NSString stringWithFormat:@"&photoreference=%@&maxheight=200", photoReference];
+    
+    NSString *fullUrlString = [baseUrlString stringByAppendingString:parametersString];
+    
+    NSURL *url = [NSURL URLWithString:fullUrlString];
+    
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10.0];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        if (error != nil) {
+            
+            completion(nil, error);
+            
+        }
+        else {
+            
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            completion(dataDictionary[@"result"], nil);
+        }
+        
+    }];
+    [task resume];
+}
+
 @end

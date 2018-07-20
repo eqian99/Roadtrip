@@ -22,6 +22,7 @@
 @property(strong, nonatomic)Landmark *landmark;
 @property (weak, nonatomic) IBOutlet UIButton *checkBoxButton;
 @property (nonatomic) BOOL isSelected;
+@property (weak, nonatomic) IBOutlet UIImageView *posterView;
 
 @property (nonatomic, weak) id<EventCellDelegate> delegate;
 

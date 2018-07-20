@@ -7,6 +7,7 @@
 //
 
 #import "EventCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @implementation EventCell
 
@@ -47,10 +48,12 @@
         NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", startDateString, endDateString];
         self.startEndLabel.text = startEndDate;
     }
+    NSURL *posterURL = [NSURL URLWithString:event.imageUrl];
     
+    // clear out the cell so that there is no flickering
+    self.posterView.image = nil;
+    [self.posterView setImageWithURL:posterURL];
     
-    NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", event.startDate, event.endDate];
-    self.startEndLabel.text = startEndDate;
     self.addressLabel.text = event.address;
 }
 - (IBAction)didSelect:(id)sender {
