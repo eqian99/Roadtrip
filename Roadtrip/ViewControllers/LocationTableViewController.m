@@ -59,17 +59,53 @@
             
             NSMutableArray *mutableCities = [NSMutableArray new];
             NSMutableArray *mutableSecondaries = [NSMutableArray new];
+            NSMutableArray *mutableLatitudes = [NSMutableArray new];
+            NSMutableArray *mutableLongitudes = [NSMutableArray new];
 
             for(NSDictionary *cityDictionary in predictionDictionaries) {
              
                 NSDictionary *structured = cityDictionary[@"structured_formatting"];
 
-                NSLog(@"%@", structured);
+                NSLog(@"Place id: %@", cityDictionary[@"place_id"]);
+                
+                
+                [[GoogleMapsManager new] getPlacesDetailsWithId:cityDictionary[@"place_id"] withCompletion:^(NSDictionary *placeDictionary, NSError *error) {
+                   
+                    if(error) {
+                        
+                        NSLog(error.description);
+                        
+                        
+                    } else {
+                        
+                        NSDictionary *geometryDictionary = placeDictionary[@"geometry"];
+                        
+                        NSDictionary *locationDictionary = geometryDictionary[@"location"];
+                        
+                        NSString *latitude = locationDictionary[@"lat"];
+                        
+                        NSString *longitude = locationDictionary[@"lng"];
+                        
+                        [mutableLatitudes addObject:latitude];
+                        
+                        [mutableLongitudes addObject:longitude];
+                        
+                        self.latitudes = [mutableLatitudes copy];
+                        
+                        self.longitudes = [mutableLongitudes copy];
+                        
+                        
+                    }
+                    
+                    
+                }];
                 
                 [mutableCities addObject:structured[@"main_text"]];
+                
                 [mutableSecondaries addObject:structured[@"secondary_text"]];
                 
             }
+            
             
             self.citiesArray = [mutableCities copy];
             self.secondaryArray = [mutableSecondaries copy];
@@ -100,8 +136,12 @@
     
     NSString *city = self.citiesArray[indexPath.row];
     
-    [self.cityDelegate changeCityText:city];
+    NSString *latitude = self.latitudes[indexPath.row];
     
+    NSString *longitude = self.longitudes[indexPath.row];
+    
+    [self.cityDelegate changeCityText:city withLatitude: latitude withLongitude: longitude];
+        
     [self dismissViewControllerAnimated:YES completion:nil];
     
     

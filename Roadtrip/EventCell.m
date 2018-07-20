@@ -48,9 +48,16 @@
         self.startEndLabel.text = startEndDate;
     }
     
+    
+    NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", event.startDate, event.endDate];
+    self.startEndLabel.text = startEndDate;
     self.addressLabel.text = event.address;
 }
 - (IBAction)didSelect:(id)sender {
+    
+    
+    [self.delegate eventCell:self];
+    
 }
 
 -(void)setLandmark:(Landmark *)landmark{

@@ -362,7 +362,7 @@
                                             <outlet property="descriptionLabel" destination="AyT-OC-tQI" id="1Zo-iC-lxX"/>
                                             <outlet property="nameLabel" destination="Yb2-fg-pkr" id="0ky-At-9j9"/>
                                             <outlet property="startEndLabel" destination="sLg-8M-nkG" id="dXc-eo-SPC"/>
-                                            <segue destination="t23-fO-til" kind="show" id="eNk-Lg-BIr"/>
+                                            <segue destination="t23-fO-til" kind="show" identifier="eventDetailSegue" id="eNk-Lg-BIr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -451,7 +451,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8g8-ra-4P9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4856.8000000000002" y="154.27286356821591"/>
+            <point key="canvasLocation" x="4838" y="149"/>
         </scene>
         <!--Schedule View Controller-->
         <scene sceneID="rcK-G3-cWR">

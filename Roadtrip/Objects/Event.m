@@ -85,6 +85,8 @@
     
     if(self) {
         
+        NSLog(@"%@", dictionary);
+        
         //Event description
         NSDictionary *nameDictionary = dictionary[@"name"];
         self.name = nameDictionary[@"text"];
@@ -97,10 +99,20 @@
         self.eventSiteUrl = dictionary[@"url"];
         self.eventId = dictionary[@"id"];
         
+        if([dictionary[@"logo"] isKindOfClass:[NSNull class]]) {
+            
+            NSLog(@"Doesn't have LOGOooooo");
+            
+        } else {
+            
+
+            NSDictionary *logoDictionary = dictionary[@"logo"];
+            NSDictionary *origialLogoDictionary = logoDictionary[@"original"];
+            self.imageUrl = origialLogoDictionary[@"url"];
+
+            
+        }
         
-        NSDictionary *logoDictionary = dictionary[@"logo"];
-        NSDictionary *origialLogoDictionary = logoDictionary[@"original"];
-        self.imageUrl = origialLogoDictionary[@"url"];
         
         //Event location
         

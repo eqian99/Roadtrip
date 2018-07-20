@@ -13,7 +13,7 @@
 
 @protocol CityDelegate
 
--(void) changeCityText: (NSString *) cityString;
+-(void) changeCityText: (NSString *) cityString withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude;
 
 @end
 
@@ -22,7 +22,12 @@
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) NSArray *citiesArray;
 @property (nonatomic, strong) NSArray *secondaryArray;
+@property (nonatomic, strong) NSArray *latitudes;
+@property (nonatomic, strong) NSArray *longitudes;
+
 @property (weak, nonatomic) id<CityDelegate> cityDelegate;
+
+
 
 @end
 

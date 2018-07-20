@@ -12,4 +12,7 @@
 - (void) getPlacesNearLatitude:(double) latitude nearLongitude: (double) longitude withCompletion: (void(^)(NSArray *placesDictionary, NSError *error))completion;
 
 - (void) autocomplete:(NSString *) city withCompletion: (void(^)(NSArray *predictionDictionaries, NSError *error))completion;
+
+-(void) getPlacesDetailsWithId: (NSString *) placeId withCompletion: (void(^)(NSDictionary *placeDictionary, NSError *error))completion;
+
 @end

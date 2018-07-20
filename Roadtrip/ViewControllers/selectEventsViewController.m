@@ -17,7 +17,7 @@
 #import "LandmarkCell.h"
 #import "EventDetailsViewController.h"
 
-@interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate, EventCellDelegate>
 @property (nonatomic, strong) NSMutableArray *events;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *cellsSelected;
@@ -89,7 +89,7 @@
             NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
             self.events = [myEvents copy];
             self.events = [Event eventsWithYelpArray:eventsDictionary];
-            
+ 
             self.events = [Event eventsWithYelpArray:eventsDictionary];
             
             for(int i = 0; i < self.events.count; i++) {
@@ -110,6 +110,8 @@
 
 
 -(void) getEventsFromEventbrite {
+    
+    NSLog(@"Coordinates: %f , %f", self.latitude, self.longitude);
     
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude, self.longitude);
     //(37.7749, -122.4194);
@@ -173,6 +175,7 @@
     
 }
 
+
 -(void)getLandmarks{
     GoogleMapsManager *myManagerGoogle = [GoogleMapsManager new];
     
@@ -181,6 +184,7 @@
          if(placesDictionaries)
          {
              NSMutableArray *myLandmarks = [Landmark initWithArray:placesDictionaries];
+             
              
              for(Landmark *landmark in myLandmarks) {
                  
@@ -210,7 +214,7 @@
 
 - (IBAction)didClickedDone:(id)sender {
     
-    [self performSegueWithIdentifier:@"scheduleSegue" sender:self];
+    //[self performSegueWithIdentifier:@"scheduleSegue" sender:self];
 }
 
 
@@ -252,12 +256,18 @@
 
     */
     
-    UITableViewCell *tappedCell = sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-
-    EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
-    eventDetailsViewController.activities = self.events;
-    eventDetailsViewController.index = indexPath.row;
+    if([segue.identifier isEqualToString:@"eventDetailSegue"]) {
+    
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        
+        EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+        eventDetailsViewController.activities = self.events;
+        eventDetailsViewController.index = indexPath.row;
+        
+        
+    }
+    
 }
 
 
@@ -278,17 +288,19 @@
         
         if([[self.cellsSelected objectAtIndex:indexPath.row]isEqual:@YES]){
             
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            
+            [cell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
+
         }
         else{
             
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            
+            [cell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
+
         }
         
         
     }
+    
+    cell.delegate = self;
     
     
     return cell;
@@ -299,37 +311,52 @@
     
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)eventCell:(EventCell *)eventCell {
     
-    EventCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:eventCell];
     
-    if(self.cellsSelected.count > 0) {
+    NSLog(@"%ld", indexPath.row);
+    
+    if([self.cellsSelected[indexPath.row] isEqual:@NO]) {
         
-        if([self.cellsSelected[indexPath.row] isEqual:@NO]) {
-            
-            [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
-            
-            // check if there are conflicts
-            if ([self checkOverlap])
-            {
-                [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
-            }
-            
-            else
-            {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-            
-        } else {
-            
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            
+        [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
+        
+        // check if there are conflicts
+        if ([self checkOverlap])
+        {
             [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+        }
+        
+        else
+        {
+            
+            //Check mark
+            
+            [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
             
             
         }
         
+    } else {
+        
+        //Uncheck mark
+        
+        [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
+        
+        [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+        
+        
     }
+    
+    
+    NSLog(@"Event selected from selectEventsViewController");
+    
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+        
+    
     
 }
 

@@ -21,6 +21,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *lunchField;
 @property (weak, nonatomic) IBOutlet UITextField *dinnerField;
 
+@property (strong, nonatomic) NSString *latitude;
+@property (strong, nonatomic) NSString *longitude;
+
+
 @property (strong, nonatomic)NSCalendar *calendar;
 
 @property (assign, nonatomic)NSTimeInterval breakfastTime;
@@ -108,9 +112,13 @@
     [self.dinnerField setInputAccessoryView:toolBarDinner];
 }
 
-- (void)changeCityText:(NSString *)cityString {
+
+- (void)changeCityText:(NSString *)cityString withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude {
     
     self.locationField.text = cityString;
+    
+    self.latitude = latitude;
+    self.longitude = longitude;
     
 }
 
@@ -202,8 +210,8 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     selectEventsViewController *selectEventsViewController = [segue destinationViewController];
-    selectEventsViewController.latitude = self.latitude;
-    selectEventsViewController.longitude = self.longitude;
+    selectEventsViewController.latitude = [self.latitude doubleValue];
+    selectEventsViewController.longitude = [self.longitude doubleValue];
     //Pass over data about the start time
     selectEventsViewController.startOfDayUnix = self.startOfDayUnix;
     selectEventsViewController.endOfDayUnix = self.endOfDayUnix;
