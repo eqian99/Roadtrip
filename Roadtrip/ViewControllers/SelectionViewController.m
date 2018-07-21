@@ -43,7 +43,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     /*
+
     EKEventStore *store = [EKEventStore new];
     [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
         if (!granted) { return; }
@@ -57,6 +59,7 @@
         //self.savedEventId = event.eventIdentifier;  //save the event id if you want to access this later
     }];
     */
+
     //City
     
     //Search controller setup
@@ -236,9 +239,27 @@
 
     selectEventsViewController.city = self.city;
     selectEventsViewController.stateAndCountry = self.stateAndCountry;
+
     //Pass over data about the start time
     selectEventsViewController.startOfDayUnix = self.startOfDayUnix;
     selectEventsViewController.endOfDayUnix = self.endOfDayUnix;
+    if(self.currUser == nil){
+        self.currUser = [PFUser currentUser];
+    }
+    NSArray *citiesArray = [self.currUser valueForKey:@"cities"];
+    NSMutableArray *citiesArrayMutable = [citiesArray mutableCopy];
+    if(citiesArrayMutable == nil){
+        citiesArrayMutable = [NSMutableArray new];
+    }
+    if([citiesArrayMutable indexOfObject:self.city] != NSNotFound){
+        NSLog(@"hello");
+        [citiesArrayMutable removeObject:self.city];
+    }
+    [citiesArrayMutable insertObject:self.city atIndex:0];
+    citiesArray = [citiesArrayMutable copy];
+    NSLog(@"%@", citiesArray);
+    [self.currUser setValue:citiesArray forKey:@"cities"];
+    [self.currUser saveInBackground];
     
 
 }

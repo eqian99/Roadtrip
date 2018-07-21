@@ -65,8 +65,6 @@
             for(NSDictionary *cityDictionary in predictionDictionaries) {
              
                 NSDictionary *structured = cityDictionary[@"structured_formatting"];
-
-                NSLog(@"Place id: %@", cityDictionary[@"place_id"]);
                 
                 
                 [[GoogleMapsManager new] getPlacesDetailsWithId:cityDictionary[@"place_id"] withCompletion:^(NSDictionary *placeDictionary, NSError *error) {
@@ -94,9 +92,7 @@
                         
                         self.longitudes = [mutableLongitudes copy];
                         
-                        
                     }
-                    
                     
                 }];
                 
@@ -105,7 +101,6 @@
                 [mutableSecondaries addObject:structured[@"secondary_text"]];
                 
             }
-            
             
             self.citiesArray = [mutableCities copy];
             self.secondaryArray = [mutableSecondaries copy];
@@ -142,7 +137,7 @@
     
     NSString *longitude = self.longitudes[indexPath.row];
     
-    
+    NSLog(@"city: %@ latitude: %@ longitude: %@", city ,latitude, longitude);
     [self.cityDelegate changeCityText:city withStateAndCountry:stateAndCountry withLatitude:latitude withLongitude:longitude];
     
     [self dismissViewControllerAnimated:YES completion:nil];

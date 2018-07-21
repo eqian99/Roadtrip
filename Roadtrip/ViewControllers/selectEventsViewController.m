@@ -136,8 +136,6 @@
     
     endDateString = [endDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
     
-    NSLog(@"Coordinates: %f , %f", self.latitude, self.longitude);
-    
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude, self.longitude);
     
     [[EventbriteManager new] getEventsWithCoordinates: coordinate withStartDateUTC:startDateString completion:^(NSArray *events, NSError *error) {
@@ -163,7 +161,6 @@
                         NSLog(@"Error getting venue: %@", error.description);
                         
                     } else {
-                        
                         
                         NSString *addressString = venue[@"localized_address_display"];
                         
@@ -206,13 +203,16 @@
              NSLog(@"%@", placesDictionaries);
              NSMutableArray *myLandmarks = [Landmark initWithArray:placesDictionaries];
              
-             
-             for(Landmark *landmark in myLandmarks) {
-                 
-                 [self.events addObject:landmark];
-                 
+             if(self.events.count == 0){
+                 self.events = myLandmarks;
              }
-             
+             else{
+                 for(Landmark *landmark in myLandmarks) {
+                     
+                     [self.events addObject:landmark];
+                     
+                 }
+             }
              for(int i = 0; i < self.events.count; i++) {
                  
                  [self.cellsSelected addObject: @NO];
@@ -319,7 +319,6 @@
             
             Event *event = [self.events objectAtIndex:i];
             
-            NSLog(@"Event: %@. Coorindates: %@ , %@", event.name, event.latitude, event.longitude);
             
             [mutableArray addObject:event];
             

@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <Parse/Parse.h>
 @interface SelectionViewController : UIViewController
 {
     UIDatePicker *datePicker;
 }
+@property (strong, nonatomic)PFUser *currUser;
 
 
 @end
