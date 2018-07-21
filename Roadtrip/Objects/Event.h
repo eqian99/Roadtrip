@@ -30,7 +30,6 @@
 @property(assign, nonatomic)NSTimeInterval endTimeUnix;
 
 //Cost
-
 @property (nonatomic) double cost;
 
 //Tyep
@@ -41,6 +40,15 @@
 
 -(instancetype) initWithEventbriteDictionary: (NSDictionary *) dictionary withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude withAddress: (NSString *) address;
 
+// check if event is 24 hours and if so, make it flexbile 3 hours block within the allowed interval
+@property (assign, nonatomic) Boolean isFlexible;
+
+// if isFlexible, assign temp startTimeUnix and endTimeUnix
+@property(assign, nonatomic)NSTimeInterval startTimeUnixTemp;
+@property(assign, nonatomic)NSTimeInterval endTimeUnixTemp;
+
+ -(instancetype) initWithDictionary: (NSDictionary *) dictionary;
++ (NSMutableArray *) eventsWithArray:(NSArray *) dictionaries;
 +(NSArray *) sortEventArrayByEndDate: (NSArray *) array;
 
 @end

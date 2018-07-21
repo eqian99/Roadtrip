@@ -56,6 +56,13 @@
         
         self.endTimeUnix = [self.endDate timeIntervalSince1970];
         
+        // check if event is flexible 3 hour block
+        // assume it is if it's greater than one day
+        if (self.endTimeUnix - self.startTimeUnix > 86400)
+        {
+            self.isFlexible = YES;
+        }
+        
     }
     
     return self;

@@ -21,29 +21,6 @@
 
 }
 
-// Set an array of all free blocks given an array of scheduled events
-- (NSMutableArray *) getFreeBlocks {
-    
-    NSMutableArray *freeBlocks = [[NSMutableArray alloc] init];
-    
-    // add the free time before start of first event
-    [freeBlocks addObject: [NSNumber numberWithFloat:
-                [((Event *)self.eventsSelected[0]).startDate timeIntervalSince1970] - self.startOfDayUnix]];
-    
-    for(int i = 0; i < self.eventsSelected.count - 1; i++) {
-        
-        if (((Event *)self.eventsSelected[i]).endTimeUnix > ((Event *)self.eventsSelected[i+1]).startTimeUnix) {
-            
-            // add free time between all time intervals
-            [freeBlocks addObject: [NSNumber numberWithFloat: ((Event *)self.eventsSelected[i+1]).startTimeUnix - ((Event *)self.eventsSelected[i]).endTimeUnix]];
-            
-        };
-        
-    }
-    
-    return freeBlocks;
-    
-}
 
 
 - (void)didReceiveMemoryWarning {

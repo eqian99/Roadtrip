@@ -33,4 +33,7 @@
 
 -(void) eventCell: (EventCell *) eventCell;
 
+// Warning label
+@property (weak, nonatomic) IBOutlet UILabel *warningLabel;
+
 @end

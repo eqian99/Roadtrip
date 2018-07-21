@@ -20,8 +20,24 @@
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate, EventCellDelegate>
 @property (nonatomic, strong) NSMutableArray *events;
+
+@interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) NSArray *events;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (strong, nonatomic) NSMutableArray *cellsSelected;
+
+@property (assign, nonatomic) int previousWarningCellIndex;
+
+@property (assign, nonatomic) int landmarksCount;
+
+@property (strong, nonatomic) NSMutableArray *eventsArray;
+
+@property (strong, nonatomic) NSMutableArray *longEventsArray;
+
+@property (strong, nonatomic) NSMutableArray *landmarksArray;
+
 @end
 
 @implementation selectEventsViewController
@@ -43,7 +59,8 @@
    
     
     
-    // Do any additional setup after loading the view.
+    // let nil be the state indicating there is no previous cell with warning
+    self.previousWarningCellIndex = nil;
 }
 
 
@@ -393,6 +410,54 @@
         {
             
             //Check mark
+    // disable warning sign after another click
+    if (self.previousWarningCellIndex) {
+        
+        NSLog(@"Should disable");
+        
+        // [((EventCell *)[tableView cellForRowAtIndexPath:self.previousWarningCellIndex]) setHidden: YES];
+        
+        self.previousWarningCellIndex = nil;
+        
+    }
+    
+    if(self.cellsSelected.count > 0) {
+        
+        if([self.cellsSelected[indexPath.row] isEqual:@NO]) {
+            
+            [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
+            
+            // check if there are conflicts
+            if ([self checkOverlap])
+            {
+            
+                //display warning label
+                [((EventCell *)[tableView cellForRowAtIndexPath:indexPath]).warningLabel setHidden:NO];
+                
+                self.previousWarningCellIndex = indexPath.row;
+                
+                [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            }
+            
+            else
+            {
+                
+                if ([self.events[indexPath.row] isKindOfClass:[Landmark class]])
+                {
+                    self.landmarksCount += 1;
+                }
+                
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
+            
+        } else {
+            
+            if ([self.events[indexPath.row] isKindOfClass:[Landmark class]])
+            {
+                self.landmarksCount -= 1;
+            }
+            
+            cell.accessoryType = UITableViewCellAccessoryNone;
             
             [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
             
@@ -423,11 +488,12 @@
 }
 
 
-
-// Checks whether there are overlaps in the events selected.
-// Should be called whenever anything is selected/deselected.
-- (BOOL) checkOverlap {
+// Set an array of all free blocks given an array of scheduled events
+- (NSMutableArray *) getFreeBlocks:(NSMutableArray *) shortEventsArray {
     
+    NSMutableArray *freeBlocks = [[NSMutableArray alloc] init];
+    
+    /*
     NSMutableArray *mutableArray = [NSMutableArray new];
     
     for(int i = 0; i < self.events.count; i++){
@@ -441,15 +507,202 @@
     
     // sort the events selected
     mutableArray = [NSMutableArray arrayWithArray: [Event sortEventArrayByEndDate:mutableArray]];
+     */
     
-    for(int i = 0; i < mutableArray.count - 1; i++) {
+    if (shortEventsArray.count == 0)
+    {
+        return nil;
+    }
+    
+    // add the free time before start of first event
+    double start = self.startOfDayUnix;
+    
+    double end = ((Event *)shortEventsArray[0]).startTimeUnix;
+    
+    double duration = ((Event *)shortEventsArray[0]).startTimeUnix - self.startOfDayUnix;
+    
+    while (duration > 7200)
+    {
+        duration = duration - 7200;
         
-        if (((Event *)mutableArray[i]).endTimeUnix > ((Event *)mutableArray[i+1]).startTimeUnix) {
+        end = start + 7200;
+
+        NSArray *startElement = [NSArray arrayWithObjects: [NSNumber numberWithDouble:7200], [NSNumber numberWithDouble:start], [NSNumber numberWithDouble:end], nil];
+        
+        [freeBlocks addObject: startElement];
+        
+        start = end;
+        
+    }
+
+    
+    for(int i = 0; i < shortEventsArray.count - 1; i++) {
+        
+        if (((Event *)shortEventsArray[i]).endTimeUnix > ((Event *)shortEventsArray[i+1]).startTimeUnix) {
+            
+            double start = ((Event *)shortEventsArray[i]).endTimeUnix;
+            
+            double end = ((Event *)shortEventsArray[i+1]).startTimeUnix;
+            
+            double duration = ((Event *)shortEventsArray[i+1]).startTimeUnix - ((Event *)shortEventsArray[i]).endTimeUnix;
+            
+            while (duration > 7200)
+            {
+                duration = duration - 7200;
+                
+                end = start + 7200;
+                
+                NSArray *startElement = [NSArray arrayWithObjects: [NSNumber numberWithDouble:7200], [NSNumber numberWithDouble:start], [NSNumber numberWithDouble:end], nil];
+                
+                [freeBlocks addObject: startElement];
+                
+                start = end;
+                
+            }
+            
+        };
+        
+    }
+    
+    start = ((Event *)shortEventsArray[shortEventsArray.count - 1]).endTimeUnix;
+    
+    end = self.endOfDayUnix;
+    
+    duration = self.endOfDayUnix - ((Event *)shortEventsArray[shortEventsArray.count - 1]).endTimeUnix;
+    
+    while (duration > 7200)
+    {
+        duration = duration - 7200;
+        
+        end = start + 7200;
+        
+        NSArray *startElement = [NSArray arrayWithObjects: [NSNumber numberWithDouble:7200], [NSNumber numberWithDouble:start], [NSNumber numberWithDouble:end], nil];
+        
+        [freeBlocks addObject: startElement];
+        
+        start = end;
+        
+    }
+    
+    return freeBlocks;
+    
+}
+
+
+// Checks whether there are overlaps in the events selected.
+// Should be called whenever anything is selected/deselected.
+- (BOOL) checkOverlap {
+    
+    self.eventsArray = [NSMutableArray new];
+    
+    self.longEventsArray = [NSMutableArray new];
+    
+    self.landmarksArray = [NSMutableArray new];
+    
+    for(int i = 0; i < self.events.count; i++){
+        
+        if([self.cellsSelected[i] isEqual:@YES]){
+            
+            if ([self.events[i] isKindOfClass:[Event class]])
+            {
+                if (((Event *) self.events[i]).isFlexible)
+                {
+                    [self.longEventsArray addObject:self.events[i]];
+                }
+                else
+                {
+                    [self.eventsArray addObject:self.events[i]];
+                }
+            }
+            
+            else if ([self.events[i] isKindOfClass:[Landmark class]])
+            {
+                [self.landmarksArray addObject:self.events[i]];
+            }
+        }
+    }
+
+    // sort the events selected
+    self.eventsArray = [NSMutableArray arrayWithArray: [Event sortEventArrayByEndDate:self.eventsArray]];
+    
+    // get all free blocks
+    NSMutableArray *freeBlocks = [self getFreeBlocks:self.eventsArray];
+    
+    /* label the free blocks
+     * 0 means not free
+     * 1 means free for 2 or more hours
+     */
+    NSMutableArray *freeBlocksLabeled = [[NSMutableArray alloc] init];
+    int count = 0;
+
+    // check if the blocks are greater than one hour
+    for (int i = 0; i < freeBlocks.count; i++)
+    {
+        if ([freeBlocks[i][0] intValue] > 7200)
+        {
+            freeBlocksLabeled[i] = [NSNumber numberWithInt: 1];
+            count ++;
+        }
+        else
+        {
+            freeBlocksLabeled[i] = [NSNumber numberWithInt: 0];
+        }
+    }
+    
+    if (count < self.longEventsArray.count + self.landmarksArray.count)
+    {
+        return true;
+    }
+    
+    for(int i = 0; i < self.eventsArray.count - 1; i++) {
+        
+        if (((Event *)self.eventsArray[i]).endTimeUnix > ((Event *)self.eventsArray[i+1]).startTimeUnix) {
             
             return true;
             
         };
         
+    }
+    
+    for (int i = 0; i < self.longEventsArray.count; i++)
+    {
+        for (int j = 0; j < freeBlocksLabeled.count; j++)
+        {
+            if (freeBlocksLabeled[j] == [NSNumber numberWithInt: 1])
+            {
+                ((Event *)self.longEventsArray[i]).startTimeUnixTemp = [((NSNumber *)freeBlocks[j][1]) doubleValue];
+                ((Event *)self.longEventsArray[i]).endTimeUnixTemp = [((NSNumber *)freeBlocks[j][2]) doubleValue];
+                freeBlocksLabeled[j] = [NSNumber numberWithInt: 0];
+            }
+        }
+    }
+   
+     for (int i = 0; i < self.landmarksArray.count; i++)
+     {
+         for (int j = 0; j < freeBlocksLabeled.count; j++)
+         {
+             if (freeBlocksLabeled[j] == [NSNumber numberWithInt: 1])
+             {
+                 ((Event *)self.landmarksArray[i]).startTimeUnixTemp = [((NSNumber *)freeBlocks[j][1]) doubleValue];
+                ((Event *)self.landmarksArray[i]).endTimeUnixTemp = [((NSNumber *)freeBlocks[j][2]) doubleValue];
+                freeBlocksLabeled[j] = [NSNumber numberWithInt: 0];
+            }
+        }
+    }
+    
+    for (int i = 0; i < self.landmarksArray.count; i++)
+    {
+        NSLog(@"%f, %f", ((Event *)self.landmarksArray[i]).startTimeUnixTemp, ((Event *)self.landmarksArray[i]).endTimeUnixTemp);
+    }
+    
+    for (int i = 0; i < self.longEventsArray.count; i++)
+    {
+        NSLog(@"%f, %f", ((Event *)self.longEventsArray[i]).startTimeUnixTemp, ((Event *)self.longEventsArray[i]).endTimeUnixTemp);
+    }
+    
+    for (int i = 0; i < self.eventsArray.count; i++)
+    {
+        NSLog(@"%f, %f", ((Event *)self.eventsArray[i]).startTimeUnix, ((Event *)self.eventsArray[i]).endTimeUnix);
     }
     
     return false;

@@ -20,4 +20,8 @@
 
 //Tyep
 @property(assign, nonatomic)Boolean isEvent;
+
+// assign temp start and end time for scheduling 
+@property(assign, nonatomic)NSTimeInterval startTimeUnixTemp;
+@property(assign, nonatomic)NSTimeInterval endTimeUnixTemp;
 @end

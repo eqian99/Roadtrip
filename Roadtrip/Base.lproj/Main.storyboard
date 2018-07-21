@@ -368,6 +368,7 @@
                                             <outlet property="posterView" destination="zn6-9X-0Jq" id="yPp-s5-MlE"/>
                                             <outlet property="startEndLabel" destination="sLg-8M-nkG" id="dXc-eo-SPC"/>
                                             <segue destination="t23-fO-til" kind="show" identifier="eventDetailSegue" id="eNk-Lg-BIr"/>
+                                            <outlet property="warningLabel" destination="hfn-AH-DG5" id="yi2-iJ-Adj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
