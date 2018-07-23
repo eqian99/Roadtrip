@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString *imageUrl;
 
 //Location
+@property (nonatomic, strong) NSString *venueId;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *latitude;
 @property (nonatomic, strong) NSString *longitude;
@@ -40,6 +41,10 @@
 + (NSMutableArray *) eventsWithYelpArray:(NSArray *) dictionaries;
 
 -(instancetype) initWithEventbriteDictionary: (NSDictionary *) dictionary withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude withAddress: (NSString *) address;
+
+-(instancetype) initWithEventbriteDictionary: (NSDictionary *) dictionary;
+
++ (NSMutableArray *) eventsWithEventbriteArray:(NSArray *) dictionaries;
 
 +(NSArray *) sortEventArrayByEndDate: (NSArray *) array;
 

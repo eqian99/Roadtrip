@@ -40,9 +40,13 @@
 }
 
 +(NSMutableArray *) initWithArray: (NSArray *) landmarksArray{
+    
     NSMutableArray *landmarks = [NSMutableArray new];
+    
     for(NSDictionary *landmarkDict in landmarksArray){
+        
         Landmark *newLandmark = [[Landmark alloc] initWithDictionary:landmarkDict];
+        
         [landmarks addObject:newLandmark];
     }
     return landmarks;

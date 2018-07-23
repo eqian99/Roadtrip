@@ -154,6 +154,93 @@
     
 }
 
+-(instancetype) initWithEventbriteDictionary: (NSDictionary *) dictionary {
+    
+    self = [super init];
+    
+    if(self) {
+        
+        //Event description
+        NSDictionary *nameDictionary = dictionary[@"name"];
+        self.name = nameDictionary[@"text"];
+        
+        self.category = dictionary[@"category_id"];
+        
+        NSDictionary *descriptionDictionary = dictionary[@"description"];
+        self.eventDescription = descriptionDictionary[@"text"];
+        
+        self.eventSiteUrl = dictionary[@"url"];
+        self.eventId = dictionary[@"id"];
+        
+        if([dictionary[@"logo"] isKindOfClass:[NSNull class]]) {
+            
+            NSLog(@"Doesn't have LOGOooooo");
+            
+        } else {
+            
+            
+            NSDictionary *logoDictionary = dictionary[@"logo"];
+            NSDictionary *origialLogoDictionary = logoDictionary[@"original"];
+            self.imageUrl = origialLogoDictionary[@"url"];
+            
+            
+        }
+        
+        self.venueId = dictionary[@"venueId"];
+        
+        
+        self.isEvent = YES;
+        
+        //Event start and end times
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        
+        NSDictionary *startDictionary = dictionary[@"start"];
+        NSString *localTimeStart = startDictionary[@"local"];
+        
+        
+        NSString *dayString = [localTimeStart substringToIndex:10];
+        NSString *timeString = [localTimeStart substringFromIndex:11];
+        
+        localTimeStart = [NSString stringWithFormat:@"%@ %@", dayString, timeString];
+        
+        self.startDate = [formatter dateFromString: localTimeStart];
+        
+        
+        NSDictionary *endDictionary = dictionary[@"end"];
+        NSString *localTimeEnd = endDictionary[@"local"];
+        
+        
+        dayString = [localTimeEnd substringToIndex:10];
+        timeString = [localTimeEnd substringFromIndex:11];
+        
+        localTimeEnd = [NSString stringWithFormat:@"%@ %@", dayString, timeString];
+        
+        self.endDate = [formatter dateFromString: localTimeEnd];
+        
+    }
+    
+    return self;
+    
+}
+
+
+
++ (NSMutableArray *) eventsWithEventbriteArray:(NSArray *) dictionaries {
+    
+    NSMutableArray *events = [NSMutableArray array];
+    
+    for(NSDictionary *dictionary in dictionaries) {
+        
+        Event *event = [[Event alloc] initWithEventbriteDictionary:dictionary];
+        
+        [events addObject:event];
+        
+    }
+    return events;
+}
+
 + (NSArray *) sortEventArrayByEndDate: (NSArray *) array {
     
     NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"endDate" ascending:YES];

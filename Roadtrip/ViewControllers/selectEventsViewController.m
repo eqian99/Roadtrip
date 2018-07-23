@@ -19,11 +19,27 @@
 #import "EventMapViewController.h"
 #import "MBProgressHUD.h"
 
+static int *const EVENTS = 0;
+static int *const LANDMARKS = 1;
+
+
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate, EventCellDelegate>
+
 @property (nonatomic, strong) NSMutableArray *events;
+@property (strong, nonatomic) NSMutableArray *eventsSelected;
+
+@property (nonatomic, strong) NSMutableArray *landmarks;
+@property (nonatomic, strong) NSMutableArray *landmarksSelected;
+
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *cellsSelected;
-@property (nonatomic) int eventsSelected;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *eventsLandmarksControl;
+
+
+
+@property (nonatomic) int activitiesSelected;
+
+
 @end
 
 @implementation selectEventsViewController
@@ -38,86 +54,29 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
     //[self getMyEvents];
-    self.cellsSelected = [NSMutableArray new];
+    
+    self.eventsSelected = [NSMutableArray new];
+    self.landmarksSelected = [NSMutableArray new];
     
     self.events = [NSMutableArray new];
+    self.landmarks = [NSMutableArray new];
     
     [self getEventsFromEventbrite];
+    
+    [self getLandmarks];
    
     
     
     // Do any additional setup after loading the view.
 }
 
+- (IBAction)didChangeEventsLandmarksControl:(id)sender {
 
-//- (void)getMyEvents{
-//
-//    YelpManager *myManager = [YelpManager new];
-//    NSString *startDate = [NSString stringWithFormat:@"%i", (int)self.startOfDayUnix];
-//    NSString *endDate = [NSString stringWithFormat:@"%i", (int)self.endOfDayUnix];
-//    NSLog(@"%@", startDate);
-//    [myManager getEventswithLatitude:37.7749 withLongitude:-122.4194 withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
-//        if(eventsDictionary){
-//
-//            NSLog(@"%@", eventsDictionary);
-//
-//            NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
-//
-//            self.events = [myEvents copy];
-//
-//            self.events = [Event eventsWithYelpArray:eventsDictionary];
-//
-//
-//            self.events = [Event eventsWithYelpArray:eventsDictionary];
-//
-//            for(int i = 0; i < self.events.count; i++) {
-//
-//                [self.cellsSelected addObject: @NO];
-//
-//            }
-//            [self getLandmarks];
-//        }
-//        else{
-//            NSLog(@"There was an error");
-//        }
-//    }];
-//
-//
-//}
-
-/*
-- (void)getMyEvents{
-    
-    YelpManager *myManager = [YelpManager new];
-    NSString *startDate = [NSString stringWithFormat:@"%i", (int)self.startOfDayUnix];
-    NSString *endDate = [NSString stringWithFormat:@"%i", (int)self.endOfDayUnix];
-    NSLog(@"%@", startDate);
-    [myManager getEventswithLatitude:37.7749 withLongitude:-122.4194 withUnixStartDate:startDate withUnixEndDate:endDate withCompletion:^(NSArray *eventsDictionary, NSError *error) {
-        if(eventsDictionary){
-            NSLog(@"%@", eventsDictionary);
-            NSMutableArray *myEvents = [Event eventsWithArray:eventsDictionary];
-            self.events = [myEvents copy];
-            self.events = [Event eventsWithYelpArray:eventsDictionary];
- 
-            self.events = [Event eventsWithYelpArray:eventsDictionary];
-            
-            for(int i = 0; i < self.events.count; i++) {
-                
-                [self.cellsSelected addObject: @NO];
-                
-            }
-            [self getLandmarks];
-        }
-        else{
-            NSLog(@"There was an error");
-        }
-    }];
-    
+    [self.tableView reloadData];
     
 }
- */
-
 
 -(void) getEventsFromEventbrite {
     
@@ -151,44 +110,19 @@
             NSLog(@"Error getting events with time ranges");
             
         } else {
-            for(NSDictionary *event in events) {
-                //For every event dictionary, get the venue id, and get the address and coordinates
+            
+            self.events = [Event eventsWithEventbriteArray:events];
+            
+            for(Event *event in self.events) {
                 
-                NSString *venueId = event[@"venue_id"];
-                [[EventbriteManager new] getVenueWithId:venueId completion:^(NSDictionary *venue, NSError *error) {
-                    
-                    if(error) {
-                        
-                        NSLog(@"Error getting venue: %@", error.description);
-                        
-                    } else {
-                        
-                        NSString *addressString = venue[@"localized_address_display"];
-                        
-                        NSString *latitude = venue[@"latitude"];
-                        
-                        NSString *longitude = venue[@"longitude"];
-                        
-                        Event *newEvent = [[Event new] initWithEventbriteDictionary:event withLatitude:latitude withLongitude:longitude withAddress:addressString];
-                        
-                        [self.events addObject:newEvent];
-                        
-                        [self.cellsSelected addObject:@NO];
-                        [MBProgressHUD hideHUDForView:self.view animated:YES];
-                        
-                        //[self.tableView reloadData];
-                        
-                        
-                    }
-                    
-                }];
+                [self.eventsSelected addObject:@NO];
                 
             }
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self.tableView reloadData];
             
             
         }
-        [self getLandmarks];
-        
         
     }];
     
@@ -204,20 +138,13 @@
      {
          if(placesDictionaries)
          {
-             NSLog(@"%@", placesDictionaries);
-             NSMutableArray *myLandmarks = [Landmark initWithArray:placesDictionaries];
              
-             if(self.events.count == 0){
-                 self.events = myLandmarks;
-             }
-             else{
-                 for(Landmark *landmark in myLandmarks) {
-                     
-                     [self.events addObject:landmark];
-                     
-                     [self.cellsSelected addObject:@NO];
-                     
-                 }
+             self.landmarks = [Landmark initWithArray:placesDictionaries];
+             
+             for(Landmark *landmark in self.landmarks) {
+                 
+                 [self.landmarksSelected addObject:@NO];
+                 
              }
 
              [self.tableView reloadData];
@@ -227,6 +154,8 @@
              NSLog(@"No places found");
          }
      }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -255,38 +184,6 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
-    /*
-    if([segue.identifier isEqualToString:@"landmarksSelectionSegue"]){
-        
-        SelectLandmarksViewController *viewController = [segue destinationViewController];
-        
-        NSMutableArray *mutableArray = [NSMutableArray new];
-        
-        for(int i = 0; i < self.events.count; i++){
-            
-            if([self.cellsSelected[i] isEqual:@YES]){
-                
-                NSLog(@"Is YES");
-                [mutableArray addObject:self.events[i]];
-                
-            }
-        }
-        
-        viewController.eventsSelected = [mutableArray copy];
-    
-        
-    }
-    
-    SelectLandmarksViewController *selectLandmarksViewController = [segue destinationViewController];
-    
-    selectLandmarksViewController.latitude = self.latitude;
-
-    selectLandmarksViewController.longitude = self.longitude;
-
-    */
     
     if([segue.identifier isEqualToString:@"eventDetailSegue"]) {
     
@@ -312,12 +209,11 @@
 
 -(NSArray *) getEventsSelected {
     
-    
     NSMutableArray *mutableArray = [NSMutableArray new];
     
-    for(int i = 0; i < self.cellsSelected.count; i++) {
+    for(int i = 0; i < self.eventsSelected.count; i++) {
         
-        if([[self.cellsSelected objectAtIndex:i] isEqual:@YES]) {
+        if([[self.eventsSelected objectAtIndex:i] isEqual:@YES]) {
             
             Event *event = [self.events objectAtIndex:i];
             
@@ -334,50 +230,81 @@
 
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
     
-    if([[self.events objectAtIndex:indexPath.row] isKindOfClass:[Event class]]){
-            
+    NSInteger indexSelected = self.eventsLandmarksControl.selectedSegmentIndex;
+    
+    if(indexSelected == EVENTS) {
+        
         [cell setEvent: [self.events objectAtIndex:indexPath.row]];
     
-    }
-    else{
-        
-        [cell setLandmark: [self.events objectAtIndex:indexPath.row]];
-    }
-    
-    if(self.cellsSelected.count > 0){
-        
-        NSLog(@"cellsSelected Count: %ld Indexpath.row: %ld", self.cellsSelected.count, indexPath.row);
-        
-        if(self.cellsSelected.count > indexPath.row) {
+        if(self.eventsSelected.count > 0){
             
-            if([[self.cellsSelected objectAtIndex:indexPath.row]isEqual:@YES]){
+            NSLog(@"cellsSelected Count: %ld Indexpath.row: %ld", self.eventsSelected.count, indexPath.row);
+            
+            if(self.eventsSelected.count > indexPath.row) {
                 
-                [cell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
+                if([[self.eventsSelected objectAtIndex:indexPath.row]isEqual:@YES]){
+                    
+                    [cell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
+                    
+                }
+                else{
+                    
+                    [cell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
+                    
+                }
                 
             }
-            else{
-                
-                [cell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
-                
-            }
-            
             
         }
         
+    }else if( indexSelected == LANDMARKS) {
         
+        [cell setLandmark: [self.landmarks objectAtIndex:indexPath.row]];
+
+        if(self.landmarksSelected.count > 0){
+            
+            NSLog(@"cellsSelected Count: %ld Indexpath.row: %ld", self.eventsSelected.count, indexPath.row);
+            
+            if(self.landmarksSelected.count > indexPath.row) {
+                
+                if([[self.landmarksSelected objectAtIndex:indexPath.row]isEqual:@YES]){
+                    
+                    [cell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
+                    
+                }
+                else{
+                    
+                    [cell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
+                    
+                }
+                
+            }
+            
+        }
         
     }
     
     cell.delegate = self;
     
-    
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.events.count;
+    
+    NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
+    
+    if(activitySelected == EVENTS) {
+        
+        return self.events.count;
+        
+    } else {
+        
+        return self.landmarks.count;
+        
+    }
     
 }
 
@@ -387,36 +314,78 @@
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:eventCell];
     
-    if([self.cellsSelected[indexPath.row] isEqual:@NO]) {
-        
-        [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
-        
-        // check if there are conflicts
-        if ([self checkOverlap])
-        {
-            [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+    NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
+    
+    if(activitySelected == EVENTS) {
+     
+        if([self.eventsSelected[indexPath.row] isEqual:@NO]) {
+            
+            [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
+            
+            // check if there are conflicts
+            if ([self checkOverlap])
+            {
+                [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            }
+            
+            else
+            {
+                
+                //Check mark
+                
+                [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
+                
+                self.activitiesSelected += 1;
+                
+            }
+            
+        } else {
+            
+            //Uncheck mark
+            
+            [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
+            
+            [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            
+            self.activitiesSelected -= 1;
+            
         }
         
-        else
-        {
+    } else if (activitySelected == LANDMARKS) {
+        
+        if([self.landmarksSelected[indexPath.row] isEqual:@NO]) {
             
-            //Check mark
+            [self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
             
-            [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
+            // check if there are conflicts
+            if ([self checkOverlap])
+            {
+                [self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            }
             
-            self.eventsSelected += 1;
+            else
+            {
+                
+                //Check mark
+                
+                [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
+                
+                self.activitiesSelected += 1;
+                
+            }
+            
+        } else {
+            
+            //Uncheck mark
+            
+            [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
+            
+            [self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            
+            self.activitiesSelected -= 1;
             
         }
         
-    } else {
-        
-        //Uncheck mark
-        
-        [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
-        
-        [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
-        
-        self.eventsSelected -= 1;
         
     }
     
@@ -440,10 +409,9 @@
     
     NSMutableArray *mutableArray = [NSMutableArray new];
     
-    
     for(int i = 0; i < self.events.count; i++){
         
-        if([self.cellsSelected[i] isEqual:@YES]){
+        if([self.eventsSelected[i] isEqual:@YES]){
             
             [mutableArray addObject:self.events[i]];
             
