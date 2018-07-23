@@ -8,6 +8,7 @@
 
 #import "EventMapViewController.h"
 #import "Event.h"
+#import "Landmark.h"
 
 @interface EventMapViewController () <MKMapViewDelegate>
 
@@ -33,22 +34,49 @@
     
     NSLog(@"Events count: %lu", self.events.count);
     
-    for(Event *event in self.events) {
+    for(int i = 0; i < self.events.count ; i++) {
         
-        double latitude = [event.latitude doubleValue];
-        double longitude = [event.longitude doubleValue];
-        
-        NSLog(@"%f, %f", latitude, longitude);
-        
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-        
-        MKPointAnnotation *annotation = [MKPointAnnotation new];
-        
-        annotation.coordinate = coordinate;
-        
-        annotation.title = event.name;
-        
-        [self.mapView addAnnotation:annotation];
+        if([[self.events objectAtIndex: i] isKindOfClass:[Event class]]) {
+            
+            Event *event = [self.events objectAtIndex:i];
+            
+            double latitude = [event.latitude doubleValue];
+            double longitude = [event.longitude doubleValue];
+            
+            NSLog(@"%f, %f", latitude, longitude);
+            
+            CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+            
+            MKPointAnnotation *annotation = [MKPointAnnotation new];
+            
+            annotation.coordinate = coordinate;
+            
+            annotation.title = event.name;
+            
+            [self.mapView addAnnotation:annotation];
+            
+        } else {
+            
+            Landmark *landmark = [self.events objectAtIndex:i];
+            
+            double latitude = [landmark.latitude doubleValue];
+            double longitude = [landmark.longitude doubleValue];
+            
+            NSLog(@"%f, %f", latitude, longitude);
+            
+            CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+            
+            MKPointAnnotation *annotation = [MKPointAnnotation new];
+            
+            annotation.coordinate = coordinate;
+            
+            annotation.title = landmark.name;
+            
+            [self.mapView addAnnotation:annotation];
+            
+            
+            
+        }
         
         
     }

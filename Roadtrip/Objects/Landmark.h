@@ -15,6 +15,9 @@
 @property (nonatomic, strong) NSString *photoReference;
 //Location
 @property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *latitude;
+@property (nonatomic, strong) NSString *longitude;
+
 +(NSMutableArray *) initWithArray: (NSArray *) landmarksArray;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

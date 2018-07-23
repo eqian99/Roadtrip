@@ -15,13 +15,25 @@
     
     
     if(self) {
+        
         self.name = dictionary[@"name"];
         self.address = dictionary[@"vicinity"];
         self.rating = dictionary[@"rating"];
+        
+        NSDictionary *geometry = dictionary[@"geometry"];
+        NSDictionary *location = geometry[@"location"];
+        self.latitude = location[@"lat"];
+        self.longitude = location[@"lng"];
+        
+        
         self.isEvent = NO;
         NSArray *photos = dictionary[@"photos"];
         NSDictionary *myPhoto = photos[0];
         self.photoReference = myPhoto[@"photo_reference"];
+        
+        
+        
+    
     }
     
     return self;
