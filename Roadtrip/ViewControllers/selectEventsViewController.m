@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSMutableArray *events;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *cellsSelected;
+@property (nonatomic) int eventsSelected;
 @end
 
 @implementation selectEventsViewController
@@ -29,6 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //Change navigation item
+    
+    self.eventsSelected = 0;
     
     self.navigationItem.title = [NSString stringWithFormat:@"%@, %@", self.city, self.stateAndCountry];
     
@@ -118,6 +121,7 @@
 -(void) getEventsFromEventbrite {
     
     NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:self.startOfDayUnix];
+    
     NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:self.endOfDayUnix];
     
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
@@ -145,16 +149,11 @@
             NSLog(@"Error getting events with time ranges");
             
         } else {
-            
-            
             for(NSDictionary *event in events) {
-                
                 //For every event dictionary, get the venue id, and get the address and coordinates
                 
                 NSString *venueId = event[@"venue_id"];
-                
                 [[EventbriteManager new] getVenueWithId:venueId completion:^(NSDictionary *venue, NSError *error) {
-                    
                     
                     if(error) {
                         
@@ -171,6 +170,8 @@
                         Event *newEvent = [[Event new] initWithEventbriteDictionary:event withLatitude:latitude withLongitude:longitude withAddress:addressString];
                         
                         [self.events addObject:newEvent];
+                        
+                        [self.cellsSelected addObject:@NO];
                         
                         //[self.tableView reloadData];
                         
@@ -211,13 +212,11 @@
                      
                      [self.events addObject:landmark];
                      
+                     [self.cellsSelected addObject:@NO];
+                     
                  }
              }
-             for(int i = 0; i < self.events.count; i++) {
-                 
-                 [self.cellsSelected addObject: @NO];
-                 
-             }
+
              [self.tableView reloadData];
          }
          else
@@ -313,12 +312,11 @@
     
     NSMutableArray *mutableArray = [NSMutableArray new];
     
-    for(int i = 0; i < self.events.count; i++) {
+    for(int i = 0; i < self.cellsSelected.count; i++) {
         
         if([[self.cellsSelected objectAtIndex:i] isEqual:@YES]) {
             
             Event *event = [self.events objectAtIndex:i];
-            
             
             [mutableArray addObject:event];
             
@@ -347,16 +345,24 @@
     
     if(self.cellsSelected.count > 0){
         
-        if([[self.cellsSelected objectAtIndex:indexPath.row]isEqual:@YES]){
+        NSLog(@"cellsSelected Count: %ld Indexpath.row: %ld", self.cellsSelected.count, indexPath.row);
+        
+        if(self.cellsSelected.count > indexPath.row) {
             
-            [cell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
-
-        }
-        else{
+            if([[self.cellsSelected objectAtIndex:indexPath.row]isEqual:@YES]){
+                
+                [cell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
+                
+            }
+            else{
+                
+                [cell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
+                
+            }
             
-            [cell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
-
+            
         }
+        
         
         
     }
@@ -372,11 +378,11 @@
     
 }
 
+//Method triggered when u select the checkbox in the event cell
+
 - (void)eventCell:(EventCell *)eventCell {
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:eventCell];
-    
-    NSLog(@"Index of cell selected: %ld", indexPath.row);
     
     if([self.cellsSelected[indexPath.row] isEqual:@NO]) {
         
@@ -395,6 +401,7 @@
             
             [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
             
+            self.eventsSelected += 1;
             
         }
         
@@ -406,6 +413,7 @@
         
         [self.cellsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
         
+        self.eventsSelected -= 1;
         
     }
     
@@ -429,12 +437,14 @@
     
     NSMutableArray *mutableArray = [NSMutableArray new];
     
+    
     for(int i = 0; i < self.events.count; i++){
         
         if([self.cellsSelected[i] isEqual:@YES]){
             
             [mutableArray addObject:self.events[i]];
             
+            break;
         }
     }
     

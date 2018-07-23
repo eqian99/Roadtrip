@@ -76,6 +76,10 @@
                         
                     } else {
                         
+                        NSString *city = placeDictionary[@"name"];
+                        
+                        NSString *stateAndCountry = structured[@"secondary_text"];
+                        
                         NSDictionary *geometryDictionary = placeDictionary[@"geometry"];
                         
                         NSDictionary *locationDictionary = geometryDictionary[@"location"];
@@ -88,24 +92,28 @@
                         
                         [mutableLongitudes addObject:longitude];
                         
+                        [mutableCities addObject: city];
+                        
+                        [mutableSecondaries addObject:stateAndCountry];
+                        
                         self.latitudes = [mutableLatitudes copy];
                         
                         self.longitudes = [mutableLongitudes copy];
+                        
+                        self.citiesArray = [mutableCities copy];
+                        
+                        self.secondaryArray = [mutableSecondaries copy];
+                        
+                        [self.tableView reloadData];
+
                         
                     }
                     
                 }];
                 
-                [mutableCities addObject:structured[@"main_text"]];
-                
-                [mutableSecondaries addObject:structured[@"secondary_text"]];
                 
             }
             
-            self.citiesArray = [mutableCities copy];
-            self.secondaryArray = [mutableSecondaries copy];
-            
-            [self.tableView reloadData];
             
         }
         
