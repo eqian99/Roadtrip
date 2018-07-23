@@ -73,6 +73,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"User log in failed: %@", error.localizedDescription);
             [self createError:@"Incorrect username or password"];
         } else {

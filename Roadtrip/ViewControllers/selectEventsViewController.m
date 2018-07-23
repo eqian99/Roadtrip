@@ -111,12 +111,14 @@ static int *const LANDMARKS = 1;
             
         } else {
             
-            self.events = [Event eventsWithEventbriteArray:events];
+            NSArray *eventsTemp = [Event eventsWithEventbriteArray:events];
             
-            for(Event *event in self.events) {
-                
-                [self.eventsSelected addObject:@NO];
-                
+            for(Event *event in eventsTemp) {
+                NSTimeInterval eventStartUnix = [event.startDate timeIntervalSince1970];
+                if(eventStartUnix < self.endOfDayUnix){
+                    [self.events addObject:event];
+                    [self.eventsSelected addObject:@NO];
+                }
             }
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.tableView reloadData];

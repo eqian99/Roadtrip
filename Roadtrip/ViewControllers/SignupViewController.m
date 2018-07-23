@@ -68,6 +68,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"Error: %@", error.localizedDescription);
             
             // there was an error so call helper method to build error message
