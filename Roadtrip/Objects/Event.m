@@ -188,7 +188,6 @@
         
         self.venueId = dictionary[@"venueId"];
         
-        
         self.isEvent = YES;
         
         //Event start and end times

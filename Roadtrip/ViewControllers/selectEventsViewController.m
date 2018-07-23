@@ -325,21 +325,21 @@ static int *const LANDMARKS = 1;
             [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
             
             // check if there are conflicts
-            if ([self checkOverlap])
-            {
-                [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
-            }
+//            if ([self checkOverlap])
+//            {
+//                [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+//            }
+//
+//            else
+//            {
             
-            else
-            {
-                
                 //Check mark
                 
                 [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
                 
                 self.activitiesSelected += 1;
                 
-            }
+           // }
             
         } else {
             

@@ -42,8 +42,11 @@
 }
 
 - (void) autocomplete:(NSString *) city withCompletion: (void(^)(NSArray *predictionDictionaries, NSError *error))completion {
+    
     NSString *baseUrlString = @"https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc&types=(cities)";
+    
     NSString *parametersString = [NSString stringWithFormat:@"&input=%@", [self parseParameters:city]];
+    
     NSString *fullUrlString = [baseUrlString stringByAppendingString:parametersString];
     
     NSURL *url = [NSURL URLWithString:fullUrlString];
@@ -62,6 +65,7 @@
         else {
             
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
             completion(dataDictionary[@"predictions"], nil);
         }
         
@@ -102,7 +106,9 @@
 }
 
 -(NSString *) parseParameters:(NSString *) city{
+    
     return [city stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
 }
 
 -(void)getPhoto: (NSString *) photoReference withCompletion: (void(^)(UIImage * image, NSError *error))completion{

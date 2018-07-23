@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (strong, nonatomic) NSArray *events;
+@property (strong, nonatomic) NSArray *landmarks;
 
 
 
