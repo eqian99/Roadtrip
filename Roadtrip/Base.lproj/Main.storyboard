@@ -21,6 +21,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cloud" translatesAutoresizingMaskIntoConstraints="NO" id="eHC-DD-hv8">
                                 <rect key="frame" x="-1" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2po-zo-cmq">
                                 <rect key="frame" x="89" y="278" width="197" height="30"/>
@@ -68,7 +69,11 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="oYY-HO-Ecr" appends="YES" id="sUU-Q3-x0H"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="passwordField" destination="e9a-C1-NVm" id="eWt-4l-aqd"/>
@@ -77,6 +82,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="oYY-HO-Ecr">
+                    <connections>
+                        <action selector="onTap:" destination="BYZ-38-t0r" id="Fet-os-eD0"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1606" y="-573"/>
         </scene>
@@ -91,6 +101,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cloud" translatesAutoresizingMaskIntoConstraints="NO" id="y5g-wV-gAj">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="etL-Vs-OyY">
                                 <rect key="frame" x="89" y="361" width="197" height="30"/>
@@ -145,7 +156,11 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="v08-sV-Vmd"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="2HM-ko-fl8" appends="YES" id="PXS-3M-HMj"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="confirmPasswordField" destination="ZMz-xd-Hf0" id="wCO-Ad-IMa"/>
@@ -155,6 +170,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Kg-VJ-FW5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="2HM-ko-fl8">
+                    <connections>
+                        <action selector="onTap:" destination="I64-wL-KzL" id="FpD-0W-aDp"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2334" y="-573"/>
         </scene>

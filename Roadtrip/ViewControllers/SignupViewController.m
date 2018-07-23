@@ -8,6 +8,7 @@
 
 #import "SignupViewController.h"
 #import <Parse/Parse.h>
+#import "MBProgressHUD.h"
 
 @interface SignupViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
@@ -45,6 +46,9 @@
     [self presentViewController:alert animated:YES completion:^{
     }];
 }
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
+}
 
 - (IBAction)pressedBack:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
@@ -61,6 +65,7 @@
     }
     
     // call sign up function on the object
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
@@ -79,7 +84,7 @@
                 [self createError:@"User already exists for that username"];
             }
         } else {
-            NSLog(@"User registered successfully");
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self dismissViewControllerAnimated:true completion:nil];
             [self.delegate didSignUp];
             

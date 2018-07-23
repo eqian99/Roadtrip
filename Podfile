@@ -9,5 +9,6 @@ target 'Roadtrip' do
     pod 'Parse'
     pod 'GoogleMaps'
     pod 'AFNetworking'
+    pod 'MBProgressHUD'
 
 end

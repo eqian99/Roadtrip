@@ -15,6 +15,7 @@
 #import "Restaurant.h"
 #import "GoogleMapsManager.h"
 #import "Landmark.h"
+#import "MBProgressHUD.h"
 
 @interface LoginViewController () <SignupViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -38,6 +39,9 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 - (void)createError:(NSString *)errorMessage{
@@ -66,13 +70,13 @@
 - (IBAction)pressedLogin:(id)sender {
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
             [self createError:@"Incorrect username or password"];
         } else {
-            NSLog(@"User logged in successfully");
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self performSegueWithIdentifier:@"mainSegue" sender:nil];
             // display view controller that needs to shown after successful login
         }

@@ -17,6 +17,7 @@
 #import "LandmarkCell.h"
 #import "EventDetailsViewController.h"
 #import "EventMapViewController.h"
+#import "MBProgressHUD.h"
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate, EventCellDelegate>
 @property (nonatomic, strong) NSMutableArray *events;
@@ -141,6 +142,7 @@
     endDateString = [endDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
     
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [[EventbriteManager new] getEventsWithCoordinates: coordinate withStartDateUTC:startDateString completion:^(NSArray *events, NSError *error) {
         
@@ -172,6 +174,7 @@
                         [self.events addObject:newEvent];
                         
                         [self.cellsSelected addObject:@NO];
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
                         
                         //[self.tableView reloadData];
                         
