@@ -35,6 +35,8 @@ static int *const LANDMARKS = 1;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *eventsLandmarksControl;
 
+@property (assign, nonatomic) Boolean firstTime;
+
 
 
 @property (nonatomic) int activitiesSelected;
@@ -49,7 +51,7 @@ static int *const LANDMARKS = 1;
     //Change navigation item
     
     self.eventsSelected = 0;
-    
+    self.firstTime = YES;
     self.navigationItem.title = [NSString stringWithFormat:@"%@, %@", self.city, self.stateAndCountry];
     
     self.tableView.dataSource = self;
@@ -116,13 +118,11 @@ static int *const LANDMARKS = 1;
             for(Event *event in eventsTemp) {
                 
                 NSTimeInterval eventStartUnix = [event.startDate timeIntervalSince1970];
-                
-                if(eventStartUnix < self.endOfDayUnix){
-                    
+                NSTimeInterval eventEndUnix = [event.endDate timeIntervalSince1970];
+                if(eventStartUnix < self.endOfDayUnix && eventEndUnix > self.startOfDayUnix){
                     [self.events addObject:event];
                     
                     [self.eventsSelected addObject:@NO];
-                
                 }
             }
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -185,10 +185,26 @@ static int *const LANDMARKS = 1;
     
 }
 
+- (void)createError:(NSString *)errorMessage{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:errorMessage
+                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         // handle response here.
+                                                     }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:^{
+    }];
+}
+
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
     if([segue.identifier isEqualToString:@"eventDetailSegue"]) {
     
         UITableViewCell *tappedCell = sender;
@@ -260,7 +276,6 @@ static int *const LANDMARKS = 1;
 
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
     
     NSInteger indexSelected = self.eventsLandmarksControl.selectedSegmentIndex;
@@ -270,8 +285,6 @@ static int *const LANDMARKS = 1;
         [cell setEvent: [self.events objectAtIndex:indexPath.row]];
     
         if(self.eventsSelected.count > 0){
-            
-            NSLog(@"cellsSelected Count: %ld Indexpath.row: %ld", self.eventsSelected.count, indexPath.row);
             
             if(self.eventsSelected.count > indexPath.row) {
                 
@@ -327,8 +340,12 @@ static int *const LANDMARKS = 1;
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
     
     if(activitySelected == EVENTS) {
-        
-        return self.events.count;
+        if(self.events.count == 0 && self.firstTime == YES){
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self createError:@"There are no events happening today"];
+            self.firstTime = NO;
+        }
+            return self.events.count;
         
     } else {
         
@@ -388,13 +405,13 @@ static int *const LANDMARKS = 1;
             [self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
             
             // check if there are conflicts
-            if ([self checkOverlap])
-            {
-                [self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
-            }
+            //if ([self checkOverlap])
+            //{
+                //[self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            //}
             
-            else
-            {
+            //else
+            //{
                 
                 //Check mark
                 
@@ -402,7 +419,7 @@ static int *const LANDMARKS = 1;
                 
                 self.activitiesSelected += 1;
                 
-            }
+            //}
             
         } else {
             

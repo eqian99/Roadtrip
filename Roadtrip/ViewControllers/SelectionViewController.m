@@ -233,35 +233,35 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    selectEventsViewController *selectEventsViewController = [segue destinationViewController];
-    selectEventsViewController.latitude = [self.latitude doubleValue];
-    selectEventsViewController.longitude = [self.longitude doubleValue];
+    if([segue.identifier isEqualToString:@"eventDetailSegue"]){
+        selectEventsViewController *selectEventsViewController = [segue destinationViewController];
+        selectEventsViewController.latitude = [self.latitude doubleValue];
+        selectEventsViewController.longitude = [self.longitude doubleValue];
 
-    selectEventsViewController.city = self.city;
-    selectEventsViewController.stateAndCountry = self.stateAndCountry;
+        selectEventsViewController.city = self.city;
+        selectEventsViewController.stateAndCountry = self.stateAndCountry;
 
-    //Pass over data about the start time
-    selectEventsViewController.startOfDayUnix = self.startOfDayUnix;
-    selectEventsViewController.endOfDayUnix = self.endOfDayUnix;
-    if(self.currUser == nil){
-        self.currUser = [PFUser currentUser];
+        //Pass over data about the start time
+        selectEventsViewController.startOfDayUnix = self.startOfDayUnix;
+        selectEventsViewController.endOfDayUnix = self.endOfDayUnix;
+        if(self.currUser == nil){
+            self.currUser = [PFUser currentUser];
+        }
+        NSArray *citiesArray = [self.currUser valueForKey:@"cities"];
+        NSMutableArray *citiesArrayMutable = [citiesArray mutableCopy];
+        if(citiesArrayMutable == nil){
+            citiesArrayMutable = [NSMutableArray new];
+        }
+        if([citiesArrayMutable indexOfObject:self.city] != NSNotFound){
+            NSLog(@"hello");
+            [citiesArrayMutable removeObject:self.city];
+        }
+        [citiesArrayMutable insertObject:self.city atIndex:0];
+        citiesArray = [citiesArrayMutable copy];
+        NSLog(@"%@", citiesArray);
+        [self.currUser setValue:citiesArray forKey:@"cities"];
+        [self.currUser saveInBackground];
     }
-    NSArray *citiesArray = [self.currUser valueForKey:@"cities"];
-    NSMutableArray *citiesArrayMutable = [citiesArray mutableCopy];
-    if(citiesArrayMutable == nil){
-        citiesArrayMutable = [NSMutableArray new];
-    }
-    if([citiesArrayMutable indexOfObject:self.city] != NSNotFound){
-        NSLog(@"hello");
-        [citiesArrayMutable removeObject:self.city];
-    }
-    [citiesArrayMutable insertObject:self.city atIndex:0];
-    citiesArray = [citiesArrayMutable copy];
-    NSLog(@"%@", citiesArray);
-    [self.currUser setValue:citiesArray forKey:@"cities"];
-    [self.currUser saveInBackground];
-    
-
 }
 
 
