@@ -114,15 +114,20 @@ static int *const LANDMARKS = 1;
             NSArray *eventsTemp = [Event eventsWithEventbriteArray:events];
             
             for(Event *event in eventsTemp) {
+                
                 NSTimeInterval eventStartUnix = [event.startDate timeIntervalSince1970];
+                
                 if(eventStartUnix < self.endOfDayUnix){
+                    
                     [self.events addObject:event];
+                    
                     [self.eventsSelected addObject:@NO];
+                
                 }
             }
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.tableView reloadData];
             
+            [self.tableView reloadData];
             
         }
         
@@ -176,9 +181,7 @@ static int *const LANDMARKS = 1;
 
 - (IBAction)didPressMap:(id)sender {
     
-    
     [self performSegueWithIdentifier:@"eventsMapSegue" sender:self];
-    
     
 }
 
@@ -186,22 +189,27 @@ static int *const LANDMARKS = 1;
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
-    
     if([segue.identifier isEqualToString:@"eventDetailSegue"]) {
     
         UITableViewCell *tappedCell = sender;
+        
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
-        eventDetailsViewController.activities = self.events;
-        eventDetailsViewController.index = indexPath.row;
         
+        eventDetailsViewController.activities = self.events;
+        
+        eventDetailsViewController.index = indexPath.row;
         
     } else if ([segue.identifier isEqualToString:@"eventsMapSegue"]) {
         
         EventMapViewController *viewController = [segue destinationViewController];
         
         NSArray *selectedEvents = [self getEventsSelected];
+        
+        NSArray *selectedLandmarks = [self getLandmarksSelected];
+        
+        viewController.landmarks = selectedLandmarks;
         
         viewController.events = selectedEvents;
         
@@ -219,15 +227,35 @@ static int *const LANDMARKS = 1;
             
             Event *event = [self.events objectAtIndex:i];
             
+            NSLog(@"Venue Id In selectEvents: %@", event.venueId);
+            
             [mutableArray addObject:event];
             
         }
-        
         
     }
     
     return [mutableArray copy];
     
+}
+
+-(NSArray *) getLandmarksSelected {
+    
+    NSMutableArray *mutableArray = [NSMutableArray new];
+    
+    for(int i = 0; i < self.landmarksSelected.count; i++) {
+        
+        if([[self.landmarksSelected objectAtIndex:i] isEqual:@YES]) {
+            
+            Landmark *landmark = [self.landmarks objectAtIndex:i];
+            
+            [mutableArray addObject:landmark];
+            
+        }
+    
+    }
+    
+    return [mutableArray copy];
 }
 
 

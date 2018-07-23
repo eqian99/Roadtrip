@@ -186,7 +186,7 @@
             
         }
         
-        self.venueId = dictionary[@"venueId"];
+        self.venueId = dictionary[@"venue_id"];
         
         self.isEvent = YES;
         
