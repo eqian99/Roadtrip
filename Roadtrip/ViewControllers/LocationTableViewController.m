@@ -8,6 +8,7 @@
 
 #import "LocationTableViewController.h"
 #import "GoogleMapsManager.h"
+#import "Parse.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -25,11 +26,31 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [self getRecentSearches];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) getRecentSearches {
+    
+    PFUser *currUser = [PFUser currentUser];
+    
+    NSArray *places = [currUser valueForKey:@"cities"];
+    
+    NSLog(@"%lu", places.count);
+    
+    if(places != nil){
+        
+        self.recentSearchesArray = places;
+        
+        [self.tableView reloadData];
+        
+    }
+    
 }
 
 #pragma mark - Table view data source
@@ -41,83 +62,105 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return self.citiesArray.count;
-
+    if(self.citiesArray.count != 0) {
+        
+        return self.citiesArray.count;
+        
+    } else {
+        
+        NSLog(@"Use recent searches count");
+        
+        return self.recentSearchesArray.count;
+        
+    }
+    
 }
+
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
+    NSLog(@"Update search results");
+    
     NSString *searchText = searchController.searchBar.text;
     
-    [[GoogleMapsManager new] autocomplete:searchText withCompletion:^(NSArray *predictionDictionaries, NSError *error) {
-       
-        if(error) {
+    if([searchText isEqualToString:@""]) {
+        
+        [self.tableView reloadData];
+        
+    } else {
+        
+        [[GoogleMapsManager new] autocomplete:searchText withCompletion:^(NSArray *predictionDictionaries, NSError *error) {
             
-            NSLog(@"There was an error");
-            
-        } else {
-            
-            NSMutableArray *mutableCities = [NSMutableArray new];
-            NSMutableArray *mutableSecondaries = [NSMutableArray new];
-            NSMutableArray *mutableLatitudes = [NSMutableArray new];
-            NSMutableArray *mutableLongitudes = [NSMutableArray new];
-
-            for(NSDictionary *cityDictionary in predictionDictionaries) {
-             
-                NSDictionary *structured = cityDictionary[@"structured_formatting"];
+            if(error) {
                 
+                NSLog(@"There was an error");
                 
-                [[GoogleMapsManager new] getPlacesDetailsWithId:cityDictionary[@"place_id"] withCompletion:^(NSDictionary *placeDictionary, NSError *error) {
-                   
-                    if(error) {
-                        
-                        NSLog(error.description);
-                        
-                        
-                    } else {
-                        
-                        NSString *city = placeDictionary[@"name"];
-                        
-                        NSString *stateAndCountry = structured[@"secondary_text"];
-                        
-                        NSDictionary *geometryDictionary = placeDictionary[@"geometry"];
-                        
-                        NSDictionary *locationDictionary = geometryDictionary[@"location"];
-                        
-                        NSString *latitude = locationDictionary[@"lat"];
-                        
-                        NSString *longitude = locationDictionary[@"lng"];
-                        
-                        [mutableLatitudes addObject:latitude];
-                        
-                        [mutableLongitudes addObject:longitude];
-                        
-                        [mutableCities addObject: city];
-                        
-                        [mutableSecondaries addObject:stateAndCountry];
-                        
-                        self.latitudes = [mutableLatitudes copy];
-                        
-                        self.longitudes = [mutableLongitudes copy];
-                        
-                        self.citiesArray = [mutableCities copy];
-                        
-                        self.secondaryArray = [mutableSecondaries copy];
-                        
-                        [self.tableView reloadData];
-
-                        
-                    }
+            } else {
+                
+                NSMutableArray *mutableCities = [NSMutableArray new];
+                
+                NSMutableArray *mutableSecondaries = [NSMutableArray new];
+                
+                NSMutableArray *mutableLatitudes = [NSMutableArray new];
+                
+                NSMutableArray *mutableLongitudes = [NSMutableArray new];
+                
+                for(NSDictionary *cityDictionary in predictionDictionaries) {
                     
-                }];
-                
+                    NSDictionary *structured = cityDictionary[@"structured_formatting"];
+                    
+                    [[GoogleMapsManager new] getPlacesDetailsWithId:cityDictionary[@"place_id"] withCompletion:^(NSDictionary *placeDictionary, NSError *error) {
+                        
+                        if(error) {
+                            
+                            NSLog(error.description);
+                            
+                            
+                        } else {
+                            
+                            NSString *city = placeDictionary[@"name"];
+                            
+                            NSString *stateAndCountry = structured[@"secondary_text"];
+                            
+                            NSDictionary *geometryDictionary = placeDictionary[@"geometry"];
+                            
+                            NSDictionary *locationDictionary = geometryDictionary[@"location"];
+                            
+                            NSString *latitude = locationDictionary[@"lat"];
+                            
+                            NSString *longitude = locationDictionary[@"lng"];
+                            
+                            [mutableLatitudes addObject:latitude];
+                            
+                            [mutableLongitudes addObject:longitude];
+                            
+                            [mutableCities addObject: city];
+                            
+                            [mutableSecondaries addObject:stateAndCountry];
+                            
+                            self.latitudes = [mutableLatitudes copy];
+                            
+                            self.longitudes = [mutableLongitudes copy];
+                            
+                            self.citiesArray = [mutableCities copy];
+                            
+                            self.secondaryArray = [mutableSecondaries copy];
+                            
+                            [self.tableView reloadData];
+                            
+                        }
+                        
+                    }];
+                    
+                }
                 
             }
             
-            
-        }
+        }];
         
-    }];
+    }
+    
+    
         
     
 }
@@ -126,9 +169,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityCell" forIndexPath:indexPath];
     
-    cell.textLabel.text = self.citiesArray[indexPath.row];
+    if(self.citiesArray.count == 0) {
+        
+        
+        cell.textLabel.text = self.recentSearchesArray[indexPath.row];
+        
+        cell.detailTextLabel.text = self.secondaryArray[indexPath.row];
     
-    cell.detailTextLabel.text = self.secondaryArray[indexPath.row];
+    } else {
+     
+        cell.textLabel.text = self.citiesArray[indexPath.row];
+        
+        cell.detailTextLabel.text = self.secondaryArray[indexPath.row];
+        
+    }
     
     // Configure the cell...
     

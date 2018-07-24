@@ -19,21 +19,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     if(self.currUser == nil){
+    
         self.currUser = [PFUser currentUser];
+    
     }
     self.usernameLabel.text = [NSString stringWithFormat: @"%@", self.currUser.username];
+    
     NSArray * places = [self.currUser valueForKey:@"cities"];
+    
     if(places == nil){
+    
         self.recentSearchesLabel.text = @"No recent searches";
+    
     }
     else{
         NSString * recentPlaces = @"";
         for(int i = 0; i < 3; i++){
+            
+            
             if(places[i] != nil){
+                
+                
                 recentPlaces = [recentPlaces stringByAppendingString:places[i]];
+                
                 if(i < 2){
+                
                     recentPlaces = [recentPlaces stringByAppendingString:@"\n"];
+                
                 }
             }
             else{

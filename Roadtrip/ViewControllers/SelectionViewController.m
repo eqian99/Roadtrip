@@ -13,7 +13,9 @@
 
 
 @interface SelectionViewController () <CityDelegate>
-@property (weak, nonatomic) IBOutlet UITextField *locationField;
+
+@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
+
 @property (weak, nonatomic) IBOutlet UITextField *dateField;
 @property(assign, nonatomic)NSTimeInterval startOfDayUnix;
 @property(assign, nonatomic)NSTimeInterval endOfDayUnix;
@@ -64,6 +66,7 @@
     
     //Search controller setup
     
+    
     LocationTableViewController *locationTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LocationTableViewController"];
     
     self.citySearchController = [[UISearchController alloc]initWithSearchResultsController:locationTableViewController];
@@ -85,9 +88,6 @@
     self.definesPresentationContext = true;
     
     locationTableViewController.cityDelegate = self;
-    
-    
-    
     
     //Date
     datePicker=[[UIDatePicker alloc]init];
@@ -134,8 +134,9 @@
 
 - (void)changeCityText:(NSString *)cityString withStateAndCountry:(NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude {
 
-    self.locationField.text = cityString;
+    self.cityLabel.text = cityString;
     
+    [self.cityLabel sizeToFit];
     
     self.city = cityString;
     self.stateAndCountry = stateAndCountry;

@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) NSArray *citiesArray;
+@property (nonatomic, strong) NSArray *recentSearchesArray;
 @property (nonatomic, strong) NSArray *secondaryArray;
 @property (nonatomic, strong) NSArray *latitudes;
 @property (nonatomic, strong) NSArray *longitudes;

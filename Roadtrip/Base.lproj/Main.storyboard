@@ -758,67 +758,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d2B-pN-Nf9">
-                                <rect key="frame" x="16" y="138" width="343" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dik-Z9-4kd">
+                                <rect key="frame" x="16" y="310" width="343" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dik-Z9-4kd">
-                                <rect key="frame" x="16" y="214" width="343" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="48"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPc-7X-Q7S">
-                                <rect key="frame" x="169" y="507" width="37" height="30"/>
+                                <rect key="frame" x="128" y="557" width="118" height="78"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Done"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="48"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="reo-xb-MeA" kind="show" identifier="selectActivitiesSegue" id="LO7-Iy-txO"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Breakfast Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qab-9x-xpK">
-                                <rect key="frame" x="16" y="307" width="205" height="30"/>
+                                <rect key="frame" x="16" y="526" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lunch Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZEc-Dk-2sy">
-                                <rect key="frame" x="16" y="376" width="205" height="30"/>
+                                <rect key="frame" x="136" y="526" width="103" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Dinner Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cbf-Ey-8ke">
-                                <rect key="frame" x="16" y="446" width="205" height="30"/>
+                                <rect key="frame" x="260" y="526" width="99" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What city will you be in?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ThV-o4-z7n">
-                                <rect key="frame" x="16" y="95" width="184" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Where to...?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ThV-o4-z7n">
+                                <rect key="frame" x="16" y="95" width="343" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="48"/>
+                                <color key="textColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Which day?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwM-1P-kgM">
-                                <rect key="frame" x="16" y="184" width="89" height="21"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="breakfast" translatesAutoresizingMaskIntoConstraints="NO" id="TJk-8W-NFS">
+                                <rect key="frame" x="16" y="427" width="92" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lunch" translatesAutoresizingMaskIntoConstraints="NO" id="5Tp-IU-ral">
+                                <rect key="frame" x="141" y="427" width="92" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dinner" translatesAutoresizingMaskIntoConstraints="NO" id="V0B-JH-hfK">
+                                <rect key="frame" x="263" y="427" width="92" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meal Times " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgQ-GW-ibQ">
-                                <rect key="frame" x="16" y="269" width="92" height="21"/>
+                                <rect key="frame" x="16" y="388" width="119" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -835,11 +836,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="breakfastField" destination="qab-9x-xpK" id="vbF-dY-c7W"/>
+                        <outlet property="cityLabel" destination="ThV-o4-z7n" id="XmE-i1-l8Z"/>
                         <outlet property="dateField" destination="dik-Z9-4kd" id="Guh-0t-VRX"/>
                         <outlet property="dinnerField" destination="cbf-Ey-8ke" id="sA9-w3-q6N"/>
-                        <outlet property="locationField" destination="d2B-pN-Nf9" id="zsz-4t-FSf"/>
                         <outlet property="lunchField" destination="ZEc-Dk-2sy" id="pks-2s-syE"/>
-                        <outlet property="searchDisplayController" destination="FRV-Pj-Ovj" id="fvz-u9-nJp"/>
+                        <outlet property="searchDisplayController" destination="ncq-eO-XwL" id="4hh-yI-DXN"/>
                         <segue destination="VaR-MT-fcZ" kind="presentation" id="33i-7i-VYL"/>
                     </connections>
                 </viewController>
@@ -850,6 +851,14 @@
                         <outlet property="searchContentsController" destination="9ty-wB-U7d" id="h5E-Y6-uVq"/>
                         <outlet property="searchResultsDataSource" destination="9ty-wB-U7d" id="tc6-Cf-4DF"/>
                         <outlet property="searchResultsDelegate" destination="9ty-wB-U7d" id="6zZ-M2-BEw"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="ncq-eO-XwL">
+                    <connections>
+                        <outlet property="delegate" destination="9ty-wB-U7d" id="3vf-By-A9C"/>
+                        <outlet property="searchContentsController" destination="9ty-wB-U7d" id="TJF-PS-28t"/>
+                        <outlet property="searchResultsDataSource" destination="9ty-wB-U7d" id="Liu-lP-i81"/>
+                        <outlet property="searchResultsDelegate" destination="9ty-wB-U7d" id="X1P-Bv-1TU"/>
                     </connections>
                 </searchDisplayController>
             </objects>
@@ -997,7 +1006,10 @@
     </scenes>
     <resources>
         <image name="back-icon-white" width="30" height="30"/>
+        <image name="breakfast" width="256" height="256"/>
         <image name="cloud" width="1920" height="1080"/>
+        <image name="dinner" width="256" height="256"/>
+        <image name="lunch" width="256" height="256"/>
         <image name="uncheckBox" width="200" height="200"/>
     </resources>
 </document>
