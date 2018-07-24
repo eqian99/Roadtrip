@@ -26,7 +26,12 @@
     
     _event = event;
     self.nameLabel.text = event.name;
-    self.descriptionLabel.text = event.eventDescription;
+    if(event.eventDescription != nil){
+        self.descriptionLabel.text = event.eventDescription;
+    }
+    else{
+        self.descriptionLabel.text = @" ";
+    }
 
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //formatter.dateFormat = @"E MMM d HH:mm Z y";

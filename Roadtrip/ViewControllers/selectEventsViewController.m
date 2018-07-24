@@ -118,13 +118,30 @@ static int *const LANDMARKS = 1;
             NSArray *eventsTemp = [Event eventsWithEventbriteArray:events];
             
             for(Event *event in eventsTemp) {
-                
-                NSTimeInterval eventStartUnix = [event.startDate timeIntervalSince1970];
-                NSTimeInterval eventEndUnix = [event.endDate timeIntervalSince1970];
-                if(eventStartUnix < self.endOfDayUnix && eventEndUnix > self.startOfDayUnix){
-                    [self.events addObject:event];
-                    
-                    [self.eventsSelected addObject:@NO];
+                if(event.startDate != nil && event.endDate != nil){
+                    NSTimeInterval eventStartUnix = [event.startDate timeIntervalSince1970];
+                    NSTimeInterval eventEndUnix = [event.endDate timeIntervalSince1970];
+                    if(eventStartUnix < self.endOfDayUnix && eventEndUnix > self.startOfDayUnix){
+                        [self.events addObject:event];
+                        
+                        [self.eventsSelected addObject:@NO];
+                    }
+                }
+                else if(event.startDate != nil){
+                    NSTimeInterval eventStartUnix = [event.startDate timeIntervalSince1970];
+                    if(eventStartUnix < self.endOfDayUnix ){
+                        [self.events addObject:event];
+                        
+                        [self.eventsSelected addObject:@NO];
+                    }
+                }
+                else if(event.endDate != nil){
+                    NSTimeInterval eventEndUnix = [event.endDate timeIntervalSince1970];
+                    if(eventEndUnix > self.startOfDayUnix){
+                        [self.events addObject:event];
+                        
+                        [self.eventsSelected addObject:@NO];
+                    }
                 }
             }
             [MBProgressHUD hideHUDForView:self.view animated:YES];

@@ -16,6 +16,7 @@
 		5306478A210154010062432D /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53064789210154010062432D /* EventDetailsViewController.m */; };
 		5329930321068C8C0058D428 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5329930221068C8C0058D428 /* ProfileViewController.m */; };
 		537A5DE721019D3300890FEF /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537A5DE621019D3300890FEF /* EventKit.framework */; };
+		5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386C9032107E5D7002AA967 /* ScheduleCell.m */; };
 		72D5332444D19627D346CC57 /* libPods-Roadtrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */; };
 		D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED8D20FD320600D7BAFD /* YelpManager.m */; };
 		D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED9020FD3B0800D7BAFD /* TestingViewController.m */; };
@@ -58,6 +59,8 @@
 		5329930121068C8C0058D428 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		5329930221068C8C0058D428 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		537A5DE621019D3300890FEF /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		5386C9022107E5D7002AA967 /* ScheduleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleCell.h; sourceTree = "<group>"; };
+		5386C9032107E5D7002AA967 /* ScheduleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleCell.m; sourceTree = "<group>"; };
 		B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Roadtrip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C10D3723941B140CC23B1156 /* Pods-Roadtrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roadtrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roadtrip/Pods-Roadtrip.release.xcconfig"; sourceTree = "<group>"; };
 		D656ED8C20FD320600D7BAFD /* YelpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YelpManager.h; sourceTree = "<group>"; };
@@ -115,6 +118,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		532993052107E50A0058D428 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */,
+				F6F77C5120FFC3EB00836D65 /* LandmarkCell.h */,
+				5306478220FFB33A0062432D /* EventCell.h */,
+				5306478320FFB33A0062432D /* EventCell.m */,
+				5386C9022107E5D7002AA967 /* ScheduleCell.h */,
+				5386C9032107E5D7002AA967 /* ScheduleCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B4574B3D1F9F9AEE236E3730 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,8 +143,6 @@
 		D6CDFAB020FE5D78001F6A61 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				F6F77C5120FFC3EB00836D65 /* LandmarkCell.h */,
-				F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */,
 				D656ED9220FD446F00D7BAFD /* Event.h */,
 				D656ED9320FD446F00D7BAFD /* Event.m */,
 				D670B20A20FDC9DC0064755D /* Restaurant.h */,
@@ -160,6 +174,7 @@
 		F6A23AD920EFE04C002384E8 /* Roadtrip */ = {
 			isa = PBXGroup;
 			children = (
+				532993052107E50A0058D428 /* Views */,
 				D6CDFAB020FE5D78001F6A61 /* Objects */,
 				D68C739220FC46D700364D35 /* SWRevealViewController */,
 				F6F77C4A20FD354100836D65 /* ViewControllers */,
@@ -178,8 +193,6 @@
 				F6A23AE920EFE04D002384E8 /* main.m */,
 				5306477920FEEE6A0062432D /* GoogleMapsManager.h */,
 				5306477A20FEEE6A0062432D /* GoogleMapsManager.m */,
-				5306478220FFB33A0062432D /* EventCell.h */,
-				5306478320FFB33A0062432D /* EventCell.m */,
 			);
 			path = Roadtrip;
 			sourceTree = "<group>";
@@ -359,6 +372,7 @@
 				5306477B20FEEE6A0062432D /* GoogleMapsManager.m in Sources */,
 				5306478420FFB33A0062432D /* EventCell.m in Sources */,
 				D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */,
+				5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */,
 				D670B20C20FDC9DC0064755D /* Restaurant.m in Sources */,
 				D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */,
 				5306478720FFED150062432D /* RestaurantTimeViewController.m in Sources */,
