@@ -233,7 +233,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if([segue.identifier isEqualToString:@"eventDetailSegue"]){
+    if([segue.identifier isEqualToString:@"selectActivitiesSegue"]){
         selectEventsViewController *selectEventsViewController = [segue destinationViewController];
         selectEventsViewController.latitude = [self.latitude doubleValue];
         selectEventsViewController.longitude = [self.longitude doubleValue];
@@ -253,7 +253,6 @@
             citiesArrayMutable = [NSMutableArray new];
         }
         if([citiesArrayMutable indexOfObject:self.city] != NSNotFound){
-            NSLog(@"hello");
             [citiesArrayMutable removeObject:self.city];
         }
         [citiesArrayMutable insertObject:self.city atIndex:0];

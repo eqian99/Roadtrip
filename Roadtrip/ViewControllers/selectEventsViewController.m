@@ -35,9 +35,9 @@ static int *const LANDMARKS = 1;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *eventsLandmarksControl;
 
-@property (assign, nonatomic) Boolean firstTime;
+//@property (assign, nonatomic) Boolean firstTime;
 
-
+@property (assign, nonatomic) int count;
 
 @property (nonatomic) int activitiesSelected;
 
@@ -51,7 +51,9 @@ static int *const LANDMARKS = 1;
     //Change navigation item
     
     self.eventsSelected = 0;
-    self.firstTime = YES;
+    //self.firstTime = YES;
+    self.count = 0;
+    
     self.navigationItem.title = [NSString stringWithFormat:@"%@, %@", self.city, self.stateAndCountry];
     
     self.tableView.dataSource = self;
@@ -126,9 +128,7 @@ static int *const LANDMARKS = 1;
                 }
             }
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-            
             [self.tableView reloadData];
-            
         }
         
     }];
@@ -210,12 +210,23 @@ static int *const LANDMARKS = 1;
         UITableViewCell *tappedCell = sender;
         
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        NSInteger indexSelected = self.eventsLandmarksControl.selectedSegmentIndex;
+        
+        if(indexSelected == EVENTS){
         
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         
         eventDetailsViewController.activities = self.events;
         
         eventDetailsViewController.index = indexPath.row;
+        }
+        else{
+            EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+            
+            eventDetailsViewController.activities = self.landmarks;
+            
+            eventDetailsViewController.index = indexPath.row;
+        }
         
     } else if ([segue.identifier isEqualToString:@"eventsMapSegue"]) {
         
@@ -338,14 +349,16 @@ static int *const LANDMARKS = 1;
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
-    
+    NSLog(@"count: %i, num of events: %lu", self. count, self.events.count);
     if(activitySelected == EVENTS) {
-        if(self.events.count == 0 && self.firstTime == YES){
+        if(self.events.count == 0 && self.count == 4){
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self createError:@"There are no events happening today"];
-            self.firstTime = NO;
+            //self.firstTime = NO;
+            self.count++;
         }
-            return self.events.count;
+        self.count++;
+        return self.events.count;
         
     } else {
         
