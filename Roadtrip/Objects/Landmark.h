@@ -21,6 +21,10 @@
 +(NSMutableArray *) initWithArray: (NSArray *) landmarksArray;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
+// for assgining time in schedules 
+@property(assign, nonatomic)NSTimeInterval startTimeUnixTemp;
+@property(assign, nonatomic)NSTimeInterval endTimeUnixTemp;
+
 //Tyep
 @property(assign, nonatomic)Boolean isEvent;
 @end

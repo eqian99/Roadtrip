@@ -18,6 +18,7 @@
 #import "EventDetailsViewController.h"
 #import "EventMapViewController.h"
 #import "MBProgressHUD.h"
+#import "UIImageView+AFNetworking.h"
 
 static int *const EVENTS = 0;
 static int *const LANDMARKS = 1;
@@ -38,6 +39,10 @@ static int *const LANDMARKS = 1;
 //@property (assign, nonatomic) Boolean firstTime;
 
 @property (assign, nonatomic) int count;
+
+@property (nonatomic, strong) NSMutableArray *eventsArray;
+@property (nonatomic, strong) NSMutableArray *longEventsArray;
+@property (nonatomic, strong) NSMutableArray *landmarksArray;
 
 @property (nonatomic) int activitiesSelected;
 
@@ -306,12 +311,30 @@ static int *const LANDMARKS = 1;
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
     
+    // also helps reduce choppiness
+    cell.layer.shouldRasterize = YES;
+    cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    
     NSInteger indexSelected = self.eventsLandmarksControl.selectedSegmentIndex;
     
     if(indexSelected == EVENTS) {
         
         [cell setEvent: [self.events objectAtIndex:indexPath.row]];
-    
+        
+        // load in background to prevent choppy scrolling
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+            // Load image on a non-ui-blocking thread
+            
+            NSURL *posterURL = [NSURL URLWithString:cell.event.imageUrl];
+            
+            [cell.posterView setImageWithURL: posterURL];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                // Assign image back on the main thread
+            });
+            
+        });
+        
         if(self.eventsSelected.count > 0){
             
             if(self.eventsSelected.count > indexPath.row) {
@@ -334,7 +357,24 @@ static int *const LANDMARKS = 1;
     }else if( indexSelected == LANDMARKS) {
         
         [cell setLandmark: [self.landmarks objectAtIndex:indexPath.row]];
-
+        
+        // load in background to prevent choppy scrolling
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+            // Load image on a non-ui-blocking thread
+            
+            NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"200",cell.landmark.photoReference]];
+            
+            NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
+            
+            UIImage *image = [UIImage imageWithData:photoData];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                // Assign image back on the main thread
+                cell.posterView.image = image;
+            });
+            
+        });
+        
         if(self.landmarksSelected.count > 0){
             
             NSLog(@"cellsSelected Count: %ld Indexpath.row: %ld", self.eventsSelected.count, indexPath.row);
@@ -357,6 +397,7 @@ static int *const LANDMARKS = 1;
         }
         
     }
+    
     
     cell.delegate = self;
     
@@ -394,27 +435,21 @@ static int *const LANDMARKS = 1;
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
     
     if(activitySelected == EVENTS) {
-     
+        
         if([self.eventsSelected[indexPath.row] isEqual:@NO]) {
             
             [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
             
-            // check if there are conflicts
-//            if ([self checkOverlap])
-//            {
-//                [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
-//            }
-//
-//            else
-//            {
-            
-                //Check mark
+            if ([self makeSchedule]) {
                 
                 [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
                 
                 self.activitiesSelected += 1;
                 
-           // }
+            }
+            else {
+                [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            }
             
         } else {
             
@@ -434,22 +469,17 @@ static int *const LANDMARKS = 1;
             
             [self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
             
-            // check if there are conflicts
-            //if ([self checkOverlap])
-            //{
-                //[self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
-            //}
-            
-            //else
-            //{
-                
-                //Check mark
+            if ([self makeSchedule]) {
                 
                 [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"checkedBox"] forState:UIControlStateNormal];
                 
                 self.activitiesSelected += 1;
                 
-            //}
+            }
+            else
+            {
+                [self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
+            }
             
         } else {
             
@@ -473,46 +503,262 @@ static int *const LANDMARKS = 1;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-        
+    
     
     
 }
 
-
-
-// Checks whether there are overlaps in the events selected.
-// Should be called whenever anything is selected/deselected.
-- (BOOL) checkOverlap {
+// Set an array of all free blocks given an array of scheduled events
+- (NSMutableArray *) getFreeBlocks:(NSMutableArray *) shortEventsArray {
     
-    NSMutableArray *mutableArray = [NSMutableArray new];
+    NSMutableArray *freeBlocks = [[NSMutableArray alloc] init];
     
-    for(int i = 0; i < self.events.count; i++){
+    /*
+     NSMutableArray *mutableArray = [NSMutableArray new];
+     
+     for(int i = 0; i < self.events.count; i++){
+     
+     if([self.cellsSelected[i] isEqual:@YES]){
+     
+     [mutableArray addObject:self.events[i]];
+     
+     }
+     }
+     
+     // sort the events selected
+     mutableArray = [NSMutableArray arrayWithArray: [Event sortEventArrayByEndDate:mutableArray]];
+     */
+    
+    if (shortEventsArray.count == 0)
+    {
+        double start = self.startOfDayUnix;
         
-        if([self.eventsSelected[i] isEqual:@YES]){
+        double end = self.endOfDayUnix;
+        
+        double duration = self.endOfDayUnix - self.startOfDayUnix;
+        
+        while (duration >= 7200)
+        {
+            duration = duration - 7200;
             
-            [mutableArray addObject:self.events[i]];
+            end = start + 7200;
             
-            break;
+            NSArray *startElement = [NSArray arrayWithObjects: [NSNumber numberWithDouble:7200], [NSNumber numberWithDouble:start], [NSNumber numberWithDouble:end], nil];
+            
+            [freeBlocks addObject: startElement];
+            
+            start = end;
+            
         }
+        
+        return freeBlocks;
     }
     
-    // sort the events selected
-    mutableArray = [NSMutableArray arrayWithArray: [Event sortEventArrayByEndDate:mutableArray]];
     
-    for(int i = 0; i < mutableArray.count - 1; i++) {
+    // add the free time before start of first event
+    double start = self.startOfDayUnix;
+    
+    double end = ((Event *)shortEventsArray[0]).startTimeUnix;
+    
+    double duration = ((Event *)shortEventsArray[0]).startTimeUnix - self.startOfDayUnix;
+    
+    while (duration >= 7200)
+    {
+        duration = duration - 7200;
         
-        if (((Event *)mutableArray[i]).endTimeUnix > ((Event *)mutableArray[i+1]).startTimeUnix) {
+        end = start + 7200;
+        
+        NSArray *startElement = [NSArray arrayWithObjects: [NSNumber numberWithDouble:7200], [NSNumber numberWithDouble:start], [NSNumber numberWithDouble:end], nil];
+        
+        [freeBlocks addObject: startElement];
+        
+        start = end;
+        
+    }
+    
+    
+    for(int i = 0; i < shortEventsArray.count - 1; i++) {
+        
+        if (((Event *)shortEventsArray[i]).endTimeUnix > ((Event *)shortEventsArray[i+1]).startTimeUnix) {
             
-            return true;
+            double start = ((Event *)shortEventsArray[i]).endTimeUnix;
+            
+            double end = ((Event *)shortEventsArray[i+1]).startTimeUnix;
+            
+            double duration = ((Event *)shortEventsArray[i+1]).startTimeUnix - ((Event *)shortEventsArray[i]).endTimeUnix;
+            
+            while (duration >= 7200)
+            {
+                duration = duration - 7200;
+                
+                end = start + 7200;
+                
+                NSArray *startElement = [NSArray arrayWithObjects: [NSNumber numberWithDouble:7200], [NSNumber numberWithDouble:start], [NSNumber numberWithDouble:end], nil];
+                
+                [freeBlocks addObject: startElement];
+                
+                start = end;
+                
+            }
             
         };
         
     }
     
-    return false;
+    start = ((Event *)shortEventsArray[shortEventsArray.count - 1]).endTimeUnix;
+    
+    end = self.endOfDayUnix;
+    
+    duration = self.endOfDayUnix - ((Event *)shortEventsArray[shortEventsArray.count - 1]).endTimeUnix;
+    
+    while (duration >= 7200)
+    {
+        duration = duration - 7200;
+        
+        end = start + 7200;
+        
+        NSArray *startElement = [NSArray arrayWithObjects: [NSNumber numberWithDouble:7200], [NSNumber numberWithDouble:start], [NSNumber numberWithDouble:end], nil];
+        
+        [freeBlocks addObject: startElement];
+        
+        start = end;
+        
+    }
+    
+    return freeBlocks;
+    
 }
 
 
+// Checks whether there are overlaps in the events selected.
+// Should be called whenever anything is selected/deselected.
+- (BOOL) makeSchedule {
+    
+    self.eventsArray = [NSMutableArray new];
+    
+    self.longEventsArray = [NSMutableArray new];
+    
+    self.landmarksArray = [NSMutableArray new];
+    
+    for(int i = 0; i < self.eventsSelected.count; i++){
+        
+        if([self.eventsSelected[i] isEqual:@YES]){
+            
+            if (((Event *) self.events[i]).isFlexible)
+            {
+                [self.longEventsArray addObject:self.events[i]];
+            }
+            else
+            {
+                [self.eventsArray addObject:self.events[i]];
+            }
+            
+        }
+    }
+    
+    for(int i = 0; i < self.landmarksSelected.count; i++)
+    {
+        if ([self.landmarksSelected[i] isEqual:@YES])
+        {
+            [self.landmarksArray addObject:self.landmarks[i]];
+        }
+    }
+    
+    // sort the events selected
+    self.eventsArray = [NSMutableArray arrayWithArray: [Event sortEventArrayByEndDate:self.eventsArray]];
+    
+    // get all free blocks
+    NSMutableArray *freeBlocks = [self getFreeBlocks:self.eventsArray];
+    
+    NSLog(@"Number of free blocks: %d", freeBlocks.count);
+    
+    /*
+     * label the free blocks
+     * 0 means not free
+     * 1 means free for 2 or more hours
+     */
+    NSMutableArray *freeBlocksLabeled = [[NSMutableArray alloc] init];
+    int count = 0;
+    
+    // check if the blocks are greater than one hour
+    for (int i = 0; i < freeBlocks.count; i++)
+    {
+        if ([freeBlocks[i][0] intValue] >= 7200)
+        {
+            freeBlocksLabeled[i] = [NSNumber numberWithInt: 1];
+            count ++;
+        }
+        else
+        {
+            freeBlocksLabeled[i] = [NSNumber numberWithInt: 0];
+        }
+    }
+    
+    if (count < self.longEventsArray.count + self.landmarksArray.count)
+    {
+        NSLog(@"RETURNED EARLY");
+        return false;
+    }
+    
+    if (self.eventsArray.count > 1) {
+    
+        for(int i = 1; i < (self.eventsArray.count) ; i++) {
+            
+            if (((Event *)self.eventsArray[i-1]).endTimeUnix > ((Event *)self.eventsArray[i]).startTimeUnix) {
+                NSLog(@"RETURNED EARLY EVENTS");
+                return false;
+                
+            }
+            
+        }
+        
+    }
+    
+    for (int i = 0; i < self.longEventsArray.count; i++)
+    {
+        for (int j = 0; j < freeBlocksLabeled.count; j++)
+        {
+            if (freeBlocksLabeled[j] == [NSNumber numberWithInt: 1])
+            {
+                ((Event *)self.longEventsArray[i]).startTimeUnixTemp = [((NSNumber *)freeBlocks[j][1]) doubleValue];
+                ((Event *)self.longEventsArray[i]).endTimeUnixTemp = [((NSNumber *)freeBlocks[j][2]) doubleValue];
+                freeBlocksLabeled[j] = [NSNumber numberWithInt: 0];
+                break;
+            }
+        }
+    }
+    
+    for (int i = 0; i < self.landmarksArray.count; i++)
+    {
+        for (int j = 0; j < freeBlocksLabeled.count; j++)
+        {
+            if (freeBlocksLabeled[j] == [NSNumber numberWithInt: 1])
+            {
+                ((Event *)self.landmarksArray[i]).startTimeUnixTemp = [((NSNumber *)freeBlocks[j][1]) doubleValue];
+                ((Event *)self.landmarksArray[i]).endTimeUnixTemp = [((NSNumber *)freeBlocks[j][2]) doubleValue];
+                freeBlocksLabeled[j] = [NSNumber numberWithInt: 0];
+                break;
+            }
+        }
+    }
+    
+    for (int i = 0; i < self.landmarksArray.count; i++)
+    {
+        NSLog(@"Landmark: %f, %f", ((Event *)self.landmarksArray[i]).startTimeUnixTemp, ((Event *)self.landmarksArray[i]).endTimeUnixTemp);
+    }
+    
+    for (int i = 0; i < self.longEventsArray.count; i++)
+    {
+        NSLog(@"Long events: %f, %f", ((Event *)self.longEventsArray[i]).startTimeUnixTemp, ((Event *)self.longEventsArray[i]).endTimeUnixTemp);
+    }
+    
+    for (int i = 0; i < self.eventsArray.count; i++)
+    {
+        NSLog(@"Events: %f, %f", ((Event *)self.eventsArray[i]).startTimeUnix, ((Event *)self.eventsArray[i]).endTimeUnix);
+    }
+    
+    return true;
+}
 
 
 

@@ -30,6 +30,13 @@
 @property(assign, nonatomic)NSTimeInterval startTimeUnix;
 @property(assign, nonatomic)NSTimeInterval endTimeUnix;
 
+// for long events
+@property(assign, nonatomic)NSTimeInterval startTimeUnixTemp;
+@property(assign, nonatomic)NSTimeInterval endTimeUnixTemp;
+
+// true if event is long 
+@property(assign, nonatomic)BOOL isFlexible;
+
 //Cost
 
 @property (nonatomic) double cost;

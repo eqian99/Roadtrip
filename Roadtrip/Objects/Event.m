@@ -218,6 +218,21 @@
         
         self.endDate = [formatter dateFromString: localTimeEnd];
         
+        //convert to unix time
+        self.startTimeUnix = [self.startDate timeIntervalSince1970];
+        
+        self.endTimeUnix = [self.endDate timeIntervalSince1970];
+        
+        // if >= 12 hours, assume it is a long event
+        if (self.endTimeUnix - self.startTimeUnix >= 43200)
+        {
+            self.isFlexible = YES;
+        }
+        else
+        {
+            self.isFlexible = NO;
+        }
+        
     }
     
     return self;
@@ -237,6 +252,7 @@
         [events addObject:event];
         
     }
+    
     return events;
 }
 
