@@ -102,6 +102,46 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //Create a relation object. Remember to insert the name of your relation key
+    
+    PFRelation *friendsRelation = [[PFUser currentUser] relationForKey:@"friends"];
+    
+    
+    //Below is the user that the current user would like to add to their friends list
+    //The commented line is an example of how I set the user based on a table view selection
+    //PFUser *userToAdd = [self.parseUsers objectAtIndex:indexPath.row];
+    
+    PFUser *userToAdd = self.users[indexPath.row];
+    
+    //Get the currently logged in user
+    PFUser *currentUser = [PFUser currentUser];
+    
+    //Add the user to the relation
+    [friendsRelation addObject:userToAdd];
+    
+    //Save the current user
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            NSLog(@"%@ %@", error, [error userInfo]);
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.searchDelegate fetchFriends];
+            
+        }
+    }];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //Trigger cloud code for the user that is not currently logged in
+//    [PFCloud callFunction:@"editUser" withParameters:@{
+//                                                       @"userId": userToAdd.objectId
+//                                                       }];
+    
+}
+
+
+
 /*
 #pragma mark - Navigation
 

@@ -7,13 +7,16 @@
 //
 
 #import "ProfileViewController.h"
+#import "SearchPeopleViewController.h"
 #import "FriendCell.h"
 #import <Parse/Parse.h>
 
-@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, SearchPeopleDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *recentSearchesLabel;
 @property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
+
+@property (strong, nonatomic) NSArray *friends;
 
 
 
@@ -66,12 +69,45 @@
         }
         self.recentSearchesLabel.text = recentPlaces;
     }
+    
+    [self fetchFriendsOfCurrentUser];
+    
+    
     // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) fetchFriendsOfCurrentUser {
+    
+    PFRelation *friendsRelation = [[PFUser currentUser] relationForKey:@"friends"];
+    
+    PFQuery *friendsQuery = [friendsRelation query];
+    
+    [friendsQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        
+        
+        if(error) {
+            
+            NSLog(@"Error getting friend relations");
+            
+        } else {
+            
+            self.friends = objects;
+            
+            NSLog(@"Got friends");
+            
+            [self.friendsTableView reloadData];
+            
+        }
+        
+    }];
+    
+    
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -81,13 +117,26 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 5;
+    return self.friends.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friendCell" forIndexPath:indexPath];
+    
+    PFUser *friend = self.friends[indexPath.row];
+    
+    
+    NSString *username = [friend valueForKey:@"username"];
+    NSString *email = [friend valueForKey:@"publicEmail"];
+    
+    cell.friendNameLabel.text = username;
+    cell.friendEmailLabel.text = email;
+    
+    [cell.friendNameLabel sizeToFit];
+    [cell.friendEmailLabel sizeToFit];
+    
 
     return cell;
     
@@ -100,16 +149,30 @@
     
 }
 
+- (void)fetchFriends {
+    
+    [self fetchFriendsOfCurrentUser];
+    
+}
 
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if([segue.identifier isEqualToString:@"searchPeopleSegue"]) {
+        
+        SearchPeopleViewController *viewController = [segue destinationViewController];
+        
+        viewController.searchDelegate = self;
+
+    }
+    
+    
 }
-*/
+
 
 @end
