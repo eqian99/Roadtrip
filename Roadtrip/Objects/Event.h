@@ -47,12 +47,14 @@
 -(instancetype) initWithYelpDictionary: (NSDictionary *) dictionary;
 + (NSMutableArray *) eventsWithYelpArray:(NSArray *) dictionaries;
 
--(instancetype) initWithEventbriteDictionary: (NSDictionary *) dictionary withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude withAddress: (NSString *) address;
+//-(instancetype) initWithEventbriteDictionary: (NSDictionary *) dictionary withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude withAddress: (NSString *) address;
 
 -(instancetype) initWithEventbriteDictionary: (NSDictionary *) dictionary;
 
 + (NSMutableArray *) eventsWithEventbriteArray:(NSArray *) dictionaries;
 
 +(NSArray *) sortEventArrayByEndDate: (NSArray *) array;
+
++ (NSArray *) sortEventArrayByStartDate: (NSArray *) array;
 
 @end

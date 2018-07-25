@@ -86,13 +86,11 @@
     self.searchText = searchController.searchBar.text;
     
     if([self.searchText isEqualToString:@""]) {
-        
-        NSLog(@"Update search results search is empty");
+
         
         [self.locationTableView reloadData];
         
     } else {
-        
         
         [[GoogleMapsManager new] autocomplete:self.searchText withCompletion:^(NSArray *predictionDictionaries, NSError *error) {
             

@@ -19,6 +19,9 @@
 #import "EventMapViewController.h"
 #import "MBProgressHUD.h"
 #import "UIImageView+AFNetworking.h"
+#import "ScheduleViewController.h"
+#import "Event.h"
+#import "Landmark.h"
 
 static int *const EVENTS = 0;
 static int *const LANDMARKS = 1;
@@ -82,9 +85,7 @@ static int *const LANDMARKS = 1;
 }
 
 - (IBAction)didChangeEventsLandmarksControl:(id)sender {
-
     [self.tableView reloadData];
-    
 }
 
 -(void) getEventsFromEventbrite {
@@ -162,7 +163,6 @@ static int *const LANDMARKS = 1;
 
 -(void)getLandmarks{
     GoogleMapsManager *myManagerGoogle = [GoogleMapsManager new];
-    
     [myManagerGoogle getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withCompletion:^(NSArray *placesDictionaries, NSError *error)
      {
          if(placesDictionaries)
@@ -175,7 +175,6 @@ static int *const LANDMARKS = 1;
                  [self.landmarksSelected addObject:@NO];
                  
              }
-
              [self.tableView reloadData];
          }
          else
@@ -262,6 +261,19 @@ static int *const LANDMARKS = 1;
         
         viewController.events = selectedEvents;
         
+    }
+    else if([segue.identifier isEqualToString:@"scheduleSegue"]){
+        ScheduleViewController *scheduleViewController = [segue destinationViewController];
+        
+        NSArray * allEvents = [self.eventsArray arrayByAddingObjectsFromArray:self.longEventsArray];
+        
+        allEvents = [allEvents arrayByAddingObjectsFromArray:self.landmarksArray];
+        
+        scheduleViewController.eventsSelected = allEvents;
+        
+        for(int i = 0; i < allEvents.count; i++){
+            NSLog(@"%@", allEvents[i]);
+        }
     }
     
 }
@@ -355,7 +367,6 @@ static int *const LANDMARKS = 1;
         }
         
     }else if( indexSelected == LANDMARKS) {
-        
         [cell setLandmark: [self.landmarks objectAtIndex:indexPath.row]];
         
         // load in background to prevent choppy scrolling
@@ -376,8 +387,6 @@ static int *const LANDMARKS = 1;
         });
         
         if(self.landmarksSelected.count > 0){
-            
-            NSLog(@"cellsSelected Count: %ld Indexpath.row: %ld", self.eventsSelected.count, indexPath.row);
             
             if(self.landmarksSelected.count > indexPath.row) {
                 
@@ -407,7 +416,6 @@ static int *const LANDMARKS = 1;
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
-    NSLog(@"count: %i, num of events: %lu", self. count, self.events.count);
     if(activitySelected == EVENTS) {
         if(self.events.count == 0 && self.count == 4){
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -579,7 +587,7 @@ static int *const LANDMARKS = 1;
     
     for(int i = 0; i < shortEventsArray.count - 1; i++) {
         
-        if (((Event *)shortEventsArray[i]).endTimeUnix > ((Event *)shortEventsArray[i+1]).startTimeUnix) {
+        if (((Event *)shortEventsArray[i]).endTimeUnix < ((Event *)shortEventsArray[i+1]).startTimeUnix) {
             
             double start = ((Event *)shortEventsArray[i]).endTimeUnix;
             
@@ -632,7 +640,7 @@ static int *const LANDMARKS = 1;
 
 // Checks whether there are overlaps in the events selected.
 // Should be called whenever anything is selected/deselected.
-- (BOOL) makeSchedule {
+- (BOOL) makeSchedule{
     
     self.eventsArray = [NSMutableArray new];
     

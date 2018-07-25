@@ -161,8 +161,6 @@
 
 -(void)changeCityTextWithCity:(NSString *)cityString{
     self.citySearchController.searchBar.text = cityString;
-    //[self.citySearchController becomeFirstResponder];
-    //[self searchBar:self.citySearchController textDidChange: cityString];
 }
 
 
@@ -172,6 +170,8 @@
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     
     [formatter setDateFormat:@"dd/MMM/YYYY hh:min a"];
+    
+    [formatter setDateFormat:@"MMM/dd/YYYY"];
     
     self.dateField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
     [self.dateField resignFirstResponder];

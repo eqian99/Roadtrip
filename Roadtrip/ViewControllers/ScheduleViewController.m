@@ -7,8 +7,10 @@
 //
 
 #import "ScheduleViewController.h"
+#import "Event.h"
+#import "ScheduleCell.h"
 
-@interface ScheduleViewController ()
+@interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -17,32 +19,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.eventsSelected = [Event sortEventArrayByStartDate:self.eventsSelected];
+    [self.tableView reloadData];
 
-}
-
-// Set an array of all free blocks given an array of scheduled events
-- (NSMutableArray *) getFreeBlocks {
-    
-    NSMutableArray *freeBlocks = [[NSMutableArray alloc] init];
-    
-    // add the free time before start of first event
-    [freeBlocks addObject: [NSNumber numberWithFloat:
-                [((Event *)self.eventsSelected[0]).startDate timeIntervalSince1970] - self.startOfDayUnix]];
-    
-    for(int i = 0; i < self.eventsSelected.count - 1; i++) {
-        
-        if (((Event *)self.eventsSelected[i]).endTimeUnix > ((Event *)self.eventsSelected[i+1]).startTimeUnix) {
-            
-            // add free time between all time intervals
-            [freeBlocks addObject: [NSNumber numberWithFloat: ((Event *)self.eventsSelected[i+1]).startTimeUnix - ((Event *)self.eventsSelected[i]).endTimeUnix]];
-            
-        };
-        
-    }
-    
-    return freeBlocks;
-    
 }
 
 
@@ -60,5 +41,21 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    ScheduleCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ScheduleCell"];
+    if([self.eventsSelected[indexPath.row] isKindOfClass:[Event class]]){
+        [cell setScheduleCellEvent:self.eventsSelected[indexPath.row]];
+    }
+    else{
+        [cell setScheduleCellEvent:self.eventsSelected[indexPath.row]];
+    }
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.eventsSelected.count;
+}
+
 
 @end
