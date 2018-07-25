@@ -28,6 +28,8 @@
     [self populateMapWithLandmarks];
     
     
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -117,6 +119,32 @@
         [self.mapView addAnnotation:annotation];
         
     }
+    
+}
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views {
+    
+    MKMapRect zoomRect = MKMapRectNull;
+    
+    for (id <MKAnnotation> annotation in mapView.annotations) {
+        
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
+        
+        if (MKMapRectIsNull(zoomRect)) {
+        
+            zoomRect = pointRect;
+        
+        } else {
+        
+            zoomRect = MKMapRectUnion(zoomRect, pointRect);
+        
+        }
+    
+    }
+    
+    [mapView setVisibleMapRect:zoomRect animated:YES];
     
 }
 

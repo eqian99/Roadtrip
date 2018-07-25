@@ -18,6 +18,8 @@
 
 @implementation LocationTableViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -28,6 +30,8 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [self getRecentSearches];
+
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,11 +83,11 @@
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
-    NSLog(@"Update search results");
-    
     NSString *searchText = searchController.searchBar.text;
     
     if([searchText isEqualToString:@""]) {
+        
+        NSLog(@"Update search results search is empty");
         
         [self.tableView reloadData];
         
@@ -167,10 +171,10 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityCell" forIndexPath:indexPath];
     
     if(self.citiesArray.count == 0) {
-        
         
         cell.textLabel.text = self.recentSearchesArray[indexPath.row];
         
@@ -183,8 +187,6 @@
         cell.detailTextLabel.text = self.secondaryArray[indexPath.row];
         
     }
-    
-    // Configure the cell...
     
     return cell;
 }
