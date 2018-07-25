@@ -59,6 +59,9 @@
     newUser.username = self.usernameField.text;
     newUser.email = self.emailField.text;
     newUser.password = self.passwordField.text;
+    
+    [newUser setValue:self.emailField.text forKey:@"publicEmail"];
+    
     if(![self.passwordField.text isEqualToString:self.confirmPasswordField.text]){
         [self createError:@"Passwords don't match"];
         return;

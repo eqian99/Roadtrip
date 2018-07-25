@@ -62,8 +62,10 @@
 }
 
 - (void)didSignUp{
-    NSLog(@"hello");
+
+
     [self performSegueWithIdentifier:@"mainSegue" sender:nil];
+
 }
 
 
