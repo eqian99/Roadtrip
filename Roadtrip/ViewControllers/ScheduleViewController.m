@@ -73,12 +73,29 @@
         if (!granted) { return; }
         for(int i = 0; i < self.eventsSelected.count; i++){
             EKEvent *event = [EKEvent eventWithEventStore:store];
-            event.title = self.eventsSelected[i].name;
-            event.startDate = [NSDate date]; //today
-            event.endDate = [event.startDate dateByAddingTimeInterval:60*60];  //set 1 hour meeting
-            event.calendar = [store defaultCalendarForNewEvents];
-            NSError *err = nil;
-            [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+            if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+                Event *myEvent = self.eventsSelected[i];
+                event.title = myEvent.name;
+                NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:myEvent.startTimeUnixTemp];
+                NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:myEvent.endTimeUnixTemp];
+                event.startDate = startTime;
+                event.endDate = endTime;
+                event.calendar = [store defaultCalendarForNewEvents];
+                NSError *err = nil;
+                [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+            }
+            else{
+                Landmark *myLandmark = self.eventsSelected[i];
+                event.title = myLandmark.name;
+                NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:myLandmark.startTimeUnixTemp];
+                NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:myLandmark.endTimeUnixTemp];
+                event.startDate = startTime;
+                event.endDate = endTime;
+                event.calendar = [store defaultCalendarForNewEvents];
+                NSError *err = nil;
+                [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+            }
+            
         }
     }];
 }
