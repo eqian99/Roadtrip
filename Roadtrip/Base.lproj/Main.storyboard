@@ -509,7 +509,7 @@
             </objects>
             <point key="canvasLocation" x="4837.6000000000004" y="148.87556221889056"/>
         </scene>
-        <!--Schedule View Controller-->
+        <!--Title-->
         <scene sceneID="rcK-G3-cWR">
             <objects>
                 <viewController storyboardIdentifier="scheduleStoryboard" id="Qz7-aA-bvi" customClass="ScheduleViewController" sceneMemberID="viewController">
@@ -572,13 +572,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="SOq-z5-7hY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="Aae-rs-7d1">
+                        <barButtonItem key="rightBarButtonItem" title="Import to Calendar" id="R6U-Sn-zcw">
+                            <connections>
+                                <action selector="tappedImportSchedule:" destination="Qz7-aA-bvi" id="Ngy-Mo-Ql1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="W5J-Yc-Dy0" id="RNW-ow-zFK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0wY-Lv-4Wt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5562.3999999999996" y="-578.86056971514245"/>
+            <point key="canvasLocation" x="5682" y="-581"/>
         </scene>
         <!--Directions View Controller-->
         <scene sceneID="e3E-hN-Wx9">
@@ -1028,7 +1035,7 @@
                         <outlet property="friendsTableView" destination="7st-Bs-SeF" id="3ED-zB-Cwo"/>
                         <outlet property="recentSearchesLabel" destination="3m9-89-rvy" id="sb6-fL-7Zj"/>
                         <outlet property="usernameLabel" destination="Sh6-vp-uMe" id="Imi-P2-nqP"/>
-                        <segue destination="1aA-ER-UCc" kind="show" identifier="searchPeopleSegue" id="k2C-vf-8Ww"/>
+                        <segue destination="1aA-ER-UCc" kind="presentation" identifier="searchPeopleSegue" id="k2C-vf-8Ww"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yf3-Jq-Zrm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1192,6 +1199,6 @@
         <image name="uncheckBox" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eNk-Lg-BIr"/>
+        <segue reference="PG3-V4-NMe"/>
     </inferredMetricsTieBreakers>
 </document>

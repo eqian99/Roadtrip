@@ -9,7 +9,6 @@
 #import "SelectionViewController.h"
 #import "selectEventsViewController.h"
 #import "LocationTableViewController.h"
-#import <EventKit/EventKit.h>
 
 
 @interface SelectionViewController () <CityDelegate>
@@ -45,22 +44,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    /*
-
-    EKEventStore *store = [EKEventStore new];
-    [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
-        if (!granted) { return; }
-        EKEvent *event = [EKEvent eventWithEventStore:store];
-        event.title = @"Event Title";
-        event.startDate = [NSDate date]; //today
-        event.endDate = [event.startDate dateByAddingTimeInterval:60*60];  //set 1 hour meeting
-        event.calendar = [store defaultCalendarForNewEvents];
-        NSError *err = nil;
-        [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
-        //self.savedEventId = event.eventIdentifier;  //save the event id if you want to access this later
-    }];
-    */
 
     //City
     
