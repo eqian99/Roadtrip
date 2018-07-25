@@ -42,6 +42,7 @@
 		F6F77C5320FFC3EB00836D65 /* LandmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */; };
 		F6F77C5C210016FE00836D65 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C5B210016FE00836D65 /* SelectionViewController.m */; };
 		F6F77C5F21003A2500836D65 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C5E21003A2500836D65 /* ScheduleViewController.m */; };
+		F6F77C622109296B00836D65 /* DirectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C612109296B00836D65 /* DirectionsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +112,8 @@
 		F6F77C5B210016FE00836D65 /* SelectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
 		F6F77C5D21003A2500836D65 /* ScheduleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
 		F6F77C5E21003A2500836D65 /* ScheduleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
+		F6F77C602109296B00836D65 /* DirectionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectionsViewController.h; sourceTree = "<group>"; };
+		F6F77C612109296B00836D65 /* DirectionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectionsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +216,8 @@
 		F6F77C4A20FD354100836D65 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F6F77C602109296B00836D65 /* DirectionsViewController.h */,
+				F6F77C612109296B00836D65 /* DirectionsViewController.m */,
 				F6F77C3E20FB256600836D65 /* LoginViewController.h */,
 				F6F77C3F20FB256600836D65 /* LoginViewController.m */,
 				F6F77C4520FC6D7600836D65 /* SignupViewController.h */,
@@ -389,6 +394,7 @@
 				5306477B20FEEE6A0062432D /* GoogleMapsManager.m in Sources */,
 				5306478420FFB33A0062432D /* EventCell.m in Sources */,
 				D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */,
+				F6F77C622109296B00836D65 /* DirectionsViewController.m in Sources */,
 				5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */,
 				D670B20C20FDC9DC0064755D /* Restaurant.m in Sources */,
 				D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */,
