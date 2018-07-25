@@ -23,11 +23,11 @@
     
     self.mapView.delegate = self;
     
-    [self getCoordinatesOfEvents];
+    //[self getCoordinatesOfEvents];
     
     [self populateMapWithLandmarks];
     
-    
+    [self populateMapWithEvents];
     
     
 }
@@ -37,63 +37,27 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) getCoordinatesOfEvents {
-    
-    for(Event *event in self.events) {
-        
-        NSString *venueId = event.venueId;
-        
-        NSLog(@"Venue Id: %@", venueId);
-        
-        [[EventbriteManager new] getVenueWithId:venueId completion:^(NSDictionary *venue, NSError *error) {
-        
-            if(venue) {
-                
-                NSString *latitude = venue[@"latitude"];
-                
-                NSString *longitude = venue [@"longitude"];
-                
-                NSString *address = venue[@"localized_address_display"];
-                
-                event.latitude = latitude;
-                
-                event.longitude = longitude;
-                
-                event.address = address;
-                
-                [self populateMapWithEvent:event];
-                
-                
-            } else {
-                
-                NSLog(@"Error getting venue of event");
-                
-            }
-            
-        }];
-        
-    }
-    
-}
 
--(void) populateMapWithEvent: (Event *) event {
-    
-    double latitude = [event.latitude doubleValue];
-    
-    double longitude = [event.longitude doubleValue];
-    
-    NSLog(@"%f, %f", latitude, longitude);
-    
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-    
-    MKPointAnnotation *annotation = [MKPointAnnotation new];
-    
-    annotation.coordinate = coordinate;
-    
-    annotation.title = event.name;
-    
-    [self.mapView addAnnotation:annotation];
-    
+-(void) populateMapWithEvents {
+    for(int i = 0; i < self.events.count; i++){
+        Event *event = self.events[i];
+        
+        double latitude = [event.latitude doubleValue];
+        
+        double longitude = [event.longitude doubleValue];
+        
+        NSLog(@"%f, %f", latitude, longitude);
+        
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        
+        MKPointAnnotation *annotation = [MKPointAnnotation new];
+        
+        annotation.coordinate = coordinate;
+        
+        annotation.title = event.name;
+        
+        [self.mapView addAnnotation:annotation];
+    }
 }
 
 -(void) populateMapWithLandmarks {

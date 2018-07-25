@@ -59,7 +59,7 @@
     self.posterView.image = nil;
     [self.posterView setImageWithURL:posterURL];
     
-    self.addressLabel.text = event.address;
+    //self.addressLabel.text = event.address;
 }
 - (IBAction)didSelect:(id)sender {
     

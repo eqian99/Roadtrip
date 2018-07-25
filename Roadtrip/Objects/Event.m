@@ -7,6 +7,7 @@
 //
 
 #import "Event.h"
+#import "EventbriteManager.h"
 
 @implementation Event
 
@@ -112,6 +113,31 @@
         }
         
         self.venueId = dictionary[@"venue_id"];
+        
+        [[EventbriteManager new] getVenueWithId:self.venueId completion:^(NSDictionary *venue, NSError *error) {
+            
+            if(venue) {
+                
+                NSString *latitude = venue[@"latitude"];
+                
+                NSString *longitude = venue [@"longitude"];
+                
+                NSString *address = venue[@"localized_address_display"];
+                
+                self.latitude = latitude;
+                
+                self.longitude = longitude;
+                
+                self.address = address;
+                
+                
+            } else {
+                
+                NSLog(@"Error getting venue of event");
+                
+            }
+            
+        }];
         
         self.isEvent = YES;
         

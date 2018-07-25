@@ -34,6 +34,7 @@
     self.timeLabel.text = startEndTime;
     self.nameLabel.text = event.name;
     self.addressLabel.text = event.address;
+    NSLog(@"%@", event.address);
 }
 
 -(void) setScheduleCellLandmark: (Landmark *)landmark{
