@@ -15,6 +15,8 @@
 
 -(void) changeCityText: (NSString *) cityString withStateAndCountry: (NSString *) stateAndCountry withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude;
 
+-(void) changeCityTextWithCity: (NSString *)cityString;
+
 @end
 
 @interface LocationTableViewController : UITableViewController
@@ -25,6 +27,7 @@
 @property (nonatomic, strong) NSArray *secondaryArray;
 @property (nonatomic, strong) NSArray *latitudes;
 @property (nonatomic, strong) NSArray *longitudes;
+@property (nonatomic, strong) NSString *searchText;
 
 @property (weak, nonatomic) id<CityDelegate> cityDelegate;
 

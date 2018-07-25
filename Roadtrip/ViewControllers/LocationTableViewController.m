@@ -12,7 +12,8 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface LocationTableViewController () <UISearchResultsUpdating>
+@interface LocationTableViewController () <UISearchResultsUpdating, UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) IBOutlet UITableView *locationTableView;
 
 @end
 
@@ -29,6 +30,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    self.locationTableView.delegate = self;
+    self.locationTableView.dataSource = self;
     [self getRecentSearches];
 
 
@@ -40,18 +43,13 @@
 }
 
 -(void) getRecentSearches {
-    
     PFUser *currUser = [PFUser currentUser];
     
     NSArray *places = [currUser valueForKey:@"cities"];
     
-    NSLog(@"%lu", places.count);
-    
     if(places != nil){
-        
         self.recentSearchesArray = places;
-        
-        [self.tableView reloadData];
+        [self.locationTableView reloadData];
         
     }
     
@@ -72,8 +70,6 @@
         
     } else {
         
-        NSLog(@"Use recent searches count");
-        
         return self.recentSearchesArray.count;
         
     }
@@ -84,16 +80,21 @@
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
     NSString *searchText = searchController.searchBar.text;
+
+    NSLog(@"Update search results");
     
-    if([searchText isEqualToString:@""]) {
+    self.searchText = searchController.searchBar.text;
+    
+    if([self.searchText isEqualToString:@""]) {
         
         NSLog(@"Update search results search is empty");
         
-        [self.tableView reloadData];
+        [self.locationTableView reloadData];
         
     } else {
         
-        [[GoogleMapsManager new] autocomplete:searchText withCompletion:^(NSArray *predictionDictionaries, NSError *error) {
+        
+        [[GoogleMapsManager new] autocomplete:self.searchText withCompletion:^(NSArray *predictionDictionaries, NSError *error) {
             
             if(error) {
                 
@@ -147,10 +148,10 @@
                             self.longitudes = [mutableLongitudes copy];
                             
                             self.citiesArray = [mutableCities copy];
-                            
+
                             self.secondaryArray = [mutableSecondaries copy];
                             
-                            [self.tableView reloadData];
+                            [self.locationTableView reloadData];
                             
                         }
                         
@@ -174,11 +175,10 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityCell" forIndexPath:indexPath];
     
-    if(self.citiesArray.count == 0) {
+    if([self.searchText isEqualToString:@""]) {
         
         cell.textLabel.text = self.recentSearchesArray[indexPath.row];
-        
-        cell.detailTextLabel.text = self.secondaryArray[indexPath.row];
+        cell.detailTextLabel.text = nil;
     
     } else {
      
@@ -193,19 +193,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *city = self.citiesArray[indexPath.row];
+    if([self.searchText isEqualToString:@""]){
+        self.searchText = self.recentSearchesArray[indexPath.row];
+        [self.cityDelegate changeCityTextWithCity:self.recentSearchesArray[indexPath.row]];
+    }
     
-    NSString *stateAndCountry = self.secondaryArray[indexPath.row];
-    
-    NSString *latitude = self.latitudes[indexPath.row];
-    
-    NSString *longitude = self.longitudes[indexPath.row];
-    
-    NSLog(@"city: %@ latitude: %@ longitude: %@", city ,latitude, longitude);
-    [self.cityDelegate changeCityText:city withStateAndCountry:stateAndCountry withLatitude:latitude withLongitude:longitude];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
+    else{
+        NSString *city = self.citiesArray[indexPath.row];
+        
+        NSString *stateAndCountry = self.secondaryArray[indexPath.row];
+        
+        NSString *latitude = self.latitudes[indexPath.row];
+        
+        NSString *longitude = self.longitudes[indexPath.row];
+        
+        NSLog(@"city: %@ latitude: %@ longitude: %@", city ,latitude, longitude);
+        [self.cityDelegate changeCityText:city withStateAndCountry:stateAndCountry withLatitude:latitude withLongitude:longitude];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
     
 }
 

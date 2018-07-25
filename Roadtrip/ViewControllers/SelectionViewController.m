@@ -73,6 +73,8 @@
     
     self.citySearchController.searchResultsUpdater = locationTableViewController;
     
+    self.citySearchController.delegate = self;
+    
     UISearchBar *searchBar = self.citySearchController.searchBar;
     
     [searchBar sizeToFit];
@@ -131,6 +133,17 @@
     [self.dinnerField setInputAccessoryView:toolBarDinner];
 }
 
+- (void)willPresentSearchController:(UISearchController *)searchController
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        searchController.searchResultsController.view.hidden = NO;
+    });
+}
+
+- (void)didPresentSearchController:(UISearchController *)searchController
+{
+    searchController.searchResultsController.view.hidden = NO;
+}
 
 - (void)changeCityText:(NSString *)cityString withStateAndCountry:(NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude {
 
@@ -144,6 +157,12 @@
     self.longitude = longitude;
     
     
+}
+
+-(void)changeCityTextWithCity:(NSString *)cityString{
+    self.citySearchController.searchBar.text = cityString;
+    //[self.citySearchController becomeFirstResponder];
+    //[self searchBar:self.citySearchController textDidChange: cityString];
 }
 
 
