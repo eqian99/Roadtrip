@@ -17,7 +17,9 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *dateField;
 @property(assign, nonatomic)NSTimeInterval startOfDayUnix;
+@property (assign, nonatomic)NSTimeInterval startOfEventsUnix;
 @property(assign, nonatomic)NSTimeInterval endOfDayUnix;
+
 @property (strong, nonatomic)UIDatePicker *timePicker;
 @property (weak, nonatomic) IBOutlet UITextField *breakfastField;
 @property (weak, nonatomic) IBOutlet UITextField *lunchField;
@@ -93,6 +95,7 @@
     self.calendar = [NSCalendar currentCalendar];
     self.timePicker=[[UIDatePicker alloc]init];
     self.timePicker.datePickerMode=UIDatePickerModeTime;
+    
     [self.breakfastField setInputView:self.timePicker];
     
     UIToolbar *toolBarBreakfast=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -117,6 +120,14 @@
     UIBarButtonItem *spaceDinner=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [toolBarDinner setItems:[NSArray arrayWithObjects:spaceDinner,doneBtnDinner, nil]];
     [self.dinnerField setInputAccessoryView:toolBarDinner];
+    
+    [self.startTimeField setInputView:self.timePicker];
+    UIToolbar *toolBarStartTime=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    [toolBarBreakfast setTintColor:[UIColor grayColor]];
+    UIBarButtonItem *doneBtnStartDay=[[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(showStartDayTime)];
+    UIBarButtonItem *spaceStartDay=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [toolBarStartTime setItems:[NSArray arrayWithObjects:spaceStartDay,doneBtnStartDay, nil]];
+    [self.startTimeField setInputAccessoryView:toolBarStartTime];
 }
 
 - (void)willPresentSearchController:(UISearchController *)searchController
@@ -149,13 +160,28 @@
     self.citySearchController.searchBar.text = cityString;
 }
 
-
+-(void) showStartDayTime{
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    
+    NSDateComponents *components = [self.calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:self.timePicker.date];
+    
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    NSInteger second = [components second];
+    
+    self.startOfEventsUnix = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
+    
+    NSLog(@"Breakfast time: %f", self.breakfastTime);
+    NSLog(@"start of day: %f", self.startOfDayUnix);
+    
+    [formatter setDateFormat:@"hh:min a"];
+    self.startTimeField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
+    [self.startTimeField resignFirstResponder];
+}
 
 -(void)ShowSelectedDate
 {
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
-    
-    [formatter setDateFormat:@"dd/MMM/YYYY hh:min a"];
     
     [formatter setDateFormat:@"MMM/dd/YYYY"];
     
@@ -173,6 +199,8 @@
     NSDate *endOfDay = [calendar dateByAddingComponents:components toDate:startOfDay options:0];
     
     self.startOfDayUnix = [startOfDay timeIntervalSince1970];
+    NSLog(@"%f", self.startOfDayUnix);
+    
     self.endOfDayUnix = [endOfDay timeIntervalSince1970];
 }
 
@@ -249,7 +277,7 @@
         selectEventsViewController.stateAndCountry = self.stateAndCountry;
 
         //Pass over data about the start time
-        selectEventsViewController.startOfDayUnix = self.startOfDayUnix;
+        selectEventsViewController.startOfDayUnix = self.startOfEventsUnix;
         selectEventsViewController.endOfDayUnix = self.endOfDayUnix;
         selectEventsViewController.breakfastUnixTime = self.breakfastTime;
         selectEventsViewController.lunchUnixTime = self.lunchTime;
