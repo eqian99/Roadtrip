@@ -87,14 +87,25 @@ static int *const LANDMARKS = 1;
     
     [self getEventsFromEventbrite];
     
-    [self getLandmarks];
     
     
     // Do any additional setup after loading the view.
 }
 
 - (IBAction)didChangeEventsLandmarksControl:(id)sender {
-    [self.tableView reloadData];
+    
+    if(self.eventsLandmarksControl.selectedSegmentIndex == EVENTS) {
+        
+        NSLog(@"Events selected");
+        [self getEventsFromEventbrite];
+        
+    } else {
+        
+        NSLog(@"Landmarks selected");
+        [self getLandmarks];
+        
+    }
+
 }
 
 -(void) getEventsFromEventbrite {
@@ -120,6 +131,7 @@ static int *const LANDMARKS = 1;
     endDateString = [endDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
     
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [[EventbriteManager new] getEventsWithCoordinates: coordinate withStartDateUTC:startDateString completion:^(NSArray *events, NSError *error) {
@@ -171,7 +183,11 @@ static int *const LANDMARKS = 1;
 
 
 -(void)getLandmarks{
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
     GoogleMapsManager *myManagerGoogle = [GoogleMapsManager new];
+    
     [myManagerGoogle getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withCompletion:^(NSArray *placesDictionaries, NSError *error)
      {
          if(placesDictionaries)
@@ -184,6 +200,8 @@ static int *const LANDMARKS = 1;
                  [self.landmarksSelected addObject:@NO];
                  
              }
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+
              [self.tableView reloadData];
          }
          else
@@ -426,6 +444,8 @@ static int *const LANDMARKS = 1;
     
     cell.delegate = self;
     
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+
     return cell;
 }
 
