@@ -184,7 +184,8 @@
     
     self.breakfastTime = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
     
-    NSLog(@"%f", self.breakfastTime);
+    NSLog(@"Breakfast time: %f", self.breakfastTime);
+    NSLog(@"start of day: %f", self.startOfDayUnix);
     
     [formatter setDateFormat:@"hh:min a"];
     self.breakfastField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
@@ -247,6 +248,11 @@
         //Pass over data about the start time
         selectEventsViewController.startOfDayUnix = self.startOfDayUnix;
         selectEventsViewController.endOfDayUnix = self.endOfDayUnix;
+        selectEventsViewController.breakfastUnixTime = self.breakfastTime;
+        selectEventsViewController.lunchUnixTime = self.lunchTime;
+        selectEventsViewController.dinnerUnixTime = self.dinnerTime;
+        
+        //Save user data
         if(self.currUser == nil){
             self.currUser = [PFUser currentUser];
         }

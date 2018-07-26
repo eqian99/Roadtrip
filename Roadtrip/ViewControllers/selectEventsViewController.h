@@ -16,4 +16,7 @@
 @property (assign, nonatomic) NSString *stateAndCountry;
 @property(assign, nonatomic)NSTimeInterval startOfDayUnix;
 @property(assign, nonatomic)NSTimeInterval endOfDayUnix;
+@property (assign, nonatomic)NSTimeInterval breakfastUnixTime;
+@property (assign, nonatomic)NSTimeInterval lunchUnixTime;
+@property (assign, nonatomic)NSTimeInterval dinnerUnixTime;
 @end

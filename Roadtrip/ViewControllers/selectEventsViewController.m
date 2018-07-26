@@ -643,6 +643,29 @@ static int *const LANDMARKS = 1;
 - (BOOL) makeSchedule{
     
     self.eventsArray = [NSMutableArray new];
+    if(self.breakfastUnixTime != 0.0){
+        Event *breakfast = [Event new];
+        breakfast.name = @"Breakfast";
+        breakfast.startTimeUnixTemp = self.breakfastUnixTime;
+        breakfast.endTimeUnixTemp = self.breakfastUnixTime + 60 * 60;
+        [self.eventsArray addObject:breakfast];
+    }
+    
+    if(self.lunchUnixTime != 0.0){
+        Event *lunch = [Event new];
+        lunch.name = @"Lunch";
+        lunch.startTimeUnixTemp = self.lunchUnixTime;
+        lunch.endTimeUnixTemp = self.lunchUnixTime + 60 * 60;
+        [self.eventsArray addObject:lunch];
+    }
+    
+    if(self.dinnerUnixTime != 0.0){
+        Event *dinner = [Event new];
+        dinner.name = @"Dinner";
+        dinner.startTimeUnixTemp = self.dinnerUnixTime;
+        dinner.endTimeUnixTemp = self.dinnerUnixTime + 60 * 60;
+        [self.eventsArray addObject:dinner];
+    }
     
     self.longEventsArray = [NSMutableArray new];
     
@@ -674,6 +697,10 @@ static int *const LANDMARKS = 1;
     
     // sort the events selected
     self.eventsArray = [NSMutableArray arrayWithArray: [Event sortEventArrayByEndDate:self.eventsArray]];
+    
+    for(int i = 0; i < self.eventsArray.count; i++){
+        NSLog(@"%@", self.eventsArray[i]);
+    }
     
     // get all free blocks
     NSMutableArray *freeBlocks = [self getFreeBlocks:self.eventsArray];
