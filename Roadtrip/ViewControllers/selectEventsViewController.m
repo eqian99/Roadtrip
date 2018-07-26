@@ -49,6 +49,14 @@ static int *const LANDMARKS = 1;
 
 @property (nonatomic) int activitiesSelected;
 
+//used so that we can remove the conflicting event that was just added to array
+@property (nonatomic, strong) Event *eventSelected;
+@property (nonatomic, strong) Landmark *landmarkSelected;
+@property (nonatomic, strong) NSString *typeSelected;
+
+@property (nonatomic, assign) Boolean didDeselect;
+
+
 
 @end
 
@@ -80,7 +88,6 @@ static int *const LANDMARKS = 1;
     [self getEventsFromEventbrite];
     
     [self getLandmarks];
-   
     
     
     // Do any additional setup after loading the view.
@@ -325,9 +332,11 @@ static int *const LANDMARKS = 1;
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
     
+    [cell.warningLabel setHidden:YES];
     // also helps reduce choppiness
     cell.layer.shouldRasterize = YES;
     cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    
     
     NSInteger indexSelected = self.eventsLandmarksControl.selectedSegmentIndex;
     
@@ -440,11 +449,17 @@ static int *const LANDMARKS = 1;
     }
     
 }
-
+/*
+- (void)hideCheckmark:(EventCell *)eventCell{
+    
+}
+*/
 //Method triggered when u select the checkbox in the event cell
 
 - (void)eventCell:(EventCell *)eventCell {
-    
+    self.eventSelected = nil;
+    self.landmarkSelected = nil;
+    self.typeSelected = @"";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:eventCell];
     
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
@@ -452,7 +467,8 @@ static int *const LANDMARKS = 1;
     if(activitySelected == EVENTS) {
         
         if([self.eventsSelected[indexPath.row] isEqual:@NO]) {
-            
+            self.eventSelected = self.events[indexPath.row];
+            self.typeSelected = @"event";
             [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
             
             if ([self makeSchedule]) {
@@ -463,12 +479,19 @@ static int *const LANDMARKS = 1;
                 
             }
             else {
+                [eventCell.warningLabel setHidden:NO];
                 [self.eventsSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
             }
             
         } else {
             
             //Uncheck mark
+            if(((Event *)self.events[indexPath.row]).isFlexible){
+                [self removeLongEvent:self.events[indexPath.row]];
+            }
+            else{
+                [self removeShortEvent: self.events[indexPath.row]];
+            }
             
             [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
             
@@ -481,7 +504,8 @@ static int *const LANDMARKS = 1;
     } else if (activitySelected == LANDMARKS) {
         
         if([self.landmarksSelected[indexPath.row] isEqual:@NO]) {
-            
+            self.landmarkSelected = self.landmarks[indexPath.row];
+            self.typeSelected = @"landmark";
             [self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@YES];
             
             if ([self makeSchedule]) {
@@ -493,11 +517,13 @@ static int *const LANDMARKS = 1;
             }
             else
             {
+                [eventCell.warningLabel setHidden:NO];
                 [self.landmarksSelected replaceObjectAtIndex:indexPath.row withObject:@NO];
             }
             
         } else {
             
+            [self removeLandmark:self.landmarks[indexPath.row]];
             //Uncheck mark
             
             [eventCell.checkBoxButton setImage:[UIImage imageNamed:@"uncheckBox"] forState:UIControlStateNormal];
@@ -516,6 +542,31 @@ static int *const LANDMARKS = 1;
     
     
 }
+
+-(void) removeShortEvent: (Event *)event{
+    int i = 0;
+    while(i < self.eventsArray.count && self.eventsArray[i] != event){
+        i++;
+    }
+    [self.eventsArray removeObjectAtIndex:i];
+}
+
+-(void) removeLongEvent:(Event *)event{
+    int i = 0;
+    while(i < self.longEventsArray.count && self.longEventsArray[i] != event){
+        i++;
+    }
+    [self.longEventsArray removeObjectAtIndex:i];
+}
+
+-(void) removeLandmark:(Landmark *)landmark{
+    int i = 0;
+    while(i < self.landmarksArray.count && self.landmarksArray[i] != landmark){
+        i++;
+    }
+    [self.landmarksArray removeObjectAtIndex:i];
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -648,7 +699,6 @@ static int *const LANDMARKS = 1;
 // Checks whether there are overlaps in the events selected.
 // Should be called whenever anything is selected/deselected.
 - (BOOL) makeSchedule{
-    
     self.eventsArray = [NSMutableArray new];
     if(self.breakfastUnixTime != 0.0){
         Event *breakfast = [Event new];
@@ -742,6 +792,20 @@ static int *const LANDMARKS = 1;
     if (count < self.longEventsArray.count + self.landmarksArray.count)
     {
         NSLog(@"RETURNED EARLY");
+        if([self.typeSelected isEqualToString:@"event"]){
+            int i = 0;
+            while(self.longEventsArray[i] != self.eventSelected){
+                i++;
+            }
+            [self.longEventsArray removeObjectAtIndex:i];
+        }
+        else if([self.typeSelected isEqualToString:@"landmark"]){
+            int i = 0;
+            while(self.landmarksArray[i] != self.landmarkSelected){
+                i++;
+            }
+            [self.landmarksArray removeObjectAtIndex:i];
+        }
         return false;
     }
     
@@ -750,6 +814,14 @@ static int *const LANDMARKS = 1;
         for(int i = 1; i < (self.eventsArray.count) ; i++) {
             
             if (((Event *)self.eventsArray[i-1]).endTimeUnix > ((Event *)self.eventsArray[i]).startTimeUnix) {
+                if(((Event*)self.eventsArray[i - 1]) == self.eventSelected){
+                    NSLog(@"hello i - 1");
+                    [self.eventsArray removeObjectAtIndex:i - 1];
+                }
+                else if(((Event *)self.eventsArray[i]) == self.eventSelected){
+                    NSLog(@"hello i");
+                    [self.eventsArray removeObjectAtIndex:i];
+                }
                 NSLog(@"RETURNED EARLY EVENTS");
                 return false;
                 

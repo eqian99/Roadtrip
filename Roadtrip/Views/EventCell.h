@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *posterView;
 
 @property (nonatomic, weak) id<EventCellDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *warningLabel;
 
 @end
 
@@ -31,5 +32,6 @@
 
 
 -(void) eventCell: (EventCell *) eventCell;
+-(void) hideCheckmark: (EventCell *)eventCell;
 
 @end

@@ -23,7 +23,7 @@
 }
 
 -(void)setEvent:(Event *)event{
-    
+    [self.warningLabel setHidden:YES];
     _event = event;
     self.nameLabel.text = event.name;
     self.addressLabel.text = @"";
@@ -68,6 +68,7 @@
 }
 
 -(void)setLandmark:(Landmark *)landmark{
+    [self.warningLabel setHidden:YES];
     _landmark = landmark;
     
     self.nameLabel.text = landmark.name;
