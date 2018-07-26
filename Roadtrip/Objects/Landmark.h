@@ -10,6 +10,7 @@
 
 @interface Landmark : NSObject
 //Description
+@property (nonatomic, strong) NSString *placeId;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *rating;
 @property (nonatomic, strong) NSString *photoReference;

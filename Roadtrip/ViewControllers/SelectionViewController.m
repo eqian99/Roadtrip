@@ -44,6 +44,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"User: %@", [PFUser currentUser]);
 
     //City
     

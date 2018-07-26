@@ -16,6 +16,7 @@
     
     if(self) {
         
+        self.placeId = dictionary[@"place_id"];
         self.name = dictionary[@"name"];
         self.address = dictionary[@"vicinity"];
         self.rating = dictionary[@"rating"];

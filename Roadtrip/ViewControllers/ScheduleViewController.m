@@ -8,6 +8,7 @@
 
 #import "ScheduleViewController.h"
 #import "Event.h"
+#import "Landmark.h"
 #import "ScheduleCell.h"
 #import "EventDetailsViewController.h"
 #import "Parse.h"
@@ -105,7 +106,149 @@
 
 - (IBAction)tappedSaveSchedule:(id)sender {
     
+    PFRelation *scheduleRelation = [[PFUser currentUser] relationForKey:@"schedules"];
     
+    PFObject *schedule = [PFObject objectWithClassName:@"Schedule"];
+    
+    [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        
+        [scheduleRelation addObject:schedule];
+        
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+           
+            if(error) {
+                
+                NSLog(@"Error saving user after adding schedule to schedule relation");
+                
+                
+            } else {
+                
+                NSLog(@"Successfully saved user");
+                
+            }
+            
+        }];
+        
+        if(error) {
+            
+            NSLog(@"Error saving schedule");
+            
+        } else {
+            
+            PFRelation *events = [schedule relationForKey:@"events"];
+            
+                for(int i = 0; i < self.eventsSelected.count; i++) {
+                    
+                    PFObject *parseEvent = [PFObject objectWithClassName:@"Event"];
+                    
+                    if([self.eventsSelected[i] isKindOfClass:[Event class]]) {
+                        
+                        Event *event = self.eventsSelected[i];
+                        
+                        parseEvent[@"startDate"] = event.startDate;
+                        
+                        parseEvent[@"endDate"] = event.endDate;
+                        
+                        parseEvent[@"name"] = event.name;
+                        
+                        parseEvent[@"venueId"] = event.venueId;
+                        
+                        parseEvent[@"eventId"] = event.eventId;
+                        
+                    } else if ([self.eventsSelected[i] isKindOfClass:[Landmark class]]) {
+                        
+                        Landmark *landmark = self.eventsSelected[i];
+                        
+                        NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:landmark.startTimeUnixTemp];
+                        
+                        NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:landmark.endTimeUnixTemp];
+                        
+                        parseEvent[@"startDate"] = startDate;
+                        
+                        parseEvent[@"endDate"] = endDate;
+                        
+                        parseEvent[@"name"] = landmark.name;
+                        
+                        parseEvent[@"eventId"] = landmark.placeId;
+                        
+                        parseEvent[@"venueId"] = @"Landmark";
+                        
+                    }
+
+                    
+                    [parseEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                        
+                        if(error) {
+                            
+                            NSLog(@"Error saving event from schedule");
+                            
+                            
+                        } else {
+                            
+                            NSLog(@"Success saving event from schedule in parse");
+                            
+                            [events addObject:parseEvent];
+                            
+                            [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                                if(error) {
+                                    NSLog(@"Error saving schedule after adding events in events relation");
+                                } else {
+                                    NSLog(@"Success?");
+                                }
+                            }];
+
+                            
+                        }
+                        
+                    }];
+                    
+                    
+                }
+            
+            
+        }
+        
+        
+    }];
+    
+    
+    
+//    PFRelation *events = [schedule relationForKey:@"events"];
+    
+//
+//    for(int i = 0; i < self.eventsSelected.count; i++) {
+//
+//        Event *event = self.eventsSelected[i];
+//        PFObject *parseEvent = [PFObject objectWithClassName:@"Event"];
+//
+//        parseEvent[@"startDate"] = event.startDate;
+//        parseEvent[@"endDate"] = event.endDate;
+//        parseEvent[@"name"] = event.name;
+//        parseEvent[@"venueId"] = event.venueId;
+//        parseEvent[@"eventId"] = event.eventId;
+//
+//        [events addObject:parseEvent];
+//
+//    }
+//
+//
+//    [scheduleRelation addObject:schedule];
+//
+//    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//
+//
+//        if (error) {
+//
+//            NSLog(@"%@ %@", error, [error userInfo]);
+//
+//        } else {
+//
+//            NSLog(@"Current user saved In Background");
+//
+//        }
+//
+//
+//    }];
     
     
 }
