@@ -10,11 +10,14 @@
 #import "SearchPeopleViewController.h"
 #import "FriendCell.h"
 #import <Parse/Parse.h>
+#import "AppDelegate.h"
+#import "LoginViewController.h"
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, SearchPeopleDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *recentSearchesLabel;
 @property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *profilePic;
 
 @property (strong, nonatomic) NSArray *friends;
 
@@ -70,6 +73,17 @@
         self.recentSearchesLabel.text = recentPlaces;
     }
     
+    PFFile *image = [self.currUser valueForKey:@"profilePic"];
+    [image getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+        
+        UIImage *postImage = [UIImage imageWithData:imageData];
+        UIImageView *postImageView = [[UIImageView alloc] initWithImage:postImage];
+        
+        self.profilePic.image = postImageView.image;
+        self.profilePic.layer.masksToBounds = YES;
+        self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2;
+    }];
+    
     [self fetchFriendsOfCurrentUser];
     
     
@@ -105,9 +119,51 @@
         }
         
     }];
+}
+- (IBAction)takeProfilePic:(id)sender {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+- (IBAction)tappedChooseFromCamera:(id)sender {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
+    // Get the image captured by the UIImagePickerController
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    self.profilePic.image = editedImage;
+    PFFile *profilePicFile = [self getPFFileFromImage:self.profilePic.image];
+    [self.currUser setValue:profilePicFile forKey:@"profilePic"];
     
+    [self.currUser saveInBackground];
+    // Do something with the images (based on your use case)
     
+    // Dismiss UIImagePickerController to go back to your original view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(PFFile *)getPFFileFromImage: (UIImage * _Nullable)image {
+    
+    // check if image is not nil
+    if (!image) {
+        return nil;
+    }
+    
+    NSData *imageData = UIImagePNGRepresentation(image);
+    // get image data and check if that is not nil
+    if (!imageData) {
+        return nil;
+    }
+    
+    return [PFFile fileWithName:@"image.png" data:imageData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -118,6 +174,15 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return self.friends.count;
+}
+- (IBAction)tappedLogout:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+    }];
 }
 
 
