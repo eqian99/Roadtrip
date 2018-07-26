@@ -652,25 +652,32 @@ static int *const LANDMARKS = 1;
     self.eventsArray = [NSMutableArray new];
     if(self.breakfastUnixTime != 0.0){
         Event *breakfast = [Event new];
+        
         breakfast.name = @"Breakfast";
-        breakfast.startTimeUnixTemp = self.breakfastUnixTime;
-        breakfast.endTimeUnixTemp = self.breakfastUnixTime + 60 * 60;
+        breakfast.startTimeUnix = self.breakfastUnixTime;
+        breakfast.endTimeUnix = self.breakfastUnixTime + 60 * 60;
+        breakfast.startTimeUnixTemp = breakfast.startTimeUnix;
+        breakfast.endTimeUnixTemp = breakfast.endTimeUnix;
         [self.eventsArray addObject:breakfast];
     }
     
     if(self.lunchUnixTime != 0.0){
         Event *lunch = [Event new];
         lunch.name = @"Lunch";
-        lunch.startTimeUnixTemp = self.lunchUnixTime;
-        lunch.endTimeUnixTemp = self.lunchUnixTime + 60 * 60;
+        lunch.startTimeUnix = self.lunchUnixTime;
+        lunch.endTimeUnix = self.lunchUnixTime + 60 * 60;
+        lunch.startTimeUnixTemp = lunch.startTimeUnix;
+        lunch.endTimeUnixTemp = lunch.endTimeUnix;
         [self.eventsArray addObject:lunch];
     }
     
     if(self.dinnerUnixTime != 0.0){
         Event *dinner = [Event new];
         dinner.name = @"Dinner";
-        dinner.startTimeUnixTemp = self.dinnerUnixTime;
-        dinner.endTimeUnixTemp = self.dinnerUnixTime + 60 * 60;
+        dinner.startTimeUnix = self.dinnerUnixTime;
+        dinner.endTimeUnix = self.dinnerUnixTime + 60 * 60;
+        dinner.startTimeUnixTemp = dinner.startTimeUnix;
+        dinner.endTimeUnixTemp = dinner.endTimeUnix;
         [self.eventsArray addObject:dinner];
     }
     
@@ -705,14 +712,10 @@ static int *const LANDMARKS = 1;
     // sort the events selected
     self.eventsArray = [NSMutableArray arrayWithArray: [Event sortEventArrayByEndDate:self.eventsArray]];
     
-    for(int i = 0; i < self.eventsArray.count; i++){
-        NSLog(@"%@", self.eventsArray[i]);
-    }
-    
     // get all free blocks
     NSMutableArray *freeBlocks = [self getFreeBlocks:self.eventsArray];
     
-    NSLog(@"Number of free blocks: %d", freeBlocks.count);
+    NSLog(@"Number of free blocks: %lu", freeBlocks.count);
     
     /*
      * label the free blocks
