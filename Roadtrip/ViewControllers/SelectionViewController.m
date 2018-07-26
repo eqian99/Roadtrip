@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *breakfastField;
 @property (weak, nonatomic) IBOutlet UITextField *lunchField;
 @property (weak, nonatomic) IBOutlet UITextField *dinnerField;
+@property (weak, nonatomic) IBOutlet UITextField *startTimeField;
 
 @property (strong, nonatomic) NSString *latitude;
 @property (strong, nonatomic) NSString *longitude;

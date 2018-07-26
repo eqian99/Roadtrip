@@ -837,7 +837,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dik-Z9-4kd">
-                                <rect key="frame" x="16" y="310" width="343" height="47"/>
+                                <rect key="frame" x="16" y="219" width="343" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="48"/>
@@ -901,6 +901,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="id1-El-wEl">
+                                <rect key="frame" x="16" y="296" width="339" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pjp-3z-RVz"/>
@@ -919,6 +926,7 @@
                         <outlet property="dinnerField" destination="cbf-Ey-8ke" id="sA9-w3-q6N"/>
                         <outlet property="lunchField" destination="ZEc-Dk-2sy" id="pks-2s-syE"/>
                         <outlet property="searchDisplayController" destination="ncq-eO-XwL" id="4hh-yI-DXN"/>
+                        <outlet property="startTimeField" destination="id1-El-wEl" id="VTu-Hq-R0I"/>
                         <segue destination="VaR-MT-fcZ" kind="presentation" id="33i-7i-VYL"/>
                     </connections>
                 </viewController>
