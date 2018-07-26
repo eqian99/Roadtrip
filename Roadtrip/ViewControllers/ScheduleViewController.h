@@ -17,4 +17,6 @@
 
 @property(assign, nonatomic)NSTimeInterval endOfDayUnix;
 
+
+
 @end

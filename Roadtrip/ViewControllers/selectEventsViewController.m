@@ -67,6 +67,8 @@ static int *const LANDMARKS = 1;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     //[self getMyEvents];
     
     self.eventsSelected = [NSMutableArray new];
@@ -367,6 +369,7 @@ static int *const LANDMARKS = 1;
         }
         
     }else if( indexSelected == LANDMARKS) {
+        
         [cell setLandmark: [self.landmarks objectAtIndex:indexPath.row]];
         
         // load in background to prevent choppy scrolling
@@ -375,13 +378,17 @@ static int *const LANDMARKS = 1;
             
             NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"200",cell.landmark.photoReference]];
             
-            NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
             
+            NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
+
             UIImage *image = [UIImage imageWithData:photoData];
             
             dispatch_sync(dispatch_get_main_queue(), ^(void) {
                 // Assign image back on the main thread
+                
                 cell.posterView.image = image;
+                
+
             });
             
         });

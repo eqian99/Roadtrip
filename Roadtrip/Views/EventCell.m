@@ -26,12 +26,8 @@
     
     _event = event;
     self.nameLabel.text = event.name;
-    if(event.eventDescription != nil){
-        self.descriptionLabel.text = event.eventDescription;
-    }
-    else{
-        self.descriptionLabel.text = @" ";
-    }
+    self.addressLabel.text = @"";
+
 
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //formatter.dateFormat = @"E MMM d HH:mm Z y";
@@ -59,6 +55,9 @@
     self.posterView.image = nil;
     [self.posterView setImageWithURL:posterURL];
     
+    self.posterView.layer.cornerRadius = 10;
+    self.posterView.clipsToBounds = YES;
+    
     //self.addressLabel.text = event.address;
 }
 - (IBAction)didSelect:(id)sender {
@@ -74,7 +73,7 @@
     self.nameLabel.text = landmark.name;
     
     self.addressLabel.text = landmark.address;
-    self.descriptionLabel.text = @"No event description available";
+
     self.startEndLabel.text = @"";
     NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"200",landmark.photoReference]];
     

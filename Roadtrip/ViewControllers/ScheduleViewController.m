@@ -10,6 +10,7 @@
 #import "Event.h"
 #import "ScheduleCell.h"
 #import "EventDetailsViewController.h"
+#import "Parse.h"
 #import <EventKit/EventKit.h>
 
 @interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -68,10 +69,12 @@
     return self.eventsSelected.count;
 }
 - (IBAction)tappedImportSchedule:(id)sender {
+    
     EKEventStore *store = [EKEventStore new];
     [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
         if (!granted) { return; }
         for(int i = 0; i < self.eventsSelected.count; i++){
+            
             EKEvent *event = [EKEvent eventWithEventStore:store];
             if([self.eventsSelected[i] isKindOfClass:[Event class]]){
                 Event *myEvent = self.eventsSelected[i];
@@ -95,10 +98,18 @@
                 NSError *err = nil;
                 [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
             }
-            
         }
     }];
+    
 }
+
+- (IBAction)tappedSaveSchedule:(id)sender {
+    
+    
+    
+    
+}
+
  
 
 
