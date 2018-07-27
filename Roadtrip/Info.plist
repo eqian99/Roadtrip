@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSPhotoLibraryUsageDescription</key>               <!-- added this for photo library permission -->
-    <string>Need library access to upload images</string> <!-- added this for photo library permission -->
-    <key>NSCameraUsageDescription</key> <!-- added this for camera permission -->
-    <string>Need camera access to take pictures</string> <!-- added this for camera permission -->
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -31,8 +27,14 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>We will put the events into your calendar!</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Need camera access to take pictures</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to schedule events near you!</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need library access to upload images</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -54,7 +56,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCalendarsUsageDescription</key>
-	<string>We will put the events into your calendar!</string>
 </dict>
 </plist>

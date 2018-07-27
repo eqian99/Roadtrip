@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface DirectionsViewController ()
+@interface DirectionsViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @end
@@ -20,26 +20,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // request directions from Apple
-    MKDirectionsRequest *directionsRequest = [MKDirectionsRequest new];
+    self.mapView.delegate = self;
+    
+    MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
+    
+    request.source = [MKMapItem mapItemForCurrentLocation];
+    
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.7749, -122.4194) addressDictionary:nil];
+    MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:placemark];
+    
+    request.destination = destination;
+    request.requestsAlternateRoutes = YES;
+    MKDirections *directions =
+    [[MKDirections alloc] initWithRequest:request];
+    
+    [directions calculateDirectionsWithCompletionHandler:
+     ^(MKDirectionsResponse *response, NSError *error) {
+         if (error) {
+             NSLog(@"%@", error);
+         } else {
+             [self showRoute:response];
+         }
+     }];
 
-    // set source to current location for now
-    MKMapItem *source = [MKMapItem mapItemForCurrentLocation];
-    
-    // Make the destination
-    CLLocationCoordinate2D destinationCoords = CLLocationCoordinate2DMake(38.8977, -77.0365);
-    
-    MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithCoordinate:destinationCoords addressDictionary:nil];
-    
-    MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
-    
-    // Set the source and destination on the request
-    [directionsRequest setSource:source];
-    [directionsRequest setDestination:destination];
-    
-    MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
+}
 
-    
+-(void)showRoute:(MKDirectionsResponse *)response
+{
+    for (MKRoute *route in response.routes)
+    {
+        [self.mapView
+         addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+    }
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay
+{
+    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+    renderer.strokeColor = [UIColor blueColor];
+    renderer.lineWidth = 5.0;
+    return renderer;
 }
 
 - (void)didReceiveMemoryWarning {
