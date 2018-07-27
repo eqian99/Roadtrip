@@ -172,14 +172,18 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityCell" forIndexPath:indexPath];
     
     if([self.searchText isEqualToString:@""]) {
-        
-        PFObject *parseCity = self.recentSearchesArray[indexPath.row];
-        if(parseCity != nil){
-            [parseCity fetchIfNeeded];
-            cell.textLabel.text = parseCity[@"name"];
-            cell.detailTextLabel.text = parseCity[@"stateAndCountry"];
+        if(indexPath.row < self.recentSearchesArray.count){
+            PFObject *parseCity = self.recentSearchesArray[indexPath.row];
+            if(parseCity != nil){
+                [parseCity fetchIfNeeded];
+                cell.textLabel.text = parseCity[@"name"];
+                cell.detailTextLabel.text = parseCity[@"stateAndCountry"];
+            }
         }
-    
+        else{
+            cell.textLabel.text = @"";
+            cell.detailTextLabel.text = @"";
+        }
     } else {
      
         cell.textLabel.text = self.citiesArray[indexPath.row];
@@ -194,8 +198,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if([self.searchText isEqualToString:@""]){
-        self.searchText = self.recentSearchesArray[indexPath.row];
-        [self.cityDelegate changeCityTextWithCity:self.recentSearchesArray[indexPath.row]];
+        PFObject * parseCity = self.recentSearchesArray[indexPath.row];
+        [parseCity fetchIfNeeded];
+        NSString *city = parseCity[@"name"];
+        
+        NSString *stateAndCountry = parseCity[@"stateAndCountry"];
+        
+        NSString *latitude = parseCity[@"latitude"];
+        
+        NSString *longitude = parseCity[@"longitude"];
+        
+        NSLog(@"city: %@ latitude: %@ longitude: %@", city ,latitude, longitude);
+        [self.cityDelegate changeCityText:city withStateAndCountry:stateAndCountry withLatitude:latitude withLongitude:longitude];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
     
     else{
