@@ -54,6 +54,20 @@
 -(void)showRoute:(MKDirectionsResponse *)response
 {
     MKRoute *route = response.routes[0];
+    
+    NSArray *points = route.steps;
+    
+    NSLog(@"%f", route.expectedTravelTime);
+    
+    for(int i = 0; i < points.count; i++) {
+        
+        MKRouteStep *step = points[i];
+        NSLog(@"Instruction: %@", step.instructions);
+        
+    }
+    
+    NSLog(@"Points: %@", points);
+    
     [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
 }
 
