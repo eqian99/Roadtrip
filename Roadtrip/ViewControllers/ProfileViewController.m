@@ -45,31 +45,30 @@
     }
     self.usernameLabel.text = [NSString stringWithFormat: @"%@", self.currUser.username];
     
-    NSArray * places = [self.currUser valueForKey:@"cities"];
+    NSArray * places = [self.currUser valueForKey:@"citiesSearched"];
     
     if(places == nil){
     
         self.recentSearchesLabel.text = @"No recent searches";
-    
+     
     }
     else{
         NSString * recentPlaces = @"";
-        for(int i = 0; i < 3; i++){
+        int numOfRecentPlaces = 3;
+        if(places.count < 3){
+            numOfRecentPlaces = (int)places.count;
+        }
+        for(int i = 0; i < numOfRecentPlaces; i++){
             
+            PFObject *parseCity = places[i];
+            [parseCity fetchIfNeeded];
             
-            if(places[i] != nil){
-                
-                
-                recentPlaces = [recentPlaces stringByAppendingString:places[i]];
-                
-                if(i < 2){
-                
-                    recentPlaces = [recentPlaces stringByAppendingString:@"\n"];
-                
-                }
-            }
-            else{
-                break;
+            recentPlaces = [recentPlaces stringByAppendingString:parseCity[@"name"]];
+            
+            if(i < 2){
+            
+                recentPlaces = [recentPlaces stringByAppendingString:@"\n"];
+            
             }
         }
         self.recentSearchesLabel.text = recentPlaces;

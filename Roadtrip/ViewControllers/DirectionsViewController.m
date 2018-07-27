@@ -27,10 +27,15 @@
     request.source = [MKMapItem mapItemForCurrentLocation];
     
     MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.7749, -122.4194) addressDictionary:nil];
+    
+    MKPlacemark *placemarkSource = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(34.0522, -118.2437) addressDictionary:nil];
     MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:placemark];
+    MKMapItem *source = [[MKMapItem alloc] initWithPlacemark:placemarkSource];
     
     request.destination = destination;
+    request.source = source;
     request.requestsAlternateRoutes = YES;
+    request.transportType = MKDirectionsTransportTypeAutomobile;
     MKDirections *directions =
     [[MKDirections alloc] initWithRequest:request];
     
@@ -39,6 +44,7 @@
          if (error) {
              NSLog(@"%@", error);
          } else {
+             NSLog(@"hello");
              [self showRoute:response];
          }
      }];
@@ -47,11 +53,8 @@
 
 -(void)showRoute:(MKDirectionsResponse *)response
 {
-    for (MKRoute *route in response.routes)
-    {
-        [self.mapView
-         addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
-    }
+    MKRoute *route = response.routes[0];
+    [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay
