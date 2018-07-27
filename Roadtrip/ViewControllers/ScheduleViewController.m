@@ -58,6 +58,11 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ScheduleCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ScheduleCell"];
     if([self.eventsSelected[indexPath.row] isKindOfClass:[Event class]]){
+        
+        Event *event = self.eventsSelected[indexPath.row];
+        
+        
+        
         [cell setScheduleCellEvent:self.eventsSelected[indexPath.row]];
     }
     else{
@@ -110,6 +115,8 @@
     
     PFObject *schedule = [PFObject objectWithClassName:@"Schedule"];
     
+    [schedule setValue:self.city forKey:@"name"];
+    
     [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         
         [scheduleRelation addObject:schedule];
@@ -145,15 +152,32 @@
                         
                         Event *event = self.eventsSelected[i];
                         
-                        parseEvent[@"startDate"] = event.startDate;
-                        
-                        parseEvent[@"endDate"] = event.endDate;
-                        
                         parseEvent[@"name"] = event.name;
                         
-                        parseEvent[@"venueId"] = event.venueId;
+                        NSLog(event.name);
                         
-                        parseEvent[@"eventId"] = event.eventId;
+                        if(event.eventDescription) {
+                            
+                            parseEvent[@"startDate"] = event.startDate;
+                            
+                            parseEvent[@"endDate"] = event.endDate;
+                            
+                            parseEvent[@"venueId"] = event.venueId;
+                            
+                            parseEvent[@"eventId"] = event.eventId;
+                            
+                        } else {
+                            
+                            parseEvent[@"startDate"] = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnix];
+                            
+                            parseEvent[@"endDate"] = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnix];
+                            
+                            parseEvent[@"venueId"] = @"Meal";
+                            
+                            parseEvent[@"eventId"] = @"Meal";
+                            
+                        }
+                        
                         
                     } else if ([self.eventsSelected[i] isKindOfClass:[Landmark class]]) {
                         

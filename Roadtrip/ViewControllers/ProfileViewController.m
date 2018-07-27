@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePic;
 
+
+
 @property (strong, nonatomic) NSArray *friends;
 
 
@@ -120,6 +122,7 @@
         
     }];
 }
+
 - (IBAction)takeProfilePic:(id)sender {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
@@ -175,6 +178,14 @@
     
     return self.friends.count;
 }
+
+- (IBAction)didTapSchedules:(id)sender {
+    
+    [self performSegueWithIdentifier:@"showUserSchedules" sender:self];
+    
+}
+
+
 - (IBAction)tappedLogout:(id)sender {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     

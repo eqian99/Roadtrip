@@ -24,6 +24,9 @@
 		D670B20C20FDC9DC0064755D /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = D670B20B20FDC9DC0064755D /* Restaurant.m */; };
 		D67ACB132108F9FF00EA1815 /* SearchPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACB122108F9FF00EA1815 /* SearchPeopleViewController.m */; };
 		D67ACB162109016D00EA1815 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACB152109016D00EA1815 /* UserCell.m */; };
+		D67ACB19210A8DED00EA1815 /* SchedulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACB18210A8DED00EA1815 /* SchedulesViewController.m */; };
+		D67ACB1C210A93B300EA1815 /* UserScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACB1B210A93B300EA1815 /* UserScheduleCell.m */; };
+		D67ACB1F210A99D300EA1815 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACB1E210A99D300EA1815 /* Schedule.m */; };
 		D680BC1020FFF96200C0EBC4 /* LocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D680BC0F20FFF96200C0EBC4 /* LocationTableViewController.m */; };
 		D680BC132100156E00C0EBC4 /* EventbriteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D680BC122100156E00C0EBC4 /* EventbriteManager.m */; };
 		D68C739320FC46D700364D35 /* SWRevealViewController in Resources */ = {isa = PBXBuildFile; fileRef = D68C739220FC46D700364D35 /* SWRevealViewController */; };
@@ -79,6 +82,12 @@
 		D67ACB122108F9FF00EA1815 /* SearchPeopleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPeopleViewController.m; sourceTree = "<group>"; };
 		D67ACB142109016D00EA1815 /* UserCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
 		D67ACB152109016D00EA1815 /* UserCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
+		D67ACB17210A8DED00EA1815 /* SchedulesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SchedulesViewController.h; sourceTree = "<group>"; };
+		D67ACB18210A8DED00EA1815 /* SchedulesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SchedulesViewController.m; sourceTree = "<group>"; };
+		D67ACB1A210A93B300EA1815 /* UserScheduleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserScheduleCell.h; sourceTree = "<group>"; };
+		D67ACB1B210A93B300EA1815 /* UserScheduleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserScheduleCell.m; sourceTree = "<group>"; };
+		D67ACB1D210A99D300EA1815 /* Schedule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
+		D67ACB1E210A99D300EA1815 /* Schedule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Schedule.m; sourceTree = "<group>"; };
 		D680BC0E20FFF96200C0EBC4 /* LocationTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationTableViewController.h; sourceTree = "<group>"; };
 		D680BC0F20FFF96200C0EBC4 /* LocationTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationTableViewController.m; sourceTree = "<group>"; };
 		D680BC112100156E00C0EBC4 /* EventbriteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventbriteManager.h; sourceTree = "<group>"; };
@@ -143,6 +152,8 @@
 				D6AA0A692108F4E40074456B /* FriendCell.m */,
 				D67ACB142109016D00EA1815 /* UserCell.h */,
 				D67ACB152109016D00EA1815 /* UserCell.m */,
+				D67ACB1A210A93B300EA1815 /* UserScheduleCell.h */,
+				D67ACB1B210A93B300EA1815 /* UserScheduleCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,6 +176,8 @@
 				D670B20B20FDC9DC0064755D /* Restaurant.m */,
 				5306477C20FEF93D0062432D /* Landmark.h */,
 				5306477D20FEF93D0062432D /* Landmark.m */,
+				D67ACB1D210A99D300EA1815 /* Schedule.h */,
+				D67ACB1E210A99D300EA1815 /* Schedule.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -246,6 +259,8 @@
 				5329930221068C8C0058D428 /* ProfileViewController.m */,
 				D67ACB112108F9FF00EA1815 /* SearchPeopleViewController.h */,
 				D67ACB122108F9FF00EA1815 /* SearchPeopleViewController.m */,
+				D67ACB17210A8DED00EA1815 /* SchedulesViewController.h */,
+				D67ACB18210A8DED00EA1815 /* SchedulesViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -381,15 +396,18 @@
 				F6F77C5320FFC3EB00836D65 /* LandmarkCell.m in Sources */,
 				5306477E20FEF93D0062432D /* Landmark.m in Sources */,
 				F6F77C5C210016FE00836D65 /* SelectionViewController.m in Sources */,
+				D67ACB19210A8DED00EA1815 /* SchedulesViewController.m in Sources */,
 				D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */,
 				F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */,
 				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,
 				5306478A210154010062432D /* EventDetailsViewController.m in Sources */,
+				D67ACB1C210A93B300EA1815 /* UserScheduleCell.m in Sources */,
 				5329930321068C8C0058D428 /* ProfileViewController.m in Sources */,
 				D67ACB162109016D00EA1815 /* UserCell.m in Sources */,
 				F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */,
 				D680BC1020FFF96200C0EBC4 /* LocationTableViewController.m in Sources */,
 				F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */,
+				D67ACB1F210A99D300EA1815 /* Schedule.m in Sources */,
 				D680BC132100156E00C0EBC4 /* EventbriteManager.m in Sources */,
 				5306477B20FEEE6A0062432D /* GoogleMapsManager.m in Sources */,
 				5306478420FFB33A0062432D /* EventCell.m in Sources */,

@@ -17,6 +17,7 @@
 
 @property(assign, nonatomic)NSTimeInterval endOfDayUnix;
 
+@property (strong, nonatomic) NSString *city;
 
 
 @end

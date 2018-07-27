@@ -296,6 +296,8 @@ static int *const LANDMARKS = 1;
         
         allEvents = [allEvents arrayByAddingObjectsFromArray:self.landmarksArray];
         
+        scheduleViewController.city = self.city;
+        
         scheduleViewController.eventsSelected = allEvents;
         
         for(int i = 0; i < allEvents.count; i++){
