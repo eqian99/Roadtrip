@@ -44,13 +44,11 @@
 
 -(void) getRecentSearches {
     PFUser *currUser = [PFUser currentUser];
-    
     NSArray *places = [currUser valueForKey:@"citiesSearched"];
     
     if(places != nil){
         self.recentSearchesArray = places;
         [self.locationTableView reloadData];
-        
     }
     
 }
@@ -174,12 +172,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityCell" forIndexPath:indexPath];
     
     if([self.searchText isEqualToString:@""]) {
-        /*
+        
         PFObject *parseCity = self.recentSearchesArray[indexPath.row];
-        cell.textLabel.text = parseCity[@"name"];
-        cell.detailTextLabel.text = parseCity[@"stateAndCountry"];
-        cell.detailTextLabel.text = nil;
-         */
+        if(parseCity != nil){
+            [parseCity fetchIfNeeded];
+            cell.textLabel.text = parseCity[@"name"];
+            cell.detailTextLabel.text = parseCity[@"stateAndCountry"];
+        }
     
     } else {
      
