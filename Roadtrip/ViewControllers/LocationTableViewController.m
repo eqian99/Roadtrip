@@ -45,7 +45,7 @@
 -(void) getRecentSearches {
     PFUser *currUser = [PFUser currentUser];
     
-    NSArray *places = [currUser valueForKey:@"cities"];
+    NSArray *places = [currUser valueForKey:@"citiesSearched"];
     
     if(places != nil){
         self.recentSearchesArray = places;
@@ -174,9 +174,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityCell" forIndexPath:indexPath];
     
     if([self.searchText isEqualToString:@""]) {
-        
-        cell.textLabel.text = self.recentSearchesArray[indexPath.row];
+        /*
+        PFObject *parseCity = self.recentSearchesArray[indexPath.row];
+        cell.textLabel.text = parseCity[@"name"];
+        cell.detailTextLabel.text = parseCity[@"stateAndCountry"];
         cell.detailTextLabel.text = nil;
+         */
     
     } else {
      

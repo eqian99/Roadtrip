@@ -91,7 +91,7 @@
         
         self.descriptionLabel.text = @"No description available";
         
-        NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",landmark.photoReference]];
+        NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"500",landmark.photoReference]];
         
         NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
         

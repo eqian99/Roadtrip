@@ -234,7 +234,7 @@ static int *const LANDMARKS = 1;
 }
 
 - (void)createError:(NSString *)errorMessage{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert"
                                                                    message:errorMessage
                                                             preferredStyle:(UIAlertControllerStyleAlert)];
     
@@ -405,19 +405,18 @@ static int *const LANDMARKS = 1;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             // Load image on a non-ui-blocking thread
             
-            NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"200",cell.landmark.photoReference]];
+            NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",cell.landmark.photoReference]];
             
-            
-            NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
+            //NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
 
-            UIImage *image = [UIImage imageWithData:photoData];
+            //UIImage *image = [UIImage imageWithData:photoData];
+            
+            [cell.posterView setImageWithURL: photoURL];
             
             dispatch_sync(dispatch_get_main_queue(), ^(void) {
                 // Assign image back on the main thread
                 
-                cell.posterView.image = image;
-                
-
+                //cell.posterView.image = image;
             });
             
         });
@@ -455,10 +454,9 @@ static int *const LANDMARKS = 1;
     
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
     if(activitySelected == EVENTS) {
-        if(self.events.count == 0 && self.count == 4){
+        if(self.events.count == 0 && self.count >= 3){
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self createError:@"There are no events happening today"];
-            //self.firstTime = NO;
             self.count++;
         }
         self.count++;

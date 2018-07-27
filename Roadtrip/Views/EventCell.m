@@ -76,12 +76,12 @@
     self.addressLabel.text = landmark.address;
 
     self.startEndLabel.text = @"";
-    NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"200",landmark.photoReference]];
+    //NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"200",landmark.photoReference]];
     
-    NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
+    //NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
     
-    UIImage *image = [UIImage imageWithData:photoData];
-    self.posterView.image = nil;
-    self.posterView.image = image;
+    //UIImage *image = [UIImage imageWithData:photoData];
+    //self.posterView.image = nil;
+    //self.posterView.image = image;
 }
 @end

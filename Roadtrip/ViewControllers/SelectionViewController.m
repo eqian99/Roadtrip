@@ -277,6 +277,9 @@
         selectEventsViewController.stateAndCountry = self.stateAndCountry;
 
         //Pass over data about the start time
+        if(self.startOfEventsUnix == 0.0){
+            self.startOfEventsUnix = self.startOfDayUnix;
+        }
         selectEventsViewController.startOfDayUnix = self.startOfEventsUnix;
         selectEventsViewController.endOfDayUnix = self.endOfDayUnix;
         selectEventsViewController.breakfastUnixTime = self.breakfastTime;
@@ -287,19 +290,44 @@
         if(self.currUser == nil){
             self.currUser = [PFUser currentUser];
         }
-        NSArray *citiesArray = [self.currUser valueForKey:@"cities"];
-        NSMutableArray *citiesArrayMutable = [citiesArray mutableCopy];
-        if(citiesArrayMutable == nil){
-            citiesArrayMutable = [NSMutableArray new];
-        }
-        if([citiesArrayMutable indexOfObject:self.city] != NSNotFound){
-            [citiesArrayMutable removeObject:self.city];
-        }
-        [citiesArrayMutable insertObject:self.city atIndex:0];
-        citiesArray = [citiesArrayMutable copy];
-        NSLog(@"%@", citiesArray);
-        [self.currUser setValue:citiesArray forKey:@"cities"];
-        [self.currUser saveInBackground];
+        
+        PFObject *parseCity = [PFObject objectWithClassName:@"City"];
+
+        parseCity[@"latitude"] = self.latitude;
+        parseCity[@"longitude"] = self.longitude;
+        parseCity[@"name"] = self.city;
+        parseCity[@"stateAndCountry"] = self.stateAndCountry;
+        
+        [parseCity saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            
+            if(error) {
+                
+                NSLog(@"Error saving event from schedule");
+                
+                
+            } else {
+                
+                NSLog(@"Success saving event from schedule in parse");
+                NSArray *myCitiesArray = [self.currUser valueForKey:@"citiesSearched"];
+                NSMutableArray *citiesArrayMutable = [myCitiesArray mutableCopy];
+                if(citiesArrayMutable == nil){
+                    citiesArrayMutable = [NSMutableArray new];
+                }
+                for(int i = 0; i < citiesArrayMutable.count; i++){
+                    PFObject *parseCity = citiesArrayMutable[i];
+                    if([parseCity[@"name"] isEqualToString:self.city] && [parseCity[@"stateAndCountry"] isEqualToString:self.stateAndCountry]){
+                        [citiesArrayMutable removeObjectAtIndex:i];
+                    }
+                }
+                
+                [citiesArrayMutable insertObject:parseCity atIndex:0];
+                myCitiesArray = [citiesArrayMutable copy];
+                NSLog(@"%@", myCitiesArray);
+                [self.currUser setValue:myCitiesArray forKey:@"citiesSearched"];
+                [self.currUser saveInBackground];
+            }
+            
+        }];
     }
 }
 
