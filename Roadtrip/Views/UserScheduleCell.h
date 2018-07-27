@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Schedule.h"
 
 @interface UserScheduleCell : UITableViewCell
 
+
+@property (strong, nonatomic) Schedule *schedule;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 

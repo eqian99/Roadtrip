@@ -7,6 +7,7 @@
 //
 
 #import "SchedulesViewController.h"
+#import "ScheduleDetailViewController.h"
 #import "UserScheduleCell.h"
 #import "Schedule.h"
 #import "Parse.h"
@@ -98,23 +99,36 @@
     
     cell.dateLabel.text = [schedule.createdDate description];
     
+    cell.schedule = schedule;
+    
     [cell.dateLabel sizeToFit];
     [cell.nameLabel sizeToFit];
     
     return cell;
     
-    
-    
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if([segue.identifier isEqualToString:@"scheduleDetailSegue"]) {
+        
+        ScheduleDetailViewController *viewController = [segue destinationViewController];
+        
+        UserScheduleCell *cell = sender;
+        
+        Schedule *schedule = cell.schedule;
+        
+        viewController.schedule = schedule;
+        
+    }
+    
 }
-*/
+
 
 @end

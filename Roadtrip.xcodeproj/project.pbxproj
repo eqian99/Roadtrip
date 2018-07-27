@@ -27,6 +27,8 @@
 		D67ACB19210A8DED00EA1815 /* SchedulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACB18210A8DED00EA1815 /* SchedulesViewController.m */; };
 		D67ACB1C210A93B300EA1815 /* UserScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACB1B210A93B300EA1815 /* UserScheduleCell.m */; };
 		D67ACB1F210A99D300EA1815 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACB1E210A99D300EA1815 /* Schedule.m */; };
+		D67ACB22210BB8C100EA1815 /* ScheduleEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACB21210BB8C100EA1815 /* ScheduleEventCell.m */; };
+		D67ACB25210BB9F200EA1815 /* ScheduleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D67ACB24210BB9F200EA1815 /* ScheduleDetailViewController.m */; };
 		D680BC1020FFF96200C0EBC4 /* LocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D680BC0F20FFF96200C0EBC4 /* LocationTableViewController.m */; };
 		D680BC132100156E00C0EBC4 /* EventbriteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D680BC122100156E00C0EBC4 /* EventbriteManager.m */; };
 		D68C739320FC46D700364D35 /* SWRevealViewController in Resources */ = {isa = PBXBuildFile; fileRef = D68C739220FC46D700364D35 /* SWRevealViewController */; };
@@ -88,6 +90,10 @@
 		D67ACB1B210A93B300EA1815 /* UserScheduleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserScheduleCell.m; sourceTree = "<group>"; };
 		D67ACB1D210A99D300EA1815 /* Schedule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
 		D67ACB1E210A99D300EA1815 /* Schedule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Schedule.m; sourceTree = "<group>"; };
+		D67ACB20210BB8C100EA1815 /* ScheduleEventCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleEventCell.h; sourceTree = "<group>"; };
+		D67ACB21210BB8C100EA1815 /* ScheduleEventCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleEventCell.m; sourceTree = "<group>"; };
+		D67ACB23210BB9F200EA1815 /* ScheduleDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleDetailViewController.h; sourceTree = "<group>"; };
+		D67ACB24210BB9F200EA1815 /* ScheduleDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleDetailViewController.m; sourceTree = "<group>"; };
 		D680BC0E20FFF96200C0EBC4 /* LocationTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationTableViewController.h; sourceTree = "<group>"; };
 		D680BC0F20FFF96200C0EBC4 /* LocationTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationTableViewController.m; sourceTree = "<group>"; };
 		D680BC112100156E00C0EBC4 /* EventbriteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventbriteManager.h; sourceTree = "<group>"; };
@@ -154,6 +160,8 @@
 				D67ACB152109016D00EA1815 /* UserCell.m */,
 				D67ACB1A210A93B300EA1815 /* UserScheduleCell.h */,
 				D67ACB1B210A93B300EA1815 /* UserScheduleCell.m */,
+				D67ACB20210BB8C100EA1815 /* ScheduleEventCell.h */,
+				D67ACB21210BB8C100EA1815 /* ScheduleEventCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -261,6 +269,8 @@
 				D67ACB122108F9FF00EA1815 /* SearchPeopleViewController.m */,
 				D67ACB17210A8DED00EA1815 /* SchedulesViewController.h */,
 				D67ACB18210A8DED00EA1815 /* SchedulesViewController.m */,
+				D67ACB23210BB9F200EA1815 /* ScheduleDetailViewController.h */,
+				D67ACB24210BB9F200EA1815 /* ScheduleDetailViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -399,6 +409,7 @@
 				D67ACB19210A8DED00EA1815 /* SchedulesViewController.m in Sources */,
 				D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */,
 				F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */,
+				D67ACB22210BB8C100EA1815 /* ScheduleEventCell.m in Sources */,
 				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,
 				5306478A210154010062432D /* EventDetailsViewController.m in Sources */,
 				D67ACB1C210A93B300EA1815 /* UserScheduleCell.m in Sources */,
@@ -415,6 +426,7 @@
 				F6F77C622109296B00836D65 /* DirectionsViewController.m in Sources */,
 				5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */,
 				D670B20C20FDC9DC0064755D /* Restaurant.m in Sources */,
+				D67ACB25210BB9F200EA1815 /* ScheduleDetailViewController.m in Sources */,
 				D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */,
 				D67ACB132108F9FF00EA1815 /* SearchPeopleViewController.m in Sources */,
 				5306478720FFED150062432D /* RestaurantTimeViewController.m in Sources */,

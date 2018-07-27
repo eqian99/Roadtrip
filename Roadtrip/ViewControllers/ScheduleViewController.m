@@ -183,7 +183,10 @@
                         
                         Landmark *landmark = self.eventsSelected[i];
                         
-                        NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:landmark.startTimeUnixTemp];
+                        NSLog(@"Start Time Unix Temp for Landmark: %f" , landmark.startTimeUnixTemp);
+                        NSLog(@"Start of day unix: %f", self.startOfDayUnix);
+                        
+                        NSDate *startDate = [NSDate dateWithTimeIntervalSince1970: landmark.startTimeUnixTemp];
                         
                         NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:landmark.endTimeUnixTemp];
                         

@@ -300,6 +300,12 @@ static int *const LANDMARKS = 1;
         
         scheduleViewController.eventsSelected = allEvents;
         
+        scheduleViewController.startOfDayUnix = self.startOfDayUnix;
+        
+        NSLog(@"Start of day Unix in selectEvents: %f", self.startOfDayUnix);
+        
+        scheduleViewController.endOfDayUnix = self.endOfDayUnix;
+        
         for(int i = 0; i < allEvents.count; i++){
             NSLog(@"%@", allEvents[i]);
         }
