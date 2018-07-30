@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Schedule.h"
+#import "Event.h"
+#import "Landmark.h"
+
 @interface ScheduleEventCell : UITableViewCell
 
 
@@ -15,4 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
+-(void) setScheduleCellEvent: (Event *)event;
+-(void) setScheduleCellLandmark: (Landmark *)landmark;
 @end

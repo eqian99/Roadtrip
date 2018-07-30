@@ -62,13 +62,9 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     UITableViewCell *tappedCell = sender;
-    
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        
     EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
-    
     eventDetailsViewController.activities = self.eventsSelected;
-    
     eventDetailsViewController.index = indexPath.row;
 }
 
@@ -141,174 +137,98 @@
 
 - (IBAction)tappedSaveSchedule:(id)sender {
     
+    if(self.saved == false) {
+        [self saveSchedule];
+        self.saved = true;
+    } else {
+        [self showScheduleAlreadySavedAlert];
+    }
+}
+
+
+-(void) saveSchedule {
+    
     PFRelation *scheduleRelation = [[PFUser currentUser] relationForKey:@"schedules"];
-    
     PFObject *schedule = [PFObject objectWithClassName:@"Schedule"];
-    
     [schedule setValue:self.city forKey:@"name"];
-    
     [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        
         [scheduleRelation addObject:schedule];
-        
         [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-           
             if(error) {
-                
                 NSLog(@"Error saving user after adding schedule to schedule relation");
-                
-                
             } else {
-                
                 NSLog(@"Successfully saved user");
-                
             }
-            
         }];
-        
         if(error) {
-            
             NSLog(@"Error saving schedule");
-            
         } else {
-            
             PFRelation *events = [schedule relationForKey:@"events"];
-            
-                for(int i = 0; i < self.eventsSelected.count; i++) {
+            for(int i = 0; i < self.eventsSelected.count; i++) {
+                PFObject *parseEvent = [PFObject objectWithClassName:@"Event"];
+                if([self.eventsSelected[i] isKindOfClass:[Event class]]) {
+                    Event *event = self.eventsSelected[i];
+                    parseEvent[@"name"] = event.name;
+                    NSLog(@"%@", event.name);
+                    if(event.eventDescription) {
+                        parseEvent[@"startDate"] = event.startDate;
+                        parseEvent[@"endDate"] = event.endDate;
+                        parseEvent[@"venueId"] = event.venueId;
+                        parseEvent[@"eventId"] = event.eventId;
+                        parseEvent[@"address"] = event.address;
+                        parseEvent[@"description"] = event.eventDescription;
+                    } else {
+                        parseEvent[@"startDate"] = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnix];
+                        parseEvent[@"endDate"] = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnix];
+                        parseEvent[@"venueId"] = @"Meal";
+                        parseEvent[@"eventId"] = @"Meal";
+                        parseEvent[@"description"] = @"Meal";
+                    }
                     
-                    PFObject *parseEvent = [PFObject objectWithClassName:@"Event"];
+                } else if ([self.eventsSelected[i] isKindOfClass:[Landmark class]]) {
                     
-                    if([self.eventsSelected[i] isKindOfClass:[Event class]]) {
-                        
-                        Event *event = self.eventsSelected[i];
-                        
-                        parseEvent[@"name"] = event.name;
-                        
-                        NSLog(@"%@", event.name);
-                        
-                        if(event.eventDescription) {
-                            
-                            parseEvent[@"startDate"] = event.startDate;
-                            
-                            parseEvent[@"endDate"] = event.endDate;
-                            
-                            parseEvent[@"venueId"] = event.venueId;
-                            
-                            parseEvent[@"eventId"] = event.eventId;
-                            
-                        } else {
-                            
-                            parseEvent[@"startDate"] = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnix];
-                            
-                            parseEvent[@"endDate"] = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnix];
-                            
-                            parseEvent[@"venueId"] = @"Meal";
-                            
-                            parseEvent[@"eventId"] = @"Meal";
-                            
-                        }
-                        
-                        
-                    } else if ([self.eventsSelected[i] isKindOfClass:[Landmark class]]) {
-                        
-                        Landmark *landmark = self.eventsSelected[i];
-                        
-                        NSLog(@"Start Time Unix Temp for Landmark: %f" , landmark.startTimeUnixTemp);
-                        NSLog(@"Start of day unix: %f", self.startOfDayUnix);
-                        
-                        NSDate *startDate = [NSDate dateWithTimeIntervalSince1970: landmark.startTimeUnixTemp];
-                        
-                        NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:landmark.endTimeUnixTemp];
-                        
-                        parseEvent[@"startDate"] = startDate;
-                        
-                        parseEvent[@"endDate"] = endDate;
-                        
-                        parseEvent[@"name"] = landmark.name;
-                        
-                        parseEvent[@"eventId"] = landmark.placeId;
-                        
-                        parseEvent[@"venueId"] = @"Landmark";
+                    Landmark *landmark = self.eventsSelected[i];
+                    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970: landmark.startTimeUnixTemp];
+                    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:landmark.endTimeUnixTemp];
+                    parseEvent[@"startDate"] = startDate;
+                    parseEvent[@"endDate"] = endDate;
+                    parseEvent[@"name"] = landmark.name;
+                    parseEvent[@"eventId"] = landmark.placeId;
+                    parseEvent[@"venueId"] = @"Landmark";
+                    parseEvent[@"address"] = landmark.address;
+                }
+                
+                [parseEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                    if(error) {
+                        NSLog(@"Error saving event from schedule");
+                    } else {
+                        [events addObject:parseEvent];
+                        [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                            if(error) {
+                                NSLog(@"Error saving schedule after adding events in events relation");
+                            } else {
+                                
+                                [self createAlert:@"Schedule saved"];
+
+                            }
+                        }];
                         
                     }
-
                     
-                    [parseEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                        
-                        if(error) {
-                            
-                            NSLog(@"Error saving event from schedule");
-                            
-                            
-                        } else {
-                            
-                            NSLog(@"Success saving event from schedule in parse");
-                            
-                            [events addObject:parseEvent];
-                            
-                            [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                                if(error) {
-                                    NSLog(@"Error saving schedule after adding events in events relation");
-                                } else {
-                                    NSLog(@"Success?");
-                                    [self createAlert:@"Schedule saved"];
-                                }
-                            }];
-
-                            
-                        }
-                        
-                    }];
-                    
-                    
-                }
-            
-            
+                }];
+                
+            }
         }
-        
         
     }];
     
-    
-    
-//    PFRelation *events = [schedule relationForKey:@"events"];
-    
-//
-//    for(int i = 0; i < self.eventsSelected.count; i++) {
-//
-//        Event *event = self.eventsSelected[i];
-//        PFObject *parseEvent = [PFObject objectWithClassName:@"Event"];
-//
-//        parseEvent[@"startDate"] = event.startDate;
-//        parseEvent[@"endDate"] = event.endDate;
-//        parseEvent[@"name"] = event.name;
-//        parseEvent[@"venueId"] = event.venueId;
-//        parseEvent[@"eventId"] = event.eventId;
-//
-//        [events addObject:parseEvent];
-//
-//    }
-//
-//
-//    [scheduleRelation addObject:schedule];
-//
-//    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//
-//
-//        if (error) {
-//
-//            NSLog(@"%@ %@", error, [error userInfo]);
-//
-//        } else {
-//
-//            NSLog(@"Current user saved In Background");
-//
-//        }
-//
-//
-//    }];
-    
-    
+}
+
+-(void) showScheduleAlreadySavedAlert {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"This schedule is already saved!" message:@"This schedule has not been changed" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler: nil];
+    [alert addAction:action];
+    [self presentViewController:alert animated:true completion:nil];
 }
 
  
