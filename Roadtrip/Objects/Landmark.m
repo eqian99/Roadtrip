@@ -53,5 +53,15 @@
     return landmarks;
 }
 
++ (NSArray *) sortLandmarkByRating: (NSArray *) array {
+    
+    NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"rating" ascending:NO];
+    
+    NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sd]];
+    
+    return sortedArray;
+    
+}
+
 @end
 

@@ -26,6 +26,8 @@
 @property(assign, nonatomic)NSTimeInterval startTimeUnixTemp;
 @property(assign, nonatomic)NSTimeInterval endTimeUnixTemp;
 
-//Tyep
+//Type
 @property(assign, nonatomic)Boolean isEvent;
+
++ (NSArray *) sortLandmarkByRating: (NSArray *) array;
 @end

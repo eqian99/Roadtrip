@@ -122,6 +122,23 @@
     
 }
 
+- (void)createAlert:(NSString *)errorMessage{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success"
+                                                                   message:errorMessage
+                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         // handle response here.
+                                                     }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:^{
+    }];
+}
+
 - (IBAction)tappedSaveSchedule:(id)sender {
     
     PFRelation *scheduleRelation = [[PFUser currentUser] relationForKey:@"schedules"];
@@ -234,6 +251,7 @@
                                     NSLog(@"Error saving schedule after adding events in events relation");
                                 } else {
                                     NSLog(@"Success?");
+                                    [self createAlert:@"Schedule saved"];
                                 }
                             }];
 

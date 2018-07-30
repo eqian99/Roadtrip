@@ -83,7 +83,7 @@ static int const LANDMARKS = 1;
     
     [self getEventsFromEventbrite];
     
-    
+    [self getLandmarks];
     
     // Do any additional setup after loading the view.
 }
@@ -93,12 +93,14 @@ static int const LANDMARKS = 1;
     if(self.eventsLandmarksControl.selectedSegmentIndex == (long)EVENTS) {
         
         NSLog(@"Events selected");
-        [self getEventsFromEventbrite];
+        [self.tableView reloadData];
+        //[self getEventsFromEventbrite];
         
     } else {
         
         NSLog(@"Landmarks selected");
-        [self getLandmarks];
+        [self.tableView reloadData];
+        //[self getLandmarks];
         
     }
 
@@ -188,6 +190,8 @@ static int const LANDMARKS = 1;
          {
              
              self.landmarks = [Landmark initWithArray:placesDictionaries];
+             
+             self.landmarks = [NSMutableArray arrayWithArray: [Landmark sortLandmarkByRating:self.landmarks]];
              
              for(int i = 0; i < self.landmarks.count; i++) {
                  
@@ -457,7 +461,7 @@ static int const LANDMARKS = 1;
     
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
     if(activitySelected == (long)EVENTS) {
-        if(self.events.count == 0 && self.count >= 3){
+        if(self.events.count == 0 && self.count >= 4){
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self createError:@"There are no events happening today"];
             self.count++;

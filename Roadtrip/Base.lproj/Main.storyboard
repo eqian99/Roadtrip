@@ -312,7 +312,7 @@
             </objects>
             <point key="canvasLocation" x="3166" y="1653"/>
         </scene>
-        <!--Select Events View Controller-->
+        <!--Title-->
         <scene sceneID="mdf-FH-AGm">
             <objects>
                 <viewController id="reo-xb-MeA" customClass="selectEventsViewController" sceneMemberID="viewController">
@@ -327,15 +327,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69k-9C-c2q">
-                                <rect key="frame" x="318" y="78" width="37" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="didClickedDone:" destination="reo-xb-MeA" eventType="touchUpInside" id="dDi-H4-uOx"/>
-                                    <segue destination="Qz7-aA-bvi" kind="show" identifier="scheduleSegue" id="uMP-Rj-0q6"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVP-VR-ZqP">
                                 <rect key="frame" x="24" y="78" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -429,6 +420,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="9p0-WQ-3KN"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="GiW-pr-Bbm">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="l4R-fw-CvB">
+                            <connections>
+                                <segue destination="Qz7-aA-bvi" kind="show" identifier="scheduleSegue" id="HiY-S3-zzU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="eventsLandmarksControl" destination="dFF-0S-zFi" id="Drn-HF-g8f"/>
                         <outlet property="tableView" destination="rrL-un-HEE" id="a7e-TH-300"/>
@@ -452,7 +450,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time/Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhB-XR-xbN">
-                                        <rect key="frame" x="10" y="274" width="357" height="50"/>
+                                        <rect key="frame" x="10" y="296" width="357" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -466,14 +464,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Adress/Rating" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNj-rR-o0r">
-                                        <rect key="frame" x="8" y="322" width="357" height="63"/>
+                                        <rect key="frame" x="8" y="332" width="357" height="53"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Pc-mJ-Vga">
-                                        <rect key="frame" x="10" y="192" width="357" height="100"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6Pc-mJ-Vga">
+                                        <rect key="frame" x="10" y="190" width="357" height="93"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="31"/>
                                         <nil key="textColor"/>
@@ -507,7 +505,7 @@
             </objects>
             <point key="canvasLocation" x="4837.6000000000004" y="148.87556221889056"/>
         </scene>
-        <!--Title-->
+        <!--Schedule-->
         <scene sceneID="rcK-G3-cWR">
             <objects>
                 <viewController storyboardIdentifier="scheduleStoryboard" id="Qz7-aA-bvi" customClass="ScheduleViewController" sceneMemberID="viewController">
@@ -570,7 +568,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="SOq-z5-7hY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="Aae-rs-7d1">
+                    <navigationItem key="navigationItem" title="Schedule" id="Aae-rs-7d1">
                         <rightBarButtonItems>
                             <barButtonItem title="Save" id="xOY-1I-VhN">
                                 <connections>
@@ -837,7 +835,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dik-Z9-4kd">
-                                <rect key="frame" x="16" y="219" width="343" height="47"/>
+                                <rect key="frame" x="16" y="213" width="343" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="48"/>
@@ -1371,6 +1369,6 @@
         <image name="uncheckBox" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PG3-V4-NMe"/>
+        <segue reference="eNk-Lg-BIr"/>
     </inferredMetricsTieBreakers>
 </document>

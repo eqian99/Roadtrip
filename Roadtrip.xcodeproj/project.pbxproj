@@ -167,6 +167,8 @@
 		5379457D210F80380078D95F /* Unused Files */ = {
 			isa = PBXGroup;
 			children = (
+				D656ED8F20FD3B0800D7BAFD /* TestingViewController.h */,
+				D656ED9020FD3B0800D7BAFD /* TestingViewController.m */,
 				5306478520FFED150062432D /* RestaurantTimeViewController.h */,
 				5306478620FFED150062432D /* RestaurantTimeViewController.m */,
 				F6F77C4E20FFC2D900836D65 /* SelectLandmarksViewController.h */,
@@ -237,8 +239,6 @@
 				D656ED8D20FD320600D7BAFD /* YelpManager.m */,
 				D680BC112100156E00C0EBC4 /* EventbriteManager.h */,
 				D680BC122100156E00C0EBC4 /* EventbriteManager.m */,
-				D656ED8F20FD3B0800D7BAFD /* TestingViewController.h */,
-				D656ED9020FD3B0800D7BAFD /* TestingViewController.m */,
 				F6A23AE020EFE04C002384E8 /* Main.storyboard */,
 				F6A23AE320EFE04D002384E8 /* Assets.xcassets */,
 				F6A23AE520EFE04D002384E8 /* LaunchScreen.storyboard */,
