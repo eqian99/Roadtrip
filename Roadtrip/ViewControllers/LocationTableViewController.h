@@ -19,7 +19,7 @@
 
 @end
 
-@interface LocationTableViewController : UITableViewController
+@interface LocationTableViewController : UITableViewController <UISearchResultsUpdating>
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) NSArray *citiesArray;

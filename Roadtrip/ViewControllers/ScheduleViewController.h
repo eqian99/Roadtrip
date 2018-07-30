@@ -19,5 +19,9 @@
 
 @property (strong, nonatomic) NSString *city;
 
+@property (assign, nonatomic)double latitude;
+
+@property (assign, nonatomic)double longitude;
+
 
 @end

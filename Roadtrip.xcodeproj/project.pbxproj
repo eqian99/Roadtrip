@@ -148,8 +148,6 @@
 		532993052107E50A0058D428 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */,
-				F6F77C5120FFC3EB00836D65 /* LandmarkCell.h */,
 				5306478220FFB33A0062432D /* EventCell.h */,
 				5306478320FFB33A0062432D /* EventCell.m */,
 				5386C9022107E5D7002AA967 /* ScheduleCell.h */,
@@ -164,6 +162,23 @@
 				D67ACB21210BB8C100EA1815 /* ScheduleEventCell.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		5379457D210F80380078D95F /* Unused Files */ = {
+			isa = PBXGroup;
+			children = (
+				5306478520FFED150062432D /* RestaurantTimeViewController.h */,
+				5306478620FFED150062432D /* RestaurantTimeViewController.m */,
+				F6F77C4E20FFC2D900836D65 /* SelectLandmarksViewController.h */,
+				F6F77C4F20FFC2D900836D65 /* SelectLandmarksViewController.m */,
+				F6F77C4820FD353800836D65 /* CategoryViewController.m */,
+				F6F77C4720FD353800836D65 /* CategoryViewController.h */,
+				F6F77C4B20FD4AC100836D65 /* SelectLocationViewController.h */,
+				F6F77C4C20FD4AC100836D65 /* SelectLocationViewController.m */,
+				F6F77C5120FFC3EB00836D65 /* LandmarkCell.h */,
+				F6F77C5220FFC3EB00836D65 /* LandmarkCell.m */,
+			);
+			path = "Unused Files";
 			sourceTree = "<group>";
 		};
 		B4574B3D1F9F9AEE236E3730 /* Pods */ = {
@@ -211,6 +226,7 @@
 		F6A23AD920EFE04C002384E8 /* Roadtrip */ = {
 			isa = PBXGroup;
 			children = (
+				5379457D210F80380078D95F /* Unused Files */,
 				532993052107E50A0058D428 /* Views */,
 				D6CDFAB020FE5D78001F6A61 /* Objects */,
 				D68C739220FC46D700364D35 /* SWRevealViewController */,
@@ -243,16 +259,8 @@
 				F6F77C3F20FB256600836D65 /* LoginViewController.m */,
 				F6F77C4520FC6D7600836D65 /* SignupViewController.h */,
 				F6F77C4420FC6D7600836D65 /* SignupViewController.m */,
-				F6F77C4720FD353800836D65 /* CategoryViewController.h */,
-				F6F77C4820FD353800836D65 /* CategoryViewController.m */,
-				F6F77C4B20FD4AC100836D65 /* SelectLocationViewController.h */,
-				F6F77C4C20FD4AC100836D65 /* SelectLocationViewController.m */,
 				5306477F20FFABD10062432D /* selectEventsViewController.h */,
 				5306478020FFABD10062432D /* selectEventsViewController.m */,
-				F6F77C4E20FFC2D900836D65 /* SelectLandmarksViewController.h */,
-				F6F77C4F20FFC2D900836D65 /* SelectLandmarksViewController.m */,
-				5306478520FFED150062432D /* RestaurantTimeViewController.h */,
-				5306478620FFED150062432D /* RestaurantTimeViewController.m */,
 				D680BC0E20FFF96200C0EBC4 /* LocationTableViewController.h */,
 				D680BC0F20FFF96200C0EBC4 /* LocationTableViewController.m */,
 				F6F77C5A210016FE00836D65 /* SelectionViewController.h */,
@@ -574,13 +582,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T43H6FGZD6;
+				DEVELOPMENT_TEAM = 6RN4LVMY9S;
 				INFOPLIST_FILE = Roadtrip/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip9777;
+				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip977;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -592,13 +600,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T43H6FGZD6;
+				DEVELOPMENT_TEAM = 6RN4LVMY9S;
 				INFOPLIST_FILE = Roadtrip/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip9777;
+				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip977;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

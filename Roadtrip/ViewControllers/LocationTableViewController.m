@@ -12,7 +12,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface LocationTableViewController () <UISearchResultsUpdating, UITableViewDataSource, UITableViewDelegate>
+@interface LocationTableViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *locationTableView;
 
 @end
@@ -77,7 +77,7 @@
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
-    NSString *searchText = searchController.searchBar.text;
+    //NSString *searchText = searchController.searchBar.text;
 
     NSLog(@"Update search results");
     
@@ -114,7 +114,7 @@
                         
                         if(error) {
                             
-                            NSLog(error.description);
+                            NSLog(@"%@", error.description);
                             
                             
                         } else {

@@ -53,8 +53,6 @@ static NSString *const apiKey = @"twGNW7wA2e3-suEKeND9MKXRf_kyK0t7xJ5P-9vpNuUiza
     
     NSString *urlString = [baseUrlString stringByAppendingString:parametersUrlString];
     
-    NSLog(urlString);
-    
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10.0];
@@ -241,7 +239,7 @@ static NSString *const apiKey = @"twGNW7wA2e3-suEKeND9MKXRf_kyK0t7xJ5P-9vpNuUiza
     
 }
 
--(void) getRestaurantsWithLatitude: (double) latitude withLongitude: (double) longitude withCompletion: (void(^)(NSDictionary *dictionary, NSError *error)) completion{
+-(void) getRestaurantsWithLatitude: (double) latitude withLongitude: (double) longitude withCompletion: (void(^)(NSArray *restaurantsArray, NSError *error)) completion{
     
     NSString *baseUrlString = @"https://api.yelp.com/v3/businesses/search";
     

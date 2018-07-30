@@ -13,6 +13,7 @@
 #import "EventDetailsViewController.h"
 #import "Parse.h"
 #import <EventKit/EventKit.h>
+#import "YelpManager.h"
 
 @interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -25,8 +26,25 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    for(int i = 0; i < self.eventsSelected.count; i++){
+        if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+            Event * myEvent = self.eventsSelected[i];
+            if([myEvent.name isEqualToString:@"Breakfast"] || [myEvent.name isEqualToString:@"Lunch"] || [myEvent.name isEqualToString:@"Dinner"]){
+                [[YelpManager new]getRestaurantsWithLatitude:self.latitude withLongitude:self.longitude withCompletion:^(NSArray *restaurantsArray, NSError *error) {
+                    if(error){
+                        NSLog(@"There was an error");
+                    }
+                    else{
+                        NSLog(@"%@", restaurantsArray);
+                        NSDictionary *restaurantsDict = restaurantsArray[0];
+                        myEvent.name = restaurantsDict[@"name"];
+                        [self.tableView reloadData];
+                    }
+                }];
+            }
+        }
+    }
     self.eventsSelected = [Event sortEventArrayByStartDate:self.eventsSelected];
-    [self.tableView reloadData];
 
 }
 
@@ -58,15 +76,10 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ScheduleCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ScheduleCell"];
     if([self.eventsSelected[indexPath.row] isKindOfClass:[Event class]]){
-        
-        Event *event = self.eventsSelected[indexPath.row];
-        
-        
-        
         [cell setScheduleCellEvent:self.eventsSelected[indexPath.row]];
     }
     else{
-        [cell setScheduleCellEvent:self.eventsSelected[indexPath.row]];
+        [cell setScheduleCellLandmark:self.eventsSelected[indexPath.row]];
     }
     return cell;
 }
@@ -154,7 +167,7 @@
                         
                         parseEvent[@"name"] = event.name;
                         
-                        NSLog(event.name);
+                        NSLog(@"%@", event.name);
                         
                         if(event.eventDescription) {
                             

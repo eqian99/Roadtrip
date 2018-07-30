@@ -11,7 +11,7 @@
 #import "LocationTableViewController.h"
 
 
-@interface SelectionViewController () <CityDelegate>
+@interface SelectionViewController () <CityDelegate, UISearchControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 

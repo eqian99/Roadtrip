@@ -23,7 +23,7 @@
 
 -(void) getBusinessesWithLatitude: (double) latitude withLongitude: (double) longitude withCompletion: (void(^)(NSDictionary *dictionary, NSError *error)) completion;
 
--(void) getRestaurantsWithLatitude: (double) latitude withLongitude: (double) longitude withCompletion: (void(^)(NSDictionary *dictionary, NSError *error)) completion;
+-(void) getRestaurantsWithLatitude: (double) latitude withLongitude: (double) longitude withCompletion: (void(^)(NSArray *restaurantsArray, NSError *error)) completion;
 
 -(void) getRestaurantReviewsWithId: (NSString *) restaurantId withCompletion: (void(^)(NSDictionary *dictionary, NSError *error)) completion;
 

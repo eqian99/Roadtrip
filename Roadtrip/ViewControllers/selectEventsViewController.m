@@ -7,7 +7,6 @@
 //
 
 #import "selectEventsViewController.h"
-#import "SelectLandmarksViewController.h"
 #import "YelpManager.h"
 #import "EventbriteManager.h"
 #import "EventCell.h"
@@ -23,8 +22,8 @@
 #import "Event.h"
 #import "Landmark.h"
 
-static int *const EVENTS = 0;
-static int *const LANDMARKS = 1;
+static int const EVENTS = 0;
+static int const LANDMARKS = 1;
 
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate, EventCellDelegate>
@@ -34,7 +33,6 @@ static int *const LANDMARKS = 1;
 
 @property (nonatomic, strong) NSMutableArray *landmarks;
 @property (nonatomic, strong) NSMutableArray *landmarksSelected;
-
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *eventsLandmarksControl;
@@ -55,8 +53,6 @@ static int *const LANDMARKS = 1;
 @property (nonatomic, strong) NSString *typeSelected;
 
 @property (nonatomic, assign) Boolean didDeselect;
-
-
 
 @end
 
@@ -94,7 +90,7 @@ static int *const LANDMARKS = 1;
 
 - (IBAction)didChangeEventsLandmarksControl:(id)sender {
     
-    if(self.eventsLandmarksControl.selectedSegmentIndex == EVENTS) {
+    if(self.eventsLandmarksControl.selectedSegmentIndex == (long)EVENTS) {
         
         NSLog(@"Events selected");
         [self getEventsFromEventbrite];
@@ -177,8 +173,6 @@ static int *const LANDMARKS = 1;
         
     }];
     
-    
-    
 }
 
 
@@ -195,7 +189,7 @@ static int *const LANDMARKS = 1;
              
              self.landmarks = [Landmark initWithArray:placesDictionaries];
              
-             for(Landmark *landmark in self.landmarks) {
+             for(int i = 0; i < self.landmarks.count; i++) {
                  
                  [self.landmarksSelected addObject:@NO];
                  
@@ -260,7 +254,7 @@ static int *const LANDMARKS = 1;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         NSInteger indexSelected = self.eventsLandmarksControl.selectedSegmentIndex;
         
-        if(indexSelected == EVENTS){
+        if(indexSelected == (long)EVENTS){
         
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         
@@ -309,6 +303,9 @@ static int *const LANDMARKS = 1;
         for(int i = 0; i < allEvents.count; i++){
             NSLog(@"%@", allEvents[i]);
         }
+
+        scheduleViewController.latitude = self.latitude;
+        scheduleViewController.longitude = self.longitude;
     }
     
 }
@@ -366,7 +363,7 @@ static int *const LANDMARKS = 1;
     
     NSInteger indexSelected = self.eventsLandmarksControl.selectedSegmentIndex;
     
-    if(indexSelected == EVENTS) {
+    if(indexSelected == (long)EVENTS) {
         
         [cell setEvent: [self.events objectAtIndex:indexPath.row]];
         
@@ -403,7 +400,7 @@ static int *const LANDMARKS = 1;
             
         }
         
-    }else if( indexSelected == LANDMARKS) {
+    }else if( indexSelected == (long)LANDMARKS) {
         
         [cell setLandmark: [self.landmarks objectAtIndex:indexPath.row]];
         
@@ -459,7 +456,7 @@ static int *const LANDMARKS = 1;
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
-    if(activitySelected == EVENTS) {
+    if(activitySelected == (long)EVENTS) {
         if(self.events.count == 0 && self.count >= 3){
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self createError:@"There are no events happening today"];
@@ -490,7 +487,7 @@ static int *const LANDMARKS = 1;
     
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
     
-    if(activitySelected == EVENTS) {
+    if(activitySelected == (long)EVENTS) {
         
         if([self.eventsSelected[indexPath.row] isEqual:@NO]) {
             self.eventSelected = self.events[indexPath.row];
@@ -527,7 +524,7 @@ static int *const LANDMARKS = 1;
             
         }
         
-    } else if (activitySelected == LANDMARKS) {
+    } else if (activitySelected == (long)LANDMARKS) {
         
         if([self.landmarksSelected[indexPath.row] isEqual:@NO]) {
             self.landmarkSelected = self.landmarks[indexPath.row];
@@ -568,6 +565,11 @@ static int *const LANDMARKS = 1;
     
     
 }
+
+- (void)hideCheckmark:(EventCell *)eventCell {
+
+}
+
 
 -(void) removeShortEvent: (Event *)event{
     int i = 0;
@@ -836,7 +838,7 @@ static int *const LANDMARKS = 1;
     }
     
     if (self.eventsArray.count > 1) {
-    
+        
         for(int i = 1; i < (self.eventsArray.count) ; i++) {
             
             if (((Event *)self.eventsArray[i-1]).endTimeUnix > ((Event *)self.eventsArray[i]).startTimeUnix) {
@@ -902,7 +904,5 @@ static int *const LANDMARKS = 1;
     
     return true;
 }
-
-
 
 @end

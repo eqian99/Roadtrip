@@ -13,7 +13,7 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 
-@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, SearchPeopleDelegate>
+@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, SearchPeopleDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *recentSearchesLabel;
 @property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
