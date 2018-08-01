@@ -7,7 +7,7 @@
 //
 
 #import "EventDetailsViewController.h"
-
+#import "ScheduleViewController.h"
 #import "UIImageView+AFNetworking.h"
 
 
@@ -26,6 +26,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleViewsSwipe:)];
+    [swipe setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [self.view addGestureRecognizer:swipe];
+    //[swipe release];
+    
+    ScheduleViewController *eventCell = [ScheduleViewController new];
+    [self.view addSubview:eventCell.view];
     
     if([[self.activities objectAtIndex:self.index] isKindOfClass:[Event class]]){
         
@@ -76,6 +84,10 @@
     CGFloat maxHeight = self.descriptionLabel.frame.origin.y + self.descriptionLabel.frame.size.height + 40.0;
     self.scrollView.contentSize = CGSizeMake(self.descriptionLabel.frame.size.width, maxHeight);
     // Do any additional setup after loading the view.
+}
+
+-(void)handleViewsSwipe:(UISwipeGestureRecognizer *)gesture{
+    NSLog(@"hello");
 }
 
 - (void)didReceiveMemoryWarning {

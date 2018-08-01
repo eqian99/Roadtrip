@@ -68,9 +68,6 @@
     request.requestsAlternateRoutes = YES;
     request.transportType = MKDirectionsTransportTypeAutomobile;
     
-    // request.departureDate =
-    
-    // request.
     MKDirections *directions =
     [[MKDirections alloc] initWithRequest:request];
     
@@ -81,6 +78,7 @@
          } else {
              NSLog(@"hello");
              [self showRoute:response];
+             [self getPointsAlongRoute:response];
          }
      }];
     
@@ -102,6 +100,46 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"failed to fetch current location : %@", error);
+}
+
+-(void )getPointsAlongRoute:(MKDirectionsResponse *)response
+{
+    MKRoute *route = response.routes[0];
+    NSUInteger pointCount = route.polyline.pointCount;
+    NSLog(@"Number of points along route: %lu", pointCount);
+    
+    //NSMutableArray *stops = [[NSMutableArray alloc] init];
+    CLLocationCoordinate2D *myCoordinates = malloc(sizeof(CLLocationCoordinate2D) * 3);
+    int numStops = 3;
+    for (int i = 0; i < numStops; i++)
+    {
+        CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D));
+        // get coordinates of stops
+        [route.polyline getCoordinates:coordinates range:NSMakeRange(pointCount / (numStops * 2) * i, pointCount / (numStops * 2) * i + 1)];
+        // add to array of stops
+        //[myCoordinates addObject:(__bridge id)&coordinates[0]];
+        myCoordinates[i] = coordinates[0];
+    }
+    
+    for (int i = 0; i < numStops; i++)
+    {
+        NSLog(@"Stops: %f, %f", myCoordinates[i].latitude, myCoordinates[i].longitude);
+    }
+
+    NSMutableArray *arrayCoordinates = [[NSMutableArray alloc] init];
+    for (int i = 0; i < numStops; i ++)
+    {
+        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(myCoordinates[i].latitude, myCoordinates[i].longitude);
+        [arrayCoordinates addObject:[NSValue valueWithBytes:&coord objCType:@encode(CLLocationCoordinate2D)]];
+    }
+    for (int i = 0; i < numStops; i++)
+    {
+        CLLocationCoordinate2D coordinate;
+        [[arrayCoordinates objectAtIndex:0] getValue:&coordinate];
+        NSLog(@"Coordinates: %f, %f", coordinate.latitude, coordinate.longitude);
+    }
+    
+    // return arrayCoordinates;
 }
 
 -(void)showRoute:(MKDirectionsResponse *)response

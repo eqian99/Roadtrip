@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface selectEventsViewController : UIViewController
 @property (nonatomic, strong)NSArray *categories;
 @property (assign, nonatomic)double latitude;
 @property (assign, nonatomic)double longitude;
+@property (assign, nonatomic)CLLocation *currentLocation;
 @property (assign, nonatomic) NSString *city;
 @property (assign, nonatomic) NSString *stateAndCountry;
 @property(assign, nonatomic)NSTimeInterval startOfDayUnix;
