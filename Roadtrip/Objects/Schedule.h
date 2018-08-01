@@ -13,7 +13,9 @@
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSArray *events;
+@property (strong, nonatomic) PFObject *parseObject;
 @property (nonatomic, strong) PFRelation *eventsRelation;
+@property (nonatomic, strong) PFRelation *membersRelation;
 
 @property (nonatomic, strong) NSDate *createdDate;
 

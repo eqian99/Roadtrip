@@ -18,12 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *recentSearchesLabel;
 @property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePic;
-
-
-
 @property (strong, nonatomic) NSArray *friends;
-
-
 
 @property (strong, nonatomic) PFUser *currUser;
 @end
@@ -35,22 +30,14 @@
     
     self.friendsTableView.delegate = self;
     self.friendsTableView.dataSource = self;
-    
     self.friendsTableView.rowHeight = 80;
-    
     if(self.currUser == nil){
-    
         self.currUser = [PFUser currentUser];
-    
     }
     self.usernameLabel.text = [NSString stringWithFormat: @"%@", self.currUser.username];
-    
     NSArray * places = [self.currUser valueForKey:@"citiesSearched"];
-    
     if(places == nil){
-    
         self.recentSearchesLabel.text = @"No recent searches";
-     
     }
     else{
         NSString * recentPlaces = @"";
@@ -99,24 +86,14 @@
 -(void) fetchFriendsOfCurrentUser {
     
     PFRelation *friendsRelation = [[PFUser currentUser] relationForKey:@"friends"];
-    
     PFQuery *friendsQuery = [friendsRelation query];
-    
     [friendsQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        
-        
         if(error) {
-            
             NSLog(@"Error getting friend relations");
-            
         } else {
-            
             self.friends = objects;
-            
             NSLog(@"Got friends");
-            
             [self.friendsTableView reloadData];
-            
         }
         
     }];
@@ -179,9 +156,7 @@
 }
 
 - (IBAction)didTapSchedules:(id)sender {
-    
     [self performSegueWithIdentifier:@"showUserSchedules" sender:self];
-    
 }
 
 

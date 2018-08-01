@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Schedule.h"
 
 @interface ScheduleMembersViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *membersTableView;
+@property (strong, nonatomic) Schedule *schedule;
+@property (strong, nonatomic) NSArray *members;
 
 
 

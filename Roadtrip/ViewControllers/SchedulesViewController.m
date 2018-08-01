@@ -46,7 +46,9 @@
                 Schedule *schedule = [Schedule new];
                 schedule.name = [parseSchedule valueForKey:@"name"];
                 schedule.eventsRelation = [parseSchedule relationForKey:@"events"];
+                schedule.membersRelation = [parseSchedule relationForKey:@"members"];
                 schedule.createdDate = parseSchedule.createdAt;
+                schedule.parseObject = parseSchedule;
                 [self.schedules addObject:schedule];
                 [self.schedulesTableView reloadData];
             }

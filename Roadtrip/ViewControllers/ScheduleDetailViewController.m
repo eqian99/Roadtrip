@@ -8,6 +8,7 @@
 
 #import "ScheduleDetailViewController.h"
 #import "EventDetailsViewController.h"
+#import "ScheduleMembersViewController.h"
 #import "ScheduleEventCell.h"
 #import "Parse.h"
 
@@ -131,13 +132,15 @@
     
     if([[segue identifier] isEqualToString:@"eventDetailSegue"]) {
         
-        NSLog(@"Clicked event cell");
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.scheduleTableView indexPathForCell:tappedCell];
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         eventDetailsViewController.activities = self.events;
         eventDetailsViewController.index = indexPath.row;
         
+    } else if([[segue identifier] isEqualToString:@"shareScheduleSegue"]){
+        ScheduleMembersViewController *viewController = [segue destinationViewController];
+        viewController.schedule = self.schedule;
         
     }
     

@@ -60,8 +60,9 @@
     newUser.email = self.emailField.text;
     newUser.password = self.passwordField.text;
     
+    PFObject *userNotification = [PFObject objectWithClassName:@"UserNotifications"];
     [newUser setValue:self.emailField.text forKey:@"publicEmail"];
-    
+    [newUser setValue:userNotification forKey:@"userNotifications"];
     if(![self.passwordField.text isEqualToString:self.confirmPasswordField.text]){
         [self createError:@"Passwords don't match"];
         return;
