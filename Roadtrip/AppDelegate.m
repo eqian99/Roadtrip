@@ -27,14 +27,13 @@
     
     [Parse initializeWithConfiguration:config];
     
-   /* if (PFUser.currentUser) {
+   if (PFUser.currentUser) {
 
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 
        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"navController"];
 
-    }*/
-
+    }
     
     return YES;
 }

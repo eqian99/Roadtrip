@@ -552,7 +552,6 @@
                                             <outlet property="addressLabel" destination="8QO-Cx-r6h" id="cIT-bK-cTg"/>
                                             <outlet property="nameLabel" destination="xZd-fx-nh1" id="UQ6-eL-fyZ"/>
                                             <outlet property="timeLabel" destination="whi-St-c4Y" id="s5I-91-7eS"/>
-                                            <segue destination="t23-fO-til" kind="show" id="PG3-V4-NMe"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -584,6 +583,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="W5J-Yc-Dy0" id="RNW-ow-zFK"/>
+                        <segue destination="t23-fO-til" kind="show" identifier="detailsSegue" id="jvd-JJ-Jlm"/>
+                        <segue destination="kMx-lf-YlQ" kind="show" identifier="foodSegue" id="pvs-jA-IUC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0wY-Lv-4Wt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -613,6 +614,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2TI-UH-OjP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6573.6000000000004" y="-580.65967016491754"/>
+        </scene>
+        <!--Restaurant Chooser View Controller-->
+        <scene sceneID="lC3-Qn-GLS">
+            <objects>
+                <viewController id="kMx-lf-YlQ" customClass="RestaurantChooserViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Cag-dB-NhG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Wt-h4-Xbb">
+                                <rect key="frame" x="0.0" y="64" width="375" height="538"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="iCe-aH-3fR">
+                                <rect key="frame" x="0.0" y="610" width="375" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="0Cx-JP-Jhv"/>
+                    </view>
+                    <connections>
+                        <outlet property="pageControl" destination="iCe-aH-3fR" id="Z2r-SO-3Gd"/>
+                        <outlet property="scrollView" destination="0Wt-h4-Xbb" id="a1X-Yi-bzm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RVW-I8-I50" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6053.6000000000004" y="149.77511244377811"/>
         </scene>
         <!--Select Landmarks View Controller-->
         <scene sceneID="HGT-Bj-O8b">
@@ -1428,6 +1459,6 @@
         <image name="uncheckBox" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yGI-EL-KBN"/>
+        <segue reference="jvd-JJ-Jlm"/>
     </inferredMetricsTieBreakers>
 </document>

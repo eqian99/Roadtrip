@@ -14,9 +14,12 @@
 #import "Parse.h"
 #import <EventKit/EventKit.h>
 #import "YelpManager.h"
+#import "RestaurantChooserViewController.h"
 
 @interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *restaurants;
+@property (assign, nonatomic)long index;
 
 @end
 
@@ -26,26 +29,9 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    for(int i = 0; i < self.eventsSelected.count; i++){
-        if([self.eventsSelected[i] isKindOfClass:[Event class]]){
-            Event * myEvent = self.eventsSelected[i];
-            if([myEvent.name isEqualToString:@"Breakfast"] || [myEvent.name isEqualToString:@"Lunch"] || [myEvent.name isEqualToString:@"Dinner"]){
-                [[YelpManager new]getRestaurantsWithLatitude:self.latitude withLongitude:self.longitude withCompletion:^(NSArray *restaurantsArray, NSError *error) {
-                    if(error){
-                        NSLog(@"There was an error");
-                    }
-                    else{
-                        NSLog(@"%@", restaurantsArray);
-                        NSDictionary *restaurantsDict = restaurantsArray[0];
-                        myEvent.name = restaurantsDict[@"name"];
-                        [self.tableView reloadData];
-                    }
-                }];
-            }
-        }
-    }
-    self.eventsSelected = [Event sortEventArrayByStartDate:self.eventsSelected];
 
+    self.eventsSelected = [Event sortEventArrayByStartDate:self.eventsSelected];
+    self.navigationController.navigationBar.topItem.title = @"Back";
 }
 
 
@@ -54,18 +40,43 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    self.index = indexPath.row;
+    Event *myEvent = self.eventsSelected[indexPath.row];
+    if([myEvent.name isEqualToString:@"Breakfast"] || [myEvent.name isEqualToString:@"Lunch"] || [myEvent.name isEqualToString:@"Dinner"]){
+        [[YelpManager new]getRestaurantsWithLatitude:self.latitude withLongitude:self.longitude withCompletion:^(NSArray *restaurantsArray, NSError *error) {
+            if(error){
+                NSLog(@"error");
+            }
+            else{
+                NSLog(@"%lu", restaurantsArray.count);
+                self.restaurants = restaurantsArray;
+                [self performSegueWithIdentifier:@"foodSegue" sender:nil];
+            }
+        }];
+    }
+    else{
+        [self performSegueWithIdentifier:@"detailsSegue" sender:nil];
+    }
+}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    UITableViewCell *tappedCell = sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
-    eventDetailsViewController.activities = self.eventsSelected;
-    eventDetailsViewController.index = indexPath.row;
+
+    if([segue.identifier isEqualToString:@"detailsSegue"]){
+        EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
+        
+        eventDetailsViewController.activities = self.eventsSelected;
+        
+        eventDetailsViewController.index = self.index;
+    }
+    else{
+        RestaurantChooserViewController *restaurantChooser = [segue destinationViewController];
+        restaurantChooser.restaurants = self.restaurants;
+    }
 }
 
 
@@ -231,7 +242,26 @@
     [self presentViewController:alert animated:true completion:nil];
 }
 
- 
+/*
+ for(int i = 0; i < self.eventsSelected.count; i++){
+ if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+ Event * myEvent = self.eventsSelected[i];
+ if([myEvent.name isEqualToString:@"Breakfast"] || [myEvent.name isEqualToString:@"Lunch"] || [myEvent.name isEqualToString:@"Dinner"]){
+ [[YelpManager new]getRestaurantsWithLatitude:self.latitude withLongitude:self.longitude withCompletion:^(NSArray *restaurantsArray, NSError *error) {
+ if(error){
+ NSLog(@"There was an error");
+ }
+ else{
+ NSLog(@"%@", restaurantsArray);
+ NSDictionary *restaurantsDict = restaurantsArray[0];
+ myEvent.name = restaurantsDict[@"name"];
+ [self.tableView reloadData];
+ }
+ }];
+ }
+ }
+ }
+ */
 
 
 @end

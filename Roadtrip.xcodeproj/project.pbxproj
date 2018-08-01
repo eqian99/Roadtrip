@@ -15,6 +15,9 @@
 		5306478720FFED150062432D /* RestaurantTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5306478620FFED150062432D /* RestaurantTimeViewController.m */; };
 		5306478A210154010062432D /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53064789210154010062432D /* EventDetailsViewController.m */; };
 		5329930321068C8C0058D428 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5329930221068C8C0058D428 /* ProfileViewController.m */; };
+		5379458D2110ECF10078D95F /* RestaurantChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5379458C2110ECF10078D95F /* RestaurantChooserViewController.m */; };
+		5379458F2110F90E0078D95F /* RestaurantsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5379458E2110F90E0078D95F /* RestaurantsView.xib */; };
+		537945922110FA1C0078D95F /* RestaurantChooserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 537945912110FA1C0078D95F /* RestaurantChooserView.m */; };
 		537A5DE721019D3300890FEF /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537A5DE621019D3300890FEF /* EventKit.framework */; };
 		5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386C9032107E5D7002AA967 /* ScheduleCell.m */; };
 		72D5332444D19627D346CC57 /* libPods-Roadtrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */; };
@@ -69,6 +72,11 @@
 		53064789210154010062432D /* EventDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		5329930121068C8C0058D428 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		5329930221068C8C0058D428 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		5379458B2110ECF10078D95F /* RestaurantChooserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestaurantChooserViewController.h; sourceTree = "<group>"; };
+		5379458C2110ECF10078D95F /* RestaurantChooserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RestaurantChooserViewController.m; sourceTree = "<group>"; };
+		5379458E2110F90E0078D95F /* RestaurantsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestaurantsView.xib; sourceTree = "<group>"; };
+		537945902110FA1C0078D95F /* RestaurantChooserView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestaurantChooserView.h; sourceTree = "<group>"; };
+		537945912110FA1C0078D95F /* RestaurantChooserView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RestaurantChooserView.m; sourceTree = "<group>"; };
 		537A5DE621019D3300890FEF /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		5386C9022107E5D7002AA967 /* ScheduleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleCell.h; sourceTree = "<group>"; };
 		5386C9032107E5D7002AA967 /* ScheduleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleCell.m; sourceTree = "<group>"; };
@@ -166,6 +174,9 @@
 				D67ACB1B210A93B300EA1815 /* UserScheduleCell.m */,
 				D67ACB20210BB8C100EA1815 /* ScheduleEventCell.h */,
 				D67ACB21210BB8C100EA1815 /* ScheduleEventCell.m */,
+				5379458E2110F90E0078D95F /* RestaurantsView.xib */,
+				537945902110FA1C0078D95F /* RestaurantChooserView.h */,
+				537945912110FA1C0078D95F /* RestaurantChooserView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -289,6 +300,8 @@
 				D67ACB27210FD45900EA1815 /* ScheduleMembersViewController.m */,
 				D67ACB29210FD8A000EA1815 /* AddPeopleScheduleViewController.h */,
 				D67ACB2A210FD8A000EA1815 /* AddPeopleScheduleViewController.m */,
+				5379458B2110ECF10078D95F /* RestaurantChooserViewController.h */,
+				5379458C2110ECF10078D95F /* RestaurantChooserViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -364,6 +377,7 @@
 			files = (
 				F6A23AE720EFE04D002384E8 /* LaunchScreen.storyboard in Resources */,
 				F6A23AE420EFE04D002384E8 /* Assets.xcassets in Resources */,
+				5379458F2110F90E0078D95F /* RestaurantsView.xib in Resources */,
 				D68C739320FC46D700364D35 /* SWRevealViewController in Resources */,
 				F6A23AE220EFE04C002384E8 /* Main.storyboard in Resources */,
 			);
@@ -431,12 +445,14 @@
 				D67ACB22210BB8C100EA1815 /* ScheduleEventCell.m in Sources */,
 				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,
 				5306478A210154010062432D /* EventDetailsViewController.m in Sources */,
+				537945922110FA1C0078D95F /* RestaurantChooserView.m in Sources */,
 				D67ACB1C210A93B300EA1815 /* UserScheduleCell.m in Sources */,
 				5329930321068C8C0058D428 /* ProfileViewController.m in Sources */,
 				D67ACB162109016D00EA1815 /* UserCell.m in Sources */,
 				F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */,
 				D680BC1020FFF96200C0EBC4 /* LocationTableViewController.m in Sources */,
 				F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */,
+				5379458D2110ECF10078D95F /* RestaurantChooserViewController.m in Sources */,
 				D67ACB1F210A99D300EA1815 /* Schedule.m in Sources */,
 				D680BC132100156E00C0EBC4 /* EventbriteManager.m in Sources */,
 				5306477B20FEEE6A0062432D /* GoogleMapsManager.m in Sources */,

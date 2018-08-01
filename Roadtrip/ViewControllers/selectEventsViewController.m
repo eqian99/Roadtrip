@@ -7,7 +7,7 @@
 //
 
 #import "selectEventsViewController.h"
-#import "YelpManager.h"
+//#import "YelpManager.h"
 #import "EventbriteManager.h"
 #import "EventCell.h"
 #import "SelectLandmarksViewController.h"
@@ -141,7 +141,7 @@ static int const LANDMARKS = 1;
         } else {
             
             NSArray *eventsTemp = [Event eventsWithEventbriteArray:events];
-            
+            eventsTemp = [Event sortEventArrayByStartDate:eventsTemp];
             for(Event *event in eventsTemp) {
                 if(event.startDate != nil && event.endDate != nil){
                     NSTimeInterval eventStartUnix = [event.startDate timeIntervalSince1970];
