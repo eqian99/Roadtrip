@@ -54,6 +54,8 @@ static int const LANDMARKS = 1;
 
 @property (nonatomic, assign) Boolean didDeselect;
 
+@property (nonatomic, assign) NSArray *stopsAlongRoute;
+
 @end
 
 @implementation selectEventsViewController
@@ -83,10 +85,13 @@ static int const LANDMARKS = 1;
     
     [self getEventsFromEventbrite];
     
-    [self getLandmarks];
+   // [self ]
+    
+    [self getLandmarks:30000];
     
     // Do any additional setup after loading the view.
 }
+
 
 - (IBAction)didChangeEventsLandmarksControl:(id)sender {
     
@@ -178,13 +183,13 @@ static int const LANDMARKS = 1;
 }
 
 
--(void)getLandmarks{
+-(void)getLandmarks:(int)radius {
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
     GoogleMapsManager *myManagerGoogle = [GoogleMapsManager new];
     
-    [myManagerGoogle getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withCompletion:^(NSArray *placesDictionaries, NSError *error)
+    [myManagerGoogle getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withRadius: radius withCompletion:^(NSArray *placesDictionaries, NSError *error)
      {
          if(placesDictionaries)
          {

@@ -35,7 +35,7 @@
 - (void)getLandmarks{
     NSLog(@"BEGIN LANDMARK CALL");
     GoogleMapsManager *myManager = [GoogleMapsManager new];
-    
+    /*
     [myManager getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withCompletion:^(NSArray *placesDictionaries, NSError *error)
     {
         if(placesDictionaries)
@@ -55,7 +55,7 @@
         {
             NSLog(@"No places found");
         }
-    }];
+    }];*/
 
 }
 

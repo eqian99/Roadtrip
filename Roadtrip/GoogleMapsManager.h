@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface GoogleMapsManager : NSObject
-- (void) getPlacesNearLatitude:(double) latitude nearLongitude: (double) longitude withCompletion: (void(^)(NSArray *placesDictionary, NSError *error))completion;
+- (void) getPlacesNearLatitude:(double) latitude nearLongitude:(double) longitude withRadius:(int) radius withCompletion: (void(^)(NSArray *placesDictionaries, NSError *error))completion;
 
 - (void) autocomplete:(NSString *) city withCompletion: (void(^)(NSArray *predictionDictionaries, NSError *error))completion;
 
