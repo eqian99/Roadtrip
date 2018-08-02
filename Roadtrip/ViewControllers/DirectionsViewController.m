@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLGeocoder *geocoder;
+@property (strong, nonatomic) NSArray *pointsAlongRoute;
 @property (assign, nonatomic) double currentLatitude;
 @property (assign, nonatomic) double currentLongitude;
 @property (assign, nonatomic)int locationFetchCounter;
@@ -71,6 +72,8 @@
     MKDirections *directions =
     [[MKDirections alloc] initWithRequest:request];
     
+    __block NSArray *pointsAlongRoute;
+    
     [directions calculateDirectionsWithCompletionHandler:
      ^(MKDirectionsResponse *response, NSError *error) {
          if (error) {
@@ -78,31 +81,19 @@
          } else {
              NSLog(@"hello");
              [self showRoute:response];
-             [self getPointsAlongRoute:response];
+             self.pointsAlongRoute = [self getPointsAlongRoute:response];
+             [self displayPointsAlongRoute];
          }
      }];
     
-    // after we have current coordinates, we use this method to fetch the information data of fetched coordinate
-    [self.geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = [placemarks lastObject];
-        
-        NSString *street = placemark.thoroughfare;
-        NSString *city = placemark.locality;
-        NSString *posCode = placemark.postalCode;
-        NSString *country = placemark.country;
-        
-        NSLog(@"we live in %@", posCode);
-        
-        // stopping locationManager from fetching again
-        [self.locationManager stopUpdatingLocation];
-    }];
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"failed to fetch current location : %@", error);
 }
 
--(void )getPointsAlongRoute:(MKDirectionsResponse *)response
+-(NSArray *)getPointsAlongRoute:(MKDirectionsResponse *)response
 {
     MKRoute *route = response.routes[0];
     NSUInteger pointCount = route.polyline.pointCount;
@@ -115,7 +106,7 @@
     {
         CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D));
         // get coordinates of stops
-        [route.polyline getCoordinates:coordinates range:NSMakeRange(pointCount / (numStops * 2) * i, pointCount / (numStops * 2) * i + 1)];
+        [route.polyline getCoordinates:coordinates range:NSMakeRange(pointCount / (numStops * 2) * (i + 1), 1)];
         // add to array of stops
         //[myCoordinates addObject:(__bridge id)&coordinates[0]];
         myCoordinates[i] = coordinates[0];
@@ -139,7 +130,19 @@
         NSLog(@"Coordinates: %f, %f", coordinate.latitude, coordinate.longitude);
     }
     
-    // return arrayCoordinates;
+    return arrayCoordinates;
+}
+
+-(void)displayPointsAlongRoute {
+    
+    for (int i=0; i<3; i++) {
+        MKPointAnnotation* annotation= [MKPointAnnotation new];
+        CLLocationCoordinate2D coordinate;
+        [[self.pointsAlongRoute objectAtIndex:i] getValue:&coordinate];
+        annotation.coordinate= coordinate;
+        [self.mapView addAnnotation: annotation];
+    }
+    
 }
 
 -(void)showRoute:(MKDirectionsResponse *)response
