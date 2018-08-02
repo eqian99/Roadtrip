@@ -615,7 +615,7 @@
             </objects>
             <point key="canvasLocation" x="6573.6000000000004" y="-580.65967016491754"/>
         </scene>
-        <!--Restaurant Chooser View Controller-->
+        <!--Title-->
         <scene sceneID="lC3-Qn-GLS">
             <objects>
                 <viewController id="kMx-lf-YlQ" customClass="RestaurantChooserViewController" sceneMemberID="viewController">
@@ -628,14 +628,21 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
                             <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="iCe-aH-3fR">
-                                <rect key="frame" x="0.0" y="610" width="375" height="37"/>
+                                <rect key="frame" x="0.0" y="630" width="375" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="0Cx-JP-Jhv"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="8rd-vG-LxQ">
+                        <barButtonItem key="rightBarButtonItem" title="Save Restaurant" id="DE7-RE-lCk">
+                            <connections>
+                                <action selector="didPressSave:" destination="kMx-lf-YlQ" id="KDw-mQ-325"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="pageControl" destination="iCe-aH-3fR" id="Z2r-SO-3Gd"/>
                         <outlet property="scrollView" destination="0Wt-h4-Xbb" id="a1X-Yi-bzm"/>
@@ -1536,6 +1543,6 @@
         <image name="uncheckBox" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yGI-EL-KBN"/>
+        <segue reference="jvd-JJ-Jlm"/>
     </inferredMetricsTieBreakers>
 </document>

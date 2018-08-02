@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RestaurantChooserViewControllerDelegate
+- (void)didSave:(int)index withName:(NSString *)name;
+@end
+
 @interface RestaurantChooserViewController : UIViewController
-@property (strong, nonatomic)NSArray *restaurants;
+@property (strong, nonatomic)NSMutableArray *restaurants;
+@property (strong, nonatomic)id<RestaurantChooserViewControllerDelegate>delegate;
+@property (assign, nonatomic)int index;
 @end

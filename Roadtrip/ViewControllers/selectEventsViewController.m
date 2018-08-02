@@ -92,6 +92,12 @@ static int const LANDMARKS = 1;
     // Do any additional setup after loading the view.
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.navigationItem.title = self.city;
+}
+
 
 - (IBAction)didChangeEventsLandmarksControl:(id)sender {
     
@@ -466,11 +472,13 @@ static int const LANDMARKS = 1;
     
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
     if(activitySelected == (long)EVENTS) {
+        /*
         if(self.events.count == 0 && self.count >= 4){
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self createError:@"There are no events happening today"];
             self.count++;
         }
+         */
         self.count++;
         return self.events.count;
         

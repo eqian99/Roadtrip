@@ -239,11 +239,13 @@ static NSString *const apiKey = @"twGNW7wA2e3-suEKeND9MKXRf_kyK0t7xJ5P-9vpNuUiza
     
 }
 
--(void) getRestaurantsWithLatitude: (double) latitude withLongitude: (double) longitude withCompletion: (void(^)(NSArray *restaurantsArray, NSError *error)) completion{
+-(void) getRestaurantsWithLatitude: (double) latitude withLongitude: (double) longitude withCategories: (NSArray *) categories withCompletion: (void(^)(NSArray *restaurantsArray, NSError *error)) completion{
     
     NSString *baseUrlString = @"https://api.yelp.com/v3/businesses/search";
     
-    NSString *parametersUrlString = [NSString stringWithFormat:@"?categories=food&latitude=%f&longitude=%f", latitude, longitude];
+    NSString *categoriesString = [self getCategoriesParameterFormat:categories];
+    
+    NSString *parametersUrlString = [NSString stringWithFormat:@"%@&latitude=%f&longitude=%f&radius=16000", categoriesString, latitude, longitude];
     
     NSString *urlString = [baseUrlString stringByAppendingString:parametersUrlString];
     

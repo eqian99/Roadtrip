@@ -16,9 +16,9 @@
 #import "YelpManager.h"
 #import "RestaurantChooserViewController.h"
 
-@interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate, RestaurantChooserViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *restaurants;
+@property (strong, nonatomic) NSMutableArray *restaurants;
 @property (assign, nonatomic)long index;
 
 @end
@@ -29,9 +29,8 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-
     self.eventsSelected = [Event sortEventArrayByStartDate:self.eventsSelected];
-    self.navigationController.navigationBar.topItem.title = @"Back";
+    self.navigationController.navigationBar.topItem.title = @"";
 }
 
 
@@ -43,14 +42,69 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.index = indexPath.row;
     Event *myEvent = self.eventsSelected[indexPath.row];
+    
     if([myEvent.name isEqualToString:@"Breakfast"] || [myEvent.name isEqualToString:@"Lunch"] || [myEvent.name isEqualToString:@"Dinner"]){
-        [[YelpManager new]getRestaurantsWithLatitude:self.latitude withLongitude:self.longitude withCompletion:^(NSArray *restaurantsArray, NSError *error) {
+        double latitude;
+        double longitude;
+        if(self.eventsSelected.count == 0){
+            latitude = self.latitude;
+            longitude = self.longitude;
+            myEvent.latitude = [NSString stringWithFormat:@"%f", latitude];
+            myEvent.longitude = [NSString stringWithFormat:@"%f", longitude];
+        }
+        if(self.index == 0){
+            Event *nextEvent = self.eventsSelected[1];
+            latitude = [nextEvent.latitude doubleValue];
+            longitude = [nextEvent.longitude doubleValue];
+            myEvent.latitude = [NSString stringWithFormat:@"%f", latitude];
+            myEvent.longitude = [NSString stringWithFormat:@"%f", longitude];
+        }
+        else if(self.index == self.eventsSelected.count){
+            Event *prevEvent = self.eventsSelected[self.eventsSelected.count - 2];
+            latitude = [prevEvent.latitude doubleValue];
+            longitude = [prevEvent.longitude doubleValue];
+            myEvent.latitude = [NSString stringWithFormat:@"%f", latitude];
+            myEvent.longitude = [NSString stringWithFormat:@"%f", longitude];
+        }
+        else{
+            Event *prevEvent = self.eventsSelected[indexPath.row - 1];
+            latitude = [prevEvent.latitude doubleValue];
+            longitude = [prevEvent.longitude doubleValue];
+            myEvent.latitude = [NSString stringWithFormat:@"%f", latitude];
+            myEvent.longitude = [NSString stringWithFormat:@"%f", longitude];
+        }
+        
+        NSArray *categories;
+        if([myEvent.name isEqualToString:@"Breakfast"]){
+            categories = @[@"danish", @"congee", @"bagels", @"coffee"];
+        }
+        else{
+            categories = @[@"burgers", @"chinese", @"buffets", @"chicken_wings", @"flatbread", @"food_cout", @"french", @"japanese", @"korean", @"jewish", @"kebab", @"mexican", @"pizza"];
+        }
+        [[YelpManager new]getRestaurantsWithLatitude:latitude withLongitude:longitude withCategories:categories withCompletion:^(NSArray *restaurantsArray, NSError *error) {
             if(error){
                 NSLog(@"error");
             }
             else{
-                NSLog(@"%lu", restaurantsArray.count);
-                self.restaurants = restaurantsArray;
+                self.restaurants = [NSMutableArray new];
+                int numRestaurants;
+                if(restaurantsArray.count < 10){
+                    numRestaurants = (int)restaurantsArray.count;
+                }
+                else{
+                    numRestaurants = 10;
+                }
+                NSMutableArray *restaurantNames = [NSMutableArray new];
+                
+                // add first 10 restaurants
+                for(int i = 0; i < numRestaurants; i++){
+                    
+                    // make sure no duplicate restaurants
+                    if([restaurantNames indexOfObject:restaurantsArray[i][@"name"]] == NSNotFound){
+                        [self.restaurants addObject:restaurantsArray[i]];
+                        [restaurantNames addObject:restaurantsArray[i][@"name"]];
+                    }
+                }
                 [self performSegueWithIdentifier:@"foodSegue" sender:nil];
             }
         }];
@@ -76,6 +130,8 @@
     else{
         RestaurantChooserViewController *restaurantChooser = [segue destinationViewController];
         restaurantChooser.restaurants = self.restaurants;
+        restaurantChooser.delegate = self;
+        restaurantChooser.index = self.index;
     }
 }
 
@@ -262,6 +318,13 @@
  }
  }
  */
+
+
+-(void) didSave:(int)index withName:(NSString *)name{
+    Event *myEvent = self.eventsSelected[index];
+    myEvent.name = name;
+    [self.tableView reloadData];
+}
 
 
 @end
