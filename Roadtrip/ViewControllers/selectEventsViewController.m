@@ -755,6 +755,8 @@ static int const LANDMARKS = 1;
         breakfast.endTimeUnix = self.breakfastUnixTime + 60 * 60;
         breakfast.startTimeUnixTemp = breakfast.startTimeUnix;
         breakfast.endTimeUnixTemp = breakfast.endTimeUnix;
+        breakfast.isMeal = YES;
+        breakfast.isBreakfast = YES;
         [self.eventsArray addObject:breakfast];
     }
     
@@ -765,6 +767,7 @@ static int const LANDMARKS = 1;
         lunch.endTimeUnix = self.lunchUnixTime + 60 * 60;
         lunch.startTimeUnixTemp = lunch.startTimeUnix;
         lunch.endTimeUnixTemp = lunch.endTimeUnix;
+        lunch.isMeal = YES;
         [self.eventsArray addObject:lunch];
     }
     
@@ -775,6 +778,7 @@ static int const LANDMARKS = 1;
         dinner.endTimeUnix = self.dinnerUnixTime + 60 * 60;
         dinner.startTimeUnixTemp = dinner.startTimeUnix;
         dinner.endTimeUnixTemp = dinner.endTimeUnix;
+        dinner.isMeal = YES;
         [self.eventsArray addObject:dinner];
     }
     

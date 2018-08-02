@@ -28,7 +28,8 @@
         self.latitude = dictionary[@"latitude"];
         self.longitude = dictionary[@"longitude"];
         self.isEvent = YES;
-        
+        self.isMeal = NO;
+        self.isBreakfast = NO;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         
         formatter.dateFormat = @"yyyy-MM-dd HH:mm";

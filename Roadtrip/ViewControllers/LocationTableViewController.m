@@ -31,8 +31,13 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.locationTableView.delegate = self;
     self.locationTableView.dataSource = self;
-    [self getRecentSearches];
+    //[self getRecentSearches];
 
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self getRecentSearches];
 }
 
 - (void)didReceiveMemoryWarning {

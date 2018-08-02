@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol RestaurantChooserViewControllerDelegate
-- (void)didSave:(int)index withName:(NSString *)name;
+- (void)didSave:(int)index withName:(NSString *)name withAddress:(NSString *)address;
 @end
 
 @interface RestaurantChooserViewController : UIViewController

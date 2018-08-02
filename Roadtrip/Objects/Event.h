@@ -43,6 +43,8 @@
 
 //Tyep
 @property (assign, nonatomic)Boolean isEvent;
+@property (assign, nonatomic)Boolean isMeal;
+@property (assign, nonatomic)Boolean isBreakfast;
 
 -(instancetype) initWithYelpDictionary: (NSDictionary *) dictionary;
 + (NSMutableArray *) eventsWithYelpArray:(NSArray *) dictionaries;

@@ -43,7 +43,7 @@
     self.index = indexPath.row;
     Event *myEvent = self.eventsSelected[indexPath.row];
     
-    if([myEvent.name isEqualToString:@"Breakfast"] || [myEvent.name isEqualToString:@"Lunch"] || [myEvent.name isEqualToString:@"Dinner"]){
+    if(myEvent.isMeal){
         double latitude;
         double longitude;
         if(self.eventsSelected.count == 0){
@@ -75,7 +75,7 @@
         }
         
         NSArray *categories;
-        if([myEvent.name isEqualToString:@"Breakfast"]){
+        if(myEvent.isBreakfast){
             categories = @[@"danish", @"congee", @"bagels", @"coffee"];
         }
         else{
@@ -131,7 +131,7 @@
         RestaurantChooserViewController *restaurantChooser = [segue destinationViewController];
         restaurantChooser.restaurants = self.restaurants;
         restaurantChooser.delegate = self;
-        restaurantChooser.index = self.index;
+        restaurantChooser.index = (int)self.index;
     }
 }
 
@@ -325,9 +325,11 @@
  */
 
 
--(void) didSave:(int)index withName:(NSString *)name{
+-(void) didSave:(int)index withName:(NSString *)name withAddress:(NSString *)address{
+    [self createAlert:@"Your restaurant has been saved to your schedule"];
     Event *myEvent = self.eventsSelected[index];
     myEvent.name = name;
+    myEvent.address = address;
     [self.tableView reloadData];
 }
 

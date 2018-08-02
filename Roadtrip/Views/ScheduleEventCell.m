@@ -36,7 +36,7 @@
     self.addressLabel.text = event.address;
     
     [self.timeLabel sizeToFit];
-    NSLog(@"%@", event.address);
+    //NSLog(@"%@", event.address);
 }
 
 -(void) setScheduleCellLandmark: (Landmark *)landmark{
