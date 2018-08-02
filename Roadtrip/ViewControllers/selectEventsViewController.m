@@ -21,6 +21,7 @@
 #import "ScheduleViewController.h"
 #import "Event.h"
 #import "Landmark.h"
+#import "DirectionsViewController.h"
 
 static int const EVENTS = 0;
 static int const LANDMARKS = 1;
@@ -85,7 +86,8 @@ static int const LANDMARKS = 1;
     
     [self getEventsFromEventbrite];
     
-   // [self ]
+    DirectionsViewController *directionsViewController;
+    
     
     [self getLandmarks:30000];
     

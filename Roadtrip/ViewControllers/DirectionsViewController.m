@@ -10,6 +10,12 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+// number of stops we want along the way
+static int const numStops = 3;
+// how many times more points we want to check compared to number of stops
+// created to improve efficiency so we dont check every single point along the route
+static int const multiplier = 20;
+
 @interface DirectionsViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -96,37 +102,68 @@
 -(NSArray *)getPointsAlongRoute:(MKDirectionsResponse *)response
 {
     MKRoute *route = response.routes[0];
+    // what the distance should be for radius
+    int distance = route.distance / (numStops * 2);
+    
+    // number of points returned
     NSUInteger pointCount = route.polyline.pointCount;
     NSLog(@"Number of points along route: %lu", pointCount);
     
-    //NSMutableArray *stops = [[NSMutableArray alloc] init];
-    CLLocationCoordinate2D *myCoordinates = malloc(sizeof(CLLocationCoordinate2D) * 3);
-    int numStops = 3;
-    for (int i = 0; i < numStops; i++)
+    // keep track of distance for each iteration
+    int distanceKeepTrack = 0;
+    
+    // array of stops along the way
+    CLLocationCoordinate2D *myCoordinates = malloc(sizeof(CLLocationCoordinate2D) * numStops);
+    
+    // index in the saved array of stops
+    int index = 0;
+    
+    // save the previous checked point to get incremental distance
+    CLLocation *previousLocation = [[CLLocation alloc] initWithLatitude:self.currentLatitude longitude:self.currentLongitude];
+
+    
+    for (int i = 0; i < numStops * multiplier; i++)
     {
         CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D));
         // get coordinates of stops
-        [route.polyline getCoordinates:coordinates range:NSMakeRange(pointCount / (numStops * 2) * (i + 1), 1)];
-        // add to array of stops
-        //[myCoordinates addObject:(__bridge id)&coordinates[0]];
-        myCoordinates[i] = coordinates[0];
-    }
-    
-    for (int i = 0; i < numStops; i++)
-    {
-        NSLog(@"Stops: %f, %f", myCoordinates[i].latitude, myCoordinates[i].longitude);
+        [route.polyline getCoordinates:coordinates range:NSMakeRange(pointCount / (numStops * multiplier) * i, 1)];
+        
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:coordinates[0].latitude longitude:coordinates[0].longitude];
+        
+        // get distance from current to previous point
+        CLLocationDistance dist = [location distanceFromLocation:previousLocation];
+        
+        // add distance from current to previous point to the current tally of distance
+        distanceKeepTrack += dist;
+        
+        // set the current point as previousLocation in preparation for next iteration
+        previousLocation = location;
+        
+        // if this point exceeds the threshold, add it to the array of stops and reset everything
+        if (distanceKeepTrack > distance)
+        {
+            distanceKeepTrack = 0;
+            // add the current coordinate to the array of stops along the way
+            myCoordinates[index] = coordinates[0];
+            index ++;
+            // set the distance to 1/numStops of the total distance
+            // we only want 1/(2 * numStops) for between the first stop and current location because geometry
+            distance = route.distance / numStops;
+        }
     }
 
+    
     NSMutableArray *arrayCoordinates = [[NSMutableArray alloc] init];
     for (int i = 0; i < numStops; i ++)
     {
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(myCoordinates[i].latitude, myCoordinates[i].longitude);
         [arrayCoordinates addObject:[NSValue valueWithBytes:&coord objCType:@encode(CLLocationCoordinate2D)]];
     }
+    
     for (int i = 0; i < numStops; i++)
     {
         CLLocationCoordinate2D coordinate;
-        [[arrayCoordinates objectAtIndex:0] getValue:&coordinate];
+        [[arrayCoordinates objectAtIndex:i] getValue:&coordinate];
         NSLog(@"Coordinates: %f, %f", coordinate.latitude, coordinate.longitude);
     }
     
@@ -135,15 +172,20 @@
 
 -(void)displayPointsAlongRoute {
     
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<numStops; i++) {
         MKPointAnnotation* annotation= [MKPointAnnotation new];
+        
+        // retrieve coordinate from the array
         CLLocationCoordinate2D coordinate;
         [[self.pointsAlongRoute objectAtIndex:i] getValue:&coordinate];
+        
+        // add annotation for the coordinate
         annotation.coordinate= coordinate;
         [self.mapView addAnnotation: annotation];
     }
-    
 }
+
+
 
 -(void)showRoute:(MKDirectionsResponse *)response
 {
