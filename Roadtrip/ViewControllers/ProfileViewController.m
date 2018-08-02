@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *recentSearchesLabel;
 @property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePic;
+@property (weak, nonatomic) IBOutlet UIButton *invitesButton;
 @property (strong, nonatomic) NSArray *friends;
 @property (strong, nonatomic) NSArray *invites;
 
@@ -113,6 +114,11 @@
             NSMutableArray *invitesArray = [NSMutableArray new];
             for(PFObject *notification in objects){
                 [invitesArray addObject:notification];
+            }
+            if(invitesArray.count > 0){
+                NSString *buttonString = [NSString stringWithFormat:@"Invites (%lu)", invitesArray.count];
+                [self.invitesButton setTitle:buttonString forState:UIControlStateNormal];
+                [self.invitesButton sizeToFit];
             }
             self.invites = [invitesArray copy];
         }

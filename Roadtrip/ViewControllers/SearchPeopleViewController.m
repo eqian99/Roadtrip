@@ -23,51 +23,36 @@
     self.usersTableView.delegate = self;
     self.usersTableView.dataSource = self;
     self.usersTableView.rowHeight = 95;
-    
     self.peopleSearchBar.delegate = self;
-    
-    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(dismissController)];
+    self.navigationItem.leftBarButtonItem = backButton;
+    self.navigationController.navigationItem.leftBarButtonItem = backButton;
+}
+
+-(void) dismissController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) fetchUsersWithUsernameThatContainsString: (NSString *) string {
-    
     PFQuery *query = [PFUser query];
-    
     [query whereKey:@"username" containsString: string];
-    
     [query includeKey:@"publicEmail"];
-    
     query.limit = 5;
-    
     // fetch data asynchronously
-    
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
-        
         if (users != nil) {
             // do something with the array of object returned by the call
-            
             self.users = users;
-            
             NSLog(@"%lu", self.users.count);
-            
             [self.usersTableView reloadData];
-            
         } else {
-            
             NSLog(@"%@", error.localizedDescription);
-            
         }
     }];
-    
-    
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    
-    NSLog(@"Searched %@", searchText);
-    
     [self fetchUsersWithUsernameThatContainsString:searchText];
-    
 }
 
 - (void)didReceiveMemoryWarning {

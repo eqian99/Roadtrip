@@ -1138,6 +1138,9 @@
                                                     <rect key="frame" x="311" y="41" width="49" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Accept"/>
+                                                    <connections>
+                                                        <action selector="didTappedAccept:" destination="slr-8T-HVB" eventType="touchUpInside" id="B0d-Ku-uBb"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Invite from username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biv-EM-koK">
                                                     <rect key="frame" x="15" y="81" width="162" height="21"/>
@@ -1345,7 +1348,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5VV-PL-178">
-                                <rect key="frame" x="255" y="283" width="104" height="45"/>
+                                <rect key="frame" x="238" y="283" width="121" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="24"/>
                                 <state key="normal" title="Invites"/>
@@ -1373,6 +1376,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="friendsTableView" destination="7st-Bs-SeF" id="3ED-zB-Cwo"/>
+                        <outlet property="invitesButton" destination="5VV-PL-178" id="f3a-iE-R7n"/>
                         <outlet property="profilePic" destination="jWb-Nw-mI6" id="WYb-QT-3a5"/>
                         <outlet property="recentSearchesLabel" destination="3m9-89-rvy" id="sb6-fL-7Zj"/>
                         <outlet property="usernameLabel" destination="Sh6-vp-uMe" id="Imi-P2-nqP"/>
@@ -1436,6 +1440,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="shd-fn-9bJ"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="CRA-RL-Gv6"/>
                     <connections>
                         <outlet property="peopleSearchBar" destination="auF-G4-oLT" id="vof-EK-8hs"/>
                         <outlet property="usersTableView" destination="WsF-xX-IXE" id="GcH-L7-qw5"/>

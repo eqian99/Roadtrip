@@ -29,7 +29,7 @@
     self.scheduleTableView.dataSource = self;
     self.scheduleTableView.rowHeight = 150;
     self.events = [NSMutableArray new];
-    UIBarButtonItem *customBtn=[[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(didClickShareButton)];
+    UIBarButtonItem *customBtn=[[UIBarButtonItem alloc] initWithTitle:@"Members" style:UIBarButtonItemStylePlain target:self action:@selector(didClickShareButton)];
     [self.navigationItem setRightBarButtonItem:customBtn];
     
     [self getEventsFromSchedule];
@@ -41,7 +41,6 @@
 
 
 -(void) getEventsFromSchedule {
-    
     PFRelation *eventsRelation = self.schedule.eventsRelation;
     PFQuery *eventsQuery = [eventsRelation query];
     [eventsQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {

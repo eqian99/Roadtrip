@@ -39,11 +39,18 @@
     PFObject *invite = self.invites[indexPath.row];
     PFUser *sender = [invite objectForKey:@"sender"];
     PFObject *schedule = [invite objectForKey:@"schedule"];
+    [schedule fetchIfNeeded];
     [sender fetchIfNeeded];
+    NSDate *date = [schedule objectForKey:@"date"];
+    cell.dateLabel.text = date.description;
+    [cell.dateLabel sizeToFit];
     NSString *username = [sender objectForKey:@"username"];
-    
     cell.usernameLabel.text = [NSString stringWithFormat:@"Invite from %@", username];
-
+    [cell.usernameLabel sizeToFit];
+    NSString *city = [schedule objectForKey:@"name"];
+    cell.cityLabel.text = city;
+    [cell.cityLabel sizeToFit];
+    cell.invite = self.invites[indexPath.row];
     return cell;
 }
 

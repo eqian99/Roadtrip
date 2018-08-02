@@ -218,6 +218,11 @@
     PFRelation *scheduleRelation = [[PFUser currentUser] relationForKey:@"schedules"];
     PFObject *schedule = [PFObject objectWithClassName:@"Schedule"];
     [schedule setValue:self.city forKey:@"name"];
+    NSDate *scheduleDate = [NSDate dateWithTimeIntervalSince1970:self.startOfDayUnix];
+    [schedule setValue:scheduleDate forKey:@"date"];
+    [schedule setObject:[PFUser currentUser] forKey:@"Creator"];
+    PFRelation *scheduleMembersRelation = [schedule relationForKey:@"members"];
+    [scheduleMembersRelation addObject:[PFUser currentUser]];
     [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         [scheduleRelation addObject:schedule];
         [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
