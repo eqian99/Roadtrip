@@ -8,10 +8,12 @@
 
 #import "ProfileViewController.h"
 #import "SearchPeopleViewController.h"
+#import "InvitesViewController.h"
 #import "FriendCell.h"
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "Invite.h"
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, SearchPeopleDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -19,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePic;
 @property (strong, nonatomic) NSArray *friends;
+@property (strong, nonatomic) NSArray *invites;
 
 @property (strong, nonatomic) PFUser *currUser;
 @end
@@ -73,6 +76,7 @@
     }];
     
     [self fetchFriendsOfCurrentUser];
+    [self fetchInvites];
     
     
     // Do any additional setup after loading the view.
@@ -84,7 +88,6 @@
 }
 
 -(void) fetchFriendsOfCurrentUser {
-    
     PFRelation *friendsRelation = [[PFUser currentUser] relationForKey:@"friends"];
     PFQuery *friendsQuery = [friendsRelation query];
     [friendsQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
@@ -95,7 +98,24 @@
             NSLog(@"Got friends");
             [self.friendsTableView reloadData];
         }
-        
+    }];
+}
+
+-(void) fetchInvites {
+    PFObject *userNotificationsObject = [[PFUser currentUser] objectForKey:@"userNotifications"];
+    PFRelation *userNotifications = [userNotificationsObject relationForKey:@"notifications"];
+    PFQuery *notificationsQuery = [userNotifications query];
+    [notificationsQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if(error){
+            NSLog(@"Error getting invites");
+        } else {
+            NSLog(@"Successfully fetched invites");
+            NSMutableArray *invitesArray = [NSMutableArray new];
+            for(PFObject *notification in objects){
+                [invitesArray addObject:notification];
+            }
+            self.invites = [invitesArray copy];
+        }
     }];
 }
 
@@ -174,35 +194,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friendCell" forIndexPath:indexPath];
-    
     PFUser *friend = self.friends[indexPath.row];
-    
-    
     NSString *username = [friend valueForKey:@"username"];
     NSString *email = [friend valueForKey:@"publicEmail"];
-    
     cell.friendNameLabel.text = username;
     cell.friendEmailLabel.text = email;
-    
     [cell.friendNameLabel sizeToFit];
     [cell.friendEmailLabel sizeToFit];
-    
-
     return cell;
     
 }
 
 - (IBAction)didTapAddFriend:(id)sender {
-    
-    
     [self performSegueWithIdentifier:@"searchPeopleSegue" sender:self];
-    
 }
 
 - (void)fetchFriends {
-    
     [self fetchFriendsOfCurrentUser];
-    
 }
 
 
@@ -214,11 +222,11 @@
     // Pass the selected object to the new view controller.
     
     if([segue.identifier isEqualToString:@"searchPeopleSegue"]) {
-        
         SearchPeopleViewController *viewController = [segue destinationViewController];
-        
         viewController.searchDelegate = self;
-
+    } else if ([segue.identifier isEqualToString:@"invitesSegue"]) {
+        InvitesViewController *viewController = [segue destinationViewController];
+        viewController.invites = self.invites;
     }
     
     

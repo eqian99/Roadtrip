@@ -310,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cxc-ib-ZqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3166" y="1653"/>
+            <point key="canvasLocation" x="3809" y="2273"/>
         </scene>
         <!--Title-->
         <scene sceneID="mdf-FH-AGm">
@@ -1098,7 +1098,75 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nHW-8s-8p5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1641" y="841"/>
+            <point key="canvasLocation" x="1641" y="849"/>
+        </scene>
+        <!--Invites View Controller-->
+        <scene sceneID="JXi-H9-rgQ">
+            <objects>
+                <viewController id="uoL-2V-IBK" customClass="InvitesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7ap-vJ-u16">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Y0Q-pK-NXn">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="inviteCell" rowHeight="115" id="slr-8T-HVB" customClass="InviteCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="115"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="slr-8T-HVB" id="heT-pg-EJI">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="114.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JZ9-Ag-1wt">
+                                                    <rect key="frame" x="15" y="11" width="37" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="21"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4nM-KW-b5G">
+                                                    <rect key="frame" x="311" y="41" width="49" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Accept"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Invite from username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biv-EM-koK">
+                                                    <rect key="frame" x="15" y="81" width="162" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIJ-BF-Rkq">
+                                                    <rect key="frame" x="15" y="50" width="36" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cityLabel" destination="JZ9-Ag-1wt" id="Jvs-ow-hxy"/>
+                                            <outlet property="dateLabel" destination="pIJ-BF-Rkq" id="VAp-9c-2Hf"/>
+                                            <outlet property="usernameLabel" destination="biv-EM-koK" id="PsU-1o-sFd"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="PD6-h8-GTf"/>
+                    </view>
+                    <connections>
+                        <outlet property="invitesTableView" destination="Y0Q-pK-NXn" id="B6f-m3-Yx8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kdv-K0-SEY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2334" y="849"/>
         </scene>
         <!--Members-->
         <scene sceneID="KU6-K8-IsA">
@@ -1124,7 +1192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dyC-hn-rEh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2429.5999999999999" y="840.62968515742136"/>
+            <point key="canvasLocation" x="1641" y="1570"/>
         </scene>
         <!--Search Friends-->
         <scene sceneID="j1u-1K-dr9">
@@ -1155,7 +1223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cY1-se-Aen" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3128.8000000000002" y="840.62968515742136"/>
+            <point key="canvasLocation" x="2334" y="1569"/>
         </scene>
         <!--Profile-->
         <scene sceneID="mof-IC-OnD">
@@ -1267,6 +1335,15 @@
                                 <state key="normal" title="Take Photo"/>
                                 <connections>
                                     <action selector="takeProfilePic:" destination="jbP-R6-ISl" eventType="touchUpInside" id="dFV-Uq-rUb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5VV-PL-178">
+                                <rect key="frame" x="255" y="283" width="104" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="24"/>
+                                <state key="normal" title="Invites"/>
+                                <connections>
+                                    <segue destination="uoL-2V-IBK" kind="show" identifier="invitesSegue" id="YYW-jJ-dl5"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1459,6 +1536,6 @@
         <image name="uncheckBox" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jvd-JJ-Jlm"/>
+        <segue reference="yGI-EL-KBN"/>
     </inferredMetricsTieBreakers>
 </document>
