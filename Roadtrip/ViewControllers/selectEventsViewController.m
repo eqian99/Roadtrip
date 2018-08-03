@@ -17,6 +17,7 @@
 #import "EventDetailsViewController.h"
 #import "EventMapViewController.h"
 #import "MBProgressHUD.h"
+#import "DGActivityIndicatorView.h"
 #import "UIImageView+AFNetworking.h"
 #import "ScheduleViewController.h"
 #import "Event.h"
@@ -25,7 +26,8 @@
 
 static int const EVENTS = 0;
 static int const LANDMARKS = 1;
-
+// Constant for activity indicator size
+static int const INDICATOR_SIZE = 200;
 
 @interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate, EventCellDelegate>
 
@@ -52,9 +54,7 @@ static int const LANDMARKS = 1;
 @property (nonatomic, strong) Event *eventSelected;
 @property (nonatomic, strong) Landmark *landmarkSelected;
 @property (nonatomic, strong) NSString *typeSelected;
-
 @property (nonatomic, assign) Boolean didDeselect;
-
 @property (nonatomic, assign) NSArray *stopsAlongRoute;
 
 @end
@@ -143,7 +143,18 @@ static int const LANDMARKS = 1;
     
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude, self.longitude);
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    // set light purple color
+    UIColor *color = [UIColor colorWithRed:190.0f/255.0f green:169.0f/255.0f blue:247.0f/255.0f alpha:1.0];
+    // create indicator
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple
+                                                                                         tintColor:color size:INDICATOR_SIZE];
+    // set indicator to be center of frame
+    activityIndicatorView.frame = CGRectMake(self.view.frame.size.width/2 - INDICATOR_SIZE/2, self.view.frame.size.height/2 -
+                                             INDICATOR_SIZE/2, INDICATOR_SIZE, INDICATOR_SIZE);
+    [self.view addSubview:activityIndicatorView];
+    [activityIndicatorView startAnimating];
+    
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [[EventbriteManager new] getEventsWithCoordinates: coordinate withStartDateUTC:startDateString completion:^(NSArray *events, NSError *error) {
         
@@ -182,7 +193,10 @@ static int const LANDMARKS = 1;
                     }
                 }
             }
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            // [MBProgressHUD hideHUDForView:self.view animated:YES];
+            
+            [activityIndicatorView stopAnimating];
+            
             [self.tableView reloadData];
         }
         
@@ -193,7 +207,18 @@ static int const LANDMARKS = 1;
 
 -(void)getLandmarks:(int)radius {
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    // [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    // set light purple color
+    UIColor *color = [UIColor colorWithRed:190.0f/255.0f green:169.0f/255.0f blue:247.0f/255.0f alpha:1.0];
+    // create indicator
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple
+                                                                                         tintColor:color size:INDICATOR_SIZE];
+    // set indicator to be center of frame
+    activityIndicatorView.frame = CGRectMake(self.view.frame.size.width/2 - INDICATOR_SIZE/2, self.view.frame.size.height/2 -
+                                             INDICATOR_SIZE/2, INDICATOR_SIZE, INDICATOR_SIZE);
+    [self.view addSubview:activityIndicatorView];
+    [activityIndicatorView startAnimating];
 
     GoogleMapsManager *myManagerGoogle = [GoogleMapsManager new];
     
@@ -211,8 +236,9 @@ static int const LANDMARKS = 1;
                  [self.landmarksSelected addObject:@NO];
                  
              }
-             [MBProgressHUD hideHUDForView:self.view animated:YES];
-
+             // [MBProgressHUD hideHUDForView:self.view animated:YES];
+             
+             [activityIndicatorView stopAnimating];
              [self.tableView reloadData];
          }
          else
@@ -465,8 +491,8 @@ static int const LANDMARKS = 1;
     
     cell.delegate = self;
     
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-
+    // [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
     return cell;
 }
 

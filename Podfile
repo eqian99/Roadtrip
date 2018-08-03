@@ -10,5 +10,6 @@ target 'Roadtrip' do
     pod 'GoogleMaps'
     pod 'AFNetworking'
     pod 'MBProgressHUD'
+    pod 'DGActivityIndicatorView'
 
 end

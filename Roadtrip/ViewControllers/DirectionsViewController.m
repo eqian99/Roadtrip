@@ -8,6 +8,9 @@
 
 #import "DirectionsViewController.h"
 #import <MapKit/MapKit.h>
+#import "MBProgressHUD.h"
+#import "GoogleMapsManager.h"
+#import "Landmark.h"
 #import <CoreLocation/CoreLocation.h>
 
 // number of stops we want along the way
@@ -15,6 +18,9 @@ static int const numStops = 3;
 // how many times more points we want to check compared to number of stops
 // created to improve efficiency so we dont check every single point along the route
 static int const multiplier = 20;
+
+// completion block for after
+typedef void (^completionGetPointsAlongWay)(void);
 
 @interface DirectionsViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
 
@@ -78,7 +84,7 @@ static int const multiplier = 20;
     MKDirections *directions =
     [[MKDirections alloc] initWithRequest:request];
     
-    __block NSArray *pointsAlongRoute;
+    // __block NSArray *pointsAlongRoute;
     
     [directions calculateDirectionsWithCompletionHandler:
      ^(MKDirectionsResponse *response, NSError *error) {
@@ -87,7 +93,10 @@ static int const multiplier = 20;
          } else {
              NSLog(@"hello");
              [self showRoute:response];
-             self.pointsAlongRoute = [self getPointsAlongRoute:response];
+             self.pointsAlongRoute = [self getPointsAlongRoute:response
+                                           withCompletionBlock:^() {
+                                            
+                                           }];
              [self displayPointsAlongRoute];
          }
      }];
@@ -99,7 +108,48 @@ static int const multiplier = 20;
     NSLog(@"failed to fetch current location : %@", error);
 }
 
+-(NSMutableArray *)getLandmarksAlongRoute
+{
+    NSMutableArray *allLankmarks = [[NSMutableArray alloc] init];
+    for (int i = 0; i < numStops; i++)
+    {
+        CLLocationCoordinate2D coordinate;
+        [[self.pointsAlongRoute objectAtIndex:i] getValue:&coordinate];
+        
+    }
+    return allLankmarks;
+}
+
+-(NSArray *)getLandmarks:(int)radius withLocation:(CLLocationCoordinate2D) coordinate{
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    GoogleMapsManager *myManagerGoogle = [GoogleMapsManager new];
+    
+    __block NSArray *landmarks;
+    
+    [myManagerGoogle getPlacesNearLatitude:coordinate.latitude nearLongitude:coordinate.longitude withRadius: radius withCompletion:^(NSArray *placesDictionaries, NSError *error)
+     {
+         if(placesDictionaries)
+         {
+             
+             landmarks = [Landmark initWithArray:placesDictionaries];
+             
+             landmarks = [NSMutableArray arrayWithArray: [Landmark sortLandmarkByRating:landmarks]];
+             
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+         }
+         else
+         {
+             NSLog(@"No places found");
+         }
+     }];
+    
+    return landmarks;
+}
+
 -(NSArray *)getPointsAlongRoute:(MKDirectionsResponse *)response
+            withCompletionBlock: (completionGetPointsAlongWay)compBlock
 {
     MKRoute *route = response.routes[0];
     // what the distance should be for radius
@@ -166,9 +216,12 @@ static int const multiplier = 20;
         [[arrayCoordinates objectAtIndex:i] getValue:&coordinate];
         NSLog(@"Coordinates: %f, %f", coordinate.latitude, coordinate.longitude);
     }
-    
+    self.pointsAlongRoute = arrayCoordinates;
+    compBlock();
     return arrayCoordinates;
 }
+
+
 
 -(void)displayPointsAlongRoute {
     

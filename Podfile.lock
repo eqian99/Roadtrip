@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Bolts/Tasks (1.9.0)
+  - DGActivityIndicatorView (2.1.1)
   - GoogleMaps (2.7.0):
     - GoogleMaps/Maps (= 2.7.0)
   - GoogleMaps/Base (2.7.0)
@@ -28,6 +29,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - DGActivityIndicatorView
   - GoogleMaps
   - MBProgressHUD
   - Parse
@@ -36,6 +38,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - Bolts
+    - DGActivityIndicatorView
     - GoogleMaps
     - MBProgressHUD
     - Parse
@@ -43,10 +46,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  DGActivityIndicatorView: ff2c76073d79692f724863c8dd38685866a03cb6
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
 
-PODFILE CHECKSUM: cab7a62260fa5123b0c8d91c51488ebe57dd9435
+PODFILE CHECKSUM: 8f69163e760282d1e24a25c68d18cc4cc6010b9b
 
 COCOAPODS: 1.5.3

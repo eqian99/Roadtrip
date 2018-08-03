@@ -49,6 +49,7 @@
 		F6A23AE420EFE04D002384E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE320EFE04D002384E8 /* Assets.xcassets */; };
 		F6A23AE720EFE04D002384E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE520EFE04D002384E8 /* LaunchScreen.storyboard */; };
 		F6A23AEA20EFE04D002384E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A23AE920EFE04D002384E8 /* main.m */; };
+		F6D0027C2114D7CB008C7C17 /* DGActivityIndicatorView in Resources */ = {isa = PBXBuildFile; fileRef = F6D0027B2114D7CB008C7C17 /* DGActivityIndicatorView */; };
 		F6F77C4020FB256600836D65 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C3F20FB256600836D65 /* LoginViewController.m */; };
 		F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4420FC6D7600836D65 /* SignupViewController.m */; };
 		F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4820FD353800836D65 /* CategoryViewController.m */; };
@@ -140,6 +141,7 @@
 		F6A23AE620EFE04D002384E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F6A23AE820EFE04D002384E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6A23AE920EFE04D002384E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F6D0027B2114D7CB008C7C17 /* DGActivityIndicatorView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DGActivityIndicatorView; sourceTree = "<group>"; };
 		F6F77C3E20FB256600836D65 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		F6F77C3F20FB256600836D65 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		F6F77C4420FC6D7600836D65 /* SignupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 		F6A23AD920EFE04C002384E8 /* Roadtrip */ = {
 			isa = PBXGroup;
 			children = (
+				F6D0027B2114D7CB008C7C17 /* DGActivityIndicatorView */,
 				5379457D210F80380078D95F /* Unused Files */,
 				532993052107E50A0058D428 /* Views */,
 				D6CDFAB020FE5D78001F6A61 /* Objects */,
@@ -401,6 +404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6A23AE720EFE04D002384E8 /* LaunchScreen.storyboard in Resources */,
+				F6D0027C2114D7CB008C7C17 /* DGActivityIndicatorView in Resources */,
 				F6A23AE420EFE04D002384E8 /* Assets.xcassets in Resources */,
 				5379458F2110F90E0078D95F /* RestaurantsView.xib in Resources */,
 				D68C739320FC46D700364D35 /* SWRevealViewController in Resources */,
