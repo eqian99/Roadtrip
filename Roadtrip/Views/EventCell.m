@@ -52,6 +52,9 @@
     NSURL *posterURL = [NSURL URLWithString:event.imageUrl];
     
     // clear out the cell so that there is no flickering
+    [UIView animateWithDuration:0.3 animations:^{
+        self.posterView.alpha = 1.0;
+    }];
     self.posterView.image = nil;
     [self.posterView setImageWithURL:posterURL];
     

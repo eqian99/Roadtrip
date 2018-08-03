@@ -9,9 +9,9 @@
 #import "SelectionViewController.h"
 #import "selectEventsViewController.h"
 #import "LocationTableViewController.h"
+#import "SearchBarViewController.h"
 
-
-@interface SelectionViewController () <CityDelegate, UISearchControllerDelegate>
+@interface SelectionViewController ()<MySearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 
@@ -38,46 +38,22 @@
 @property (assign, nonatomic)NSTimeInterval lunchTime;
 @property (assign, nonatomic)NSTimeInterval dinnerTime;
 
-@property (strong, nonatomic) UISearchController *citySearchController;
-
-
 @end
 
 @implementation SelectionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSLog(@"User: %@", [PFUser currentUser]);
 
     //City
     
     //Search controller setup
     
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(tappedCityLabel:)];
+    [self.cityLabel addGestureRecognizer:singleFingerTap];
     
-    LocationTableViewController *locationTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LocationTableViewController"];
-    
-    self.citySearchController = [[UISearchController alloc]initWithSearchResultsController:locationTableViewController];
-    
-    self.citySearchController.searchResultsUpdater = locationTableViewController;
-    
-    self.citySearchController.delegate = self;
-    
-    UISearchBar *searchBar = self.citySearchController.searchBar;
-    
-    [searchBar sizeToFit];
-    
-    searchBar.placeholder = @"Search for cities";
-    
-    self.navigationItem.titleView = self.citySearchController.searchBar;
-    
-    self.citySearchController.hidesNavigationBarDuringPresentation = false;
-    
-    self.citySearchController.dimsBackgroundDuringPresentation = true;
-    
-    self.definesPresentationContext = true;
-    
-    locationTableViewController.cityDelegate = self;
+    self.cityLabel.userInteractionEnabled = YES;
     
     //Date
     datePicker=[[UIDatePicker alloc]init];
@@ -130,37 +106,45 @@
     [self.startTimeField setInputAccessoryView:toolBarStartTime];
 }
 
-- (void)willPresentSearchController:(UISearchController *)searchController
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        searchController.searchResultsController.view.hidden = NO;
-    });
-}
-
-- (void)didPresentSearchController:(UISearchController *)searchController
-{
-    searchController.searchResultsController.view.hidden = NO;
-}
-
 - (void)changeCityText:(NSString *)cityString withStateAndCountry:(NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude {
 
     self.cityLabel.text = cityString;
     
-    [self.cityLabel sizeToFit];
+    self.cityLabel.textColor = [UIColor blackColor];
+    
+    //[self.cityLabel sizeToFit];
     
     self.city = cityString;
     self.stateAndCountry = stateAndCountry;
     self.latitude = latitude;
     self.longitude = longitude;
     
+    //PFQuery *query = [PFQuery queryWithClassName:@"City"];
     
 }
 
--(void)changeCityTextWithCity:(NSString *)cityString{
-    self.citySearchController.searchBar.text = cityString;
+- (void)tappedCityLabel:(UITapGestureRecognizer *)recognizer{
+    NSLog(@"tapped!");
+    
+    [self performSegueWithIdentifier:@"searchSegue" sender:nil];
+    /*
+    UISearchBar *searchBar = self.citySearchController.searchBar;
+    
+    [searchBar sizeToFit];
+    
+    searchBar.placeholder = @"Search for cities";
+    
+    self.navigationItem.titleView = self.citySearchController.searchBar;
+    
+    self.citySearchController.hidesNavigationBarDuringPresentation = false;
+    
+    self.citySearchController.dimsBackgroundDuringPresentation = true;
+    
+    self.definesPresentationContext = true;
+     */
 }
 
--(void) showStartDayTime{
+- (void) showStartDayTime{
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     
     NSDateComponents *components = [self.calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:self.timePicker.date];
@@ -174,18 +158,20 @@
     NSLog(@"Breakfast time: %f", self.breakfastTime);
     NSLog(@"start of day: %f", self.startOfDayUnix);
     
-    [formatter setDateFormat:@"hh:min a"];
+    [formatter setDateFormat:@"hh:mm a"];
     self.startTimeField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
+    self.startTimeField.textColor = [UIColor blackColor];
     [self.startTimeField resignFirstResponder];
 }
 
--(void)ShowSelectedDate
+- (void)ShowSelectedDate
 {
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     
-    [formatter setDateFormat:@"MMM/dd/YYYY"];
+    [formatter setDateFormat:@"MMM dd"];
     
     self.dateField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
+    self.dateField.textColor = [UIColor blackColor];
     [self.dateField resignFirstResponder];
     
     NSCalendar *const calendar = NSCalendar.currentCalendar;
@@ -204,7 +190,7 @@
     self.endOfDayUnix = [endOfDay timeIntervalSince1970];
 }
 
--(void)showTimeBreakfast{
+- (void)showTimeBreakfast{
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     
     NSDateComponents *components = [self.calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:self.timePicker.date];
@@ -218,12 +204,13 @@
     NSLog(@"Breakfast time: %f", self.breakfastTime);
     NSLog(@"start of day: %f", self.startOfDayUnix);
     
-    [formatter setDateFormat:@"hh:min a"];
+    [formatter setDateFormat:@"hh:mm a"];
     self.breakfastField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
+    self.breakfastField.textColor = [UIColor blackColor];
     [self.breakfastField resignFirstResponder];
 }
 
--(void)showTimeLunch{
+- (void)showTimeLunch{
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     
     NSDateComponents *components = [self.calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:self.timePicker.date];
@@ -234,12 +221,13 @@
     
     self.lunchTime = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
     
-    [formatter setDateFormat:@"hh:min a"];
+    [formatter setDateFormat:@"hh:mm a"];
     self.lunchField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
+    self.lunchField.textColor = [UIColor blackColor];
     [self.lunchField resignFirstResponder];
 }
 
--(void)showTimeDinner{
+- (void)showTimeDinner{
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     
     NSDateComponents *components = [self.calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:self.timePicker.date];
@@ -250,8 +238,9 @@
     
     self.dinnerTime = self.startOfDayUnix + hour * 60 * 60 + minute * 60 + second;
     
-    [formatter setDateFormat:@"hh:min a"];
+    [formatter setDateFormat:@"hh:mm a"];
     self.dinnerField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
+    self.dinnerField.textColor = [UIColor blackColor];
     [self.dinnerField resignFirstResponder];
 }
 
@@ -328,6 +317,10 @@
             }
             
         }];
+    }
+    else if ([segue.identifier isEqualToString:@"searchSegue"]){
+        SearchBarViewController *searchBarViewController = [segue destinationViewController];
+        searchBarViewController.delegate = self;
     }
 }
 

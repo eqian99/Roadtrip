@@ -212,7 +212,7 @@
         NSString *longitude = parseCity[@"longitude"];
         
         NSLog(@"city: %@ latitude: %@ longitude: %@", city ,latitude, longitude);
-        [self.cityDelegate changeCityText:city withStateAndCountry:stateAndCountry withLatitude:latitude withLongitude:longitude];
+        [self.cityDelegate closeViewController:city withStateAndCount:stateAndCountry withLatitude:latitude withLongitude:longitude];
         
         [self dismissViewControllerAnimated:YES completion:nil];
     }
@@ -227,7 +227,7 @@
         NSString *longitude = self.longitudes[indexPath.row];
         
         NSLog(@"city: %@ latitude: %@ longitude: %@", city ,latitude, longitude);
-        [self.cityDelegate changeCityText:city withStateAndCountry:stateAndCountry withLatitude:latitude withLongitude:longitude];
+        [self.cityDelegate closeViewController:city withStateAndCount:stateAndCountry withLatitude:latitude withLongitude:longitude];
         
         [self dismissViewControllerAnimated:YES completion:nil];
     }

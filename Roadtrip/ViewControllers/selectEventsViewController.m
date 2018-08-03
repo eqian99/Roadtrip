@@ -40,10 +40,6 @@ static int const INDICATOR_SIZE = 200;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *eventsLandmarksControl;
 
-//@property (assign, nonatomic) Boolean firstTime;
-
-@property (assign, nonatomic) int count;
-
 @property (nonatomic, strong) NSMutableArray *eventsArray;
 @property (nonatomic, strong) NSMutableArray *longEventsArray;
 @property (nonatomic, strong) NSMutableArray *landmarksArray;
@@ -57,6 +53,8 @@ static int const INDICATOR_SIZE = 200;
 @property (nonatomic, assign) Boolean didDeselect;
 @property (nonatomic, assign) NSArray *stopsAlongRoute;
 
+@property (nonatomic, assign) Boolean didLoad;
+
 @end
 
 @implementation selectEventsViewController
@@ -66,8 +64,8 @@ static int const INDICATOR_SIZE = 200;
     //Change navigation item
     
     self.eventsSelected = 0;
-    //self.firstTime = YES;
-    self.count = 0;
+    
+    self.didLoad = NO;
     
     self.navigationItem.title = [NSString stringWithFormat:@"%@, %@", self.city, self.stateAndCountry];
     
@@ -193,10 +191,6 @@ static int const INDICATOR_SIZE = 200;
                     }
                 }
             }
-            // [MBProgressHUD hideHUDForView:self.view animated:YES];
-            
-            [activityIndicatorView stopAnimating];
-            
             [self.tableView reloadData];
         }
         
@@ -500,14 +494,11 @@ static int const INDICATOR_SIZE = 200;
     
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
     if(activitySelected == (long)EVENTS) {
-        /*
-        if(self.events.count == 0 && self.count >= 4){
+        if(self.didLoad && self.events.count == 0){
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self createError:@"There are no events happening today"];
-            self.count++;
         }
-         */
-        self.count++;
+
         return self.events.count;
         
     } else {

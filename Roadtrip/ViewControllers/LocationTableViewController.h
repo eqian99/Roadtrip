@@ -13,10 +13,13 @@
 
 @protocol CityDelegate
 
+/*
 -(void) changeCityText: (NSString *) cityString withStateAndCountry: (NSString *) stateAndCountry withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude;
 
 -(void) changeCityTextWithCity: (NSString *)cityString;
+*/
 
+- (void)closeViewController :(NSString *)cityString withStateAndCount: (NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude;
 @end
 
 @interface LocationTableViewController : UITableViewController <UISearchResultsUpdating>
