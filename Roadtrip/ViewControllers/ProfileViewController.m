@@ -10,60 +10,46 @@
 #import "SearchPeopleViewController.h"
 #import "InvitesViewController.h"
 #import "FriendCell.h"
+#import "TripCell.h"
+#import "ProfileFriendCell.h"
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "Invite.h"
 
-@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, SearchPeopleDelegate, UINavigationControllerDelegate>
+@interface ProfileViewController () <UIImagePickerControllerDelegate, SearchPeopleDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *recentSearchesLabel;
-@property (weak, nonatomic) IBOutlet UITableView *friendsTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePic;
 @property (weak, nonatomic) IBOutlet UIButton *invitesButton;
 @property (strong, nonatomic) NSArray *friends;
 @property (strong, nonatomic) NSArray *invites;
+@property (weak, nonatomic) IBOutlet UICollectionView *friendsCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *tripsCollectionView;
 
 @property (strong, nonatomic) PFUser *currUser;
+
 @end
 
 @implementation ProfileViewController
 
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    [self fetchInvites];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.friendsTableView.delegate = self;
-    self.friendsTableView.dataSource = self;
-    self.friendsTableView.rowHeight = 80;
+    self.friendsCollectionView.delegate = self;
+    self.friendsCollectionView.dataSource = self;
+    
+    self.tripsCollectionView.delegate = self;
+    self.tripsCollectionView.dataSource = self;
+    
     if(self.currUser == nil){
         self.currUser = [PFUser currentUser];
     }
     self.usernameLabel.text = [NSString stringWithFormat: @"%@", self.currUser.username];
-    NSArray * places = [self.currUser valueForKey:@"citiesSearched"];
-    if(places == nil){
-        self.recentSearchesLabel.text = @"No recent searches";
-    }
-    else{
-        NSString * recentPlaces = @"";
-        int numOfRecentPlaces = 3;
-        if(places.count < 3){
-            numOfRecentPlaces = (int)places.count;
-        }
-        for(int i = 0; i < numOfRecentPlaces; i++){
-            
-            PFObject *parseCity = places[i];
-            [parseCity fetchIfNeeded];
-            
-            recentPlaces = [recentPlaces stringByAppendingString:parseCity[@"name"]];
-            
-            if(i < 2){
-            
-                recentPlaces = [recentPlaces stringByAppendingString:@"\n"];
-            
-            }
-        }
-        self.recentSearchesLabel.text = recentPlaces;
-    }
+    [self.usernameLabel sizeToFit];
     
     PFFile *image = [self.currUser valueForKey:@"profilePic"];
     [image getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
@@ -77,7 +63,6 @@
     }];
     
     [self fetchFriendsOfCurrentUser];
-    [self fetchInvites];
     
     
     // Do any additional setup after loading the view.
@@ -97,7 +82,8 @@
         } else {
             self.friends = objects;
             NSLog(@"Got friends");
-            [self.friendsTableView reloadData];
+            [self.friendsCollectionView reloadData];
+            [self.tripsCollectionView reloadData];
         }
     }];
 }
@@ -119,12 +105,13 @@
                 NSString *buttonString = [NSString stringWithFormat:@"Invites (%lu)", invitesArray.count];
                 [self.invitesButton setTitle:buttonString forState:UIControlStateNormal];
                 [self.invitesButton sizeToFit];
+            } else {
+                [self.invitesButton setTitle:@"Invites" forState:UIControlStateNormal];
             }
             self.invites = [invitesArray copy];
         }
     }];
 }
-
 - (IBAction)takeProfilePic:(id)sender {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
@@ -171,20 +158,9 @@
     return [PFFile fileWithName:@"image.png" data:imageData];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return self.friends.count;
-}
-
 - (IBAction)didTapSchedules:(id)sender {
     [self performSegueWithIdentifier:@"showUserSchedules" sender:self];
 }
-
 
 - (IBAction)tappedLogout:(id)sender {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -196,20 +172,32 @@
     }];
 }
 
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    FriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friendCell" forIndexPath:indexPath];
-    PFUser *friend = self.friends[indexPath.row];
-    NSString *username = [friend valueForKey:@"username"];
-    NSString *email = [friend valueForKey:@"publicEmail"];
-    cell.friendNameLabel.text = username;
-    cell.friendEmailLabel.text = email;
-    [cell.friendNameLabel sizeToFit];
-    [cell.friendEmailLabel sizeToFit];
-    return cell;
-    
+- (IBAction)didtapImage:(id)sender {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Source" message:@"From where do you want your image?" preferredStyle: UIAlertControllerStyleActionSheet];
+    UIAlertAction *galleryAction = [UIAlertAction actionWithTitle:@"Gallery" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:imagePickerVC animated:YES completion:nil];
+    }];
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:imagePickerVC animated:YES completion:nil];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    [alert addAction: galleryAction];
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [alert addAction:cameraAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        [self presentViewController:imagePickerVC animated:YES completion:nil];
+    }
 }
+
 
 - (IBAction)didTapAddFriend:(id)sender {
     [self performSegueWithIdentifier:@"searchPeopleSegue" sender:self];
@@ -217,6 +205,33 @@
 
 - (void)fetchFriends {
     [self fetchFriendsOfCurrentUser];
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.friends.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(collectionView == self.friendsCollectionView) {
+        ProfileFriendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"profileFriendCell" forIndexPath:indexPath];
+        PFUser *friend = self.friends[indexPath.row];
+        NSString *username = [friend valueForKey:@"username"];
+        PFFile *image = [friend valueForKey:@"profilePic"];
+        [image getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+            UIImage *profileImage = [UIImage imageWithData:imageData];
+            cell.profileImageView.image = profileImage;
+        }];
+        cell.profileImageView.layer.masksToBounds = YES;
+        cell.profileImageView.layer.cornerRadius = cell.profileImageView.frame.size.width / 2;
+        cell.nameLabel.text = username;
+        [cell.nameLabel sizeToFit];
+        cell.nameLabel.textAlignment = NSTextAlignmentCenter;
+        return cell;
+    } else {
+        TripCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"tripCell" forIndexPath:indexPath];
+        return cell;
+    }
 }
 
 

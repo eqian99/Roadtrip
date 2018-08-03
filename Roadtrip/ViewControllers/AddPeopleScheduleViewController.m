@@ -29,7 +29,6 @@
 }
 
 -(void) fetchFriends {
-    
     PFUser *currentUser = [PFUser currentUser];
     PFRelation *friendsRelation = [currentUser relationForKey:@"friends"];
     PFQuery *friendsQuery = [friendsRelation query];
@@ -42,7 +41,6 @@
         }
         
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {

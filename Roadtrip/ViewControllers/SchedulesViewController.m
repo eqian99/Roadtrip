@@ -23,7 +23,7 @@
     // Do any additional setup after loading the view.
     self.schedulesTableView.delegate = self;
     self.schedulesTableView.dataSource = self;
-    self.schedulesTableView.rowHeight = 120;
+    self.schedulesTableView.rowHeight = 200;
     self.schedules = [NSMutableArray new];
     [self fetchSchedulesFromParse];
 }
@@ -49,6 +49,8 @@
                 schedule.membersRelation = [parseSchedule relationForKey:@"members"];
                 schedule.createdDate = parseSchedule.createdAt;
                 schedule.parseObject = parseSchedule;
+                schedule.creator = [parseSchedule objectForKey:@"Creator"];
+                schedule.scheduleDate = [parseSchedule objectForKey:@"date"];
                 [self.schedules addObject:schedule];
                 [self.schedulesTableView reloadData];
             }
@@ -70,7 +72,7 @@
     formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [formatter setLocalizedDateFormatFromTemplate:@"MMMMd"];
     NSLog(@"%@", [formatter stringFromDate:schedule.createdDate]);
-    cell.dateLabel.text = [formatter stringFromDate:schedule.createdDate];
+    cell.dateLabel.text = [formatter stringFromDate:schedule.scheduleDate];
     cell.schedule = schedule;
     [cell.dateLabel sizeToFit];
     [cell.nameLabel sizeToFit];

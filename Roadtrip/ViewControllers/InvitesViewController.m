@@ -21,14 +21,13 @@
     // Do any additional setup after loading the view.
     self.invitesTableView.dataSource = self;
     self.invitesTableView.delegate = self;
-    self.invitesTableView.rowHeight = 115;
+    self.invitesTableView.rowHeight = 215;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.invites.count;
@@ -42,7 +41,10 @@
     [schedule fetchIfNeeded];
     [sender fetchIfNeeded];
     NSDate *date = [schedule objectForKey:@"date"];
-    cell.dateLabel.text = date.description;
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [formatter setLocalizedDateFormatFromTemplate:@"MMMMd"];
+    cell.dateLabel.text = [formatter stringFromDate:date];
     [cell.dateLabel sizeToFit];
     NSString *username = [sender objectForKey:@"username"];
     cell.usernameLabel.text = [NSString stringWithFormat:@"Invite from %@", username];

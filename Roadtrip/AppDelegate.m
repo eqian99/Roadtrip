@@ -19,20 +19,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     ParseClientConfiguration *config = [ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-        
         configuration.applicationId = @"roadtrip17";
-        
         configuration.server = @"http://roadtrip17.herokuapp.com/parse";
     }];
-    
     [Parse initializeWithConfiguration:config];
-    
+
    if (PFUser.currentUser) {
-
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-
        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"navController"];
-
     }
     return YES;
 }

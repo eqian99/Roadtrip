@@ -31,16 +31,17 @@
             NSLog(@"Error adding the schedule to user");
         }else {
             NSLog(@"Successfully the schedule to user");
-        }
-    }];
-    [schedule fetchIfNeeded];
-    PFRelation *scheduleMembersRelation = [schedule relationForKey:@"members"];
-    [scheduleMembersRelation addObject:[PFUser currentUser]];
-    [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error){
-            NSLog(@"Error attaching user to schedule's member relation");
-        }else{
-            NSLog(@"Successfully attached member to schedule relation");
+            [schedule fetchIfNeeded];
+            PFRelation *scheduleMembersRelation = [schedule relationForKey:@"members"];
+            [scheduleMembersRelation addObject:[PFUser currentUser]];
+            [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error){
+                    NSLog(@"Error attaching user to schedule's member relation");
+                }else{
+                    NSLog(@"Successfully attached member to schedule relation");
+                    [self.invite deleteInBackground];
+                }
+            }];
         }
     }];
     

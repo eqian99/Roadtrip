@@ -15,6 +15,7 @@
 @property (strong, nonatomic) Schedule *schedule;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *creatorLabel;
 
 
 @end

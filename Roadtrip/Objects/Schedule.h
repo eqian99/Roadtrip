@@ -16,7 +16,8 @@
 @property (strong, nonatomic) PFObject *parseObject;
 @property (nonatomic, strong) PFRelation *eventsRelation;
 @property (nonatomic, strong) PFRelation *membersRelation;
-
+@property (nonatomic, strong) PFUser *creator;
 @property (nonatomic, strong) NSDate *createdDate;
+@property (nonatomic, strong) NSDate *scheduleDate;
 
 @end

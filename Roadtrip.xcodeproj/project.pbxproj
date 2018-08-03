@@ -41,6 +41,8 @@
 		D680BC132100156E00C0EBC4 /* EventbriteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D680BC122100156E00C0EBC4 /* EventbriteManager.m */; };
 		D68C739320FC46D700364D35 /* SWRevealViewController in Resources */ = {isa = PBXBuildFile; fileRef = D68C739220FC46D700364D35 /* SWRevealViewController */; };
 		D6A1E4212102649400EFF016 /* EventMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A1E4202102649400EFF016 /* EventMapViewController.m */; };
+		D6A6C5022114C1B20096A283 /* ProfileFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C5012114C1B20096A283 /* ProfileFriendCell.m */; };
+		D6A6C5052114D3A80096A283 /* TripCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C5042114D3A80096A283 /* TripCell.m */; };
 		D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA0A692108F4E40074456B /* FriendCell.m */; };
 		F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A23ADB20EFE04C002384E8 /* AppDelegate.m */; };
 		F6A23AE220EFE04C002384E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE020EFE04C002384E8 /* Main.storyboard */; };
@@ -124,6 +126,10 @@
 		D68C739220FC46D700364D35 /* SWRevealViewController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SWRevealViewController; sourceTree = "<group>"; };
 		D6A1E41F2102649400EFF016 /* EventMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventMapViewController.h; sourceTree = "<group>"; };
 		D6A1E4202102649400EFF016 /* EventMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventMapViewController.m; sourceTree = "<group>"; };
+		D6A6C5002114C1B20096A283 /* ProfileFriendCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileFriendCell.h; sourceTree = "<group>"; };
+		D6A6C5012114C1B20096A283 /* ProfileFriendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileFriendCell.m; sourceTree = "<group>"; };
+		D6A6C5032114D3A80096A283 /* TripCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TripCell.h; sourceTree = "<group>"; };
+		D6A6C5042114D3A80096A283 /* TripCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TripCell.m; sourceTree = "<group>"; };
 		D6AA0A682108F4E40074456B /* FriendCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FriendCell.h; sourceTree = "<group>"; };
 		D6AA0A692108F4E40074456B /* FriendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FriendCell.m; sourceTree = "<group>"; };
 		F6A23AD720EFE04C002384E8 /* Roadtrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roadtrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +194,10 @@
 				537945912110FA1C0078D95F /* RestaurantChooserView.m */,
 				D67ACB2F2112705500EA1815 /* InviteCell.h */,
 				D67ACB302112705500EA1815 /* InviteCell.m */,
+				D6A6C5002114C1B20096A283 /* ProfileFriendCell.h */,
+				D6A6C5012114C1B20096A283 /* ProfileFriendCell.m */,
+				D6A6C5032114D3A80096A283 /* TripCell.h */,
+				D6A6C5042114D3A80096A283 /* TripCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -463,6 +473,7 @@
 				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,
 				5306478A210154010062432D /* EventDetailsViewController.m in Sources */,
 				537945922110FA1C0078D95F /* RestaurantChooserView.m in Sources */,
+				D6A6C5052114D3A80096A283 /* TripCell.m in Sources */,
 				D67ACB1C210A93B300EA1815 /* UserScheduleCell.m in Sources */,
 				5329930321068C8C0058D428 /* ProfileViewController.m in Sources */,
 				D67ACB162109016D00EA1815 /* UserCell.m in Sources */,
@@ -477,6 +488,7 @@
 				D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */,
 				F6F77C622109296B00836D65 /* DirectionsViewController.m in Sources */,
 				D67ACB2B210FD8A000EA1815 /* AddPeopleScheduleViewController.m in Sources */,
+				D6A6C5022114C1B20096A283 /* ProfileFriendCell.m in Sources */,
 				5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */,
 				D670B20C20FDC9DC0064755D /* Restaurant.m in Sources */,
 				D67ACB25210BB9F200EA1815 /* ScheduleDetailViewController.m in Sources */,
