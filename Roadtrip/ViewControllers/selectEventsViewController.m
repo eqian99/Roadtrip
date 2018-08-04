@@ -55,6 +55,8 @@ static int const INDICATOR_SIZE = 200;
 
 @property (nonatomic, assign) Boolean didLoad;
 
+@property (nonatomic, assign) NSArray *stopsAlongRoute;
+
 @end
 
 @implementation selectEventsViewController
@@ -84,20 +86,27 @@ static int const INDICATOR_SIZE = 200;
     
     [self getEventsFromEventbrite];
     
+<<<<<<< Updated upstream
     DirectionsViewController *directionsViewController;
     
+=======
+   // [self ]
+>>>>>>> Stashed changes
     
     [self getLandmarks:30000];
     
     // Do any additional setup after loading the view.
 }
 
+<<<<<<< Updated upstream
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
     self.navigationItem.title = self.city;
 }
 
+=======
+>>>>>>> Stashed changes
 
 - (IBAction)didChangeEventsLandmarksControl:(id)sender {
     
@@ -200,8 +209,6 @@ static int const INDICATOR_SIZE = 200;
 
 
 -(void)getLandmarks:(int)radius {
-    
-    // [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     // set light purple color
     UIColor *color = [UIColor colorWithRed:190.0f/255.0f green:169.0f/255.0f blue:247.0f/255.0f alpha:1.0];
