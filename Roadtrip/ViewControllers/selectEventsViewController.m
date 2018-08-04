@@ -193,7 +193,7 @@ static int const INDICATOR_SIZE = 200;
             }
             [self.tableView reloadData];
         }
-        
+        [activityIndicatorView stopAnimating];
     }];
     
 }

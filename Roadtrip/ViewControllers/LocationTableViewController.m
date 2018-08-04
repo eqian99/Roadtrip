@@ -35,7 +35,7 @@
 
 }
 
--(void) viewWillAppear:(BOOL)animated{
+- (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self getRecentSearches];
 }
@@ -45,9 +45,9 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) getRecentSearches {
+- (void) getRecentSearches {
     PFUser *currUser = [PFUser currentUser];
-    NSArray *places = [currUser valueForKey:@"citiesSearched"];
+    NSArray *places = [currUser valueForKey:@"myCitiesSearched"];
     
     if(places != nil){
         self.recentSearchesArray = places;
@@ -177,7 +177,9 @@
     if([self.searchText isEqualToString:@""]) {
         if(indexPath.row < self.recentSearchesArray.count){
             PFObject *parseCity = self.recentSearchesArray[indexPath.row];
+            NSLog(@"%lu", self.recentSearchesArray.count);
             if(parseCity != nil){
+                NSLog(@"yo yo");
                 [parseCity fetchIfNeeded];
                 cell.textLabel.text = parseCity[@"name"];
                 cell.detailTextLabel.text = parseCity[@"stateAndCountry"];
@@ -187,6 +189,7 @@
             cell.textLabel.text = @"";
             cell.detailTextLabel.text = @"";
         }
+         
     } else {
      
         cell.textLabel.text = self.citiesArray[indexPath.row];
