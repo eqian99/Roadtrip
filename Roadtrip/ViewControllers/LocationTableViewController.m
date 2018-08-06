@@ -181,9 +181,7 @@
         if(indexPath.row < self.recentSearchesArray.count){
             
             PFObject *parseCity = self.recentSearchesArray[indexPath.row];
-            NSLog(@"%lu", self.recentSearchesArray.count);
             if(parseCity != nil){
-                NSLog(@"yo yo");
                 [parseCity fetchIfNeeded];
                 
                 cell.textLabel.text = parseCity[@"name"];

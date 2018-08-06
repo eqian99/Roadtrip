@@ -10,6 +10,8 @@
 #import "selectEventsViewController.h"
 #import "LocationTableViewController.h"
 #import "SearchBarViewController.h"
+#import "WeatherMapManager.h"
+#import "GoogleMapsManager.h"
 
 @interface SelectionViewController ()<MySearchBarDelegate>
 
@@ -38,13 +40,17 @@
 @property (assign, nonatomic)NSTimeInterval lunchTime;
 @property (assign, nonatomic)NSTimeInterval dinnerTime;
 
+@property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
 @end
 
 @implementation SelectionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    [[GoogleMapsManager new] getMuseumsNearLatitude:34.0522 nearLongitude:-118.2437 withRadius:30000 withCompletion:^(NSArray *placesDictionaries, NSError *error) {
+        NSLog(@"%@", placesDictionaries);
+    }];
     //City
     
     //Search controller setup
@@ -119,6 +125,13 @@
     self.latitude = latitude;
     self.longitude = longitude;
     
+    double latNum = [self.latitude doubleValue];
+    double longNum = [self.longitude doubleValue];
+    [[WeatherMapManager new] getWeather:latNum withLongitude:longNum withCompletion:^(NSDictionary *weatherDictionary, NSError *error) {
+        NSLog(@"%@", weatherDictionary);
+        //self.weatherLabel.text = 
+    }];
+    
     PFQuery *query = [PFQuery queryWithClassName:@"City"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *cities, NSError *error) {
@@ -130,7 +143,6 @@
                 if([parseCity[@"name"] isEqualToString:self.city] && [parseCity[@"stateAndCountry"] isEqualToString:self.stateAndCountry]){
                     foundParseCity = parseCity;
                     foundCity = YES;
-                    NSLog(@"FOUNDFOUND");
                     break;
                 }
             }
@@ -151,11 +163,15 @@
                         
                         
                     } else {
+                        NSLog(@"creating a new one");
                         NSArray *myCitiesArray = [self.currUser valueForKey:@"myCitiesSearched"];
                         NSMutableArray *citiesArrayMutable = [myCitiesArray mutableCopy];
+                        if(citiesArrayMutable == nil){
+                            citiesArrayMutable = [NSMutableArray new];
+                        }
                         [citiesArrayMutable insertObject:foundParseCity atIndex:0];
                         myCitiesArray = [citiesArrayMutable copy];
-                        NSLog(@"%@", myCitiesArray);
+                        NSLog(@"Hello: %@", myCitiesArray);
                         [self.currUser setValue:myCitiesArray forKey:@"myCitiesSearched"];
                         [self.currUser saveInBackground];
                     }
@@ -183,7 +199,6 @@
                 [self.currUser setValue:myCitiesArray forKey:@"myCitiesSearched"];
                 [self.currUser saveInBackground];
                 
-                // self.isMoreDataLoading = NO;
             }
         }
         else {
@@ -197,21 +212,6 @@
     NSLog(@"tapped!");
     
     [self performSegueWithIdentifier:@"searchSegue" sender:nil];
-    /*
-    UISearchBar *searchBar = self.citySearchController.searchBar;
-    
-    [searchBar sizeToFit];
-    
-    searchBar.placeholder = @"Search for cities";
-    
-    self.navigationItem.titleView = self.citySearchController.searchBar;
-    
-    self.citySearchController.hidesNavigationBarDuringPresentation = false;
-    
-    self.citySearchController.dimsBackgroundDuringPresentation = true;
-    
-    self.definesPresentationContext = true;
-     */
 }
 
 - (void) showStartDayTime{

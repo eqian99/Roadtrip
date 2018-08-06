@@ -995,6 +995,13 @@
                                 <rect key="frame" x="141" y="358" width="92" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwX-AY-4A8">
+                                <rect key="frame" x="61" y="207" width="157" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pjp-3z-RVz"/>
@@ -1014,6 +1021,7 @@
                         <outlet property="lunchField" destination="ZEc-Dk-2sy" id="pks-2s-syE"/>
                         <outlet property="searchDisplayController" destination="ncq-eO-XwL" id="4hh-yI-DXN"/>
                         <outlet property="startTimeField" destination="id1-El-wEl" id="VTu-Hq-R0I"/>
+                        <outlet property="weatherLabel" destination="AwX-AY-4A8" id="zIA-zz-5tq"/>
                         <segue destination="VaR-MT-fcZ" kind="presentation" id="33i-7i-VYL"/>
                         <segue destination="9vD-k7-Cyo" kind="show" identifier="searchSegue" id="7XK-SI-BKo"/>
                     </connections>

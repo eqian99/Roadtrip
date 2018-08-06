@@ -13,6 +13,8 @@
 
 - (void) autocomplete:(NSString *) city withCompletion: (void(^)(NSArray *predictionDictionaries, NSError *error))completion;
 
--(void) getPlacesDetailsWithId: (NSString *) placeId withCompletion: (void(^)(NSDictionary *placeDictionary, NSError *error))completion;
+- (void) getPlacesDetailsWithId: (NSString *) placeId withCompletion: (void(^)(NSDictionary *placeDictionary, NSError *error))completion;
+
+- (void) getMuseumsNearLatitude:(double) latitude nearLongitude:(double) longitude withRadius:(int) radius withCompletion: (void(^)(NSArray *placesDictionaries, NSError *error))completion;
 
 @end

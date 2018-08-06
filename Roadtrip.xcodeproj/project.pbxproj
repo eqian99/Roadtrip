@@ -19,6 +19,7 @@
 		5379458F2110F90E0078D95F /* RestaurantsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5379458E2110F90E0078D95F /* RestaurantsView.xib */; };
 		537945922110FA1C0078D95F /* RestaurantChooserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 537945912110FA1C0078D95F /* RestaurantChooserView.m */; };
 		537945952114F8B80078D95F /* SearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 537945942114F8B80078D95F /* SearchBarViewController.m */; };
+		537945982118B3A00078D95F /* WeatherMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 537945972118B3A00078D95F /* WeatherMapManager.m */; };
 		537A5DE721019D3300890FEF /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537A5DE621019D3300890FEF /* EventKit.framework */; };
 		5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386C9032107E5D7002AA967 /* ScheduleCell.m */; };
 		72D5332444D19627D346CC57 /* libPods-Roadtrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B30F6A8CE41E8160D8DC0B8E /* libPods-Roadtrip.a */; };
@@ -86,6 +87,8 @@
 		537945912110FA1C0078D95F /* RestaurantChooserView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RestaurantChooserView.m; sourceTree = "<group>"; };
 		537945932114F8B80078D95F /* SearchBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBarViewController.h; sourceTree = "<group>"; };
 		537945942114F8B80078D95F /* SearchBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBarViewController.m; sourceTree = "<group>"; };
+		537945962118B3A00078D95F /* WeatherMapManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherMapManager.h; sourceTree = "<group>"; };
+		537945972118B3A00078D95F /* WeatherMapManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherMapManager.m; sourceTree = "<group>"; };
 		537A5DE621019D3300890FEF /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		5386C9022107E5D7002AA967 /* ScheduleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleCell.h; sourceTree = "<group>"; };
 		5386C9032107E5D7002AA967 /* ScheduleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleCell.m; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 				F6A23AE920EFE04D002384E8 /* main.m */,
 				5306477920FEEE6A0062432D /* GoogleMapsManager.h */,
 				5306477A20FEEE6A0062432D /* GoogleMapsManager.m */,
+				537945962118B3A00078D95F /* WeatherMapManager.h */,
+				537945972118B3A00078D95F /* WeatherMapManager.m */,
 			);
 			path = Roadtrip;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 				D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */,
 				F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */,
 				D67ACB22210BB8C100EA1815 /* ScheduleEventCell.m in Sources */,
+				537945982118B3A00078D95F /* WeatherMapManager.m in Sources */,
 				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,
 				5306478A210154010062432D /* EventDetailsViewController.m in Sources */,
 				537945922110FA1C0078D95F /* RestaurantChooserView.m in Sources */,

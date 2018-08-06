@@ -33,8 +33,6 @@
     self.citySearchController.dimsBackgroundDuringPresentation = true;
     self.definesPresentationContext = true;
     locationTableViewController.cityDelegate = self;
-    //locationTableViewController.cityDelegate = self;
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
