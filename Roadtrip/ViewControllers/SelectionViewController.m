@@ -41,6 +41,7 @@
 @property (assign, nonatomic)NSTimeInterval dinnerTime;
 
 @property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *weatherImage;
 @end
 
 @implementation SelectionViewController
@@ -48,9 +49,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[GoogleMapsManager new] getMuseumsNearLatitude:34.0522 nearLongitude:-118.2437 withRadius:30000 withCompletion:^(NSArray *placesDictionaries, NSError *error) {
-        NSLog(@"%@", placesDictionaries);
-    }];
+    self.weatherImage.hidden = YES;
     //City
     
     //Search controller setup
@@ -128,8 +127,12 @@
     double latNum = [self.latitude doubleValue];
     double longNum = [self.longitude doubleValue];
     [[WeatherMapManager new] getWeather:latNum withLongitude:longNum withCompletion:^(NSDictionary *weatherDictionary, NSError *error) {
-        NSLog(@"%@", weatherDictionary);
-        //self.weatherLabel.text = 
+        NSDictionary *weatherTempDict = weatherDictionary[@"main"];
+        int temp = [weatherTempDict[@"temp_max"] intValue];
+        NSArray *descriptionArray = weatherDictionary[@"weather"];
+        NSDictionary *descriptionInfo = descriptionArray[0];
+        self.weatherLabel.text = [NSString stringWithFormat:@"%d° %@", temp, descriptionInfo[@"main"]];
+        self.weatherImage.hidden = NO;
     }];
     
     PFQuery *query = [PFQuery queryWithClassName:@"City"];

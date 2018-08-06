@@ -11,8 +11,8 @@
 
 @implementation GoogleMapsManager
 
-- (void) getPlacesNearLatitude:(double) latitude nearLongitude:(double) longitude withRadius:(int) radius withCompletion: (void(^)(NSArray *placesDictionaries, NSError *error))completion {
-    NSString *baseUrlString = [NSString stringWithFormat: @"https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=%d&type=park&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc", radius];
+- (void) getPlacesNearLatitude:(double) latitude nearLongitude:(double) longitude withRadius:(int) radius withType:(NSString *)type withCompletion: (void(^)(NSArray *placesDictionaries, NSError *error))completion {
+    NSString *baseUrlString = [NSString stringWithFormat: @"https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=%d&type=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc", radius,  type];
     NSString *parametersString = [NSString stringWithFormat:@"&location=%f,%f", latitude, longitude];
     
     NSString *fullUrlString = [baseUrlString stringByAppendingString:parametersString];

@@ -37,6 +37,8 @@ static int const INDICATOR_SIZE = 200;
 @property (nonatomic, strong) NSMutableArray *landmarks;
 @property (nonatomic, strong) NSMutableArray *landmarksSelected;
 
+@property (nonatomic, strong) NSMutableArray *landmarksAsEvents;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *eventsLandmarksControl;
 
@@ -54,8 +56,6 @@ static int const INDICATOR_SIZE = 200;
 @property (nonatomic, assign) NSArray *stopsAlongRoute;
 
 @property (nonatomic, assign) Boolean didLoad;
-
-@property (nonatomic, assign) NSArray *stopsAlongRoute;
 
 @end
 
@@ -80,33 +80,25 @@ static int const INDICATOR_SIZE = 200;
     
     self.eventsSelected = [NSMutableArray new];
     self.landmarksSelected = [NSMutableArray new];
+    self.landmarksAsEvents = [NSMutableArray new];
     
     self.events = [NSMutableArray new];
     self.landmarks = [NSMutableArray new];
     
     [self getEventsFromEventbrite];
-    
-<<<<<<< Updated upstream
     DirectionsViewController *directionsViewController;
-    
-=======
-   // [self ]
->>>>>>> Stashed changes
     
     [self getLandmarks:30000];
     
     // Do any additional setup after loading the view.
 }
 
-<<<<<<< Updated upstream
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
     self.navigationItem.title = self.city;
 }
 
-=======
->>>>>>> Stashed changes
 
 - (IBAction)didChangeEventsLandmarksControl:(id)sender {
     
@@ -179,8 +171,8 @@ static int const INDICATOR_SIZE = 200;
                     NSTimeInterval eventEndUnix = [event.endDate timeIntervalSince1970];
                     if(eventStartUnix < self.endOfDayUnix && eventEndUnix > self.startOfDayUnix){
                         [self.events addObject:event];
-                        
                         [self.eventsSelected addObject:@NO];
+                        event.isGoogleEvent = NO;
                     }
                 }
                 else if(event.startDate != nil){
@@ -200,6 +192,7 @@ static int const INDICATOR_SIZE = 200;
                     }
                 }
             }
+            [self getMuseums];
             [self.tableView reloadData];
         }
         [activityIndicatorView stopAnimating];
@@ -207,8 +200,23 @@ static int const INDICATOR_SIZE = 200;
     
 }
 
+- (void)getMuseums{
+    [[GoogleMapsManager new] getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withRadius:30000 withType:@"museum" withCompletion:^(NSArray *placesDictionaries, NSError *error) {
+        if(error){
+            NSLog(@"Error getting museums");
+        }
+        else{
+            NSArray *eventsTemp = [Landmark initWithArray:placesDictionaries];
+            for(Landmark *event in eventsTemp){
+                [self.landmarksAsEvents addObject:event];
+                [self.eventsSelected addObject:@NO];
+            }
+            [self.tableView reloadData];
+        }
+    }];
+}
 
--(void)getLandmarks:(int)radius {
+- (void)getLandmarks:(int)radius {
     
     // set light purple color
     UIColor *color = [UIColor colorWithRed:190.0f/255.0f green:169.0f/255.0f blue:247.0f/255.0f alpha:1.0];
@@ -223,7 +231,7 @@ static int const INDICATOR_SIZE = 200;
 
     GoogleMapsManager *myManagerGoogle = [GoogleMapsManager new];
     
-    [myManagerGoogle getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withRadius: radius withCompletion:^(NSArray *placesDictionaries, NSError *error)
+    [myManagerGoogle getPlacesNearLatitude:self.latitude nearLongitude:self.longitude withRadius: radius withType: @"park" withCompletion:^(NSArray *placesDictionaries, NSError *error)
      {
          if(placesDictionaries)
          {
@@ -240,7 +248,7 @@ static int const INDICATOR_SIZE = 200;
              // [MBProgressHUD hideHUDForView:self.view animated:YES];
              
              [activityIndicatorView stopAnimating];
-             [self.tableView reloadData];
+             //[self.tableView reloadData];
          }
          else
          {
@@ -382,27 +390,56 @@ static int const INDICATOR_SIZE = 200;
     // also helps reduce choppiness
     cell.layer.shouldRasterize = YES;
     cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    
-    
+    NSArray *eventsTemp = [self.events copy];
+    NSArray *landmarksTemp = [self.landmarksAsEvents copy];
+    NSArray *allEvents = [eventsTemp arrayByAddingObjectsFromArray:landmarksTemp];
+    NSLog(@"%lu", allEvents.count);
     NSInteger indexSelected = self.eventsLandmarksControl.selectedSegmentIndex;
     
     if(indexSelected == (long)EVENTS) {
+        //Event *myEvent = self.events[indexPath.row];
         
-        [cell setEvent: [self.events objectAtIndex:indexPath.row]];
-        
-        // load in background to prevent choppy scrolling
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-            // Load image on a non-ui-blocking thread
+        if([allEvents[indexPath.row] isKindOfClass:[Event class]]){
+            [cell setEvent: [allEvents objectAtIndex:indexPath.row]];
             
-            NSURL *posterURL = [NSURL URLWithString:cell.event.imageUrl];
-            
-            [cell.posterView setImageWithURL: posterURL];
-            
-            dispatch_sync(dispatch_get_main_queue(), ^(void) {
-                // Assign image back on the main thread
+            // load in background to prevent choppy scrolling
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+                // Load image on a non-ui-blocking thread
+                
+                NSURL *posterURL = [NSURL URLWithString:cell.event.imageUrl];
+                
+                [cell.posterView setImageWithURL: posterURL];
+                
+                dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                    // Assign image back on the main thread
+                });
+                
             });
-            
-        });
+        }
+        
+        else if([allEvents[indexPath.row] isKindOfClass:[Landmark class]] ){
+            [cell setLandmark: [allEvents objectAtIndex:indexPath.row]];
+            NSLog(@"yo yo");
+            // load in background to prevent choppy scrolling
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+                // Load image on a non-ui-blocking thread
+                
+                NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",cell.landmark.photoReference]];
+                
+                //NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
+                
+                //UIImage *image = [UIImage imageWithData:photoData];
+                
+                [cell.posterView setImageWithURL: photoURL];
+                
+                dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                    // Assign image back on the main thread
+                    
+                    //cell.posterView.image = image;
+                });
+                
+            });
+        }
         
         if(self.eventsSelected.count > 0){
             
@@ -423,7 +460,8 @@ static int const INDICATOR_SIZE = 200;
             
         }
         
-    }else if( indexSelected == (long)LANDMARKS) {
+    }
+    else if( indexSelected == (long)LANDMARKS) {
         
         [cell setLandmark: [self.landmarks objectAtIndex:indexPath.row]];
         
@@ -484,8 +522,10 @@ static int const INDICATOR_SIZE = 200;
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self createError:@"There are no events happening today"];
         }
-
-        return self.events.count;
+        NSArray *eventsTemp = [self.events copy];
+        NSArray *landmarksTemp = [self.landmarksAsEvents copy];
+        NSArray *allEvents = [eventsTemp arrayByAddingObjectsFromArray:landmarksTemp];
+        return allEvents.count;
         
     } else {
         
@@ -628,22 +668,6 @@ static int const INDICATOR_SIZE = 200;
 - (NSMutableArray *) getFreeBlocks:(NSMutableArray *) shortEventsArray {
     
     NSMutableArray *freeBlocks = [[NSMutableArray alloc] init];
-    
-    /*
-     NSMutableArray *mutableArray = [NSMutableArray new];
-     
-     for(int i = 0; i < self.events.count; i++){
-     
-     if([self.cellsSelected[i] isEqual:@YES]){
-     
-     [mutableArray addObject:self.events[i]];
-     
-     }
-     }
-     
-     // sort the events selected
-     mutableArray = [NSMutableArray arrayWithArray: [Event sortEventArrayByEndDate:mutableArray]];
-     */
     
     if (shortEventsArray.count == 0)
     {

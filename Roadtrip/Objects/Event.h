@@ -45,6 +45,7 @@
 @property (assign, nonatomic)Boolean isEvent;
 @property (assign, nonatomic)Boolean isMeal;
 @property (assign, nonatomic)Boolean isBreakfast;
+@property (assign, nonatomic)Boolean isGoogleEvent;
 
 -(instancetype) initWithYelpDictionary: (NSDictionary *) dictionary;
 + (NSMutableArray *) eventsWithYelpArray:(NSArray *) dictionaries;

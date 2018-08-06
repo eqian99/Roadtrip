@@ -128,7 +128,7 @@ typedef void (^completionGetPointsAlongWay)(void);
     
     __block NSArray *landmarks;
     
-    [myManagerGoogle getPlacesNearLatitude:coordinate.latitude nearLongitude:coordinate.longitude withRadius: radius withCompletion:^(NSArray *placesDictionaries, NSError *error)
+    [myManagerGoogle getPlacesNearLatitude:coordinate.latitude nearLongitude:coordinate.longitude withRadius: radius withType: @"park" withCompletion:^(NSArray *placesDictionaries, NSError *error)
      {
          if(placesDictionaries)
          {
