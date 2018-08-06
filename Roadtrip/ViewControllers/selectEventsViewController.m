@@ -337,6 +337,7 @@ static int const INDICATOR_SIZE = 200;
         }
         scheduleViewController.latitude = self.latitude;
         scheduleViewController.longitude = self.longitude;
+        scheduleViewController.photoReference = self.photoReference;
     }
     
 }

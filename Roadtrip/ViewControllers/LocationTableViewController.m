@@ -111,6 +111,8 @@
                 
                 NSMutableArray *mutableLongitudes = [NSMutableArray new];
                 
+                NSMutableArray *mutablePhotoReferences = [NSMutableArray new];
+                
                 for(NSDictionary *cityDictionary in predictionDictionaries) {
                     
                     NSDictionary *structured = cityDictionary[@"structured_formatting"];
@@ -124,34 +126,32 @@
                             
                         } else {
                             
+                            NSArray *photosDictionaries = placeDictionary[@"photos"];
+                            NSDictionary *photoDictionary = photosDictionaries[0];
+                            NSString *photoReference = photoDictionary[@"photo_reference"];
                             NSString *city = placeDictionary[@"name"];
-                            
                             NSString *stateAndCountry = structured[@"secondary_text"];
-                            
                             NSDictionary *geometryDictionary = placeDictionary[@"geometry"];
-                            
                             NSDictionary *locationDictionary = geometryDictionary[@"location"];
-                            
                             NSString *latitude = locationDictionary[@"lat"];
-                            
                             NSString *longitude = locationDictionary[@"lng"];
                             
+                            if(!photoReference) {
+                                NSLog(@"%@ doesn't have a picture", city);
+                                [mutablePhotoReferences addObject: @"null"];
+                            } else {
+                                [mutablePhotoReferences addObject: photoReference];
+                            }
                             [mutableLatitudes addObject:latitude];
-                            
                             [mutableLongitudes addObject:longitude];
-                            
                             [mutableCities addObject: city];
-                            
                             [mutableSecondaries addObject:stateAndCountry];
                             
+                            self.photoReferences = [mutablePhotoReferences copy];
                             self.latitudes = [mutableLatitudes copy];
-                            
                             self.longitudes = [mutableLongitudes copy];
-                            
                             self.citiesArray = [mutableCities copy];
-
                             self.secondaryArray = [mutableSecondaries copy];
-                            
                             [self.locationTableView reloadData];
                             
                         }
@@ -214,23 +214,22 @@
         NSString *stateAndCountry = parseCity[@"stateAndCountry"];
         NSString *latitude = parseCity[@"latitude"];
         NSString *longitude = parseCity[@"longitude"];
+        NSString *photoReference = parseCity[@"photoReference"];
         NSLog(@"city: %@ latitude: %@ longitude: %@", city ,latitude, longitude);
-        [self.cityDelegate closeViewController:city withStateAndCount:stateAndCountry withLatitude:latitude withLongitude:longitude];
+        [self.cityDelegate closeViewController:city withStateAndCount:stateAndCountry withLatitude:latitude withLongitude:longitude withPhotoReference:photoReference];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     
     else{
         NSString *city = self.citiesArray[indexPath.row];
-        
         NSString *stateAndCountry = self.secondaryArray[indexPath.row];
-        
         NSString *latitude = self.latitudes[indexPath.row];
-        
         NSString *longitude = self.longitudes[indexPath.row];
+        NSString *photoReference = self.photoReferences[indexPath.row];
         
         NSLog(@"city: %@ latitude: %@ longitude: %@", city ,latitude, longitude);
-        [self.cityDelegate closeViewController:city withStateAndCount:stateAndCountry withLatitude:latitude withLongitude:longitude];
         
+        [self.cityDelegate closeViewController:city withStateAndCount:stateAndCountry withLatitude:latitude withLongitude:longitude withPhotoReference:photoReference];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     

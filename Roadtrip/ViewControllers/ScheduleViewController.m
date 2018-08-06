@@ -223,6 +223,7 @@
     NSDate *scheduleDate = [NSDate dateWithTimeIntervalSince1970:self.startOfDayUnix];
     [schedule setValue:scheduleDate forKey:@"date"];
     [schedule setObject:[PFUser currentUser] forKey:@"Creator"];
+    [schedule setValue:self.photoReference forKey:@"photoReference"];
     PFRelation *scheduleMembersRelation = [schedule relationForKey:@"members"];
     [scheduleMembersRelation addObject:[PFUser currentUser]];
     [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {

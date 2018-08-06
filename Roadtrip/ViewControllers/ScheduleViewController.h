@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSString *city;
 @property (assign, nonatomic)double latitude;
 @property (assign, nonatomic)double longitude;
+@property (strong, nonatomic) NSString *photoReference;
 @property (nonatomic) BOOL saved;
 
 

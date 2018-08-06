@@ -15,6 +15,7 @@
 @property (strong, nonatomic)NSString *stateAndCountry;
 @property (strong, nonatomic)NSString *latitude;
 @property (strong, nonatomic)NSString *longitude;
+@property (strong, nonatomic) NSString *photoReference;
 @end
 
 @implementation SearchBarViewController
@@ -51,15 +52,17 @@
 {
     searchController.searchResultsController.view.hidden = NO;
 }
-
-
-- (void)closeViewController:(NSString *)cityString withStateAndCount:(NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude{
+- (void)closeViewController:(NSString *)cityString withStateAndCount:(NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude withPhotoReference:(NSString *)photoReference {
+    
     self.city = cityString;
     self.stateAndCountry = stateAndCountry;
     self.latitude = latitude;
     self.longitude = longitude;
+    self.photoReference = photoReference;
     [self.navigationController popViewControllerAnimated:YES];
-    [self.delegate changeCityText:cityString withStateAndCountry:stateAndCountry withLatitude:latitude withLongitude:longitude];
+    
+    [self.delegate changeCityText:cityString withStateAndCountry:stateAndCountry withLatitude:latitude withLongitude:longitude withPhotoReference:photoReference];
+    
 }
 
 #pragma mark - Navigation

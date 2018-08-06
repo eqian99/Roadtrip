@@ -10,7 +10,7 @@
 
 @protocol MySearchBarDelegate
 
- -(void) changeCityText: (NSString *) cityString withStateAndCountry: (NSString *) stateAndCountry withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude;
+-(void) changeCityText: (NSString *) cityString withStateAndCountry: (NSString *) stateAndCountry withLatitude: (NSString *) latitude withLongitude: (NSString *) longitude withPhotoReference: (NSString *) photoReference;
  
  //-(void) changeCityTextWithCity: (NSString *)cityString;
  

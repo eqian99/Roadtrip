@@ -93,7 +93,6 @@
         }
     }];
 }
-
 -(void) fetchInvites {
     PFObject *userNotificationsObject = [[PFUser currentUser] objectForKey:@"userNotifications"];
     PFRelation *userNotifications = [userNotificationsObject relationForKey:@"notifications"];
@@ -107,18 +106,10 @@
             for(PFObject *notification in objects){
                 [invitesArray addObject:notification];
             }
-            if(invitesArray.count > 0){
-                NSString *buttonString = [NSString stringWithFormat:@"Invites (%lu)", invitesArray.count];
-                [self.invitesButton setTitle:buttonString forState:UIControlStateNormal];
-                [self.invitesButton sizeToFit];
-            } else {
-                [self.invitesButton setTitle:@"Invites" forState:UIControlStateNormal];
-            }
             self.invites = [invitesArray copy];
         }
     }];
 }
-
 -(void) fetchSchedulesFromParse {
     
     PFUser *currentUser = [PFUser currentUser];
@@ -279,13 +270,16 @@
         [formatter setLocalizedDateFormatFromTemplate:@"MMMMd"];
         cell.dateLabel.text = [formatter stringFromDate:schedule.scheduleDate];
         [cell.dateLabel sizeToFit];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-            // Load image on a non-ui-blocking thread
-            NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",schedule.photoReference]];
-            NSLog(@"Photo URL: %@", photoURL);
-            [cell.cityImageView setImageWithURL: photoURL];
-            
-        });
+        if([schedule.photoReference isEqualToString:@"null"]){
+            [cell.cityImageView setImage:[UIImage imageNamed:@"cityClipart"]];
+        } else {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+                // Load image on a non-ui-blocking thread
+                NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",schedule.photoReference]];
+                NSLog(@"Photo URL: %@", photoURL);
+                [cell.cityImageView setImageWithURL: photoURL];
+            });
+        }
         return cell;
     }
 }

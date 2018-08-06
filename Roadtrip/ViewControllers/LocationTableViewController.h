@@ -19,7 +19,7 @@
 -(void) changeCityTextWithCity: (NSString *)cityString;
 */
 
-- (void)closeViewController :(NSString *)cityString withStateAndCount: (NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude;
+- (void)closeViewController :(NSString *)cityString withStateAndCount: (NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude withPhotoReference: (NSString *) photoReference;
 @end
 
 @interface LocationTableViewController : UITableViewController <UISearchResultsUpdating>
@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSArray *secondaryArray;
 @property (nonatomic, strong) NSArray *latitudes;
 @property (nonatomic, strong) NSArray *longitudes;
+@property (nonatomic, strong) NSArray *photoReferences;
 @property (nonatomic, strong) NSString *searchText;
 
 @property (weak, nonatomic) id<CityDelegate> cityDelegate;

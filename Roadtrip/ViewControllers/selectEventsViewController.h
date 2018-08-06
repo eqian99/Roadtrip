@@ -11,6 +11,7 @@
 
 @interface selectEventsViewController : UIViewController
 @property (nonatomic, strong)NSArray *categories;
+@property (nonatomic, strong) NSString *photoReference;
 @property (assign, nonatomic)double latitude;
 @property (assign, nonatomic)double longitude;
 @property (assign, nonatomic)CLLocation *currentLocation;

@@ -32,6 +32,7 @@
 @property (strong, nonatomic) NSString *longitude;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *stateAndCountry;
+@property (strong, nonatomic) NSString *photoReference;
 
 
 @property (strong, nonatomic)NSCalendar *calendar;
@@ -111,32 +112,32 @@
     [self.startTimeField setInputAccessoryView:toolBarStartTime];
 }
 
-- (void)changeCityText:(NSString *)cityString withStateAndCountry:(NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude {
-
+- (void)changeCityText:(NSString *)cityString withStateAndCountry:(NSString *)stateAndCountry withLatitude:(NSString *)latitude withLongitude:(NSString *)longitude withPhotoReference:(NSString *)photoReference {
+    
     self.cityLabel.text = cityString;
-    
     self.cityLabel.textColor = [UIColor blackColor];
-    
     //[self.cityLabel sizeToFit];
-    
     self.city = cityString;
     self.stateAndCountry = stateAndCountry;
     self.latitude = latitude;
     self.longitude = longitude;
-    
+    self.photoReference = photoReference;
     double latNum = [self.latitude doubleValue];
     double longNum = [self.longitude doubleValue];
     [[WeatherMapManager new] getWeather:latNum withLongitude:longNum withCompletion:^(NSDictionary *weatherDictionary, NSError *error) {
+<<<<<<< Updated upstream
         NSDictionary *weatherTempDict = weatherDictionary[@"main"];
         int temp = [weatherTempDict[@"temp_max"] intValue];
         NSArray *descriptionArray = weatherDictionary[@"weather"];
         NSDictionary *descriptionInfo = descriptionArray[0];
         self.weatherLabel.text = [NSString stringWithFormat:@"%d° %@", temp, descriptionInfo[@"main"]];
         self.weatherImage.hidden = NO;
+=======
+        NSLog(@"%@", weatherDictionary);
+        //self.weatherLabel.text =
+>>>>>>> Stashed changes
     }];
-    
     PFQuery *query = [PFQuery queryWithClassName:@"City"];
-    
     [query findObjectsInBackgroundWithBlock:^(NSArray *cities, NSError *error) {
         if (cities != nil) {
             Boolean foundCity = NO;
@@ -158,6 +159,7 @@
                 foundParseCity[@"longitude"] = self.longitude;
                 foundParseCity[@"name"] = self.city;
                 foundParseCity[@"stateAndCountry"] = self.stateAndCountry;
+                foundParseCity[@"photoReference"] = self.photoReference;
                 [foundParseCity saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                     
                     if(error) {
@@ -334,7 +336,7 @@
         selectEventsViewController *selectEventsViewController = [segue destinationViewController];
         selectEventsViewController.latitude = [self.latitude doubleValue];
         selectEventsViewController.longitude = [self.longitude doubleValue];
-
+        selectEventsViewController.photoReference = self.photoReference;
         selectEventsViewController.city = self.city;
         selectEventsViewController.stateAndCountry = self.stateAndCountry;
 
