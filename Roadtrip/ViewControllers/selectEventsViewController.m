@@ -287,60 +287,39 @@ static int const INDICATOR_SIZE = 200;
     if([segue.identifier isEqualToString:@"eventDetailSegue"]) {
     
         UITableViewCell *tappedCell = sender;
-        
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         NSInteger indexSelected = self.eventsLandmarksControl.selectedSegmentIndex;
-        
         if(indexSelected == (long)EVENTS){
-        
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
-        
         eventDetailsViewController.activities = self.events;
-        
         eventDetailsViewController.index = indexPath.row;
         }
         else{
             EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
-            
             eventDetailsViewController.activities = self.landmarks;
-            
             eventDetailsViewController.index = indexPath.row;
         }
         
     } else if ([segue.identifier isEqualToString:@"eventsMapSegue"]) {
-        
         EventMapViewController *viewController = [segue destinationViewController];
-        
         NSArray *selectedEvents = [self getEventsSelected];
-        
         NSArray *selectedLandmarks = [self getLandmarksSelected];
-        
         viewController.landmarks = selectedLandmarks;
-        
         viewController.events = selectedEvents;
-        
     }
     else if([segue.identifier isEqualToString:@"scheduleSegue"]){
         ScheduleViewController *scheduleViewController = [segue destinationViewController];
         
         NSArray * allEvents = [self.eventsArray arrayByAddingObjectsFromArray:self.longEventsArray];
-        
         allEvents = [allEvents arrayByAddingObjectsFromArray:self.landmarksArray];
-        
         scheduleViewController.city = self.city;
-        
         scheduleViewController.eventsSelected = allEvents;
-        
         scheduleViewController.startOfDayUnix = self.startOfDayUnix;
-        
         NSLog(@"Start of day Unix in selectEvents: %f", self.startOfDayUnix);
-        
         scheduleViewController.endOfDayUnix = self.endOfDayUnix;
-        
         for(int i = 0; i < allEvents.count; i++){
             NSLog(@"%@", allEvents[i]);
         }
-
         scheduleViewController.latitude = self.latitude;
         scheduleViewController.longitude = self.longitude;
     }

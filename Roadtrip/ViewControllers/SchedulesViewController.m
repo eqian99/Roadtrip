@@ -51,6 +51,7 @@
                 schedule.parseObject = parseSchedule;
                 schedule.creator = [parseSchedule objectForKey:@"Creator"];
                 schedule.scheduleDate = [parseSchedule objectForKey:@"date"];
+                schedule.photoReference = [parseSchedule objectForKey:@"photoReference"];
                 [self.schedules addObject:schedule];
                 [self.schedulesTableView reloadData];
             }
@@ -64,7 +65,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     UserScheduleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"userScheduleCell" forIndexPath:indexPath];
     Schedule *schedule = self.schedules[indexPath.row];
     cell.nameLabel.text = schedule.name;

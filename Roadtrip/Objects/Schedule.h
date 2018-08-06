@@ -19,5 +19,6 @@
 @property (nonatomic, strong) PFUser *creator;
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, strong) NSDate *scheduleDate;
+@property (nonatomic, strong) NSString *photoReference;
 
 @end

@@ -31,7 +31,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.locationTableView.delegate = self;
     self.locationTableView.dataSource = self;
-    //[self getRecentSearches];
+//    [self getRecentSearches];
 
 }
 
@@ -50,7 +50,9 @@
     NSArray *places = [currUser valueForKey:@"myCitiesSearched"];
     
     if(places != nil){
+        
         self.recentSearchesArray = places;
+        
         [self.locationTableView reloadData];
     }
     
@@ -175,15 +177,19 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cityCell" forIndexPath:indexPath];
     
     if([self.searchText isEqualToString:@""]) {
+        
         if(indexPath.row < self.recentSearchesArray.count){
+            
             PFObject *parseCity = self.recentSearchesArray[indexPath.row];
             NSLog(@"%lu", self.recentSearchesArray.count);
             if(parseCity != nil){
                 NSLog(@"yo yo");
                 [parseCity fetchIfNeeded];
+                
                 cell.textLabel.text = parseCity[@"name"];
                 cell.detailTextLabel.text = parseCity[@"stateAndCountry"];
             }
+             
         }
         else{
             cell.textLabel.text = @"";
@@ -207,16 +213,11 @@
         PFObject * parseCity = self.recentSearchesArray[indexPath.row];
         [parseCity fetchIfNeeded];
         NSString *city = parseCity[@"name"];
-        
         NSString *stateAndCountry = parseCity[@"stateAndCountry"];
-        
         NSString *latitude = parseCity[@"latitude"];
-        
         NSString *longitude = parseCity[@"longitude"];
-        
         NSLog(@"city: %@ latitude: %@ longitude: %@", city ,latitude, longitude);
         [self.cityDelegate closeViewController:city withStateAndCount:stateAndCountry withLatitude:latitude withLongitude:longitude];
-        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     

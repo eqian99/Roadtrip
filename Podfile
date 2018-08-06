@@ -11,5 +11,6 @@ target 'Roadtrip' do
     pod 'AFNetworking'
     pod 'MBProgressHUD'
     pod 'DGActivityIndicatorView'
+    pod 'lottie-ios'
 
 end

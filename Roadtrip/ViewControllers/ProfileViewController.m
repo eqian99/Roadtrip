@@ -16,6 +16,10 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "Invite.h"
+#import "Schedule.h"
+#import "UIImageView+AFNetworking.h"
+#import <Lottie/Lottie.h>
+
 
 @interface ProfileViewController () <UIImagePickerControllerDelegate, SearchPeopleDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -23,9 +27,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *invitesButton;
 @property (strong, nonatomic) NSArray *friends;
 @property (strong, nonatomic) NSArray *invites;
+@property (strong, nonatomic) NSMutableArray *schedules;
 @property (weak, nonatomic) IBOutlet UICollectionView *friendsCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *tripsCollectionView;
-
 @property (strong, nonatomic) PFUser *currUser;
 
 @end
@@ -38,6 +42,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.schedules = [NSMutableArray new];
     
     self.friendsCollectionView.delegate = self;
     self.friendsCollectionView.dataSource = self;
@@ -63,6 +68,7 @@
     }];
     
     [self fetchFriendsOfCurrentUser];
+    [self fetchSchedulesFromParse];
     
     
     // Do any additional setup after loading the view.
@@ -112,6 +118,34 @@
         }
     }];
 }
+
+-(void) fetchSchedulesFromParse {
+    
+    PFUser *currentUser = [PFUser currentUser];
+    PFRelation *schedulesRelation = [currentUser relationForKey:@"schedules"];
+    PFQuery *schedulesQuery = [schedulesRelation query];
+    [schedulesQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if(error) {
+            NSLog(@"Error fetching schedules");
+        } else {
+            for(PFObject *parseSchedule in objects) {
+                Schedule *schedule = [Schedule new];
+                schedule.name = [parseSchedule valueForKey:@"name"];
+                schedule.eventsRelation = [parseSchedule relationForKey:@"events"];
+                schedule.membersRelation = [parseSchedule relationForKey:@"members"];
+                schedule.createdDate = parseSchedule.createdAt;
+                schedule.parseObject = parseSchedule;
+                schedule.creator = [parseSchedule objectForKey:@"Creator"];
+                schedule.scheduleDate = [parseSchedule objectForKey:@"date"];
+                schedule.photoReference = [parseSchedule objectForKey:@"photoReference"];
+                [self.schedules addObject:schedule];
+                [self.tripsCollectionView reloadData];
+            }
+            NSLog(@"Got schedules (%lu) ", objects.count);
+        }
+    }];
+}
+
 - (IBAction)takeProfilePic:(id)sender {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
@@ -208,7 +242,14 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.friends.count;
+    
+    if(collectionView == self.friendsCollectionView) {
+        return self.friends.count;
+    } else {
+        return self.schedules.count;
+    }
+    
+    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -230,6 +271,21 @@
         return cell;
     } else {
         TripCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"tripCell" forIndexPath:indexPath];
+        Schedule *schedule = self.schedules[indexPath.row];
+        cell.cityLabel.text = schedule.name;
+        [cell.cityLabel sizeToFit];
+        NSDateFormatter *formatter = [NSDateFormatter new];
+        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        [formatter setLocalizedDateFormatFromTemplate:@"MMMMd"];
+        cell.dateLabel.text = [formatter stringFromDate:schedule.scheduleDate];
+        [cell.dateLabel sizeToFit];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+            // Load image on a non-ui-blocking thread
+            NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",schedule.photoReference]];
+            NSLog(@"Photo URL: %@", photoURL);
+            [cell.cityImageView setImageWithURL: photoURL];
+            
+        });
         return cell;
     }
 }
