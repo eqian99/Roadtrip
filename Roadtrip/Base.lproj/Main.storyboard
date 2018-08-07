@@ -905,6 +905,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzW-Dx-gC1" customClass="CSAnimationView">
+                                <rect key="frame" x="36" y="574" width="310" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="8DD-ti-I3V">
                                 <rect key="frame" x="25" y="133" width="49" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1004,10 +1009,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="animationView" destination="gzW-Dx-gC1" id="Ko3-jg-Q3P"/>
                         <outlet property="breakfastField" destination="qab-9x-xpK" id="vbF-dY-c7W"/>
                         <outlet property="cityLabel" destination="ThV-o4-z7n" id="XmE-i1-l8Z"/>
                         <outlet property="dateField" destination="V5L-aL-z02" id="8JZ-Z4-4Qk"/>
                         <outlet property="dinnerField" destination="cbf-Ey-8ke" id="sA9-w3-q6N"/>
+                        <outlet property="doneButton" destination="zPc-7X-Q7S" id="x1j-Yu-djR"/>
                         <outlet property="lunchField" destination="ZEc-Dk-2sy" id="pks-2s-syE"/>
                         <outlet property="searchDisplayController" destination="ncq-eO-XwL" id="4hh-yI-DXN"/>
                         <outlet property="weatherImage" destination="sYC-a3-Brd" id="t7h-3q-1h5"/>

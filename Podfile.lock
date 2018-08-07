@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Bolts/Tasks (1.9.0)
+  - Canvas (0.1.2)
   - Collection (1.9.8)
   - DateTools (2.0.0)
   - DGActivityIndicatorView (2.1.1)
@@ -42,6 +43,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - Canvas
   - DGActivityIndicatorView
   - GoogleMaps
   - JVFloatLabeledTextField
@@ -54,6 +56,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - Bolts
+    - Canvas
     - Collection
     - DateTools
     - DGActivityIndicatorView
@@ -70,6 +73,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
   Collection: 11e9dd233eea8fc9d33db1aec79751644eedcadf
   DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   DGActivityIndicatorView: ff2c76073d79692f724863c8dd38685866a03cb6
@@ -83,6 +87,6 @@ SPEC CHECKSUMS:
   RVCalendarWeekView: daa4e8cf9b744836c86dbb5b5ac64752b0832c65
   UIColor-HexString: fadc2e1389db19147ac99dee92222d3bd8bfec4a
 
-PODFILE CHECKSUM: 231b04ca93343be4daf1f0fe3a903b60b6c4e315
+PODFILE CHECKSUM: b972d57e8da137404ed30ad23f4d866655d00d82
 
 COCOAPODS: 1.5.3

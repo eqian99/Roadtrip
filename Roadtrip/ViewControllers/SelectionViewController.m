@@ -12,6 +12,7 @@
 #import "SearchBarViewController.h"
 #import "WeatherMapManager.h"
 #import "GoogleMapsManager.h"
+#import "Canvas.h"
 
 @interface SelectionViewController ()<MySearchBarDelegate>
 
@@ -29,12 +30,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *dinnerField;
 @property (weak, nonatomic) IBOutlet UITextField *startTimeField;
 
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (strong, nonatomic) NSString *latitude;
 @property (strong, nonatomic) NSString *longitude;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *stateAndCountry;
 @property (strong, nonatomic) NSString *photoReference;
 
+@property (weak, nonatomic) IBOutlet CSAnimationView *animationView;
 
 @property (strong, nonatomic)NSCalendar *calendar;
 
@@ -206,7 +209,9 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-    
+    if(self.startOfDayUnix != 0.0){
+        [self.doneButton setBackgroundImage:[UIImage imageNamed:@"enabledButtonBackground"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)tappedCityLabel:(UITapGestureRecognizer *)recognizer{
@@ -259,6 +264,22 @@
     NSLog(@"%f", self.startOfDayUnix);
     
     self.endOfDayUnix = [endOfDay timeIntervalSince1970];
+    
+    if(self.city != nil){
+        NSLog(@"hello");
+        [self.doneButton setBackgroundImage:[UIImage imageNamed:@"enabledButtonBackground"] forState:UIControlStateNormal];
+        self.animationView.duration = 0.5;
+        self.animationView.delay    = 0.5;
+        self.animationView.type     = CSAnimationTypePop;
+        
+        //[self.view addSubview:self.animationView];
+        
+        // Add your subviews into animationView
+        //[animationView addSubview:self.view];
+        
+        // Kick start the animation immediately
+        [self.animationView startCanvasAnimation];
+    }
 }
 
 - (void)showTimeBreakfast{

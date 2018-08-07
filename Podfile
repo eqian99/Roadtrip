@@ -14,6 +14,6 @@ target 'Roadtrip' do
     pod 'lottie-ios'
     pod 'RVCalendarWeekView'
     pod 'JVFloatLabeledTextField'
-
+    pod 'Canvas'
 
 end
