@@ -18,6 +18,9 @@
 #import "MBProgressHUD.h"
 #import "JVFloatLabeledTextField.h"
 #import "JVFloatLabeledTextView.h"
+#import "ZCDashLabel.h"
+
+#import <objc/runtime.h>
 
 
 const static CGFloat kJVFieldHeight = 44.0f;
@@ -31,6 +34,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 @interface LoginViewController () <SignupViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *usernameField;
 @property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *passwordField;
+@property (weak, nonatomic) IBOutlet ZCAnimatedLabel *label;
 
 
 @end
@@ -39,6 +43,18 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.label = [[ZCAnimatedLabel alloc] initWithFrame:CGRectMake(15, 50 + 15, self.view.frame.size.width - 30, CGRectGetHeight(self.view.frame) - 50)];
+    [self.view addSubview:self.label];
+    
+    object_setClass(self.label, [ZCDashLabel class]);
+    self.label.layerBased = YES;
+    
+    [self.label setNeedsDisplay];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.label setAttributedString:self.label.attributedString];
+        [self.label startAppearAnimation];
+    });
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
@@ -72,6 +88,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     // [self.usernameField becomeFirstResponder];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

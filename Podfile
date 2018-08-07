@@ -15,5 +15,5 @@ target 'Roadtrip' do
     pod 'RVCalendarWeekView'
     pod 'JVFloatLabeledTextField'
     pod 'Canvas'
-
+    pod 'ZCAnimatedLabel'
 end

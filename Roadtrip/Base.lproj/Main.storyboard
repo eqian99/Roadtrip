@@ -77,6 +77,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="label" destination="BhD-JJ-ZcE" id="SYs-6J-Xhh"/>
                         <outlet property="passwordField" destination="e9a-C1-NVm" id="eWt-4l-aqd"/>
                         <outlet property="usernameField" destination="2po-zo-cmq" id="Tbj-QD-umM"/>
                         <segue destination="kmg-xS-13V" kind="presentation" identifier="mainSegue" id="ZIU-hB-ARy"/>
