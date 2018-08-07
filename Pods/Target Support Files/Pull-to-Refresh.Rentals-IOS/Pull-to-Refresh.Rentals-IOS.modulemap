@@ -1,6 +1,0 @@
-framework module Pull_to_Refresh_Rentals_IOS {
-  umbrella header "Pull-to-Refresh.Rentals-IOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

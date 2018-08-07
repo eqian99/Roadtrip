@@ -48,5 +48,7 @@
     
 }
 
+- (IBAction)didTapDecline:(id)sender {
+}
 
 @end

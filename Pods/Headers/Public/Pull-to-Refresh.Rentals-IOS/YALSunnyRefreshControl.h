@@ -1,1 +1,0 @@
-../../../Pull-to-Refresh.Rentals-IOS/YALTourPullToRefresh/YALSunnyRefreshControll/YALSunnyRefreshControl.h

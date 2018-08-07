@@ -12,5 +12,8 @@ target 'Roadtrip' do
     pod 'MBProgressHUD'
     pod 'DGActivityIndicatorView'
     pod 'lottie-ios'
+    pod 'RVCalendarWeekView'
+
+
 
 end

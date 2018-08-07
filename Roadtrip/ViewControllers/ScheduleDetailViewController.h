@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "Schedule.h"
+#import "MSWeekViewDecoratorFactory.h"
+
 
 @interface ScheduleDetailViewController : UIViewController
 
-
-
-@property (weak, nonatomic) IBOutlet UITableView *scheduleTableView;
-
+@property (strong, nonatomic) IBOutlet MSWeekView *scheduleView;
 @property (strong, nonatomic) NSMutableArray *events;
-
+@property (strong, nonatomic) NSMutableArray *podEvents;
 @property (strong, nonatomic) Schedule *schedule;
+@property (assign, nonatomic)NSInteger indexSelected;
 
 @end

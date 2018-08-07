@@ -1,0 +1,1 @@
+../../../RVCalendarWeekView/RVCalendarWeekView/Lib/WeekView/Decorators/MSWeekViewDecoratorChangeDuration.h

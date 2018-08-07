@@ -15,7 +15,7 @@
 #import "Landmark.h"
 #import "Event.h"
 
-@interface ScheduleDetailViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ScheduleDetailViewController () <UITableViewDelegate, UITableViewDataSource, MSWeekViewDelegate>
 
 @end
 
@@ -24,22 +24,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.podEvents = [NSMutableArray new];
+    [self.scheduleView setDaysToShow:1];
+    self.scheduleView.daysToShowOnScreen = 1;
+    self.scheduleView.daysToShow = 0;
+    self.scheduleView.delegate = self;
     
-    self.scheduleTableView.delegate = self;
-    self.scheduleTableView.dataSource = self;
-    self.scheduleTableView.rowHeight = 150;
     self.events = [NSMutableArray new];
     UIBarButtonItem *customBtn=[[UIBarButtonItem alloc] initWithTitle:@"Members" style:UIBarButtonItemStylePlain target:self action:@selector(didClickShareButton)];
     [self.navigationItem setRightBarButtonItem:customBtn];
     
     [self getEventsFromSchedule];
 }
-
 -(void) didClickShareButton {
     [self performSegueWithIdentifier:@"shareScheduleSegue" sender:self];
 }
-
-
 -(void) getEventsFromSchedule {
     PFRelation *eventsRelation = self.schedule.eventsRelation;
     PFQuery *eventsQuery = [eventsRelation query];
@@ -61,10 +60,9 @@
                     landmark.endTimeUnixTemp = [endDate timeIntervalSince1970];
                     landmark.address = [activity valueForKey:@"address"];
                     [self.events addObject:landmark];
-                    [self.scheduleTableView reloadData];
-                    
+                    MSEvent *landmarkEvent = [MSEvent make:startDate end:endDate title:name subtitle:landmark.address];
+                    [self.podEvents addObject:landmarkEvent];
                 } else if([[activity valueForKey:@"venueId"] isEqualToString:@"Meal"]){
-                    
                     Event *meal = [Event new];
                     meal.name = name;
                     NSDate *startDate = [activity valueForKey:@"startDate"];
@@ -72,8 +70,8 @@
                     meal.startTimeUnixTemp = [startDate timeIntervalSince1970];
                     meal.endTimeUnixTemp = [endDate timeIntervalSince1970];
                     [self.events addObject:meal];
-                    [self.scheduleTableView reloadData];
-                    
+                    MSEvent *mealEvent = [MSEvent make:startDate end:endDate title:name subtitle:@"Restaurant"];
+                    [self.podEvents addObject:mealEvent];
                 } else {
                     Event *event = [Event new];
                     event.name = name;
@@ -85,27 +83,28 @@
                     event.endTimeUnixTemp = [endDate timeIntervalSince1970];
                     event.address = [activity valueForKey:@"address"];
                     [self.events addObject:event];
-                    [self.scheduleTableView reloadData];
+                    MSEvent *msEvent = [MSEvent make:startDate end:endDate title:name subtitle: event.address];
+                    [self.podEvents addObject:msEvent];
                     
                 }
             }
+            self.scheduleView.daysToShowOnScreen = 1;
+            self.scheduleView.daysToShow = 0;
+            NSArray *eventsForScheduleView = [self.podEvents copy];
+            NSLog(@"Event #: %lu", eventsForScheduleView.count);
+            self.scheduleView.events = eventsForScheduleView;
         }
 
     }];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return self.events.count;
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     ScheduleEventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"scheduleEventCell" forIndexPath:indexPath];
     if([self.events[indexPath.row] isKindOfClass:[Event class]]) {
         Event *event = self.events[indexPath.row];
@@ -114,37 +113,36 @@
     } else if([self.events[indexPath.row] isKindOfClass:[Landmark class]]) {
         [cell setScheduleCellLandmark:self.events[indexPath.row]];
     }
-    
     return cell;
 }
-
-
-
-
 #pragma mark - Navigation
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
-    
     if([[segue identifier] isEqualToString:@"eventDetailSegue"]) {
-        
-        UITableViewCell *tappedCell = sender;
-        NSIndexPath *indexPath = [self.scheduleTableView indexPathForCell:tappedCell];
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
         eventDetailsViewController.activities = self.events;
-        eventDetailsViewController.index = indexPath.row;
-        
+        eventDetailsViewController.index = self.indexSelected;
     } else if([[segue identifier] isEqualToString:@"shareScheduleSegue"]){
         ScheduleMembersViewController *viewController = [segue destinationViewController];
         viewController.schedule = self.schedule;
-        
     }
+}
+- (void)weekView:(id)sender eventSelected:(MSEventCell *)eventCell {
     
+    MSEvent *event = eventCell.event;
+    
+    for(int i = 0; i < self.events.count; i++){
+        if(self.podEvents[i] == event){
+            self.indexSelected = i;
+        }
+    }
+    [self performSegueWithIdentifier:@"eventDetailSegue" sender:self];
     
 }
+
+
 
 
 @end
