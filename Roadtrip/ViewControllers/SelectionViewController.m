@@ -17,7 +17,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 
-@property (weak, nonatomic) IBOutlet UITextField *dateField;
+//@property (weak, nonatomic) IBOutlet UITextField *dateField;
+@property (weak, nonatomic) IBOutlet UITextView *dateField;
 @property(assign, nonatomic)NSTimeInterval startOfDayUnix;
 @property (assign, nonatomic)NSTimeInterval startOfEventsUnix;
 @property(assign, nonatomic)NSTimeInterval endOfDayUnix;
@@ -63,7 +64,7 @@
     
     //Date
     datePicker=[[UIDatePicker alloc]init];
-    datePicker.datePickerMode=UIDatePickerModeDate;
+    datePicker.datePickerMode=UIDatePickerModeDateAndTime;
     [self.dateField setInputView:datePicker];
     
     UIToolbar *toolBarStart=[[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -238,7 +239,7 @@
 {
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     
-    [formatter setDateFormat:@"MMM dd"];
+    [formatter setDateFormat:@"MMM dd hh:mm a"];
     
     self.dateField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
     self.dateField.textColor = [UIColor blackColor];
