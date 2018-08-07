@@ -56,6 +56,7 @@ static int const INDICATOR_SIZE = 200;
 @property (nonatomic, assign) NSArray *stopsAlongRoute;
 
 @property (nonatomic, assign) Boolean didLoad;
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -106,14 +107,11 @@ static int const INDICATOR_SIZE = 200;
         
         NSLog(@"Events selected");
         [self.tableView reloadData];
-        //[self getEventsFromEventbrite];
         
     } else {
         
         NSLog(@"Landmarks selected");
         [self.tableView reloadData];
-        //[self getLandmarks];
-        
     }
 
 }
@@ -145,13 +143,13 @@ static int const INDICATOR_SIZE = 200;
     // set light purple color
     UIColor *color = [UIColor colorWithRed:190.0f/255.0f green:169.0f/255.0f blue:247.0f/255.0f alpha:1.0];
     // create indicator
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple
+    self.activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple
                                                                                          tintColor:color size:INDICATOR_SIZE];
     // set indicator to be center of frame
-    activityIndicatorView.frame = CGRectMake(self.view.frame.size.width/2 - INDICATOR_SIZE/2, self.view.frame.size.height/2 -
+    self.activityIndicatorView.frame = CGRectMake(self.view.frame.size.width/2 - INDICATOR_SIZE/2, self.view.frame.size.height/2 -
                                              INDICATOR_SIZE/2, INDICATOR_SIZE, INDICATOR_SIZE);
-    [self.view addSubview:activityIndicatorView];
-    [activityIndicatorView startAnimating];
+    [self.view addSubview:self.activityIndicatorView];
+    [self.activityIndicatorView startAnimating];
     
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
@@ -160,6 +158,7 @@ static int const INDICATOR_SIZE = 200;
         if(error) {
             
             NSLog(@"Error getting events with time ranges");
+            self.didLoad = YES;
             
         } else {
             
@@ -172,7 +171,6 @@ static int const INDICATOR_SIZE = 200;
                     if(eventStartUnix < self.endOfDayUnix && eventEndUnix > self.startOfDayUnix){
                         [self.events addObject:event];
                         [self.eventsSelected addObject:@NO];
-                        event.isGoogleEvent = NO;
                     }
                 }
                 else if(event.startDate != nil){
@@ -193,11 +191,9 @@ static int const INDICATOR_SIZE = 200;
                 }
             }
             [self getMuseums];
-            [self.tableView reloadData];
+            self.didLoad = YES;
         }
-        [activityIndicatorView stopAnimating];
     }];
-    
 }
 
 - (void)getMuseums{
@@ -206,17 +202,21 @@ static int const INDICATOR_SIZE = 200;
             NSLog(@"Error getting museums");
         }
         else{
-            NSArray *eventsTemp = [Landmark initWithArray:placesDictionaries];
-            for(Landmark *event in eventsTemp){
-                [self.landmarksAsEvents addObject:event];
+            NSArray *eventsTemp = [Event eventsWithGoogleArray:placesDictionaries];
+            for(Event *event in eventsTemp){
+                [self.events addObject:event];
                 [self.eventsSelected addObject:@NO];
             }
+            self.didLoad = YES;
             [self.tableView reloadData];
         }
+        [self.activityIndicatorView stopAnimating];
     }];
 }
 
 - (void)getLandmarks:(int)radius {
+    
+    // [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     // set light purple color
     UIColor *color = [UIColor colorWithRed:190.0f/255.0f green:169.0f/255.0f blue:247.0f/255.0f alpha:1.0];
@@ -391,56 +391,12 @@ static int const INDICATOR_SIZE = 200;
     // also helps reduce choppiness
     cell.layer.shouldRasterize = YES;
     cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    NSArray *eventsTemp = [self.events copy];
-    NSArray *landmarksTemp = [self.landmarksAsEvents copy];
-    NSArray *allEvents = [eventsTemp arrayByAddingObjectsFromArray:landmarksTemp];
-    NSLog(@"%lu", allEvents.count);
     NSInteger indexSelected = self.eventsLandmarksControl.selectedSegmentIndex;
     
     if(indexSelected == (long)EVENTS) {
         //Event *myEvent = self.events[indexPath.row];
         
-        if([allEvents[indexPath.row] isKindOfClass:[Event class]]){
-            [cell setEvent: [allEvents objectAtIndex:indexPath.row]];
-            
-            // load in background to prevent choppy scrolling
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-                // Load image on a non-ui-blocking thread
-                
-                NSURL *posterURL = [NSURL URLWithString:cell.event.imageUrl];
-                
-                [cell.posterView setImageWithURL: posterURL];
-                
-                dispatch_sync(dispatch_get_main_queue(), ^(void) {
-                    // Assign image back on the main thread
-                });
-                
-            });
-        }
-        
-        else if([allEvents[indexPath.row] isKindOfClass:[Landmark class]] ){
-            [cell setLandmark: [allEvents objectAtIndex:indexPath.row]];
-            NSLog(@"yo yo");
-            // load in background to prevent choppy scrolling
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-                // Load image on a non-ui-blocking thread
-                
-                NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",cell.landmark.photoReference]];
-                
-                //NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
-                
-                //UIImage *image = [UIImage imageWithData:photoData];
-                
-                [cell.posterView setImageWithURL: photoURL];
-                
-                dispatch_sync(dispatch_get_main_queue(), ^(void) {
-                    // Assign image back on the main thread
-                    
-                    //cell.posterView.image = image;
-                });
-                
-            });
-        }
+        [cell setEvent: [self.events objectAtIndex:indexPath.row]];
         
         if(self.eventsSelected.count > 0){
             

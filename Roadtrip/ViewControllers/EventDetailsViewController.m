@@ -35,31 +35,43 @@
         self.nameLabel.text = event.name;
         [self.nameLabel sizeToFit];
         self.descriptionLabel.text = event.eventDescription;
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        //formatter.dateFormat = @"E MMM d HH:mm Z y";
-        formatter.dateFormat = @"yyyy-MM-dd HH:mm Z y";
-        formatter.dateStyle = NSDateFormatterShortStyle;
-        formatter.timeStyle = NSDateFormatterNoStyle;
-        NSString *startDateString = [formatter stringFromDate:event.startDate];
-        NSString *endDateString = [formatter stringFromDate:event.endDate];
-        if([startDateString isEqualToString:endDateString]){
-            [formatter setDateFormat:@"hh:mm a"];
-            [formatter setAMSymbol:@"AM"];
-            [formatter setPMSymbol:@"PM"];
-            NSString *startTimeString = [formatter stringFromDate:event.startDate];
-            NSString *endTimeString = [formatter stringFromDate:event.endDate];
-            NSString *startEndTime = [NSString stringWithFormat:@"%@ %@ - %@", startDateString, startTimeString, endTimeString];
-            self.timeLabel.text = startEndTime;
+        if(event.startDate == nil){
+            self.timeLabel.text = @"";
         }
         else{
-            NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", startDateString, endDateString];
-            self.timeLabel.text = startEndDate;
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            //formatter.dateFormat = @"E MMM d HH:mm Z y";
+            formatter.dateFormat = @"yyyy-MM-dd HH:mm Z y";
+            formatter.dateStyle = NSDateFormatterShortStyle;
+            formatter.timeStyle = NSDateFormatterNoStyle;
+            NSString *startDateString = [formatter stringFromDate:event.startDate];
+            NSString *endDateString = [formatter stringFromDate:event.endDate];
+            if([startDateString isEqualToString:endDateString]){
+                [formatter setDateFormat:@"hh:mm a"];
+                [formatter setAMSymbol:@"AM"];
+                [formatter setPMSymbol:@"PM"];
+                NSString *startTimeString = [formatter stringFromDate:event.startDate];
+                NSString *endTimeString = [formatter stringFromDate:event.endDate];
+                NSString *startEndTime = [NSString stringWithFormat:@"%@ %@ - %@", startDateString, startTimeString, endTimeString];
+                self.timeLabel.text = startEndTime;
+            }
+            else{
+                NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", startDateString, endDateString];
+                self.timeLabel.text = startEndDate;
+            }
         }
         self.addressRatingLabel.text = event.address;
+        if(!event.isGoogleEvent){
         NSURL *posterURL = [NSURL URLWithString:event.imageUrl];
         self.coverImageView.image = nil;
         [self.coverImageView setImageWithURL:posterURL];
+        }
         
+        else{
+            NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",event.photoReference]];
+            
+            [self.coverImageView setImageWithURL: photoURL];
+        }
     }
     else{
         Landmark *landmark = [self.activities objectAtIndex:self.index];

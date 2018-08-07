@@ -142,7 +142,7 @@ typedef void (^completionGetPointsAlongWay)(void);
          else
          {
              NSLog(@"No places found");
-             [self getPointsAlongRoute:response];
+             //[self getPointsAlongRoute:response];
          }
      }];
     
@@ -239,9 +239,6 @@ typedef void (^completionGetPointsAlongWay)(void);
     }
 }
 
-<<<<<<< Updated upstream
-
-=======
 -(void )getPointsAlongRoute:(MKDirectionsResponse *)response
 {
     MKRoute *route = response.routes[0];
@@ -281,7 +278,6 @@ typedef void (^completionGetPointsAlongWay)(void);
     
     // return arrayCoordinates;
 }
->>>>>>> Stashed changes
 
 -(void)showRoute:(MKDirectionsResponse *)response
 {

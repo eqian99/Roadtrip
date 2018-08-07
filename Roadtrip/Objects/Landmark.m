@@ -32,9 +32,6 @@
         NSDictionary *myPhoto = photos[0];
         self.photoReference = myPhoto[@"photo_reference"];
         
-        
-        
-    
     }
     
     return self;

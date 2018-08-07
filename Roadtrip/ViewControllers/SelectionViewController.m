@@ -125,17 +125,13 @@
     double latNum = [self.latitude doubleValue];
     double longNum = [self.longitude doubleValue];
     [[WeatherMapManager new] getWeather:latNum withLongitude:longNum withCompletion:^(NSDictionary *weatherDictionary, NSError *error) {
-<<<<<<< Updated upstream
+
         NSDictionary *weatherTempDict = weatherDictionary[@"main"];
         int temp = [weatherTempDict[@"temp_max"] intValue];
         NSArray *descriptionArray = weatherDictionary[@"weather"];
         NSDictionary *descriptionInfo = descriptionArray[0];
         self.weatherLabel.text = [NSString stringWithFormat:@"%d° %@", temp, descriptionInfo[@"main"]];
         self.weatherImage.hidden = NO;
-=======
-        NSLog(@"%@", weatherDictionary);
-        //self.weatherLabel.text =
->>>>>>> Stashed changes
     }];
     PFQuery *query = [PFQuery queryWithClassName:@"City"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *cities, NSError *error) {

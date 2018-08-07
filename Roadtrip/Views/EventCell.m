@@ -34,33 +34,51 @@
     formatter.dateFormat = @"yyyy-MM-dd HH:mm Z y";
     formatter.dateStyle = NSDateFormatterShortStyle;
     formatter.timeStyle = NSDateFormatterNoStyle;
-    NSString *startDateString = [formatter stringFromDate:event.startDate];
-    NSString *endDateString = [formatter stringFromDate:event.endDate];
-    if([startDateString isEqualToString:endDateString]){
-        [formatter setDateFormat:@"hh:mm a"];
-        [formatter setAMSymbol:@"AM"];
-        [formatter setPMSymbol:@"PM"];
-        NSString *startTimeString = [formatter stringFromDate:event.startDate];
-        NSString *endTimeString = [formatter stringFromDate:event.endDate];
-        NSString *startEndTime = [NSString stringWithFormat:@"%@ %@ - %@", startDateString, startTimeString, endTimeString];
-        self.startEndLabel.text = startEndTime;
+    if(event.startDate == nil){
+        self.startEndLabel.text = @"";
     }
     else{
-        NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", startDateString, endDateString];
-        self.startEndLabel.text = startEndDate;
+        NSString *startDateString = [formatter stringFromDate:event.startDate];
+        NSString *endDateString = [formatter stringFromDate:event.endDate];
+        if([startDateString isEqualToString:endDateString]){
+            [formatter setDateFormat:@"hh:mm a"];
+            [formatter setAMSymbol:@"AM"];
+            [formatter setPMSymbol:@"PM"];
+            NSString *startTimeString = [formatter stringFromDate:event.startDate];
+            NSString *endTimeString = [formatter stringFromDate:event.endDate];
+            NSString *startEndTime = [NSString stringWithFormat:@"%@ %@ - %@", startDateString, startTimeString, endTimeString];
+            self.startEndLabel.text = startEndTime;
+        }
+        else{
+            NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", startDateString, endDateString];
+            self.startEndLabel.text = startEndDate;
+        }
     }
     NSURL *posterURL = [NSURL URLWithString:event.imageUrl];
     
     // clear out the cell so that there is no flickering
-    [UIView animateWithDuration:0.3 animations:^{
-        self.posterView.alpha = 1.0;
-    }];
-    self.posterView.image = nil;
-    [self.posterView setImageWithURL:posterURL];
-    
-    self.posterView.layer.cornerRadius = 10;
-    self.posterView.clipsToBounds = YES;
-    
+    if(!event.isGoogleEvent){
+        [UIView animateWithDuration:0.3 animations:^{
+            self.posterView.alpha = 1.0;
+        }];
+        self.posterView.image = nil;
+        [self.posterView setImageWithURL:posterURL];
+        
+        self.posterView.layer.cornerRadius = 10;
+        self.posterView.clipsToBounds = YES;
+    }
+    else{
+        // Load image on a non-ui-blocking thread
+        
+        NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",event.photoReference]];
+        
+        //NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
+        
+        //UIImage *image = [UIImage imageWithData:photoData];
+        
+        [self.posterView setImageWithURL: photoURL];
+
+    }
     //self.addressLabel.text = event.address;
 }
 - (IBAction)didSelect:(id)sender {

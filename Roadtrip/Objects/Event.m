@@ -113,6 +113,8 @@
             
         }
         
+        self.isGoogleEvent = NO;
+        
         self.venueId = dictionary[@"venue_id"];
         
         [[EventbriteManager new] getVenueWithId:self.venueId completion:^(NSDictionary *venue, NSError *error) {
@@ -195,7 +197,43 @@
     
 }
 
+- (instancetype) initWithGoogleDictionary: (NSDictionary *) dictionary {
+    self = [super init];
+    if(self){
+        self.isGoogleEvent = YES;
+        self.name = dictionary[@"name"];
+        self.address = dictionary[@"vicinity"];
+        //self.rating = dictionary[@"rating"];
+        
+        NSDictionary *geometry = dictionary[@"geometry"];
+        NSDictionary *location = geometry[@"location"];
+        self.latitude = location[@"lat"];
+        self.longitude = location[@"lng"];
+        
+        
+        self.isEvent = YES;
+        NSArray *photos = dictionary[@"photos"];
+        NSDictionary *myPhoto = photos[0];
+        self.photoReference = myPhoto[@"photo_reference"];
+        self.isFlexible = YES;
+        self.eventDescription = @"No description available";
+    }
+    return self;
+}
 
++ (NSMutableArray *) eventsWithGoogleArray:(NSArray *)dictionaries{
+    NSMutableArray *events = [NSMutableArray array];
+    
+    for(NSDictionary *dictionary in dictionaries) {
+        
+        Event *event = [[Event alloc] initWithGoogleDictionary:dictionary];
+        
+        [events addObject:event];
+        
+    }
+    
+    return events;
+}
 
 + (NSMutableArray *) eventsWithEventbriteArray:(NSArray *) dictionaries {
     

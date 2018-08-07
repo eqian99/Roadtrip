@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *eventSiteUrl;
 @property (nonatomic, strong) NSString *eventId;
 @property (nonatomic, strong) NSString *imageUrl;
+@property (nonatomic, strong) NSString *photoReference;
 
 //Location
 @property (nonatomic, strong) NSString *venueId;
@@ -59,5 +60,9 @@
 +(NSArray *) sortEventArrayByEndDate: (NSArray *) array;
 
 + (NSArray *) sortEventArrayByStartDate: (NSArray *) array;
+
+- (instancetype) initWithGoogleDictionary: (NSDictionary *) dictionary;
+
++ (NSMutableArray *) eventsWithGoogleArray:(NSArray *)dictionaries;
 
 @end
