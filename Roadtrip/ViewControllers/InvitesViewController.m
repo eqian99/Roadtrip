@@ -10,7 +10,7 @@
 #import "InviteCell.h"
 #import "Invite.h"
 
-@interface InvitesViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface InvitesViewController () <UITableViewDelegate, UITableViewDataSource, InviteCellDelegate>
 
 @end
 
@@ -53,7 +53,14 @@
     cell.cityLabel.text = city;
     [cell.cityLabel sizeToFit];
     cell.invite = self.invites[indexPath.row];
+    cell.delegate = self;
     return cell;
+}
+
+- (void)dismissController {
+    NSLog(@"Dismiss controller");
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) PFObject *invite;
 
+@property (nonatomic, weak) id<InviteCellDelegate> delegate;
+
 @end
 
 @protocol InviteCellDelegate

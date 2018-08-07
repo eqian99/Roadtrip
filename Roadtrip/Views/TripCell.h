@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Schedule.h"
 @interface TripCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *cityImageView;
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *creatorLabel;
+
+@property (strong, nonatomic) Schedule *schedule;
 
 
 @end

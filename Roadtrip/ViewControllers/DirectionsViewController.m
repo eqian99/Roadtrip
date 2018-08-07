@@ -142,7 +142,6 @@ typedef void (^completionGetPointsAlongWay)(void);
          else
          {
              NSLog(@"No places found");
-             //[self getPointsAlongRoute:response];
          }
      }];
     

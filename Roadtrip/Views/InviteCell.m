@@ -40,6 +40,7 @@
                 }else{
                     NSLog(@"Successfully attached member to schedule relation");
                     [self.invite deleteInBackground];
+                    [self.delegate dismissController];
                 }
             }];
         }

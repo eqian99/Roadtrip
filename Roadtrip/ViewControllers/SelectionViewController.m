@@ -125,7 +125,6 @@
     double latNum = [self.latitude doubleValue];
     double longNum = [self.longitude doubleValue];
     [[WeatherMapManager new] getWeather:latNum withLongitude:longNum withCompletion:^(NSDictionary *weatherDictionary, NSError *error) {
-
         NSDictionary *weatherTempDict = weatherDictionary[@"main"];
         int temp = [weatherTempDict[@"temp_max"] intValue];
         NSArray *descriptionArray = weatherDictionary[@"weather"];

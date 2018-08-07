@@ -19,6 +19,7 @@
 #import "Schedule.h"
 #import "UIImageView+AFNetworking.h"
 #import <Lottie/Lottie.h>
+#import "ScheduleDetailViewController.h"
 
 
 @interface ProfileViewController () <UIImagePickerControllerDelegate, SearchPeopleDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
@@ -136,7 +137,6 @@
         }
     }];
 }
-
 - (IBAction)takeProfilePic:(id)sender {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
@@ -223,7 +223,6 @@
     }
 }
 
-
 - (IBAction)didTapAddFriend:(id)sender {
     [self performSegueWithIdentifier:@"searchPeopleSegue" sender:self];
 }
@@ -231,7 +230,6 @@
 - (void)fetchFriends {
     [self fetchFriendsOfCurrentUser];
 }
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     if(collectionView == self.friendsCollectionView) {
@@ -239,7 +237,6 @@
     } else {
         return self.schedules.count;
     }
-    
     
 }
 
@@ -263,6 +260,7 @@
     } else {
         TripCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"tripCell" forIndexPath:indexPath];
         Schedule *schedule = self.schedules[indexPath.row];
+        cell.schedule = schedule;
         cell.cityLabel.text = schedule.name;
         [cell.cityLabel sizeToFit];
         NSDateFormatter *formatter = [NSDateFormatter new];
@@ -280,10 +278,14 @@
                 [cell.cityImageView setImageWithURL: photoURL];
             });
         }
+        
+        PFUser *creator = schedule.creator;
+        [creator fetchIfNeeded];
+        NSString *creatorUsername = [creator objectForKey:@"username"];
+        cell.creatorLabel.text = [NSString stringWithFormat:@"Created by %@", creatorUsername];
         return cell;
     }
 }
-
 
 #pragma mark - Navigation
 
@@ -298,6 +300,11 @@
     } else if ([segue.identifier isEqualToString:@"invitesSegue"]) {
         InvitesViewController *viewController = [segue destinationViewController];
         viewController.invites = self.invites;
+    } else if([segue.identifier isEqualToString:@"scheduleDetailSegue"]) {
+        ScheduleDetailViewController *viewController = [segue destinationViewController];
+        TripCell *cell = sender;
+        Schedule *schedule = cell.schedule;
+        viewController.schedule = schedule;
     }
     
     
