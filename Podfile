@@ -13,7 +13,7 @@ target 'Roadtrip' do
     pod 'DGActivityIndicatorView'
     pod 'lottie-ios'
     pod 'RVCalendarWeekView'
-
+    pod 'JVFloatLabeledTextField'
 
 
 end
