@@ -20,5 +20,6 @@
 @property (strong, nonatomic) NSMutableArray *restaurants;
 @property (strong, nonatomic) Schedule *schedule;
 @property (assign, nonatomic)NSInteger indexSelected;
+@property (strong, nonatomic) MSWeekView *decoratedScheduleView;
 
 @end

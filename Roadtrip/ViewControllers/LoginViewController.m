@@ -48,7 +48,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     self.loginLabel.layer.cornerRadius = 8.0;
     
     UIImage *icon = [UIImage imageNamed:@"circle.png"];
-    UIColor *color = [UIColor blueColor];
+    UIColor *color = [UIColor colorWithRed:0.33 green:0.20 blue:1.00 alpha:1.0];
+    // UIColor *color = [UIColor colorWithRed:0.13 green:0.74 blue:1.00 alpha:1.0];
     CBZSplashView *splashView = [CBZSplashView splashViewWithIcon:icon backgroundColor:color];
     
     // CBZSplashView *splashView = [CBZSplashView splashViewWithBezierPath:bezier
@@ -59,7 +60,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [self.view addSubview:splashView];
     [splashView startAnimation];
     
-    self.label = [[ZCAnimatedLabel alloc] initWithFrame:CGRectMake(15, 500 + 15, 200, 200)];
+    self.label = [[ZCAnimatedLabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 66, 150, 600, 200)];
     [self.view addSubview:self.label];
     
     object_setClass(self.label, [ZCDashLabel class]);
@@ -128,25 +129,13 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 
 - (void) animateLabelAppear: (BOOL) appear
 {
-    NSLog(@"yo yo");
-    self.label.animationDuration = 1000;
-    self.label.animationDelay = 500;
-    self.label.text = @"When lilacs last in the door-yard bloom’d,\n当紫丁香最近在庭园中开放的时候，\nAnd the great star early droop’d in the western sky in the night,\n那颗硕大的星星在西方的夜空陨落了，\nI mourn’d—and yet shall mourn with ever-returning spring.\n我哀悼着，并将随着一年一度的春光永远地哀悼着。";
+    self.label.animationDuration = 0.2;
+    self.label.animationDelay = 0.3;
+    self.label.text = @"Wander";
     NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     style.lineSpacing = 5;
     style.alignment = NSTextAlignmentCenter;
-    NSMutableAttributedString *mutableString = [[[NSAttributedString alloc] initWithString:self.label.text attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:20], NSParagraphStyleAttributeName : style, NSForegroundColorAttributeName : [UIColor blackColor]}] mutableCopy];
-    [mutableString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:[mutableString.string rangeOfString:@"sky"]];
-    [mutableString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:28] range:[mutableString.string rangeOfString:@"sky"]];
-    [mutableString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.7843 green:0.6352 blue:0.7843 alpha:1] range:[mutableString.string rangeOfString:@"lilacs"]];
-    [mutableString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:[mutableString.string rangeOfString:@"spring"]];
-    [mutableString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:1] range:[mutableString.string rangeOfString:@"mourn’d"]];
-    
-    [mutableString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:[mutableString.string rangeOfString:@"夜空"]];
-    [mutableString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:28] range:[mutableString.string rangeOfString:@"夜空"]];
-    [mutableString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.7843 green:0.6352 blue:0.7843 alpha:1] range:[mutableString.string rangeOfString:@"紫丁香"]];
-    [mutableString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:[mutableString.string rangeOfString:@"春光"]];
-    [mutableString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:1] range:[mutableString.string rangeOfString:@"哀悼"]];
+    NSMutableAttributedString *mutableString = [[[NSAttributedString alloc] initWithString:self.label.text attributes:@{NSFontAttributeName : [UIFont fontWithName:@"MarkerFelt-Wide" size:40.0], NSParagraphStyleAttributeName : style, NSForegroundColorAttributeName : [UIColor whiteColor]}] mutableCopy];
     
     self.label.attributedString = mutableString;
     
