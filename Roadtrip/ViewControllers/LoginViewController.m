@@ -203,6 +203,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 
 
 - (IBAction)pressedLogin:(id)sender {
+    NSLog(@"pressed");
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];

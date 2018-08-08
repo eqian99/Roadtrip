@@ -48,6 +48,10 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *weatherImage;
+
+@property (weak, nonatomic) IBOutlet UIImageView *breakfastImage;
+@property (weak, nonatomic) IBOutlet UIImageView *lunchImage;
+@property (weak, nonatomic) IBOutlet UIImageView *dinnerImage;
 @end
 
 @implementation SelectionViewController
@@ -61,7 +65,7 @@
     //Search controller setup
     
     UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(tappedCityLabel:)];
+                                                                                      action:@selector(tappedCityLabel:)];
     [self.cityLabel addGestureRecognizer:singleFingerTap];
     
     self.cityLabel.userInteractionEnabled = YES;
@@ -135,11 +139,13 @@
         NSArray *descriptionArray = weatherDictionary[@"weather"];
         NSDictionary *descriptionInfo = descriptionArray[0];
         self.weatherAnimationView.duration = 0.5;
-        self.weatherAnimationView.delay    = 0.5;
+        self.weatherAnimationView.delay    = 0.1;
         self.weatherAnimationView.type     = CSAnimationTypeFadeIn;
         [self.weatherAnimationView startCanvasAnimation];
         self.weatherLabel.text = [NSString stringWithFormat:@"%d° %@", temp, descriptionInfo[@"main"]];
         self.weatherImage.hidden = NO;
+        
+        
     }];
     PFQuery *query = [PFQuery queryWithClassName:@"City"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *cities, NSError *error) {
@@ -213,9 +219,11 @@
     }];
     if(self.startOfDayUnix != 0.0){
         [self.doneButton setBackgroundImage:[UIImage imageNamed:@"enabledButtonBackground"] forState:UIControlStateNormal];
+        self.doneButton.enabled = YES;
         self.animationView.duration = 0.5;
-        self.animationView.delay    = 0.5;
-        self.animationView.type     = CSAnimationTypePop;
+        self.animationView.delay = 0.2;
+        self.animationView.type = CSAnimationTypePop;
+
         [self.animationView startCanvasAnimation];
     }
 }
@@ -267,16 +275,17 @@
     NSDate *endOfDay = [calendar dateByAddingComponents:components toDate:startOfDay options:0];
     
     self.startOfDayUnix = [startOfDay timeIntervalSince1970];
+    self.startOfEventsUnix = [datePicker.date timeIntervalSince1970];
     NSLog(@"%f", self.startOfDayUnix);
     
     self.endOfDayUnix = [endOfDay timeIntervalSince1970];
     
     if(self.city != nil){
-        NSLog(@"hello");
         [self.doneButton setBackgroundImage:[UIImage imageNamed:@"enabledButtonBackground"] forState:UIControlStateNormal];
+        self.doneButton.enabled = YES;
         self.animationView.duration = 0.5;
-        self.animationView.delay    = 0.5;
-        self.animationView.type     = CSAnimationTypePop;
+        self.animationView.delay = 0.2;
+        self.animationView.type = CSAnimationTypePop;
         
         //[self.view addSubview:self.animationView];
         
@@ -306,6 +315,7 @@
     self.breakfastField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
     self.breakfastField.textColor = [UIColor blackColor];
     [self.breakfastField resignFirstResponder];
+    self.breakfastImage.image = [UIImage imageNamed:@"coloredBreakfast"];
 }
 
 - (void)showTimeLunch{
@@ -323,6 +333,7 @@
     self.lunchField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
     self.lunchField.textColor = [UIColor blackColor];
     [self.lunchField resignFirstResponder];
+    self.lunchImage.image = [UIImage imageNamed:@"coloredLunch"];
 }
 
 - (void)showTimeDinner{
@@ -340,6 +351,7 @@
     self.dinnerField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
     self.dinnerField.textColor = [UIColor blackColor];
     [self.dinnerField resignFirstResponder];
+    self.dinnerImage.image = [UIImage imageNamed:@"coloredDinner"];
 }
 
 
@@ -362,7 +374,7 @@
         selectEventsViewController.photoReference = self.photoReference;
         selectEventsViewController.city = self.city;
         selectEventsViewController.stateAndCountry = self.stateAndCountry;
-
+        
         //Pass over data about the start time
         if(self.startOfEventsUnix == 0.0){
             self.startOfEventsUnix = self.startOfDayUnix;

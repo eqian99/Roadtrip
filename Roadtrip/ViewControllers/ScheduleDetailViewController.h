@@ -14,6 +14,7 @@
 @interface ScheduleDetailViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet MSWeekView *scheduleView;
+@property (strong, nonatomic) MSWeekView *decoratedWeekView;
 @property (strong, nonatomic) NSMutableArray *events;
 @property (strong, nonatomic) NSMutableArray *podEvents;
 @property (strong, nonatomic) NSMutableArray *restaurants;

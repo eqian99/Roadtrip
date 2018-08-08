@@ -17,7 +17,7 @@ PODS:
   - Bolts/Tasks (1.9.0)
   - Canvas (0.1.2)
   - CBZSplashView (1.0.0)
-  - Collection (1.9.8)
+  - Collection (1.9.9)
   - DateTools (2.0.0)
   - DGActivityIndicatorView (2.1.1)
   - EasyDate (0.12):
@@ -81,7 +81,7 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
   CBZSplashView: 9ce4cba22024476ff4a97d6433e7347da6376016
-  Collection: 11e9dd233eea8fc9d33db1aec79751644eedcadf
+  Collection: 2eebd54e821976e4c3ac38758febcee7ea9a46fb
   DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   DGActivityIndicatorView: ff2c76073d79692f724863c8dd38685866a03cb6
   EasyDate: ae4fe5df42a810d2bf1aa40d96cb40e7618e7d77

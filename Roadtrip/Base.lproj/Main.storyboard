@@ -24,8 +24,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                             </imageView>
-                            <textField clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2po-zo-cmq" customClass="JVFloatLabeledTextField">
-                                <rect key="frame" x="89" y="278" width="197" height="30"/>
+                            <textField clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2po-zo-cmq" customClass="JVFloatLabeledTextField">
+                                <rect key="frame" x="89" y="234" width="197" height="74"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -95,7 +95,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1606" y="-573"/>
+            <point key="canvasLocation" x="1605.5999999999999" y="-573.46326836581716"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="43N-6W-kpP">
@@ -913,30 +913,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meal Times (Optional) " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgQ-GW-ibQ">
-                                <rect key="frame" x="16" y="298" width="223" height="31"/>
+                                <rect key="frame" x="16" y="282" width="223" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzW-Dx-gC1" customClass="CSAnimationView">
-                                <rect key="frame" x="36" y="574" width="310" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPc-7X-Q7S">
-                                        <rect key="frame" x="0.0" y="0.0" width="310" height="49"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="30"/>
-                                        <state key="normal" title="Done" backgroundImage="backBackground">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="reo-xb-MeA" kind="show" identifier="selectActivitiesSegue" id="LO7-Iy-txO"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="8DD-ti-I3V">
                                 <rect key="frame" x="25" y="133" width="49" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -950,48 +932,48 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RestaurantsShadow" translatesAutoresizingMaskIntoConstraints="NO" id="Lze-aR-P04">
-                                <rect key="frame" x="16" y="337" width="106" height="184"/>
+                                <rect key="frame" x="18" y="322" width="106" height="131"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Breakfast" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qab-9x-xpK">
-                                <rect key="frame" x="25" y="461" width="92" height="30"/>
+                                <rect key="frame" x="25" y="398" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="breakfast" translatesAutoresizingMaskIntoConstraints="NO" id="TJk-8W-NFS">
-                                <rect key="frame" x="23" y="354" width="92" height="85"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blackBreakfast" translatesAutoresizingMaskIntoConstraints="NO" id="TJk-8W-NFS">
+                                <rect key="frame" x="55" y="347" width="33" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RestaurantsShadow" translatesAutoresizingMaskIntoConstraints="NO" id="bmX-pl-TOe">
-                                <rect key="frame" x="261" y="337" width="106" height="184"/>
+                                <rect key="frame" x="259" y="322" width="106" height="131"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dinner" translatesAutoresizingMaskIntoConstraints="NO" id="V0B-JH-hfK">
-                                <rect key="frame" x="267" y="354" width="92" height="85"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blackDinner" translatesAutoresizingMaskIntoConstraints="NO" id="V0B-JH-hfK">
+                                <rect key="frame" x="290" y="347" width="33" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dinner" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cbf-Ey-8ke">
-                                <rect key="frame" x="266" y="461" width="95" height="30"/>
+                                <rect key="frame" x="264" y="398" width="95" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RestaurantsShadow" translatesAutoresizingMaskIntoConstraints="NO" id="hTV-IK-OmP">
-                                <rect key="frame" x="139" y="337" width="106" height="184"/>
+                                <rect key="frame" x="138" y="322" width="106" height="131"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Lunch " textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZEc-Dk-2sy">
-                                <rect key="frame" x="155" y="461" width="90" height="30"/>
+                                <rect key="frame" x="146" y="398" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lunch" translatesAutoresizingMaskIntoConstraints="NO" id="5Tp-IU-ral">
-                                <rect key="frame" x="145" y="354" width="92" height="85"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blackLunch" translatesAutoresizingMaskIntoConstraints="NO" id="5Tp-IU-ral">
+                                <rect key="frame" x="175" y="347" width="33" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Start             Time &amp; Date" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="V5L-aL-z02">
@@ -1020,6 +1002,24 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzW-Dx-gC1" customClass="CSAnimationView">
+                                <rect key="frame" x="36" y="529" width="310" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPc-7X-Q7S">
+                                        <rect key="frame" x="0.0" y="0.0" width="310" height="49"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="30"/>
+                                        <state key="normal" title="Done" backgroundImage="backBackground">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="reo-xb-MeA" kind="show" identifier="selectActivitiesSegue" id="LO7-Iy-txO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pjp-3z-RVz"/>
@@ -1034,11 +1034,14 @@
                     <connections>
                         <outlet property="animationView" destination="gzW-Dx-gC1" id="Ko3-jg-Q3P"/>
                         <outlet property="breakfastField" destination="qab-9x-xpK" id="vbF-dY-c7W"/>
+                        <outlet property="breakfastImage" destination="TJk-8W-NFS" id="Hhl-WF-loI"/>
                         <outlet property="cityLabel" destination="ThV-o4-z7n" id="XmE-i1-l8Z"/>
                         <outlet property="dateField" destination="V5L-aL-z02" id="8JZ-Z4-4Qk"/>
                         <outlet property="dinnerField" destination="cbf-Ey-8ke" id="sA9-w3-q6N"/>
+                        <outlet property="dinnerImage" destination="V0B-JH-hfK" id="4Bx-MH-Q4v"/>
                         <outlet property="doneButton" destination="zPc-7X-Q7S" id="x1j-Yu-djR"/>
                         <outlet property="lunchField" destination="ZEc-Dk-2sy" id="pks-2s-syE"/>
+                        <outlet property="lunchImage" destination="5Tp-IU-ral" id="uBm-Lz-rhl"/>
                         <outlet property="searchDisplayController" destination="ncq-eO-XwL" id="4hh-yI-DXN"/>
                         <outlet property="weatherAnimationView" destination="8DJ-uc-Ydt" id="sB3-zu-UQh"/>
                         <outlet property="weatherImage" destination="sYC-a3-Brd" id="t7h-3q-1h5"/>
@@ -1661,11 +1664,11 @@
         <image name="RestaurantsShadow" width="302" height="564"/>
         <image name="back-icon-white" width="30" height="30"/>
         <image name="backBackground" width="220" height="49"/>
-        <image name="breakfast" width="256" height="256"/>
+        <image name="blackBreakfast" width="83" height="85"/>
+        <image name="blackDinner" width="81" height="71"/>
+        <image name="blackLunch" width="85" height="69"/>
         <image name="calendar" width="512" height="512"/>
         <image name="cellBackground" width="353" height="178"/>
-        <image name="dinner" width="256" height="256"/>
-        <image name="lunch" width="256" height="256"/>
         <image name="notification" width="128" height="128"/>
         <image name="pin" width="128" height="128"/>
         <image name="placeholder" width="1280" height="960"/>
@@ -1678,6 +1681,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RDT-4F-kit"/>
-        <segue reference="eNk-Lg-BIr"/>
+        <segue reference="jvd-JJ-Jlm"/>
     </inferredMetricsTieBreakers>
 </document>

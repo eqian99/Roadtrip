@@ -25,6 +25,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.podEvents = [NSMutableArray new];
+    self.decoratedWeekView = [MSWeekViewDecoratorFactory make:self.scheduleView
+                                                     features:(MSDragableEventFeature | MSChangeDurationFeature)
+                                                  andDelegate:self];
     [self.scheduleView setDaysToShow:1];
     self.scheduleView.daysToShowOnScreen = 1;
     self.scheduleView.daysToShow = 0;
@@ -97,6 +100,9 @@
                     
                 }
             }
+            
+            
+             
             self.scheduleView.daysToShowOnScreen = 1;
             self.scheduleView.daysToShow = 0;
             NSArray *eventsForScheduleView = [self.podEvents copy];
@@ -156,8 +162,43 @@
     [self performSegueWithIdentifier:@"eventDetailSegue" sender:self];
 
 }
+-(void)weekView:(MSWeekView *)weekView event:(MSEvent *)event moved:(NSDate *)date{
+    NSLog(@"Event moved");
+}
 
+-(BOOL)weekView:(MSWeekView*)weekView canStartMovingEvent:(MSEvent*)event{
+    return YES;
+}
 
+-(BOOL)weekView:(MSWeekView *)weekView canMoveEvent:(MSEvent *)event to:(NSDate *)date{
+    return YES;
+    
+    //Example on how to return YES/NO from an async function (for example an alert)
+    /*NSCondition* condition = [NSCondition new];
+     BOOL __block shouldMove;
+     
+     RVAlertController* a = [RVAlertController alert:@"Move"
+     message:@"Do you want to move";
+     
+     
+     [a showAlertWithCompletion:^(NSInteger buttonIndex) {
+     shouldMove = (buttonIndex == RVALERT_OK);
+     [condition signal];
+     }];
+     
+     [condition lock];
+     [condition wait];
+     [condition unlock];
+     
+     return shouldMove;*/
+}
+
+-(BOOL)weekView:(MSWeekView*)weekView canChangeDuration:(MSEvent*)event startDate:(NSDate*)startDate endDate:(NSDate*)endDate{
+    return YES;
+}
+-(void)weekView:(MSWeekView*)weekView event:(MSEvent*)event durationChanged:(NSDate*)startDate endDate:(NSDate*)endDate{
+    NSLog(@"Changed event duration");
+}
 
 
 @end
