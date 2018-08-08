@@ -38,6 +38,7 @@
 @property (strong, nonatomic) NSString *photoReference;
 
 @property (weak, nonatomic) IBOutlet CSAnimationView *animationView;
+@property (weak, nonatomic) IBOutlet CSAnimationView *weatherAnimationView;
 
 @property (strong, nonatomic)NSCalendar *calendar;
 
@@ -133,6 +134,10 @@
         int temp = [weatherTempDict[@"temp_max"] intValue];
         NSArray *descriptionArray = weatherDictionary[@"weather"];
         NSDictionary *descriptionInfo = descriptionArray[0];
+        self.weatherAnimationView.duration = 0.5;
+        self.weatherAnimationView.delay    = 0.5;
+        self.weatherAnimationView.type     = CSAnimationTypeFadeIn;
+        [self.weatherAnimationView startCanvasAnimation];
         self.weatherLabel.text = [NSString stringWithFormat:@"%d° %@", temp, descriptionInfo[@"main"]];
         self.weatherImage.hidden = NO;
     }];
@@ -165,7 +170,6 @@
                         
                         NSLog(@"Error saving event from schedule");
                         
-                        
                     } else {
                         NSLog(@"creating a new one");
                         NSArray *myCitiesArray = [self.currUser valueForKey:@"myCitiesSearched"];
@@ -179,7 +183,6 @@
                         [self.currUser setValue:myCitiesArray forKey:@"myCitiesSearched"];
                         [self.currUser saveInBackground];
                     }
-                    
                 }];
             }
             
@@ -202,7 +205,6 @@
                 NSLog(@"%@", myCitiesArray);
                 [self.currUser setValue:myCitiesArray forKey:@"myCitiesSearched"];
                 [self.currUser saveInBackground];
-                
             }
         }
         else {
@@ -211,6 +213,10 @@
     }];
     if(self.startOfDayUnix != 0.0){
         [self.doneButton setBackgroundImage:[UIImage imageNamed:@"enabledButtonBackground"] forState:UIControlStateNormal];
+        self.animationView.duration = 0.5;
+        self.animationView.delay    = 0.5;
+        self.animationView.type     = CSAnimationTypePop;
+        [self.animationView startCanvasAnimation];
     }
 }
 

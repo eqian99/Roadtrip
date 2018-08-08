@@ -61,6 +61,10 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.posterView.alpha = 1.0;
         }];
+        self.imageAnimation.duration = 0.5;
+        self.imageAnimation.delay    = 0.5;
+        self.imageAnimation.type     = CSAnimationTypeFadeIn;
+        [self.imageAnimation startCanvasAnimation];
         self.posterView.image = nil;
         [self.posterView setImageWithURL:posterURL];
         
@@ -70,6 +74,10 @@
     else{
         // Load image on a non-ui-blocking thread
         
+        self.imageAnimation.duration = 0.5;
+        self.imageAnimation.delay    = 0.5;
+        self.imageAnimation.type     = CSAnimationTypeFadeIn;
+        [self.imageAnimation startCanvasAnimation];
         NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",event.photoReference]];
         
         //NSData *photoData = [NSData dataWithContentsOfURL:photoURL];

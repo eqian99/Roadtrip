@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Event.h"
 #import "Landmark.h"
+#import "Canvas.h"
 
 @protocol EventCellDelegate;
 
@@ -25,6 +26,7 @@
 
 @property (nonatomic, weak) id<EventCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UILabel *warningLabel;
+@property (weak, nonatomic) IBOutlet CSAnimationView *imageAnimation;
 
 @end
 

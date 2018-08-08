@@ -1,0 +1,6 @@
+framework module EasyDate {
+  umbrella header "EasyDate-umbrella.h"
+
+  export *
+  module * { export * }
+}
