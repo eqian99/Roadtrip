@@ -25,7 +25,7 @@
 
 
 const static CGFloat kJVFieldHeight = 44.0f;
-const static CGFloat kJVFieldHMargin = 10.0f;
+const static CGFloat kJVFieldHMargin = 50.0f;
 
 const static CGFloat kJVFieldFontSize = 16.0f;
 
@@ -36,14 +36,16 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 @property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *usernameField;
 @property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *passwordField;
 @property (strong, nonatomic) IBOutlet ZCAnimatedLabel *label;
-
-
+@property (weak, nonatomic) IBOutlet UIButton *loginLabel;
 @end
 
 @implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.loginLabel.layer.masksToBounds = YES;
+    self.loginLabel.layer.cornerRadius = 8.0;
     
     UIImage *icon = [UIImage imageNamed:@"circle.png"];
     UIColor *color = [UIColor blueColor];
@@ -52,7 +54,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     // CBZSplashView *splashView = [CBZSplashView splashViewWithBezierPath:bezier
                                                         //backgroundColor:color];
     
-    splashView.animationDuration = 3;
+    splashView.animationDuration = 1.8;
     
     [self.view addSubview:splashView];
     [splashView startAnimation];
@@ -74,10 +76,10 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-    [self.view setTintColor:[UIColor blueColor]];
+    [self.view setTintColor:[UIColor whiteColor]];
 #endif
     
-    UIColor *floatingLabelColor = [UIColor brownColor];
+    UIColor *floatingLabelColor = [UIColor whiteColor];
     
     self.usernameField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     self.usernameField.attributedPlaceholder =
@@ -85,10 +87,20 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
                                     attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.usernameField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     self.usernameField.floatingLabelTextColor = floatingLabelColor;
+    self.usernameField.floatingLabelYPadding = -10.0f;
+    self.usernameField.textColor = [UIColor whiteColor];
     self.usernameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.usernameField.translatesAutoresizingMaskIntoConstraints = NO;
     self.usernameField.keepBaseline = YES;
-    //[self.usernameField setOpaque:NO];
+    
+    // add white bottom border
+    CALayer *border = [CALayer layer];
+    CGFloat borderWidth = 2;
+    border.borderColor = [UIColor whiteColor].CGColor;
+    border.frame = CGRectMake(0, self.usernameField.frame.size.height - borderWidth, self.usernameField.frame.size.width, self.usernameField.frame.size.height);
+    border.borderWidth = borderWidth;
+    [self.usernameField.layer addSublayer:border];
+    self.usernameField.layer.masksToBounds = YES;
     
     self.passwordField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     self.passwordField.attributedPlaceholder =
@@ -96,10 +108,20 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
                                     attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.passwordField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     self.passwordField.floatingLabelTextColor = floatingLabelColor;
+    self.passwordField.floatingLabelYPadding = -15.0f;
+    self.passwordField.textColor = [UIColor whiteColor];
     self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passwordField.translatesAutoresizingMaskIntoConstraints = NO;
     self.passwordField.keepBaseline = YES;
     
+    // add white bottom border
+    CALayer *border_pw = [CALayer layer];
+    border_pw.borderColor = [UIColor whiteColor].CGColor;
+    border_pw.frame = CGRectMake(0, self.passwordField.frame.size.height - borderWidth, self.passwordField.frame.size.width, self.passwordField.frame.size.height);
+    border_pw.borderWidth = borderWidth;
+    [self.passwordField.layer addSublayer:border_pw];
+    self.passwordField.layer.masksToBounds = YES;
+
     // [self.usernameField becomeFirstResponder];
     
 }
