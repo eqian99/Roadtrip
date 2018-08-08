@@ -16,4 +16,6 @@ target 'Roadtrip' do
     pod 'JVFloatLabeledTextField'
     pod 'Canvas'
     pod 'ZCAnimatedLabel'
+    pod 'CBZSplashView', '~> 1.0.0'
+
 end

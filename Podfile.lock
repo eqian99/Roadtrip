@@ -16,6 +16,7 @@ PODS:
     - AFNetworking/NSURLSession
   - Bolts/Tasks (1.9.0)
   - Canvas (0.1.2)
+  - CBZSplashView (1.0.0)
   - Collection (1.9.8)
   - DateTools (2.0.0)
   - DGActivityIndicatorView (2.1.1)
@@ -45,6 +46,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - Canvas
+  - CBZSplashView (~> 1.0.0)
   - DGActivityIndicatorView
   - GoogleMaps
   - JVFloatLabeledTextField
@@ -59,6 +61,7 @@ SPEC REPOS:
     - AFNetworking
     - Bolts
     - Canvas
+    - CBZSplashView
     - Collection
     - DateTools
     - DGActivityIndicatorView
@@ -77,6 +80,7 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
+  CBZSplashView: 9ce4cba22024476ff4a97d6433e7347da6376016
   Collection: 11e9dd233eea8fc9d33db1aec79751644eedcadf
   DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   DGActivityIndicatorView: ff2c76073d79692f724863c8dd38685866a03cb6
@@ -91,6 +95,6 @@ SPEC CHECKSUMS:
   UIColor-HexString: fadc2e1389db19147ac99dee92222d3bd8bfec4a
   ZCAnimatedLabel: 519b688bef4403fd356bc785f9b61cdfd8e6472d
 
-PODFILE CHECKSUM: 7e32b389e5f388e9b7910beb208d9170803e52c0
+PODFILE CHECKSUM: b5f08d1922247c2d4c59cc19618908a2a557eb04
 
 COCOAPODS: 1.5.3
