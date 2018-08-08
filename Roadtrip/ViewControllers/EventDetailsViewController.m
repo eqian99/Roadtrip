@@ -40,7 +40,6 @@
         }
         else{
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            //formatter.dateFormat = @"E MMM d HH:mm Z y";
             formatter.dateFormat = @"yyyy-MM-dd HH:mm Z y";
             formatter.dateStyle = NSDateFormatterShortStyle;
             formatter.timeStyle = NSDateFormatterNoStyle;
@@ -70,6 +69,8 @@
         else{
             NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"300",event.photoReference]];
             
+            NSLog(@"Event photo url: %@", photoURL);
+            
             [self.coverImageView setImageWithURL: photoURL];
         }
     }
@@ -81,6 +82,9 @@
         self.addressRatingLabel.text = [NSString stringWithFormat: @"Rating: %@", landmark.rating];
         self.descriptionLabel.text = @"No description available";
         NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"500",landmark.photoReference]];
+        
+        NSLog(@"Landmark photo url: %@", photoURL);
+
         NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
         UIImage *image = [UIImage imageWithData:photoData];
         self.coverImageView.image = nil;

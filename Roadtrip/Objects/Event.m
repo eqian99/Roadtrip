@@ -90,31 +90,20 @@
         //Event description
         NSDictionary *nameDictionary = dictionary[@"name"];
         self.name = nameDictionary[@"text"];
-        
         self.category = dictionary[@"category_id"];
-        
         NSDictionary *descriptionDictionary = dictionary[@"description"];
         self.eventDescription = descriptionDictionary[@"text"];
-        
         self.eventSiteUrl = dictionary[@"url"];
         self.eventId = dictionary[@"id"];
-        
         if([dictionary[@"logo"] isKindOfClass:[NSNull class]]) {
-            
             NSLog(@"Doesn't have LOGOooooo");
-            
         } else {
-            
-            
             NSDictionary *logoDictionary = dictionary[@"logo"];
             NSDictionary *origialLogoDictionary = logoDictionary[@"original"];
             self.imageUrl = origialLogoDictionary[@"url"];
-            
-            
+            self.photoReference = origialLogoDictionary[@"url"];
         }
-        
         self.isGoogleEvent = NO;
-        
         self.venueId = dictionary[@"venue_id"];
         
         [[EventbriteManager new] getVenueWithId:self.venueId completion:^(NSDictionary *venue, NSError *error) {

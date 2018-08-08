@@ -99,7 +99,6 @@
                 
                 // add first 10 restaurants
                 for(int i = 0; i < numRestaurants; i++){
-                    
                     // make sure no duplicate restaurants
                     if([restaurantNames indexOfObject:restaurantsArray[i][@"name"]] == NSNotFound){
                         [self.restaurants addObject:restaurantsArray[i]];
@@ -124,9 +123,7 @@
 
     if([segue.identifier isEqualToString:@"detailsSegue"]){
         EventDetailsViewController *eventDetailsViewController = [segue destinationViewController];
-        
         eventDetailsViewController.activities = self.eventsSelected;
-        
         eventDetailsViewController.index = self.index;
     }
     else{
@@ -242,22 +239,36 @@
             for(int i = 0; i < self.eventsSelected.count; i++) {
                 PFObject *parseEvent = [PFObject objectWithClassName:@"Event"];
                 if([self.eventsSelected[i] isKindOfClass:[Event class]]) {
+                    
                     Event *event = self.eventsSelected[i];
                     parseEvent[@"name"] = event.name;
                     NSLog(@"%@", event.name);
+                    
                     if(event.eventDescription) {
+                        
                         parseEvent[@"startDate"] = event.startDate;
                         parseEvent[@"endDate"] = event.endDate;
                         parseEvent[@"venueId"] = event.venueId;
                         parseEvent[@"eventId"] = event.eventId;
                         parseEvent[@"address"] = event.address;
                         parseEvent[@"description"] = event.eventDescription;
+                        parseEvent[@"photoReference"] = event.photoReference;
+                        parseEvent[@"isMeal"] = [NSNumber numberWithBool:NO];
+                        parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
+                        parseEvent[@"isEvent"] = [NSNumber numberWithBool:YES];
+                        
                     } else {
+                        
                         parseEvent[@"startDate"] = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnix];
                         parseEvent[@"endDate"] = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnix];
                         parseEvent[@"venueId"] = @"Meal";
                         parseEvent[@"eventId"] = @"Meal";
                         parseEvent[@"description"] = @"Meal";
+                        parseEvent[@"isMeal"] = [NSNumber numberWithBool:YES];
+                        parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
+                        parseEvent[@"isEvent"] = [NSNumber numberWithBool:NO];
+
+                        
                     }
                     
                 } else if ([self.eventsSelected[i] isKindOfClass:[Landmark class]]) {
@@ -271,6 +282,13 @@
                     parseEvent[@"eventId"] = landmark.placeId;
                     parseEvent[@"venueId"] = @"Landmark";
                     parseEvent[@"address"] = landmark.address;
+                    parseEvent[@"description"] = @"No description";
+                    parseEvent[@"photoReference"] = landmark.photoReference;
+                    parseEvent[@"rating"] = landmark.rating;
+                    
+                    parseEvent[@"isMeal"] = [NSNumber numberWithBool:NO];
+                    parseEvent[@"isLandmark"] = [NSNumber numberWithBool:YES];
+                    parseEvent[@"isEvent"] = [NSNumber numberWithBool:NO];
                 }
                 
                 [parseEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {

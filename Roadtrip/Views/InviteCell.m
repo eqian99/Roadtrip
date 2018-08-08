@@ -49,6 +49,8 @@
 }
 
 - (IBAction)didTapDecline:(id)sender {
+    [self.invite deleteInBackground];
+    [self.delegate dismissController];
 }
 
 @end

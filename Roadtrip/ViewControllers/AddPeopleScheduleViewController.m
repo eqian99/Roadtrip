@@ -73,7 +73,7 @@
     PFUser *selectedFriend = self.friends[indexPath.row];
     PFObject *schedule = self.schedule.parseObject;
     NSString *friendName = [selectedFriend valueForKey:@"username"];
-    NSString *message = [NSString stringWithFormat:@"Add %@ ?", friendName];
+    NSString *message = [NSString stringWithFormat:@"Send invite to %@ ?", friendName];
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add friend?" message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         PFObject *selectedFriendNotifications = [selectedFriend valueForKey:@"userNotifications"];
@@ -92,6 +92,8 @@
                         NSLog(@"Error saving notification for friend");
                     }else{
                         NSLog(@"Successfully created notification for friend");
+                        
+                        [self dismissViewControllerAnimated:YES completion:nil];
                     }
                     
                 }];
@@ -100,8 +102,6 @@
         }];
         
     }];
-    
-    
     
     UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         

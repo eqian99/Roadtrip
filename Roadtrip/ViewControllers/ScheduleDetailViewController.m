@@ -11,7 +11,7 @@
 #import "ScheduleMembersViewController.h"
 #import "ScheduleEventCell.h"
 #import "Parse.h"
-
+#import "RestaurantChooserViewController.h"
 #import "Landmark.h"
 #import "Event.h"
 
@@ -50,31 +50,40 @@
             for(PFObject *activity in objects) {
                 NSString *name = [activity valueForKey:@"name"];
                 NSLog(@"%@" , name);
-                if([[activity valueForKey:@"venueId"] isEqualToString:@"Landmark"]) {
+                if([[activity valueForKey:@"isLandmark"] boolValue]) {
                     Landmark *landmark = [Landmark new];
                     landmark.placeId = [activity valueForKey:@"eventId"];
                     landmark.name = name;
+                    landmark.photoReference = [activity valueForKey:@"photoReference"];
                     NSDate *startDate = [activity valueForKey:@"startDate"];
                     NSDate *endDate = [activity valueForKey:@"endDate"];
                     landmark.startTimeUnixTemp = [startDate timeIntervalSince1970];
                     landmark.endTimeUnixTemp = [endDate timeIntervalSince1970];
                     landmark.address = [activity valueForKey:@"address"];
+                    landmark.rating = [activity valueForKey:@"rating"];
                     [self.events addObject:landmark];
                     MSEvent *landmarkEvent = [MSEvent make:startDate end:endDate title:name subtitle:landmark.address];
                     [self.podEvents addObject:landmarkEvent];
-                } else if([[activity valueForKey:@"venueId"] isEqualToString:@"Meal"]){
+                } else if([[activity valueForKey:@"isMeal"] boolValue]){
                     Event *meal = [Event new];
                     meal.name = name;
+                    meal.eventDescription = [activity valueForKey:@"description"];
                     NSDate *startDate = [activity valueForKey:@"startDate"];
                     NSDate *endDate = [activity valueForKey:@"endDate"];
                     meal.startTimeUnixTemp = [startDate timeIntervalSince1970];
                     meal.endTimeUnixTemp = [endDate timeIntervalSince1970];
+                    meal.isMeal = true;
                     [self.events addObject:meal];
                     MSEvent *mealEvent = [MSEvent make:startDate end:endDate title:name subtitle:@"Restaurant"];
                     [self.podEvents addObject:mealEvent];
                 } else {
+                    
                     Event *event = [Event new];
                     event.name = name;
+                    event.eventDescription = [activity valueForKey:@"description"];
+                    event.photoReference = [activity valueForKey:@"photoReference"];
+                    event.imageUrl = [activity valueForKey:@"photoReference"];
+                    
                     event.eventId = [activity valueForKey:@"eventId"];
                     event.venueId = [activity valueForKey:@"valueId"];
                     NSDate *startDate = [activity valueForKey:@"startDate"];
@@ -127,19 +136,25 @@
     } else if([[segue identifier] isEqualToString:@"shareScheduleSegue"]){
         ScheduleMembersViewController *viewController = [segue destinationViewController];
         viewController.schedule = self.schedule;
+    } else if([[segue identifier] isEqualToString:@"foodSegue"]){
+       
+        RestaurantChooserViewController *restaurantChooser = [segue destinationViewController];
+        restaurantChooser.restaurants = self.restaurants;
+//        restaurantChooser.delegate = self;
+//        restaurantChooser.index = (int)self.index;
+        
     }
 }
 - (void)weekView:(id)sender eventSelected:(MSEventCell *)eventCell {
     
     MSEvent *event = eventCell.event;
-    
     for(int i = 0; i < self.events.count; i++){
         if(self.podEvents[i] == event){
             self.indexSelected = i;
         }
     }
     [self performSegueWithIdentifier:@"eventDetailSegue" sender:self];
-    
+
 }
 
 

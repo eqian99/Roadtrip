@@ -67,36 +67,25 @@ static int const INDICATOR_SIZE = 200;
     //Change navigation item
     
     self.eventsSelected = 0;
-    
     self.didLoad = NO;
-    
     self.navigationItem.title = [NSString stringWithFormat:@"%@, %@", self.city, self.stateAndCountry];
-    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     //[self getMyEvents];
-    
     self.eventsSelected = [NSMutableArray new];
     self.landmarksSelected = [NSMutableArray new];
     self.landmarksAsEvents = [NSMutableArray new];
-    
     self.events = [NSMutableArray new];
     self.landmarks = [NSMutableArray new];
-    
     [self getEventsFromEventbrite];
     DirectionsViewController *directionsViewController;
-    
     [self getLandmarks:30000];
-    
     // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    
     self.navigationItem.title = self.city;
 }
 
@@ -104,10 +93,9 @@ static int const INDICATOR_SIZE = 200;
 - (IBAction)didChangeEventsLandmarksControl:(id)sender {
     
     if(self.eventsLandmarksControl.selectedSegmentIndex == (long)EVENTS) {
-        
+
         NSLog(@"Events selected");
         [self.tableView reloadData];
-        
     } else {
         
         NSLog(@"Landmarks selected");
@@ -119,27 +107,16 @@ static int const INDICATOR_SIZE = 200;
 -(void) getEventsFromEventbrite {
     
     NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:self.startOfDayUnix];
-    
     NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:self.endOfDayUnix];
-    
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    
     NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
-    
     [dateFormatter setTimeZone:timeZone];
-    
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
     NSString *startDateString = [dateFormatter stringFromDate:startDate];
-    
     startDateString = [startDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
-    
     NSString *endDateString = [dateFormatter stringFromDate:endDate];
-    
     endDateString = [endDateString stringByReplacingOccurrencesOfString:@" " withString:@"T"];
-    
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude, self.longitude);
-    
     // set light purple color
     UIColor *color = [UIColor colorWithRed:190.0f/255.0f green:169.0f/255.0f blue:247.0f/255.0f alpha:1.0];
     // create indicator
@@ -156,12 +133,9 @@ static int const INDICATOR_SIZE = 200;
     [[EventbriteManager new] getEventsWithCoordinates: coordinate withStartDateUTC:startDateString completion:^(NSArray *events, NSError *error) {
         
         if(error) {
-            
             NSLog(@"Error getting events with time ranges");
             self.didLoad = YES;
-            
         } else {
-            
             NSArray *eventsTemp = [Event eventsWithEventbriteArray:events];
             eventsTemp = [Event sortEventArrayByStartDate:eventsTemp];
             for(Event *event in eventsTemp) {
