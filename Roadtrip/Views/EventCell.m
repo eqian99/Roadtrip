@@ -51,7 +51,13 @@
         }
         else{
             NSString *startEndDate = [NSString stringWithFormat:@"%@ - %@", startDateString, endDateString];
-            self.startEndLabel.text = startEndDate;
+            [formatter setDateFormat:@"hh:mm a"];
+            [formatter setAMSymbol:@"AM"];
+            [formatter setPMSymbol:@"PM"];
+            NSString *startTimeString = [formatter stringFromDate:event.startDate];
+            NSString *endTimeString = [formatter stringFromDate:event.endDate];
+            NSString *startEndTime = [NSString stringWithFormat:@"%@ - %@", startTimeString, endTimeString];
+            self.startEndLabel.text = [NSString stringWithFormat:@"%@ %@", startEndDate, startEndTime];
         }
     }
     NSURL *posterURL = [NSURL URLWithString:event.imageUrl];

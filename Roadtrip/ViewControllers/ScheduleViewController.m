@@ -215,19 +215,38 @@
 -(void)weekView:(MSWeekView *)weekView event:(MSEvent *)event moved:(NSDate *)date{
     NSLog(@"Event moved");
     NSLog(@"%@", date);
+    for(int i = 0; i < self.eventsSelected.count; i++){
+        if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+            Event *myEvent = self.eventsSelected[i];
+            if([myEvent.name isEqualToString:event.title]){
+                int interval = myEvent.endTimeUnix - myEvent.startTimeUnix;
+                myEvent.startDate = date;
+                myEvent.startTimeUnix = [date timeIntervalSince1970];
+                myEvent.endTimeUnix = myEvent.startTimeUnixTemp + interval;
+                myEvent.endDate = [NSDate dateWithTimeIntervalSince1970:myEvent.endTimeUnix];
+                myEvent.startTimeUnixTemp = myEvent.startTimeUnix;
+                myEvent.endTimeUnixTemp = myEvent.endTimeUnix;
+            }
+        }
+        else{
+            Landmark *myLandmark = self.eventsSelected[i];
+            if([myLandmark.name isEqualToString:event.title]){
+                NSLog(@"Found the landmark");
+                int interval = myLandmark.endTimeUnixTemp - myLandmark.startTimeUnixTemp;
+                myLandmark.startTimeUnixTemp = [date timeIntervalSince1970];
+                myLandmark.endTimeUnixTemp = myLandmark.startTimeUnixTemp + interval;
+            }
+        }
+    }
 }
 
 -(BOOL)weekView:(MSWeekView*)weekView canStartMovingEvent:(MSEvent*)event{
     NSLog(@"%@", event.title);
     for(int i = 0; i < self.eventsSelected.count; i++){
-        NSLog(@"in here");
         if([self.eventsSelected[i] isKindOfClass:[Event class]]){
             Event *myEvent = self.eventsSelected[i];
             if([event.title isEqualToString:myEvent.name]){
-                NSLog(@"found it");
                 if(myEvent.isFlexible == NO){
-                    NSLog(@"%i", myEvent.isFlexible);
-                    NSLog(@"not flexible");
                     return NO;
                 }
                 return YES;
@@ -250,48 +269,23 @@
         }
     }
     return YES;
-    
-    //Example on how to return YES/NO from an async function (for example an alert)
-    /*NSCondition* condition = [NSCondition new];
-     BOOL __block shouldMove;
-     
-     RVAlertController* a = [RVAlertController alert:@"Move"
-     message:@"Do you want to move";
-     
-     
-     [a showAlertWithCompletion:^(NSInteger buttonIndex) {
-     shouldMove = (buttonIndex == RVALERT_OK);
-     [condition signal];
-     }];
-     
-     [condition lock];
-     [condition wait];
-     [condition unlock];
-     
-     return shouldMove;*/
 }
 
 -(BOOL)weekView:(MSWeekView*)weekView canChangeDuration:(MSEvent*)event startDate:(NSDate*)startDate endDate:(NSDate*)endDate{
-     NSLog(@"%@", event.title);
      for(int i = 0; i < self.eventsSelected.count; i++){
-     NSLog(@"in here");
-     if([self.eventsSelected[i] isKindOfClass:[Event class]]){
-     Event *myEvent = self.eventsSelected[i];
-     if([event.title isEqualToString:myEvent.name]){
-     NSLog(@"found it");
-     if(!myEvent.isFlexible){
-     NSLog(@"not flexible");
-     return NO;
-     }
-     return YES;
-     }
-     }
+         if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+            Event *myEvent = self.eventsSelected[i];
+             if([event.title isEqualToString:myEvent.name]){
+                 if(!myEvent.isFlexible){
+                    return NO;
+                 }
+                 return YES;
+             }
+         }
      }
      return YES;
 }
 -(void)weekView:(MSWeekView*)weekView event:(MSEvent*)event durationChanged:(NSDate*)startDate endDate:(NSDate*)endDate{
-    NSLog(@"Changed event duration");
-    NSLog(@"%@", endDate);
     for(int i = 0; i < self.eventsSelected.count; i++){
         if([self.eventsSelected[i] isKindOfClass:[Event class]]){
             Event *myEvent = self.eventsSelected[i];
@@ -507,6 +501,8 @@
                             if(error) {
                                 NSLog(@"Error saving schedule after adding events in events relation");
                             } else {
+                                
+                                [self.navigationController popToRootViewControllerAnimated:YES];
                                 
                                 [self createAlert:@"Schedule saved"];
 

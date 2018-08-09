@@ -8,7 +8,7 @@
 #import "Landmark.h"
 #import "Event.h"
 
-@interface ScheduleDetailViewController () <MSWeekViewDelegate>
+@interface ScheduleDetailViewController ()
 
 @end
 
@@ -18,9 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.podEvents = [NSMutableArray new];
-    self.decoratedWeekView = [MSWeekViewDecoratorFactory make:self.scheduleView
-                                                     features:(MSDragableEventFeature | MSChangeDurationFeature)
-                                                  andDelegate:self];
+    
     [self.scheduleView setDaysToShow:1];
     self.scheduleView.weekFlowLayout.show24Hours = YES;
     self.scheduleView.daysToShowOnScreen = 1;
@@ -142,90 +140,5 @@
     [self performSegueWithIdentifier:@"eventDetailSegue" sender:self];
 
 }
--(void)weekView:(MSWeekView *)weekView event:(MSEvent *)event moved:(NSDate *)date{
-    NSLog(@"Event moved");
-    NSLog(@"%@", date);
-}
-
--(BOOL)weekView:(MSWeekView*)weekView canStartMovingEvent:(MSEvent*)event{
-    NSLog(@"%@", event.title);
-    for(int i = 0; i < self.events.count; i++){
-        NSLog(@"in here");
-        if([self.events[i] isKindOfClass:[Event class]]){
-            Event *myEvent = self.events[i];
-            if([event.title isEqualToString:myEvent.name]){
-                NSLog(@"found it");
-                if(myEvent.isFlexible == NO){
-                    NSLog(@"%i", myEvent.isFlexible);
-                    NSLog(@"not flexible");
-                    return NO;
-                }
-                return YES;
-            }
-        }
-    }
-    return YES;
-}
-
--(BOOL)weekView:(MSWeekView *)weekView canMoveEvent:(MSEvent *)event to:(NSDate *)date{
-    for(int i = 0; i < self.events.count; i++){
-        if([self.events[i] isKindOfClass:[Event class]]){
-            Event *myEvent = self.events[i];
-            if([event.title isEqualToString:myEvent.name]){
-                if(myEvent.isFlexible == NO){
-                    return NO;
-                }
-                return YES;
-            }
-        }
-    }
-    return YES;
-    
-    //Example on how to return YES/NO from an async function (for example an alert)
-    /*NSCondition* condition = [NSCondition new];
-     BOOL __block shouldMove;
-     
-     RVAlertController* a = [RVAlertController alert:@"Move"
-     message:@"Do you want to move";
-     
-     
-     [a showAlertWithCompletion:^(NSInteger buttonIndex) {
-     shouldMove = (buttonIndex == RVALERT_OK);
-     [condition signal];
-     }];
-     
-     [condition lock];
-     [condition wait];
-     [condition unlock];
-     
-     return shouldMove;*/
-}
-
--(BOOL)weekView:(MSWeekView*)weekView canChangeDuration:(MSEvent*)event startDate:(NSDate*)startDate endDate:(NSDate*)endDate{
-    /*
-    NSLog(@"%@", event.title);
-    for(int i = 0; i < self.events.count; i++){
-        NSLog(@"in here");
-        if([self.events[i] isKindOfClass:[Event class]]){
-            Event *myEvent = self.events[i];
-            if([event.title isEqualToString:myEvent.name]){
-                NSLog(@"found it");
-                if(!myEvent.isFlexible){
-                    NSLog(@"not flexible");
-                    return NO;
-                }
-                return YES;
-            }
-        }
-    }
-    return YES;
-     */
-    return NO;
-}
--(void)weekView:(MSWeekView*)weekView event:(MSEvent*)event durationChanged:(NSDate*)startDate endDate:(NSDate*)endDate{
-    NSLog(@"Changed event duration");
-    NSLog(@"%@", endDate);
-}
-
 
 @end
