@@ -9,12 +9,20 @@
 #import "SignupViewController.h"
 #import <Parse/Parse.h>
 #import "MBProgressHUD.h"
+#import "JVFloatLabeledTextField.h"
+#import "JVFloatLabeledTextView.h"
+
+const static CGFloat kJVFieldHeight = 44.0f;
+const static CGFloat kJVFieldHMargin = 50.0f;
+
+const static CGFloat kJVFieldFontSize = 16.0f;
+const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 
 @interface SignupViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *emailField;
-@property (weak, nonatomic) IBOutlet UITextField *usernameField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
-@property (weak, nonatomic) IBOutlet UITextField *confirmPasswordField;
+@property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *emailField;
+@property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *usernameField;
+@property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *passwordField;
+@property (strong, nonatomic) IBOutlet JVFloatLabeledTextField *confirmPasswordField;
 
 @end
 
@@ -22,7 +30,95 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // textfield for signup
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+    [self.view setTintColor:[UIColor whiteColor]];
+#endif
+    
+    UIColor *floatingLabelColor = [UIColor whiteColor];
+    
+    self.usernameField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
+    self.usernameField.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Username", @"")
+                                    attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.usernameField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
+    self.usernameField.floatingLabelTextColor = floatingLabelColor;
+    self.usernameField.floatingLabelYPadding = 0;
+    self.usernameField.textColor = [UIColor whiteColor];
+    self.usernameField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.usernameField.keepBaseline = YES;
+    
+    // add white bottom border
+    CALayer *border_user = [CALayer layer];
+    CGFloat borderWidth = 2;
+    border_user.borderColor = [UIColor whiteColor].CGColor;
+    border_user.frame = CGRectMake(0, self.usernameField.frame.size.height - borderWidth, self.usernameField.frame.size.width, self.usernameField.frame.size.height);
+    border_user.borderWidth = borderWidth;
+    [self.usernameField.layer addSublayer:border_user];
+    self.usernameField.layer.masksToBounds = YES;
+    
+    self.passwordField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
+    self.passwordField.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Password", @"")
+                                    attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.passwordField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
+    self.passwordField.floatingLabelTextColor = floatingLabelColor;
+    self.passwordField.floatingLabelYPadding = 0;
+    self.passwordField.textColor = [UIColor whiteColor];
+    self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.passwordField.keepBaseline = YES;
+    
+    // add white bottom border
+    CALayer *border_pw = [CALayer layer];
+    border_pw.borderColor = [UIColor whiteColor].CGColor;
+    border_pw.frame = CGRectMake(0, self.passwordField.frame.size.height - borderWidth, self.passwordField.frame.size.width, self.passwordField.frame.size.height);
+    border_pw.borderWidth = borderWidth;
+    [self.passwordField.layer addSublayer:border_pw];
+    self.passwordField.layer.masksToBounds = YES;
+    
+    self.emailField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
+    self.emailField.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Password", @"")
+                                    attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.emailField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
+    self.emailField.floatingLabelTextColor = floatingLabelColor;
+    self.emailField.floatingLabelYPadding = 0;
+    self.emailField.textColor = [UIColor whiteColor];
+    self.emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.emailField.keepBaseline = YES;
+    
+    // add white bottom border
+    CALayer *border_email = [CALayer layer];
+    border_email.borderColor = [UIColor whiteColor].CGColor;
+    border_email.frame = CGRectMake(0, self.passwordField.frame.size.height - borderWidth, self.passwordField.frame.size.width, self.passwordField.frame.size.height);
+    border_email.borderWidth = borderWidth;
+    [self.passwordField.layer addSublayer:border_email];
+    self.passwordField.layer.masksToBounds = YES;
+    
+    self.confirmPasswordField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
+    self.confirmPasswordField.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Password", @"")
+                                    attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.confirmPasswordField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
+    self.confirmPasswordField.floatingLabelTextColor = floatingLabelColor;
+    self.confirmPasswordField.floatingLabelYPadding = 0;
+    self.confirmPasswordField.textColor = [UIColor whiteColor];
+    self.confirmPasswordField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.confirmPasswordField.keepBaseline = YES;
+    
+    // add white bottom border
+    CALayer *border_pw2 = [CALayer layer];
+    border_pw2.borderColor = [UIColor whiteColor].CGColor;
+    border_pw2.frame = CGRectMake(0, self.passwordField.frame.size.height - borderWidth, self.passwordField.frame.size.width, self.passwordField.frame.size.height);
+    border_pw2.borderWidth = borderWidth;
+    [self.passwordField.layer addSublayer:border_pw2];
+    self.passwordField.layer.masksToBounds = YES;
+    
+    [self.usernameField becomeFirstResponder];
+    
 }
 
 - (void)didReceiveMemoryWarning {

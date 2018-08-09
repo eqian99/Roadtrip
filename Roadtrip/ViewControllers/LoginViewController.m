@@ -28,7 +28,6 @@ const static CGFloat kJVFieldHeight = 44.0f;
 const static CGFloat kJVFieldHMargin = 50.0f;
 
 const static CGFloat kJVFieldFontSize = 16.0f;
-
 const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 
 
@@ -44,6 +43,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    // splash view to reveal login
     self.loginLabel.layer.masksToBounds = YES;
     self.loginLabel.layer.cornerRadius = 8.0;
     
@@ -54,12 +55,12 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     
     // CBZSplashView *splashView = [CBZSplashView splashViewWithBezierPath:bezier
                                                         //backgroundColor:color];
-    
     splashView.animationDuration = 1.8;
     
     [self.view addSubview:splashView];
     [splashView startAnimation];
     
+    // animated label "Wander"
     self.label = [[ZCAnimatedLabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width / 2 - 66, 150, 600, 200)];
     [self.view addSubview:self.label];
     
@@ -74,6 +75,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     
     [self animateLabelAppear:YES];
 
+    
+    // textfield for login
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
@@ -88,10 +91,9 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
                                     attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.usernameField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     self.usernameField.floatingLabelTextColor = floatingLabelColor;
-    self.usernameField.floatingLabelYPadding = -10.0f;
+    self.usernameField.floatingLabelYPadding = 0;
     self.usernameField.textColor = [UIColor whiteColor];
     self.usernameField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.usernameField.translatesAutoresizingMaskIntoConstraints = NO;
     self.usernameField.keepBaseline = YES;
     
     // add white bottom border
@@ -109,10 +111,9 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
                                     attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.passwordField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     self.passwordField.floatingLabelTextColor = floatingLabelColor;
-    self.passwordField.floatingLabelYPadding = -15.0f;
+    self.passwordField.floatingLabelYPadding = 0;
     self.passwordField.textColor = [UIColor whiteColor];
     self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.passwordField.translatesAutoresizingMaskIntoConstraints = NO;
     self.passwordField.keepBaseline = YES;
     
     // add white bottom border
@@ -123,14 +124,14 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [self.passwordField.layer addSublayer:border_pw];
     self.passwordField.layer.masksToBounds = YES;
 
-    // [self.usernameField becomeFirstResponder];
+    [self.usernameField becomeFirstResponder];
     
 }
 
 - (void) animateLabelAppear: (BOOL) appear
 {
     self.label.animationDuration = 0.2;
-    self.label.animationDelay = 0.3;
+    self.label.animationDelay = 0.25;
     self.label.text = @"Wander";
     NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     style.lineSpacing = 5;
@@ -184,10 +185,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 }
 
 - (void)didSignUp{
-
-
     [self performSegueWithIdentifier:@"mainSegue" sender:nil];
-
 }
 
 
