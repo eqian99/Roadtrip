@@ -22,6 +22,7 @@
                                                      features:(MSDragableEventFeature | MSChangeDurationFeature)
                                                   andDelegate:self];
     [self.scheduleView setDaysToShow:1];
+    self.scheduleView.weekFlowLayout.show24Hours = YES;
     self.scheduleView.daysToShowOnScreen = 1;
     self.scheduleView.daysToShow = 0;
     self.scheduleView.delegate = self;
@@ -109,20 +110,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.events.count;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ScheduleEventCell *cell = [tableView dequeueReusableCellWithIdentifier:@"scheduleEventCell" forIndexPath:indexPath];
-    if([self.events[indexPath.row] isKindOfClass:[Event class]]) {
-        Event *event = self.events[indexPath.row];
-        [cell setScheduleCellEvent:event];
-        NSLog(@"%f - %f", event.startTimeUnixTemp, event.endTimeUnixTemp);
-    } else if([self.events[indexPath.row] isKindOfClass:[Landmark class]]) {
-        [cell setScheduleCellLandmark:self.events[indexPath.row]];
-    }
-    return cell;
-}
+
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -157,6 +145,7 @@
 }
 -(void)weekView:(MSWeekView *)weekView event:(MSEvent *)event moved:(NSDate *)date{
     NSLog(@"Event moved");
+    NSLog(@"%@", date);
 }
 
 -(BOOL)weekView:(MSWeekView*)weekView canStartMovingEvent:(MSEvent*)event{
@@ -191,6 +180,7 @@
 }
 -(void)weekView:(MSWeekView*)weekView event:(MSEvent*)event durationChanged:(NSDate*)startDate endDate:(NSDate*)endDate{
     NSLog(@"Changed event duration");
+    NSLog(@"%@", endDate);
 }
 
 

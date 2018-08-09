@@ -341,19 +341,8 @@
                                     <action selector="didPressMap:" destination="reo-xb-MeA" eventType="touchUpInside" id="i8b-Ot-Ko2"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dFF-0S-zFi">
-                                <rect key="frame" x="16" y="125" width="343" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Events"/>
-                                    <segment title="Landmarks"/>
-                                </segments>
-                                <connections>
-                                    <action selector="didChangeEventsLandmarksControl:" destination="reo-xb-MeA" eventType="valueChanged" id="Rcc-J0-wPS"/>
-                                </connections>
-                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="186" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rrL-un-HEE">
-                                <rect key="frame" x="0.0" y="175" width="375" height="492"/>
+                                <rect key="frame" x="0.0" y="148" width="375" height="519"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -430,6 +419,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dFF-0S-zFi">
+                                <rect key="frame" x="0.0" y="112" width="375" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Events"/>
+                                    <segment title="Landmarks"/>
+                                </segments>
+                                <connections>
+                                    <action selector="didChangeEventsLandmarksControl:" destination="reo-xb-MeA" eventType="valueChanged" id="Rcc-J0-wPS"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="9p0-WQ-3KN"/>

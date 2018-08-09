@@ -246,16 +246,37 @@
                     
                     if(event.eventDescription) {
                         
-                        parseEvent[@"startDate"] = event.startDate;
-                        parseEvent[@"endDate"] = event.endDate;
-                        parseEvent[@"venueId"] = event.venueId;
-                        parseEvent[@"eventId"] = event.eventId;
-                        parseEvent[@"address"] = event.address;
-                        parseEvent[@"description"] = event.eventDescription;
-                        parseEvent[@"photoReference"] = event.photoReference;
-                        parseEvent[@"isMeal"] = [NSNumber numberWithBool:NO];
-                        parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
-                        parseEvent[@"isEvent"] = [NSNumber numberWithBool:YES];
+                        
+                        if(!event.isGoogleEvent){
+                            
+                            parseEvent[@"startDate"] = event.startDate;
+                            parseEvent[@"endDate"] = event.endDate;
+                            parseEvent[@"venueId"] = event.venueId;
+                            parseEvent[@"eventId"] = event.eventId;
+                            parseEvent[@"address"] = event.address;
+                            parseEvent[@"description"] = event.eventDescription;
+                            parseEvent[@"photoReference"] = event.photoReference;
+                            
+                            parseEvent[@"isMeal"] = [NSNumber numberWithBool:NO];
+                            parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
+                            parseEvent[@"isEvent"] = [NSNumber numberWithBool:YES];
+                            
+                        }
+                        else{
+                            NSDate *startDate = [NSDate dateWithTimeIntervalSince1970: event.startTimeUnixTemp];
+                            NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnixTemp];
+                            parseEvent[@"startDate"] = startDate;
+                            parseEvent[@"endDate"] = endDate;
+                            parseEvent[@"name"] = event.name;
+                            parseEvent[@"isGoogleEvent"] = [NSNumber numberWithBool:YES];
+                            parseEvent[@"address"] = event.address;
+                            parseEvent[@"description"] = @"No description";
+                            parseEvent[@"photoReference"] = event.photoReference;
+                            
+                            parseEvent[@"isMeal"] = [NSNumber numberWithBool:NO];
+                            parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
+                            parseEvent[@"isEvent"] = [NSNumber numberWithBool:NO];
+                        }
                         
                     } else {
                         

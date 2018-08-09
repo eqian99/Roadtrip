@@ -17,5 +17,6 @@ target 'Roadtrip' do
     pod 'Canvas'
     pod 'ZCAnimatedLabel'
     pod 'CBZSplashView', '~> 1.0.0'
+    pod 'LUNSegmentedControl'
 
 end
