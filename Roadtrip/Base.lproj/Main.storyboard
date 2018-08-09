@@ -1109,16 +1109,64 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OsZ-tq-xrL" customClass="MSWeekView">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="285" width="375" height="382"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cityClipart" translatesAutoresizingMaskIntoConstraints="NO" id="8RQ-YQ-RMc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="219"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIE-UP-egt">
+                                <rect key="frame" x="16" y="105" width="205" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="45"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amE-cY-cv2">
+                                <rect key="frame" x="265" y="153" width="94" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="22"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="segmentBackground" translatesAutoresizingMaskIntoConstraints="NO" id="c95-Dm-M5D">
+                                <rect key="frame" x="38" y="232" width="155" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEj-Iz-5Ge">
+                                <rect key="frame" x="99" y="241" width="33" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="scheduleIconWhite"/>
+                                <connections>
+                                    <action selector="didPressScheduleButton:" destination="Jmg-xU-BfW" eventType="touchUpInside" id="hWV-yQ-F6d"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pe5-5U-oeO">
+                                <rect key="frame" x="254" y="241" width="33" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="eventIconBlack"/>
+                                <connections>
+                                    <action selector="didPressButtonIcon:" destination="Jmg-xU-BfW" eventType="touchUpInside" id="hTQ-5c-y4O"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mcg-ec-7Ee"/>
                     </view>
                     <connections>
+                        <outlet property="cityLabel" destination="CIE-UP-egt" id="tPm-uF-ENJ"/>
+                        <outlet property="dateLabel" destination="amE-cY-cv2" id="GKX-Cf-8ag"/>
+                        <outlet property="eventButton" destination="Pe5-5U-oeO" id="JpS-6r-08E"/>
+                        <outlet property="scheduleButton" destination="UEj-Iz-5Ge" id="80w-qM-6Nf"/>
+                        <outlet property="scheduleCoverImage" destination="8RQ-YQ-RMc" id="vHk-kf-k51"/>
                         <outlet property="scheduleView" destination="OsZ-tq-xrL" id="gWF-vI-INc"/>
+                        <outlet property="segmentImageView" destination="c95-Dm-M5D" id="Htv-zq-Y1N"/>
                         <segue destination="cLY-R0-sch" kind="show" identifier="shareScheduleSegue" id="NnF-so-frq"/>
                         <segue destination="t23-fO-til" kind="show" identifier="eventDetailSegue" id="cQg-iJ-CkG"/>
                     </connections>
@@ -1626,11 +1674,15 @@
         <image name="blackLunch" width="85" height="69"/>
         <image name="calendar" width="512" height="512"/>
         <image name="cellBackground" width="353" height="178"/>
+        <image name="cityClipart" width="1920" height="1080"/>
+        <image name="eventIconBlack" width="33" height="33"/>
         <image name="notification" width="128" height="128"/>
         <image name="pin" width="128" height="128"/>
         <image name="placeholder" width="1280" height="960"/>
         <image name="profileShadow" width="115" height="112"/>
         <image name="profile_blank" width="720" height="720"/>
+        <image name="scheduleIconWhite" width="33" height="33"/>
+        <image name="segmentBackground" width="248" height="78"/>
         <image name="sf" width="1920" height="1200"/>
         <image name="tripShadow" width="302" height="206"/>
         <image name="uncheckBox" width="200" height="200"/>
@@ -1638,6 +1690,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RDT-4F-kit"/>
-        <segue reference="eNk-Lg-BIr"/>
+        <segue reference="cQg-iJ-CkG"/>
     </inferredMetricsTieBreakers>
 </document>

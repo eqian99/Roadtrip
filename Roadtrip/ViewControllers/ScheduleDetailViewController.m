@@ -7,6 +7,7 @@
 #import "RestaurantChooserViewController.h"
 #import "Landmark.h"
 #import "Event.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface ScheduleDetailViewController ()
 
@@ -18,12 +19,32 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.podEvents = [NSMutableArray new];
+    self.selectedView = 0;
+    
+    self.cityLabel.text = self.schedule.name;
+    [self.cityLabel sizeToFit];
+    
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [formatter setLocalizedDateFormatFromTemplate:@"MMMMd"];
+    NSLog(@"%@", [formatter stringFromDate:self.schedule.createdDate]);
+    self.dateLabel.text = [formatter stringFromDate:self.schedule.scheduleDate];
+    
+    [self.dateLabel sizeToFit];
+    
+    
+    NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"500",self.schedule.photoReference]];
+    NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
+    UIImage *image = [UIImage imageWithData:photoData];
+    self.scheduleCoverImage.image = nil;
+    self.scheduleCoverImage.image = image;
     
     [self.scheduleView setDaysToShow:1];
     self.scheduleView.weekFlowLayout.show24Hours = YES;
     self.scheduleView.daysToShowOnScreen = 1;
     self.scheduleView.daysToShow = 0;
     self.scheduleView.delegate = self;
+    
     
     self.events = [NSMutableArray new];
     UIBarButtonItem *customBtn=[[UIBarButtonItem alloc] initWithTitle:@"Members" style:UIBarButtonItemStylePlain target:self action:@selector(didClickShareButton)];
@@ -78,7 +99,6 @@
                     event.eventDescription = [activity valueForKey:@"eventDescription"];
                     event.photoReference = [activity valueForKey:@"photoReference"];
                     event.imageUrl = [activity valueForKey:@"photoReference"];
-                    
                     event.eventId = [activity valueForKey:@"eventId"];
                     event.venueId = [activity valueForKey:@"valueId"];
                     NSDate *startDate = [activity valueForKey:@"startDate"];
@@ -108,6 +128,50 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)didPressScheduleButton:(id)sender {
+    self.selectedView = 0;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        CGRect newRect = self.segmentImageView.frame;
+        
+        newRect.origin.x = self.scheduleButton.frame.origin.x - self.segmentImageView.frame.size.width / 2.5;
+        
+        self.segmentImageView.frame = newRect;
+        
+        
+        UIImage *whiteScheduleImage = [UIImage imageNamed:@"scheduleIconWhite"];
+        UIImage *blackEventImage = [UIImage imageNamed:@"eventIconBlack"];
+        [self.scheduleButton setImage:whiteScheduleImage forState:UIControlStateNormal];
+        [self.eventButton setImage:blackEventImage forState:UIControlStateNormal];
+        
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+}
+
+- (IBAction)didPressButtonIcon:(id)sender {
+    self.selectedView = 1;
+    [UIView animateWithDuration:0.5 animations:^{
+        CGRect newRect = self.segmentImageView.frame;
+        
+        newRect.origin.x = self.eventButton.frame.origin.x - self.segmentImageView.frame.size.width / 2.5;
+        
+        self.segmentImageView.frame = newRect;
+        
+        
+        UIImage *blackScheduleImage = [UIImage imageNamed:@"scheduleIconBlack"];
+        UIImage *whiteEventImage = [UIImage imageNamed:@"eventIconWhite"];
+        [self.scheduleButton setImage:blackScheduleImage forState:UIControlStateNormal];
+        [self.eventButton setImage:whiteEventImage forState:UIControlStateNormal];
+        
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -130,7 +194,6 @@
     }
 }
 - (void)weekView:(id)sender eventSelected:(MSEventCell *)eventCell {
-    
     MSEvent *event = eventCell.event;
     for(int i = 0; i < self.events.count; i++){
         if(self.podEvents[i] == event){
@@ -138,7 +201,6 @@
         }
     }
     [self performSegueWithIdentifier:@"eventDetailSegue" sender:self];
-
 }
 
 @end

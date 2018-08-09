@@ -13,6 +13,19 @@
 
 @interface ScheduleDetailViewController : UIViewController
 
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *scheduleCoverImage;
+@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *segmentImageView;
+@property (weak, nonatomic) IBOutlet UIButton *scheduleButton;
+@property (weak, nonatomic) IBOutlet UIButton *eventButton;
+
+
+@property (nonatomic) int selectedView;
+
+
 @property (strong, nonatomic) IBOutlet MSWeekView *scheduleView;
 @property (strong, nonatomic) NSMutableArray *events;
 @property (strong, nonatomic) NSMutableArray *podEvents;
