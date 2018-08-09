@@ -8,7 +8,7 @@
 #import "Landmark.h"
 #import "Event.h"
 
-@interface ScheduleDetailViewController () <UITableViewDelegate, UITableViewDataSource, MSWeekViewDelegate>
+@interface ScheduleDetailViewController () <MSWeekViewDelegate>
 
 @end
 
@@ -96,7 +96,6 @@
             }
             
             
-             
             self.scheduleView.daysToShowOnScreen = 1;
             self.scheduleView.daysToShow = 0;
             NSArray *eventsForScheduleView = [self.podEvents copy];
@@ -149,10 +148,37 @@
 }
 
 -(BOOL)weekView:(MSWeekView*)weekView canStartMovingEvent:(MSEvent*)event{
+    NSLog(@"%@", event.title);
+    for(int i = 0; i < self.events.count; i++){
+        NSLog(@"in here");
+        if([self.events[i] isKindOfClass:[Event class]]){
+            Event *myEvent = self.events[i];
+            if([event.title isEqualToString:myEvent.name]){
+                NSLog(@"found it");
+                if(myEvent.isFlexible == NO){
+                    NSLog(@"%i", myEvent.isFlexible);
+                    NSLog(@"not flexible");
+                    return NO;
+                }
+                return YES;
+            }
+        }
+    }
     return YES;
 }
 
 -(BOOL)weekView:(MSWeekView *)weekView canMoveEvent:(MSEvent *)event to:(NSDate *)date{
+    for(int i = 0; i < self.events.count; i++){
+        if([self.events[i] isKindOfClass:[Event class]]){
+            Event *myEvent = self.events[i];
+            if([event.title isEqualToString:myEvent.name]){
+                if(myEvent.isFlexible == NO){
+                    return NO;
+                }
+                return YES;
+            }
+        }
+    }
     return YES;
     
     //Example on how to return YES/NO from an async function (for example an alert)
@@ -176,7 +202,25 @@
 }
 
 -(BOOL)weekView:(MSWeekView*)weekView canChangeDuration:(MSEvent*)event startDate:(NSDate*)startDate endDate:(NSDate*)endDate{
+    /*
+    NSLog(@"%@", event.title);
+    for(int i = 0; i < self.events.count; i++){
+        NSLog(@"in here");
+        if([self.events[i] isKindOfClass:[Event class]]){
+            Event *myEvent = self.events[i];
+            if([event.title isEqualToString:myEvent.name]){
+                NSLog(@"found it");
+                if(!myEvent.isFlexible){
+                    NSLog(@"not flexible");
+                    return NO;
+                }
+                return YES;
+            }
+        }
+    }
     return YES;
+     */
+    return NO;
 }
 -(void)weekView:(MSWeekView*)weekView event:(MSEvent*)event durationChanged:(NSDate*)startDate endDate:(NSDate*)endDate{
     NSLog(@"Changed event duration");

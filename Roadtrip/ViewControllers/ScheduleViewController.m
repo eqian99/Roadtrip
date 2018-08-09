@@ -22,6 +22,7 @@
 
 
 @property (weak, nonatomic) IBOutlet MSWeekView *scheduleView;
+@property (strong, nonatomic) MSWeekView *decoratedWeekView;
 
 @property (strong, nonatomic) NSMutableArray *restaurants;
 @property (assign, nonatomic)long index;
@@ -33,6 +34,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.podEvents = [NSMutableArray new];
+    self.decoratedWeekView = [MSWeekViewDecoratorFactory make:self.scheduleView
+                                                     features:(MSDragableEventFeature | MSChangeDurationFeature)
+                                                  andDelegate:self];
     
     [self.scheduleView setDaysToShow:1];
     self.scheduleView.weekFlowLayout.show24Hours = YES;
@@ -208,6 +212,108 @@
     }
 }
 
+-(void)weekView:(MSWeekView *)weekView event:(MSEvent *)event moved:(NSDate *)date{
+    NSLog(@"Event moved");
+    NSLog(@"%@", date);
+}
+
+-(BOOL)weekView:(MSWeekView*)weekView canStartMovingEvent:(MSEvent*)event{
+    NSLog(@"%@", event.title);
+    for(int i = 0; i < self.eventsSelected.count; i++){
+        NSLog(@"in here");
+        if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+            Event *myEvent = self.eventsSelected[i];
+            if([event.title isEqualToString:myEvent.name]){
+                NSLog(@"found it");
+                if(myEvent.isFlexible == NO){
+                    NSLog(@"%i", myEvent.isFlexible);
+                    NSLog(@"not flexible");
+                    return NO;
+                }
+                return YES;
+            }
+        }
+    }
+    return YES;
+}
+
+-(BOOL)weekView:(MSWeekView *)weekView canMoveEvent:(MSEvent *)event to:(NSDate *)date{
+    for(int i = 0; i < self.eventsSelected.count; i++){
+        if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+            Event *myEvent = self.eventsSelected[i];
+            if([event.title isEqualToString:myEvent.name]){
+                if(myEvent.isFlexible == NO){
+                    return NO;
+                }
+                return YES;
+            }
+        }
+    }
+    return YES;
+    
+    //Example on how to return YES/NO from an async function (for example an alert)
+    /*NSCondition* condition = [NSCondition new];
+     BOOL __block shouldMove;
+     
+     RVAlertController* a = [RVAlertController alert:@"Move"
+     message:@"Do you want to move";
+     
+     
+     [a showAlertWithCompletion:^(NSInteger buttonIndex) {
+     shouldMove = (buttonIndex == RVALERT_OK);
+     [condition signal];
+     }];
+     
+     [condition lock];
+     [condition wait];
+     [condition unlock];
+     
+     return shouldMove;*/
+}
+
+-(BOOL)weekView:(MSWeekView*)weekView canChangeDuration:(MSEvent*)event startDate:(NSDate*)startDate endDate:(NSDate*)endDate{
+     NSLog(@"%@", event.title);
+     for(int i = 0; i < self.eventsSelected.count; i++){
+     NSLog(@"in here");
+     if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+     Event *myEvent = self.eventsSelected[i];
+     if([event.title isEqualToString:myEvent.name]){
+     NSLog(@"found it");
+     if(!myEvent.isFlexible){
+     NSLog(@"not flexible");
+     return NO;
+     }
+     return YES;
+     }
+     }
+     }
+     return YES;
+}
+-(void)weekView:(MSWeekView*)weekView event:(MSEvent*)event durationChanged:(NSDate*)startDate endDate:(NSDate*)endDate{
+    NSLog(@"Changed event duration");
+    NSLog(@"%@", endDate);
+    for(int i = 0; i < self.eventsSelected.count; i++){
+        if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+            Event *myEvent = self.eventsSelected[i];
+            if([myEvent.name isEqualToString:event.title]){
+                myEvent.startDate = startDate;
+                myEvent.endDate = endDate;
+                myEvent.startTimeUnix = [startDate timeIntervalSince1970];
+                myEvent.endTimeUnix = [endDate timeIntervalSince1970];
+                myEvent.startTimeUnixTemp = [startDate timeIntervalSince1970];
+                myEvent.endTimeUnixTemp = [endDate timeIntervalSince1970];
+            }
+        }
+        else{
+            Landmark *myLandmark = self.eventsSelected[i];
+            if([myLandmark.name isEqualToString:event.title]){
+                NSLog(@"Found the landmark");
+                myLandmark.startTimeUnixTemp = [startDate timeIntervalSince1970];
+                myLandmark.endTimeUnixTemp = [endDate timeIntervalSince1970];
+            }
+        }
+    }
+}
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ScheduleCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ScheduleCell"];
