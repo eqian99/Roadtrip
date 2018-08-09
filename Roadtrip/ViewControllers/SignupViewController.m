@@ -81,7 +81,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     
     self.emailField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     self.emailField.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Password", @"")
+    [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Email", @"")
                                     attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.emailField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     self.emailField.floatingLabelTextColor = floatingLabelColor;
@@ -93,14 +93,14 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     // add white bottom border
     CALayer *border_email = [CALayer layer];
     border_email.borderColor = [UIColor whiteColor].CGColor;
-    border_email.frame = CGRectMake(0, self.passwordField.frame.size.height - borderWidth, self.passwordField.frame.size.width, self.passwordField.frame.size.height);
+    border_email.frame = CGRectMake(0, self.passwordField.frame.size.height - borderWidth, self.emailField.frame.size.width, self.emailField.frame.size.height);
     border_email.borderWidth = borderWidth;
-    [self.passwordField.layer addSublayer:border_email];
-    self.passwordField.layer.masksToBounds = YES;
+    [self.emailField.layer addSublayer:border_email];
+    self.emailField.layer.masksToBounds = YES;
     
     self.confirmPasswordField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     self.confirmPasswordField.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Password", @"")
+    [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Confirm email", @"")
                                     attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.confirmPasswordField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     self.confirmPasswordField.floatingLabelTextColor = floatingLabelColor;
@@ -112,12 +112,12 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     // add white bottom border
     CALayer *border_pw2 = [CALayer layer];
     border_pw2.borderColor = [UIColor whiteColor].CGColor;
-    border_pw2.frame = CGRectMake(0, self.passwordField.frame.size.height - borderWidth, self.passwordField.frame.size.width, self.passwordField.frame.size.height);
+    border_pw2.frame = CGRectMake(0, self.passwordField.frame.size.height - borderWidth, self.confirmPasswordField.frame.size.width, self.confirmPasswordField.frame.size.height);
     border_pw2.borderWidth = borderWidth;
-    [self.passwordField.layer addSublayer:border_pw2];
-    self.passwordField.layer.masksToBounds = YES;
+    [self.confirmPasswordField.layer addSublayer:border_pw2];
+    self.confirmPasswordField.layer.masksToBounds = YES;
     
-    [self.usernameField becomeFirstResponder];
+    [self.emailField becomeFirstResponder];
     
 }
 
