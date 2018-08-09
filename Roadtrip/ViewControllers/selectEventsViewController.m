@@ -346,6 +346,7 @@ static int const INDICATOR_SIZE = 200;
         
         NSArray * allEvents = [self.eventsArray arrayByAddingObjectsFromArray:self.longEventsArray];
         allEvents = [allEvents arrayByAddingObjectsFromArray:self.landmarksArray];
+        
         scheduleViewController.city = self.city;
         scheduleViewController.eventsSelected = allEvents;
         scheduleViewController.startOfDayUnix = self.startOfDayUnix;

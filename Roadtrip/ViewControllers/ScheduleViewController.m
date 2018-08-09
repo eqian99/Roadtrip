@@ -15,10 +15,14 @@
 #import <EventKit/EventKit.h>
 #import "YelpManager.h"
 #import "RestaurantChooserViewController.h"
+#import "MSWeekViewDecoratorFactory.h"
 #import "MBProgressHUD.h"
 
-@interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate, RestaurantChooserViewControllerDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate, RestaurantChooserViewControllerDelegate, MSWeekViewDelegate>
+
+
+@property (weak, nonatomic) IBOutlet MSWeekView *scheduleView;
+
 @property (strong, nonatomic) NSMutableArray *restaurants;
 @property (assign, nonatomic)long index;
 
@@ -28,10 +32,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    self.podEvents = [NSMutableArray new];
+    
+    [self.scheduleView setDaysToShow:1];
+    self.scheduleView.weekFlowLayout.show24Hours = YES;
+    self.scheduleView.daysToShowOnScreen = 1;
+    self.scheduleView.daysToShow = 0;
+    self.scheduleView.delegate = self;
+    
     self.eventsSelected = [Event sortEventArrayByStartDate:self.eventsSelected];
     self.navigationController.navigationBar.topItem.title = @"";
+    
+    [self populateScheduleView];
+    
+    
 }
 
 
@@ -39,6 +53,66 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)populateScheduleView {
+    for(int i = 0; i < self.eventsSelected.count; i++){
+        if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+            Event *event = self.eventsSelected[i];
+            
+            if(event.isMeal) {
+                NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnixTemp];
+                NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnixTemp];
+                MSEvent *mealEvent = [MSEvent make:startDate end:endDate title:event.name subtitle: @"Restaurant"];
+                [self.podEvents addObject:mealEvent];
+                
+            } else if(event.isGoogleEvent) {
+                
+                NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnixTemp];
+                NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnixTemp];
+                MSEvent *googleEvent = [MSEvent make:startDate end:endDate title:event.name subtitle: event.address];
+                [self.podEvents addObject:googleEvent];
+                
+            } else {
+                
+                NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnixTemp];
+                NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnixTemp];
+                MSEvent *msEvent = [MSEvent make:startDate end:endDate title:event.name subtitle: event.address];
+                [self.podEvents addObject: msEvent];
+                
+            }
+            
+        }
+        else{
+            
+            Landmark *landmark = self.eventsSelected[i];
+            
+            NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:landmark.startTimeUnixTemp];
+            NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:landmark.endTimeUnixTemp];
+            MSEvent *landmarkEvent = [MSEvent make:startDate end:endDate title:landmark.name subtitle: landmark.address];
+            [self.podEvents addObject: landmarkEvent];
+            
+        }
+    }
+    
+    self.scheduleView.daysToShowOnScreen = 1;
+    self.scheduleView.daysToShow = 0;
+    NSArray *eventsForScheduleView = [self.podEvents copy];
+    NSLog(@"Event #: %lu", eventsForScheduleView.count);
+    self.scheduleView.events = eventsForScheduleView;
+    
+}
+
+
+- (void)weekView:(id)sender eventSelected:(MSEventCell *)eventCell {
+    MSEvent *event = eventCell.event;
+    for(int i = 0; i < self.eventsSelected.count; i++){
+        if(self.podEvents[i] == event){
+            self.index = i;
+        }
+    }
+    [self performSegueWithIdentifier:@"detailsSegue" sender:self];
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.index = indexPath.row;
@@ -221,6 +295,8 @@
     [schedule setValue:scheduleDate forKey:@"date"];
     [schedule setObject:[PFUser currentUser] forKey:@"Creator"];
     [schedule setValue:self.photoReference forKey:@"photoReference"];
+    [schedule setValue: [NSNumber numberWithDouble:self.latitude] forKey:@"latitude"];
+    [schedule setValue:[NSNumber numberWithDouble:self.longitude] forKey:@"longitude"];
     PFRelation *scheduleMembersRelation = [schedule relationForKey:@"members"];
     [scheduleMembersRelation addObject:[PFUser currentUser]];
     [schedule saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
@@ -257,6 +333,7 @@
                             parseEvent[@"description"] = event.eventDescription;
                             parseEvent[@"photoReference"] = event.photoReference;
                             
+                            parseEvent[@"isGoogleEvent"] = [NSNumber numberWithBool:NO];
                             parseEvent[@"isMeal"] = [NSNumber numberWithBool:NO];
                             parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
                             parseEvent[@"isEvent"] = [NSNumber numberWithBool:YES];
@@ -268,11 +345,11 @@
                             parseEvent[@"startDate"] = startDate;
                             parseEvent[@"endDate"] = endDate;
                             parseEvent[@"name"] = event.name;
-                            parseEvent[@"isGoogleEvent"] = [NSNumber numberWithBool:YES];
                             parseEvent[@"address"] = event.address;
                             parseEvent[@"description"] = @"No description";
                             parseEvent[@"photoReference"] = event.photoReference;
                             
+                            parseEvent[@"isGoogleEvent"] = [NSNumber numberWithBool:YES];
                             parseEvent[@"isMeal"] = [NSNumber numberWithBool:NO];
                             parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
                             parseEvent[@"isEvent"] = [NSNumber numberWithBool:NO];
@@ -285,6 +362,8 @@
                         parseEvent[@"venueId"] = @"Meal";
                         parseEvent[@"eventId"] = @"Meal";
                         parseEvent[@"description"] = @"Meal";
+                        
+                        parseEvent[@"isGoogleEvent"] = [NSNumber numberWithBool:NO];
                         parseEvent[@"isMeal"] = [NSNumber numberWithBool:YES];
                         parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
                         parseEvent[@"isEvent"] = [NSNumber numberWithBool:NO];
@@ -307,6 +386,7 @@
                     parseEvent[@"photoReference"] = landmark.photoReference;
                     parseEvent[@"rating"] = landmark.rating;
                     
+                    parseEvent[@"isGoogleEvent"] = [NSNumber numberWithBool:NO];
                     parseEvent[@"isMeal"] = [NSNumber numberWithBool:NO];
                     parseEvent[@"isLandmark"] = [NSNumber numberWithBool:YES];
                     parseEvent[@"isEvent"] = [NSNumber numberWithBool:NO];
@@ -372,7 +452,6 @@
     Event *myEvent = self.eventsSelected[index];
     myEvent.name = name;
     myEvent.address = address;
-    [self.tableView reloadData];
 }
 
 
