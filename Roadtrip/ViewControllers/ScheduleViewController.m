@@ -39,7 +39,7 @@
                                                   andDelegate:self];
     
     [self.scheduleView setDaysToShow:1];
-    self.scheduleView.weekFlowLayout.show24Hours = YES;
+    //self.scheduleView.weekFlowLayout.show24Hours = YES;
     self.scheduleView.daysToShowOnScreen = 1;
     self.scheduleView.daysToShow = 0;
     self.scheduleView.delegate = self;
@@ -66,7 +66,7 @@
             if(event.isMeal) {
                 NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnixTemp];
                 NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnixTemp];
-                MSEvent *mealEvent = [MSEvent make:startDate end:endDate title:event.name subtitle: @"Restaurant"];
+                MSEvent *mealEvent = [MSEvent make:startDate end:endDate title:event.name subtitle:event.address];
                 [self.podEvents addObject:mealEvent];
                 
             } else if(event.isGoogleEvent) {
@@ -436,9 +436,8 @@
                 [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
             }
         }
-        
-        [self createAlert:@"Schedule saved to your calendar!"];
     }];
+    [self createAlert:@"Schedule saved to your calendar!"];
     
 }
 
@@ -612,33 +611,22 @@
     [self presentViewController:alert animated:true completion:nil];
 }
 
-/*
- for(int i = 0; i < self.eventsSelected.count; i++){
- if([self.eventsSelected[i] isKindOfClass:[Event class]]){
- Event * myEvent = self.eventsSelected[i];
- if([myEvent.name isEqualToString:@"Breakfast"] || [myEvent.name isEqualToString:@"Lunch"] || [myEvent.name isEqualToString:@"Dinner"]){
- [[YelpManager new]getRestaurantsWithLatitude:self.latitude withLongitude:self.longitude withCompletion:^(NSArray *restaurantsArray, NSError *error) {
- if(error){
- NSLog(@"There was an error");
- }
- else{
- NSLog(@"%@", restaurantsArray);
- NSDictionary *restaurantsDict = restaurantsArray[0];
- myEvent.name = restaurantsDict[@"name"];
- [self.tableView reloadData];
- }
- }];
- }
- }
- }
- */
-
-
 -(void) didSave:(int)index withName:(NSString *)name withAddress:(NSString *)address{
-    [self createAlert:@"Your restaurant has been saved to your schedule"];
     Event *myEvent = self.eventsSelected[index];
     myEvent.name = name;
     myEvent.address = address;
+    Event *event = self.eventsSelected[index];
+    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnixTemp];
+    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnixTemp];
+    MSEvent *mealEvent = [MSEvent make:startDate end:endDate title:name subtitle:address];
+    self.podEvents[index] = mealEvent;
+    //msEvent.subtitle = address;
+    self.scheduleView.events = @[];
+    self.scheduleView.events = [self.podEvents copy];
+    //[self populateScheduleView];
+    //MSEvent *msEvent = self.podEvents[index];
+    //msEvent.title = name;
+    //msEvent.subtitle = address;
 }
 
 

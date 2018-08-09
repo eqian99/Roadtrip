@@ -26,14 +26,22 @@
     self.citySearchController = [[UISearchController alloc]initWithSearchResultsController:locationTableViewController];
     self.citySearchController.searchResultsUpdater = locationTableViewController;
     self.citySearchController.delegate = self;
-    UISearchBar *searchBar = self.citySearchController.searchBar;
-    [searchBar sizeToFit];
-    searchBar.placeholder = @"Search for cities";
+    UISearchBar *mySearchBar = self.citySearchController.searchBar;
+    [mySearchBar sizeToFit];
+    mySearchBar.placeholder = @"Search for cities";
     self.navigationItem.titleView = self.citySearchController.searchBar;
     self.citySearchController.hidesNavigationBarDuringPresentation = false;
     self.citySearchController.dimsBackgroundDuringPresentation = true;
     self.definesPresentationContext = true;
     locationTableViewController.cityDelegate = self;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [self.citySearchController.searchBar becomeFirstResponder];
+    self.citySearchController.active = YES;
+    
+    [self.citySearchController becomeFirstResponder];
+    [super viewDidAppear:YES];
 }
 
 - (void)didReceiveMemoryWarning {

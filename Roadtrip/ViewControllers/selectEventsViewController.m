@@ -30,7 +30,7 @@ static int const LANDMARKS = 1;
 // Constant for activity indicator size
 static int const INDICATOR_SIZE = 200;
 
-@interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate, EventCellDelegate, LUNSegmentedControlDataSource, LUNSegmentedControlDelegate>
+@interface selectEventsViewController () <UITableViewDataSource, UITableViewDelegate, EventCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *events;
 @property (strong, nonatomic) NSMutableArray *eventsSelected;
@@ -59,7 +59,6 @@ static int const INDICATOR_SIZE = 200;
 @property (nonatomic, assign) Boolean didLoad;
 @property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 
-@property (weak, nonatomic) IBOutlet LUNSegmentedControl *customSegmentedControl;
 @end
 
 @implementation selectEventsViewController
@@ -81,8 +80,6 @@ static int const INDICATOR_SIZE = 200;
     self.events = [NSMutableArray new];
     self.landmarks = [NSMutableArray new];
     [self getEventsFromEventbrite];
-    self.customSegmentedControl.dataSource = self;
-    self.customSegmentedControl.delegate = self;
     [self getLandmarks:30000];
     // Do any additional setup after loading the view.
 }
@@ -91,49 +88,6 @@ static int const INDICATOR_SIZE = 200;
     [super viewWillAppear:YES];
     self.navigationItem.title = self.city;
 }
-
-- (NSArray<UIColor *> *)segmentedControl:(LUNSegmentedControl *)segmentedControl gradientColorsForStateAtIndex:(NSInteger)index {
-    switch (index) {
-        case 0:
-            
-            return @[[UIColor colorWithRed:160 / 255.0 green:223 / 255.0 blue:56 / 255.0 alpha:1.0], [UIColor colorWithRed:177 / 255.0 green:255 / 255.0 blue:0 / 255.0 alpha:1.0]];
-            
-            break;
-            
-        case 1:
-            
-            return @[[UIColor colorWithRed:78 / 255.0 green:252 / 255.0 blue:208 / 255.0 alpha:1.0], [UIColor colorWithRed:51 / 255.0 green:199 / 255.0 blue:244 / 255.0 alpha:1.0]];
-            
-            break;
-            
-        case 2:
-            
-            return @[[UIColor colorWithRed:178 / 255.0 green:0 / 255.0 blue:235 / 255.0 alpha:1.0], [UIColor colorWithRed:233 / 255.0 green:0 / 255.0 blue:147 / 255.0 alpha:1.0]];
-            break;
-            
-        default:
-            break;
-    }
-    
-    return nil;
-}
-
-- (NSInteger)numberOfStatesInSegmentedControl:(LUNSegmentedControl *)segmentedControl {
-    NSLog(@"I made it woop woop!");
-    return 3;
-}
-
-- (NSAttributedString *)segmentedControl:(LUNSegmentedControl *)segmentedControl attributedTitleForStateAtIndex:(NSInteger)index {
-    NSLog(@"Im here");
-    return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"TAB %li",(long)index] attributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:16]}];
-}
-
-- (NSAttributedString *)segmentedControl:(LUNSegmentedControl *)segmentedControl attributedTitleForSelectedStateAtIndex:(NSInteger)index {
-    NSLog(@"Im here");
-    NSLog(@"%ld", (long)index);
-    return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"TAB %li",(long)index]]; //attributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:16]}];
-}
-
 
 - (IBAction)didChangeEventsLandmarksControl:(id)sender {
     
@@ -740,7 +694,9 @@ static int const INDICATOR_SIZE = 200;
         breakfast.startTimeUnixTemp = breakfast.startTimeUnix;
         breakfast.endTimeUnixTemp = breakfast.endTimeUnix;
         breakfast.isMeal = YES;
+        breakfast.isFlexible = YES;
         breakfast.isBreakfast = YES;
+        breakfast.address = @"Restaurant";
         [self.eventsArray addObject:breakfast];
     }
     
@@ -752,6 +708,8 @@ static int const INDICATOR_SIZE = 200;
         lunch.startTimeUnixTemp = lunch.startTimeUnix;
         lunch.endTimeUnixTemp = lunch.endTimeUnix;
         lunch.isMeal = YES;
+        lunch.isFlexible = YES;
+        lunch.address = @"Restaurant";
         [self.eventsArray addObject:lunch];
     }
     
@@ -763,6 +721,8 @@ static int const INDICATOR_SIZE = 200;
         dinner.startTimeUnixTemp = dinner.startTimeUnix;
         dinner.endTimeUnixTemp = dinner.endTimeUnix;
         dinner.isMeal = YES;
+        dinner.isFlexible = YES;
+        dinner.address = @"Restaurant";
         [self.eventsArray addObject:dinner];
     }
     
