@@ -62,7 +62,7 @@
                 } else if([[activity valueForKey:@"isMeal"] boolValue]){
                     Event *meal = [Event new];
                     meal.name = name;
-                    meal.eventDescription = [activity valueForKey:@"description"];
+                    meal.eventDescription = [activity valueForKey:@"eventDescription"];
                     NSDate *startDate = [activity valueForKey:@"startDate"];
                     NSDate *endDate = [activity valueForKey:@"endDate"];
                     meal.startTimeUnixTemp = [startDate timeIntervalSince1970];
@@ -75,7 +75,7 @@
                     
                     Event *event = [Event new];
                     event.name = name;
-                    event.eventDescription = [activity valueForKey:@"description"];
+                    event.eventDescription = [activity valueForKey:@"eventDescription"];
                     event.photoReference = [activity valueForKey:@"photoReference"];
                     event.imageUrl = [activity valueForKey:@"photoReference"];
                     

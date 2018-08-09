@@ -114,7 +114,89 @@
             self.index = i;
         }
     }
-    [self performSegueWithIdentifier:@"detailsSegue" sender:self];
+    if([self.eventsSelected[self.index] isKindOfClass:[Event class]]){
+        Event *event = self.eventsSelected[self.index];
+        if(event.isMeal) {
+            [self goToRestaurants];
+        } else {
+            [self performSegueWithIdentifier:@"detailsSegue" sender:self];
+        }
+    } else {
+        [self performSegueWithIdentifier:@"detailsSegue" sender:self];
+    }
+}
+
+- (void) goToRestaurants {
+    
+    Event *myEvent = self.eventsSelected[self.index];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    double latitude;
+    double longitude;
+    if(self.eventsSelected.count == 0){
+        latitude = self.latitude;
+        longitude = self.longitude;
+        myEvent.latitude = [NSString stringWithFormat:@"%f", latitude];
+        myEvent.longitude = [NSString stringWithFormat:@"%f", longitude];
+    }
+    if(self.index == 0){
+        Event *nextEvent = self.eventsSelected[1];
+        latitude = [nextEvent.latitude doubleValue];
+        longitude = [nextEvent.longitude doubleValue];
+        myEvent.latitude = [NSString stringWithFormat:@"%f", latitude];
+        myEvent.longitude = [NSString stringWithFormat:@"%f", longitude];
+    }
+    else if(self.index == self.eventsSelected.count){
+        Event *prevEvent = self.eventsSelected[self.eventsSelected.count - 2];
+        latitude = [prevEvent.latitude doubleValue];
+        longitude = [prevEvent.longitude doubleValue];
+        myEvent.latitude = [NSString stringWithFormat:@"%f", latitude];
+        myEvent.longitude = [NSString stringWithFormat:@"%f", longitude];
+    }
+    else{
+        Event *prevEvent = self.eventsSelected[self.index - 1];
+        latitude = [prevEvent.latitude doubleValue];
+        longitude = [prevEvent.longitude doubleValue];
+        myEvent.latitude = [NSString stringWithFormat:@"%f", latitude];
+        myEvent.longitude = [NSString stringWithFormat:@"%f", longitude];
+    }
+    
+    NSArray *categories;
+    if(myEvent.isBreakfast){
+        categories = @[@"danish", @"congee", @"bagels", @"coffee"];
+    }
+    else{
+        categories = @[@"burgers", @"chinese", @"buffets", @"chicken_wings", @"flatbread", @"food_cout", @"french", @"japanese", @"korean", @"jewish", @"kebab", @"mexican", @"pizza"];
+    }
+    [[YelpManager new]getRestaurantsWithLatitude:latitude withLongitude:longitude withCategories:categories withCompletion:^(NSArray *restaurantsArray, NSError *error) {
+        if(error){
+            NSLog(@"error");
+        }
+        else{
+            self.restaurants = [NSMutableArray new];
+            int numRestaurants;
+            if(restaurantsArray.count < 10){
+                numRestaurants = (int)restaurantsArray.count;
+            }
+            else{
+                numRestaurants = 10;
+            }
+            NSMutableArray *restaurantNames = [NSMutableArray new];
+            
+            // add first 10 restaurants
+            for(int i = 0; i < numRestaurants; i++){
+                // make sure no duplicate restaurants
+                if([restaurantNames indexOfObject:restaurantsArray[i][@"name"]] == NSNotFound){
+                    [self.restaurants addObject:restaurantsArray[i]];
+                    [restaurantNames addObject:restaurantsArray[i][@"name"]];
+                }
+            }
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self performSegueWithIdentifier:@"foodSegue" sender:nil];
+        }
+    }];
+    
+    
 }
 
 
@@ -354,6 +436,8 @@
                 [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
             }
         }
+        
+        [self createAlert:@"Schedule saved to your calendar!"];
     }];
     
 }
@@ -430,7 +514,7 @@
                             parseEvent[@"venueId"] = event.venueId;
                             parseEvent[@"eventId"] = event.eventId;
                             parseEvent[@"address"] = event.address;
-                            parseEvent[@"description"] = event.eventDescription;
+                            parseEvent[@"eventDescription"] = event.eventDescription;
                             parseEvent[@"photoReference"] = event.photoReference;
                             
                             parseEvent[@"isGoogleEvent"] = [NSNumber numberWithBool:NO];
@@ -446,7 +530,7 @@
                             parseEvent[@"endDate"] = endDate;
                             parseEvent[@"name"] = event.name;
                             parseEvent[@"address"] = event.address;
-                            parseEvent[@"description"] = @"No description";
+                            parseEvent[@"eventDescription"] = @"No description";
                             parseEvent[@"photoReference"] = event.photoReference;
                             
                             parseEvent[@"isGoogleEvent"] = [NSNumber numberWithBool:YES];
@@ -461,10 +545,11 @@
                         parseEvent[@"endDate"] = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnix];
                         parseEvent[@"venueId"] = @"Meal";
                         parseEvent[@"eventId"] = @"Meal";
-                        parseEvent[@"description"] = @"Meal";
+                        parseEvent[@"eventDescription"] = @"Meal";
                         
                         parseEvent[@"isGoogleEvent"] = [NSNumber numberWithBool:NO];
                         parseEvent[@"isMeal"] = [NSNumber numberWithBool:YES];
+                        parseEvent[@"isBreakfast"] = [NSNumber numberWithBool:event.isBreakfast];
                         parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
                         parseEvent[@"isEvent"] = [NSNumber numberWithBool:NO];
 
@@ -482,7 +567,7 @@
                     parseEvent[@"eventId"] = landmark.placeId;
                     parseEvent[@"venueId"] = @"Landmark";
                     parseEvent[@"address"] = landmark.address;
-                    parseEvent[@"description"] = @"No description";
+                    parseEvent[@"eventDescription"] = @"No description";
                     parseEvent[@"photoReference"] = landmark.photoReference;
                     parseEvent[@"rating"] = landmark.rating;
                     
