@@ -57,6 +57,7 @@
     [self.navigationItem setRightBarButtonItem:customBtn];
     
     [self getEventsFromSchedule];
+    [self fetchMembersOfSchedule];
 }
 -(void) didClickShareButton {
     [self performSegueWithIdentifier:@"shareScheduleSegue" sender:self];
@@ -132,6 +133,18 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) fetchMembersOfSchedule {
+    PFQuery *membersQuery = [self.schedule.membersRelation query];
+    [membersQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if(error){
+            NSLog(@"Error fetching members of schedule");
+        } else {
+            self.members = objects;
+            [self.membersCollectionView reloadData];
+        }
+    }];
 }
 
 - (IBAction)didPressScheduleButton:(id)sender {
@@ -224,7 +237,7 @@
     if(collectionView == self.eventsCollectionView){
         return self.events.count;
     }
-    return 3;
+    return self.members.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -232,16 +245,26 @@
         EventCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
         if([self.events[indexPath.row] isKindOfClass:[Event class]]){
             Event *event = self.events[indexPath.row];
+            NSURL *posterURL = [NSURL URLWithString:event.imageUrl];
+            [cell.eventImage setImageWithURL:posterURL];
             cell.nameLabel.text = event.name;
             cell.descriptionLabel.text = event.eventDescription;
         } else {
             Landmark *landmark = self.events[indexPath.row];
+            NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=%@&photoreference=%@&key=AIzaSyBNbQUYoy3xTn-270GEZKiFz9G_Q2xOOtc",@"500",landmark.photoReference]];
+            [cell.eventImage setImageWithURL:photoURL];
             cell.nameLabel.text = landmark.name;
             cell.descriptionLabel.text = @"A beautiful landmark";
         }
         return cell;
     }
     MemberCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"memberCell" forIndexPath:indexPath];
+    PFUser *member = self.members[indexPath.row];
+    PFFile *image = [member valueForKey:@"profilePic"];
+    [image getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+        UIImage *profileImage = [UIImage imageWithData:imageData];
+        cell.memberProfileImageView.image = profileImage;
+    }];
     cell.memberProfileImageView.layer.masksToBounds = YES;
     cell.memberProfileImageView.layer.cornerRadius = cell.memberProfileImageView.frame.size.width / 2;
 
