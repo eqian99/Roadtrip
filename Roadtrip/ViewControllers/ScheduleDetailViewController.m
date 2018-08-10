@@ -8,8 +8,9 @@
 #import "Landmark.h"
 #import "Event.h"
 #import "UIImageView+AFNetworking.h"
-
-@interface ScheduleDetailViewController ()
+#import "EventCollectionCell.h"
+#import "MemberCollectionCell.h"
+@interface ScheduleDetailViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
 
@@ -18,6 +19,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.eventsCollectionView.delegate = self;
+    self.eventsCollectionView.dataSource = self;
+    
+    self.membersCollectionView.delegate = self;
+    self.membersCollectionView.dataSource = self;
+    
     self.podEvents = [NSMutableArray new];
     self.selectedView = 0;
     
@@ -44,7 +51,7 @@
     self.scheduleView.daysToShowOnScreen = 1;
     self.scheduleView.daysToShow = 0;
     self.scheduleView.delegate = self;
-    
+    self.scheduleViewRect = self.scheduleView.frame;
     
     self.events = [NSMutableArray new];
     UIBarButtonItem *customBtn=[[UIBarButtonItem alloc] initWithTitle:@"Members" style:UIBarButtonItemStylePlain target:self action:@selector(didClickShareButton)];
@@ -113,7 +120,7 @@
                 }
             }
             
-            
+            [self.eventsCollectionView reloadData];
             self.scheduleView.daysToShowOnScreen = 1;
             self.scheduleView.daysToShow = 0;
             NSArray *eventsForScheduleView = [self.podEvents copy];
@@ -138,12 +145,13 @@
         
         self.segmentImageView.frame = newRect;
         
-        
         UIImage *whiteScheduleImage = [UIImage imageNamed:@"scheduleIconWhite"];
         UIImage *blackEventImage = [UIImage imageNamed:@"eventIconBlack"];
         [self.scheduleButton setImage:whiteScheduleImage forState:UIControlStateNormal];
         [self.eventButton setImage:blackEventImage forState:UIControlStateNormal];
         
+        
+        self.scheduleView.frame = self.scheduleViewRect;
         
     } completion:^(BOOL finished) {
         
@@ -166,6 +174,11 @@
         [self.scheduleButton setImage:blackScheduleImage forState:UIControlStateNormal];
         [self.eventButton setImage:whiteEventImage forState:UIControlStateNormal];
         
+        CGRect newScheduleRect = self.scheduleView.frame;
+        
+        newScheduleRect.origin.x -= self.scheduleViewRect.size.width;
+        
+        self.scheduleView.frame = newScheduleRect;
         
     } completion:^(BOOL finished) {
         
@@ -201,6 +214,39 @@
         }
     }
     [self performSegueWithIdentifier:@"eventDetailSegue" sender:self];
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    if(collectionView == self.eventsCollectionView){
+        return self.events.count;
+    }
+    return 3;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if(collectionView == self.eventsCollectionView){
+        EventCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
+        if([self.events[indexPath.row] isKindOfClass:[Event class]]){
+            Event *event = self.events[indexPath.row];
+            cell.nameLabel.text = event.name;
+            cell.descriptionLabel.text = event.eventDescription;
+        } else {
+            Landmark *landmark = self.events[indexPath.row];
+            cell.nameLabel.text = landmark.name;
+            cell.descriptionLabel.text = @"A beautiful landmark";
+        }
+        return cell;
+    }
+    MemberCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"memberCell" forIndexPath:indexPath];
+    cell.memberProfileImageView.layer.masksToBounds = YES;
+    cell.memberProfileImageView.layer.cornerRadius = cell.memberProfileImageView.frame.size.width / 2;
+
+    return cell;
 }
 
 @end

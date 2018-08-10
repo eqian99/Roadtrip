@@ -21,9 +21,14 @@
 @property (weak, nonatomic) IBOutlet UIImageView *segmentImageView;
 @property (weak, nonatomic) IBOutlet UIButton *scheduleButton;
 @property (weak, nonatomic) IBOutlet UIButton *eventButton;
+@property (weak, nonatomic) IBOutlet UICollectionView *eventsCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *membersCollectionView;
+
 
 
 @property (nonatomic) int selectedView;
+@property (nonatomic) CGRect scheduleViewRect;
+@property (nonatomic) CGRect collectionViewRect;
 
 
 @property (strong, nonatomic) IBOutlet MSWeekView *scheduleView;

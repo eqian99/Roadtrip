@@ -45,6 +45,8 @@
 		D6A1E4212102649400EFF016 /* EventMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A1E4202102649400EFF016 /* EventMapViewController.m */; };
 		D6A6C5022114C1B20096A283 /* ProfileFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C5012114C1B20096A283 /* ProfileFriendCell.m */; };
 		D6A6C5052114D3A80096A283 /* TripCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C5042114D3A80096A283 /* TripCell.m */; };
+		D6A6C50C211D09C50096A283 /* EventCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C50B211D09C50096A283 /* EventCollectionCell.m */; };
+		D6A6C50F211D19030096A283 /* MemberCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C50E211D19030096A283 /* MemberCollectionCell.m */; };
 		D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA0A692108F4E40074456B /* FriendCell.m */; };
 		F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A23ADB20EFE04C002384E8 /* AppDelegate.m */; };
 		F6A23AE220EFE04C002384E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE020EFE04C002384E8 /* Main.storyboard */; };
@@ -137,6 +139,10 @@
 		D6A6C5012114C1B20096A283 /* ProfileFriendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileFriendCell.m; sourceTree = "<group>"; };
 		D6A6C5032114D3A80096A283 /* TripCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TripCell.h; sourceTree = "<group>"; };
 		D6A6C5042114D3A80096A283 /* TripCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TripCell.m; sourceTree = "<group>"; };
+		D6A6C50A211D09C50096A283 /* EventCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventCollectionCell.h; sourceTree = "<group>"; };
+		D6A6C50B211D09C50096A283 /* EventCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCollectionCell.m; sourceTree = "<group>"; };
+		D6A6C50D211D19030096A283 /* MemberCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemberCollectionCell.h; sourceTree = "<group>"; };
+		D6A6C50E211D19030096A283 /* MemberCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MemberCollectionCell.m; sourceTree = "<group>"; };
 		D6AA0A682108F4E40074456B /* FriendCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FriendCell.h; sourceTree = "<group>"; };
 		D6AA0A692108F4E40074456B /* FriendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FriendCell.m; sourceTree = "<group>"; };
 		F6A23AD720EFE04C002384E8 /* Roadtrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roadtrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +212,10 @@
 				D6A6C5012114C1B20096A283 /* ProfileFriendCell.m */,
 				D6A6C5032114D3A80096A283 /* TripCell.h */,
 				D6A6C5042114D3A80096A283 /* TripCell.m */,
+				D6A6C50A211D09C50096A283 /* EventCollectionCell.h */,
+				D6A6C50B211D09C50096A283 /* EventCollectionCell.m */,
+				D6A6C50D211D19030096A283 /* MemberCollectionCell.h */,
+				D6A6C50E211D19030096A283 /* MemberCollectionCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -472,10 +482,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6A6C50F211D19030096A283 /* MemberCollectionCell.m in Sources */,
 				F6A23AEA20EFE04D002384E8 /* main.m in Sources */,
 				F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */,
 				D6A1E4212102649400EFF016 /* EventMapViewController.m in Sources */,
 				F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */,
+				D6A6C50C211D09C50096A283 /* EventCollectionCell.m in Sources */,
 				F6F77C5320FFC3EB00836D65 /* LandmarkCell.m in Sources */,
 				5306477E20FEF93D0062432D /* Landmark.m in Sources */,
 				D67ACB312112705500EA1815 /* InviteCell.m in Sources */,
