@@ -50,7 +50,6 @@
     self.scheduleView.weekFlowLayout.show24Hours = YES;
     self.scheduleView.daysToShowOnScreen = 1;
     self.scheduleView.daysToShow = 0;
-    self.scheduleView.delegate = self;
     self.scheduleViewRect = self.scheduleView.frame;
     
     self.events = [NSMutableArray new];

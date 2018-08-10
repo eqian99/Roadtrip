@@ -39,6 +39,7 @@
 
 @property (weak, nonatomic) IBOutlet CSAnimationView *animationView;
 @property (weak, nonatomic) IBOutlet CSAnimationView *weatherAnimationView;
+@property (weak, nonatomic) IBOutlet CSAnimationView *mealTimeAnimationView;
 
 @property (strong, nonatomic)NSCalendar *calendar;
 
@@ -49,9 +50,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *weatherImage;
 
+@property (weak, nonatomic) IBOutlet UIImageView *breakfastShadow;
+@property (weak, nonatomic) IBOutlet UIImageView *lunchShadow;
+@property (weak, nonatomic) IBOutlet UIImageView *dinnerShadow;
+@property (weak, nonatomic) IBOutlet UILabel *mealTimesLabel;
+
 @property (weak, nonatomic) IBOutlet UIImageView *breakfastImage;
 @property (weak, nonatomic) IBOutlet UIImageView *lunchImage;
 @property (weak, nonatomic) IBOutlet UIImageView *dinnerImage;
+
+@property (weak, nonatomic) IBOutlet UIView *requiredInfoView;
+
+@property (nonatomic) CGRect requiredInfoRect;
 @end
 
 @implementation SelectionViewController
@@ -60,6 +70,22 @@
     [super viewDidLoad];
     
     self.weatherImage.hidden = YES;
+    self.breakfastShadow.hidden = YES;
+    self.lunchShadow.hidden = YES;
+    self.dinnerShadow.hidden = YES;
+    self.breakfastImage.hidden = YES;
+    self.lunchImage.hidden = YES;
+    self.dinnerImage.hidden = YES;
+    self.breakfastField.hidden = YES;
+    self.lunchField.hidden = YES;
+    self.dinnerField.hidden = YES;
+    self.mealTimesLabel.hidden = YES;
+    
+    self.requiredInfoRect = self.requiredInfoView.frame;
+    
+    CGRect newRect = CGRectMake(self.requiredInfoRect.origin.x, 200, self.requiredInfoRect.size.width, self.requiredInfoRect.size.height);
+    self.requiredInfoView.frame = newRect;
+    
     //City
     
     //Search controller setup
@@ -225,6 +251,24 @@
         self.animationView.type = CSAnimationTypePop;
 
         [self.animationView startCanvasAnimation];
+        
+        self.mealTimeAnimationView.duration = 0.5;
+        self.mealTimeAnimationView.delay = 0.2;
+        self.mealTimeAnimationView.type = CSAnimationTypeSlideUp;
+        
+        self.weatherImage.hidden = NO;
+        self.breakfastShadow.hidden = NO;
+        self.lunchShadow.hidden = NO;
+        self.dinnerShadow.hidden = NO;
+        self.breakfastImage.hidden = NO;
+        self.lunchImage.hidden = NO;
+        self.dinnerImage.hidden = NO;
+        self.breakfastField.hidden = NO;
+        self.lunchField.hidden = NO;
+        self.dinnerField.hidden = NO;
+        self.mealTimesLabel.hidden = NO;
+        
+        [self.mealTimeAnimationView startCanvasAnimation];
     }
 }
 
@@ -294,6 +338,33 @@
         
         // Kick start the animation immediately
         [self.animationView startCanvasAnimation];
+        
+        self.mealTimeAnimationView.duration = 0.5;
+        self.mealTimeAnimationView.delay = 0.2;
+        self.mealTimeAnimationView.type = CSAnimationTypeSlideUp;
+        
+        self.weatherImage.hidden = NO;
+        self.breakfastShadow.hidden = NO;
+        self.lunchShadow.hidden = NO;
+        self.dinnerShadow.hidden = NO;
+        self.breakfastImage.hidden = NO;
+        self.lunchImage.hidden = NO;
+        self.dinnerImage.hidden = NO;
+        self.breakfastField.hidden = NO;
+        self.lunchField.hidden = NO;
+        self.dinnerField.hidden = NO;
+        self.mealTimesLabel.hidden = NO;
+        
+        [self.mealTimeAnimationView startCanvasAnimation];
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            CGRect newRect = self.requiredInfoRect;
+            
+            self.requiredInfoView.frame = newRect;
+            
+        } completion:^(BOOL finished) {
+            
+        }];
     }
 }
 
@@ -315,7 +386,7 @@
     self.breakfastField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
     self.breakfastField.textColor = [UIColor blackColor];
     [self.breakfastField resignFirstResponder];
-    self.breakfastImage.image = [UIImage imageNamed:@"coloredBreakfast"];
+    self.breakfastShadow.image = [UIImage imageNamed:@"colorBackground"];
 }
 
 - (void)showTimeLunch{
@@ -333,7 +404,7 @@
     self.lunchField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
     self.lunchField.textColor = [UIColor blackColor];
     [self.lunchField resignFirstResponder];
-    self.lunchImage.image = [UIImage imageNamed:@"coloredLunch"];
+    self.lunchShadow.image = [UIImage imageNamed:@"colorBackground"];
 }
 
 - (void)showTimeDinner{
@@ -351,7 +422,7 @@
     self.dinnerField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
     self.dinnerField.textColor = [UIColor blackColor];
     [self.dinnerField resignFirstResponder];
-    self.dinnerImage.image = [UIImage imageNamed:@"coloredDinner"];
+    self.dinnerShadow.image = [UIImage imageNamed:@"colorBackground"];
 }
 
 

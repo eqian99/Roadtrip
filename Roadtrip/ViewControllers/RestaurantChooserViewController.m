@@ -37,9 +37,9 @@
     NSLog(@"%@", self.restaurants);
     for(int i = 0; i < self.restaurants.count; i++){
         UIView *myView = [[UIView alloc] initWithFrame:CGRectMake((i * self.width) / 2, 0, self.width, 500)];
-        UILabel *myLabel = [[UILabel alloc] initWithFrame: CGRectMake((i * self.width) / 2 + 40, 150, 400, 200)];
-        UILabel *address = [[UILabel alloc] initWithFrame:CGRectMake((i * self.width) / 2 + 40, 190, self.width - 60, 200)];
-        UILabel *phoneNum = [[UILabel alloc] initWithFrame:CGRectMake((i * self.width) / 2 + 40, 230, 200, 200)];
+        UILabel *myLabel = [[UILabel alloc] initWithFrame: CGRectMake((i * self.width) / 2 + 40, 165, self.width - 65, 200)];
+        UILabel *address = [[UILabel alloc] initWithFrame:CGRectMake((i * self.width) / 2 + 40, 220, self.width - 65, 200)];
+        UILabel *phoneNum = [[UILabel alloc] initWithFrame:CGRectMake((i * self.width) / 2 + 40, 250, 200, 200)];
         UILabel *ratingTitle = [[UILabel alloc]initWithFrame:CGRectMake((i * self.width) / 2 + 60, 350, 200, 200)];
         UILabel *rating = [[UILabel alloc] initWithFrame:CGRectMake((i * self.width) / 2 + 60, 390, 230, 200)];
         UILabel *priceTitle = [[UILabel alloc] initWithFrame:CGRectMake((i * self.width) / 2 + 250, 350, 200, 200)];
@@ -54,6 +54,7 @@
         // add restaurant name
         myLabel.text = self.restaurants[i][@"name"];
         [myLabel setFont:[UIFont boldSystemFontOfSize:30]];
+        myLabel.numberOfLines = 0;
         
         // add restaurant address
         NSDictionary *location = self.restaurants[i][@"location"];
