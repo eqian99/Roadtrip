@@ -93,7 +93,8 @@
                     }else{
                         NSLog(@"Successfully created notification for friend");
                         
-                        [self dismissViewControllerAnimated:YES completion:nil];
+                        //[self dismissViewControllerAnimated:YES completion:nil];
+                        [self.navigationController popToRootViewControllerAnimated:YES];
                     }
                     
                 }];

@@ -386,7 +386,7 @@
     self.breakfastField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
     self.breakfastField.textColor = [UIColor blackColor];
     [self.breakfastField resignFirstResponder];
-    //self.breakfastShadow.image = [UIImage imageNamed:@"colorBackground"];
+    self.breakfastShadow.image = [UIImage imageNamed:@"colorBackground"];
 }
 
 - (void)showTimeLunch{
@@ -404,7 +404,7 @@
     self.lunchField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
     self.lunchField.textColor = [UIColor blackColor];
     [self.lunchField resignFirstResponder];
-    //self.lunchShadow.image = [UIImage imageNamed:@"colorBackground"];
+    self.lunchShadow.image = [UIImage imageNamed:@"colorBackground"];
 }
 
 - (void)showTimeDinner{
@@ -422,7 +422,7 @@
     self.dinnerField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:self.timePicker.date]];
     self.dinnerField.textColor = [UIColor blackColor];
     [self.dinnerField resignFirstResponder];
-    //self.dinnerShadow.image = [UIImage imageNamed:@"colorBackground"];
+    self.dinnerShadow.image = [UIImage imageNamed:@"colorBackground"];
 }
 
 

@@ -905,8 +905,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RestaurantsShadow" translatesAutoresizingMaskIntoConstraints="NO" id="Lze-aR-P04">
-                                        <rect key="frame" x="8" y="32" width="106" height="131"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="greyMealShadow" translatesAutoresizingMaskIntoConstraints="NO" id="Lze-aR-P04">
+                                        <rect key="frame" x="2" y="32" width="106" height="131"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Breakfast" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qab-9x-xpK">
@@ -917,7 +917,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RestaurantsShadow" translatesAutoresizingMaskIntoConstraints="NO" id="bmX-pl-TOe">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="greyMealShadow" translatesAutoresizingMaskIntoConstraints="NO" id="bmX-pl-TOe">
                                         <rect key="frame" x="243" y="32" width="106" height="131"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -937,7 +937,7 @@
                                         <rect key="frame" x="39" y="58" width="33" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RestaurantsShadow" translatesAutoresizingMaskIntoConstraints="NO" id="hTV-IK-OmP">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="greyMealShadow" translatesAutoresizingMaskIntoConstraints="NO" id="hTV-IK-OmP">
                                         <rect key="frame" x="126" y="32" width="106" height="131"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -1803,6 +1803,7 @@
         <image name="eventBackgroundShadow" width="329" height="362"/>
         <image name="eventIconBlack" width="33" height="33"/>
         <image name="eventMapIcon" width="183" height="183"/>
+        <image name="greyMealShadow" width="116" height="141"/>
         <image name="notification" width="128" height="128"/>
         <image name="pin" width="128" height="128"/>
         <image name="placeholder" width="1280" height="960"/>

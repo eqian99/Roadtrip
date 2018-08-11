@@ -20,6 +20,7 @@
 		537945922110FA1C0078D95F /* RestaurantChooserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 537945912110FA1C0078D95F /* RestaurantChooserView.m */; };
 		537945952114F8B80078D95F /* SearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 537945942114F8B80078D95F /* SearchBarViewController.m */; };
 		537945982118B3A00078D95F /* WeatherMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 537945972118B3A00078D95F /* WeatherMapManager.m */; };
+		5379459E211E45FA0078D95F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5379459D211E43AD0078D95F /* Assets.xcassets */; };
 		537A5DE721019D3300890FEF /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537A5DE621019D3300890FEF /* EventKit.framework */; };
 		5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386C9032107E5D7002AA967 /* ScheduleCell.m */; };
 		835B207537901FC306B680D3 /* libPods-Roadtrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1702C94B0AA0834EE7F145 /* libPods-Roadtrip.a */; };
@@ -90,7 +91,7 @@
 		537945942114F8B80078D95F /* SearchBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBarViewController.m; sourceTree = "<group>"; };
 		537945962118B3A00078D95F /* WeatherMapManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherMapManager.h; sourceTree = "<group>"; };
 		537945972118B3A00078D95F /* WeatherMapManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherMapManager.m; sourceTree = "<group>"; };
-		5379459B211E132B0078D95F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5379459D211E43AD0078D95F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = /Users/hahsu/Desktop/Roadtrip/Roadtrip/Assets.xcassets; sourceTree = "<absolute>"; };
 		537A5DE621019D3300890FEF /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		5386C9022107E5D7002AA967 /* ScheduleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleCell.h; sourceTree = "<group>"; };
 		5386C9032107E5D7002AA967 /* ScheduleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleCell.m; sourceTree = "<group>"; };
@@ -298,7 +299,7 @@
 				D680BC112100156E00C0EBC4 /* EventbriteManager.h */,
 				D680BC122100156E00C0EBC4 /* EventbriteManager.m */,
 				F6A23AE020EFE04C002384E8 /* Main.storyboard */,
-				5379459B211E132B0078D95F /* Assets.xcassets */,
+				5379459D211E43AD0078D95F /* Assets.xcassets */,
 				F6A23AE520EFE04D002384E8 /* LaunchScreen.storyboard */,
 				F6A23AE820EFE04D002384E8 /* Info.plist */,
 				F6A23AE920EFE04D002384E8 /* main.m */,
@@ -422,6 +423,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5379459E211E45FA0078D95F /* Assets.xcassets in Resources */,
 				F6A23AE720EFE04D002384E8 /* LaunchScreen.storyboard in Resources */,
 				F6D0027C2114D7CB008C7C17 /* DGActivityIndicatorView in Resources */,
 				5379458F2110F90E0078D95F /* RestaurantsView.xib in Resources */,
