@@ -72,7 +72,7 @@
         [foodPic setImageWithURL:posterURL];
         
         ratingTitle.text = @"Rating";
-        rating.text = [NSString stringWithFormat:@"%@", self.restaurants[i][@"rating"]];
+        rating.text = [NSString stringWithFormat:@"%@/5", self.restaurants[i][@"rating"]];
         [rating setFont:[UIFont systemFontOfSize:30]];
         
         phoneNum.text = self.restaurants[i][@"display_phone"];

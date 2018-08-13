@@ -405,41 +405,6 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.eventsSelected.count;
 }
-- (IBAction)tappedImportSchedule:(id)sender {
-    
-    EKEventStore *store = [EKEventStore new];
-    [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
-        if (!granted) { return; }
-        for(int i = 0; i < self.eventsSelected.count; i++){
-            
-            EKEvent *event = [EKEvent eventWithEventStore:store];
-            if([self.eventsSelected[i] isKindOfClass:[Event class]]){
-                Event *myEvent = self.eventsSelected[i];
-                event.title = myEvent.name;
-                NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:myEvent.startTimeUnixTemp];
-                NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:myEvent.endTimeUnixTemp];
-                event.startDate = startTime;
-                event.endDate = endTime;
-                event.calendar = [store defaultCalendarForNewEvents];
-                NSError *err = nil;
-                [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
-            }
-            else{
-                Landmark *myLandmark = self.eventsSelected[i];
-                event.title = myLandmark.name;
-                NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:myLandmark.startTimeUnixTemp];
-                NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:myLandmark.endTimeUnixTemp];
-                event.startDate = startTime;
-                event.endDate = endTime;
-                event.calendar = [store defaultCalendarForNewEvents];
-                NSError *err = nil;
-                [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
-            }
-        }
-    }];
-    [self createAlert:@"Schedule saved to your calendar!"];
-    
-}
 
 - (void)createAlert:(NSString *)errorMessage{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success"
@@ -460,12 +425,65 @@
 
 - (IBAction)tappedSaveSchedule:(id)sender {
     
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Source" message:@"Where do you want to save your schedule to?" preferredStyle: UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *iCalAction = [UIAlertAction actionWithTitle:@"iPhone Calendar" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        EKEventStore *store = [EKEventStore new];
+        [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+            if (!granted) { return; }
+            for(int i = 0; i < self.eventsSelected.count; i++){
+                
+                EKEvent *event = [EKEvent eventWithEventStore:store];
+                if([self.eventsSelected[i] isKindOfClass:[Event class]]){
+                    Event *myEvent = self.eventsSelected[i];
+                    event.title = myEvent.name;
+                    NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:myEvent.startTimeUnixTemp];
+                    NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:myEvent.endTimeUnixTemp];
+                    event.startDate = startTime;
+                    event.endDate = endTime;
+                    event.calendar = [store defaultCalendarForNewEvents];
+                    NSError *err = nil;
+                    [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+                }
+                else{
+                    Landmark *myLandmark = self.eventsSelected[i];
+                    event.title = myLandmark.name;
+                    NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:myLandmark.startTimeUnixTemp];
+                    NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:myLandmark.endTimeUnixTemp];
+                    event.startDate = startTime;
+                    event.endDate = endTime;
+                    event.calendar = [store defaultCalendarForNewEvents];
+                    NSError *err = nil;
+                    [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+                }
+            }
+        }];
+        [self createAlert:@"Schedule saved to your calendar!"];
+    }];
+    UIAlertAction *profileAction = [UIAlertAction actionWithTitle:@"My Profile" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if(self.saved == false) {
+            [self saveSchedule];
+            self.saved = true;
+        } else {
+            [self showScheduleAlreadySavedAlert];
+        }
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    
+    [alert addAction: iCalAction];
+    [alert addAction:profileAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    /*
     if(self.saved == false) {
         [self saveSchedule];
         self.saved = true;
     } else {
         [self showScheduleAlreadySavedAlert];
     }
+     */
 }
 
 

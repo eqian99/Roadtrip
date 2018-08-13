@@ -539,18 +539,11 @@
                         <viewLayoutGuide key="safeArea" id="SOq-z5-7hY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Schedule" id="Aae-rs-7d1">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Save" id="xOY-1I-VhN">
-                                <connections>
-                                    <action selector="tappedSaveSchedule:" destination="Qz7-aA-bvi" id="f0N-a5-so5"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="iCal" id="R6U-Sn-zcw">
-                                <connections>
-                                    <action selector="tappedImportSchedule:" destination="Qz7-aA-bvi" id="Ngy-Mo-Ql1"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" image="save" id="xOY-1I-VhN">
+                            <connections>
+                                <action selector="tappedSaveSchedule:" destination="Qz7-aA-bvi" id="f0N-a5-so5"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="scheduleView" destination="oyX-EU-ieF" id="y4y-re-Bs6"/>
@@ -608,7 +601,7 @@
                         <viewLayoutGuide key="safeArea" id="0Cx-JP-Jhv"/>
                     </view>
                     <navigationItem key="navigationItem" title="Restaurants" id="8rd-vG-LxQ">
-                        <barButtonItem key="rightBarButtonItem" title="Save Restaurant" id="DE7-RE-lCk">
+                        <barButtonItem key="rightBarButtonItem" image="save" id="DE7-RE-lCk">
                             <connections>
                                 <action selector="didPressSave:" destination="kMx-lf-YlQ" id="KDw-mQ-325"/>
                             </connections>
@@ -1809,6 +1802,7 @@
         <image name="placeholder" width="1280" height="960"/>
         <image name="profileShadow" width="115" height="112"/>
         <image name="profile_blank" width="720" height="720"/>
+        <image name="save" width="24" height="24"/>
         <image name="scheduleIconWhite" width="33" height="33"/>
         <image name="segmentBackground" width="248" height="78"/>
         <image name="tripShadow" width="302" height="206"/>
@@ -1817,6 +1811,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RDT-4F-kit"/>
-        <segue reference="cQg-iJ-CkG"/>
+        <segue reference="jvd-JJ-Jlm"/>
     </inferredMetricsTieBreakers>
 </document>
