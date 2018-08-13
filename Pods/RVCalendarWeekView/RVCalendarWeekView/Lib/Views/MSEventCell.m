@@ -131,7 +131,7 @@
     NSLog(@"Type (Update Colors): %@", self.event.type);
     
     if([self.event.type isEqualToString:@"landmark"]){
-        self.contentView.backgroundColor = [UIColor colorWithRed:0.65 green:1.00 blue:0.80 alpha:0.4];
+        self.contentView.backgroundColor = [UIColor colorWithRed:0.44 green:0.76 blue:0.58 alpha:0.7];
         self.borderView.backgroundColor  = [UIColor colorWithRed:0.65 green:1.00 blue:0.80 alpha:1.0];
     } else if ([self.event.type isEqualToString:@"meal"]){
         self.contentView.backgroundColor = [UIColor colorWithRed:0.13 green:0.74 blue:1.00 alpha:0.4];
