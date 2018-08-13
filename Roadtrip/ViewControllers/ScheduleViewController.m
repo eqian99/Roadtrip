@@ -67,6 +67,7 @@
                 NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnixTemp];
                 NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnixTemp];
                 MSEvent *mealEvent = [MSEvent make:startDate end:endDate title:event.name subtitle:event.address];
+                mealEvent.type = @"meal";
                 [self.podEvents addObject:mealEvent];
                 
             } else if(event.isGoogleEvent) {
@@ -74,6 +75,7 @@
                 NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnixTemp];
                 NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnixTemp];
                 MSEvent *googleEvent = [MSEvent make:startDate end:endDate title:event.name subtitle: event.address];
+                googleEvent.type = @"event";
                 [self.podEvents addObject:googleEvent];
                 
             } else {
@@ -81,6 +83,7 @@
                 NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:event.startTimeUnixTemp];
                 NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:event.endTimeUnixTemp];
                 MSEvent *msEvent = [MSEvent make:startDate end:endDate title:event.name subtitle: event.address];
+                msEvent.type = @"event";
                 [self.podEvents addObject: msEvent];
                 
             }
@@ -93,6 +96,7 @@
             NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:landmark.startTimeUnixTemp];
             NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:landmark.endTimeUnixTemp];
             MSEvent *landmarkEvent = [MSEvent make:startDate end:endDate title:landmark.name subtitle: landmark.address];
+            landmarkEvent.type = @"landmark";
             [self.podEvents addObject: landmarkEvent];
             
         }

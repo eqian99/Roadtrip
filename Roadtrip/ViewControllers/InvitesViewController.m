@@ -60,8 +60,9 @@
 - (void)dismissController {
     NSLog(@"Dismiss controller");
     //[self dismissViewControllerAnimated:YES completion:nil];
-    //[self.navigationController popViewControllerAnimated:YES];
+
     [self.navigationController popToRootViewControllerAnimated:YES];
+
 }
 
 /*

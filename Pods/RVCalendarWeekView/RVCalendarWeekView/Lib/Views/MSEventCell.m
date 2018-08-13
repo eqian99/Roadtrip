@@ -118,6 +118,7 @@
 #pragma mark - MSEventCell
 - (void)setEvent:(MSEvent *)event
 {
+    NSLog(@"Type (Set Event): %@", event.type);
     _event = event;
     self.title.attributedText    = [[NSAttributedString alloc] initWithString:_event.title attributes:[self titleAttributesHighlighted:self.selected]];
     self.location.attributedText = [[NSAttributedString alloc] initWithString:_event.location attributes:[self subtitleAttributesHighlighted:self.selected]];
@@ -127,10 +128,22 @@
 
 - (void)updateColors
 {
-    self.contentView.backgroundColor = [self backgroundColorHighlighted:self.selected];
-    self.borderView.backgroundColor  = [self borderColor];
-    self.title.textColor             = [self textColorHighlighted:self.selected];
-    self.location.textColor          = [self textColorHighlighted:self.selected];
+    NSLog(@"Type (Update Colors): %@", self.event.type);
+    
+    if([self.event.type isEqualToString:@"landmark"]){
+        self.contentView.backgroundColor = [UIColor colorWithRed:0.65 green:1.00 blue:0.80 alpha:0.4];
+        self.borderView.backgroundColor  = [UIColor colorWithRed:0.65 green:1.00 blue:0.80 alpha:1.0];
+    } else if ([self.event.type isEqualToString:@"meal"]){
+        self.contentView.backgroundColor = [UIColor colorWithRed:0.13 green:0.74 blue:1.00 alpha:0.4];
+        self.borderView.backgroundColor = [UIColor colorWithRed:0.13 green:0.74 blue:1.00 alpha:1.0];
+    } else if ([self.event.type isEqualToString:@"event"]){
+        self.contentView.backgroundColor = [UIColor colorWithRed:0.33 green:0.20 blue:1.00 alpha:0.4];
+        self.borderView.backgroundColor = [UIColor colorWithRed:0.33 green:0.20 blue:1.00 alpha:1.0];
+    } else {
+        self.contentView.backgroundColor = [self backgroundColorHighlighted:self.selected];
+    }
+    self.title.textColor             = [UIColor whiteColor];
+    self.location.textColor          = [UIColor whiteColor];
 }
 
 -(void)removeIndicators{

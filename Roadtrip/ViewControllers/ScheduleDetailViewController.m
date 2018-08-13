@@ -10,7 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "EventCollectionCell.h"
 #import "MemberCollectionCell.h"
-@interface ScheduleDetailViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ScheduleDetailViewController () <UICollectionViewDelegate, UICollectionViewDataSource, MSWeekViewDelegate>
 
 @end
 
@@ -51,6 +51,7 @@
     self.scheduleView.daysToShowOnScreen = 1;
     self.scheduleView.daysToShow = 0;
     self.scheduleViewRect = self.scheduleView.frame;
+    self.scheduleView.delegate = self;
     
     self.events = [NSMutableArray new];
     UIBarButtonItem *customBtn=[[UIBarButtonItem alloc] initWithTitle:@"Members" style:UIBarButtonItemStylePlain target:self action:@selector(didClickShareButton)];
@@ -218,6 +219,7 @@
         
     }
 }
+
 - (void)weekView:(id)sender eventSelected:(MSEventCell *)eventCell {
     MSEvent *event = eventCell.event;
     for(int i = 0; i < self.events.count; i++){
@@ -225,6 +227,7 @@
             self.indexSelected = i;
         }
     }
+    NSLog(@"Event selected");
     [self performSegueWithIdentifier:@"eventDetailSegue" sender:self];
 }
 
@@ -233,7 +236,6 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
     if(collectionView == self.eventsCollectionView){
         return self.events.count;
     }
