@@ -18,5 +18,6 @@ target 'Roadtrip' do
     pod 'ZCAnimatedLabel'
     pod 'CBZSplashView', '~> 1.0.0'
     pod 'LUNSegmentedControl'
+    pod 'ProjectOxfordFace'
 
 end
