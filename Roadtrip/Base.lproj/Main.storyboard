@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -601,7 +600,7 @@
                         <viewLayoutGuide key="safeArea" id="0Cx-JP-Jhv"/>
                     </view>
                     <navigationItem key="navigationItem" title="Restaurants" id="8rd-vG-LxQ">
-                        <barButtonItem key="rightBarButtonItem" title="Save Restaurant" id="DE7-RE-lCk">
+                        <barButtonItem key="rightBarButtonItem" image="save" id="DE7-RE-lCk">
                             <connections>
                                 <action selector="didPressSave:" destination="kMx-lf-YlQ" id="KDw-mQ-325"/>
                             </connections>
@@ -1602,18 +1601,11 @@
                         <viewLayoutGuide key="safeArea" id="Cwh-xL-Nas"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="0Sz-N8-Ey6">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Logout" id="af8-dg-aGc">
-                                <connections>
-                                    <action selector="tappedLogout:" destination="jbP-R6-ISl" id="MID-f3-a18"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="My Schedules" id="y3G-3J-o2K">
-                                <connections>
-                                    <action selector="didTapSchedules:" destination="jbP-R6-ISl" id="rjs-Ee-2pr"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="af8-dg-aGc">
+                            <connections>
+                                <action selector="tappedLogout:" destination="jbP-R6-ISl" id="MID-f3-a18"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="friendsCollectionView" destination="7AO-9Y-80s" id="9zE-Wj-Hw0"/>
@@ -1810,6 +1802,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RDT-4F-kit"/>
-        <segue reference="eNk-Lg-BIr"/>
+        <segue reference="jvd-JJ-Jlm"/>
     </inferredMetricsTieBreakers>
 </document>
