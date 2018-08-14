@@ -55,7 +55,9 @@
         self.currUser = [PFUser currentUser];
     }
     self.usernameLabel.text = [NSString stringWithFormat: @"%@", self.currUser.username];
-    [self.usernameLabel sizeToFit];
+
+    self.usernameLabel.textAlignment = NSTextAlignmentCenter;
+    [self.usernameLabel adjustsFontSizeToFitWidth];
     
     PFFile *image = [self.currUser valueForKey:@"profilePic"];
     [image getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
@@ -254,8 +256,9 @@
         cell.profileImageView.layer.masksToBounds = YES;
         cell.profileImageView.layer.cornerRadius = cell.profileImageView.frame.size.width / 2;
         cell.nameLabel.text = username;
-        [cell.nameLabel sizeToFit];
         cell.nameLabel.textAlignment = NSTextAlignmentCenter;
+        [cell.nameLabel adjustsFontSizeToFitWidth];
+
         return cell;
     } else {
         TripCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"tripCell" forIndexPath:indexPath];
