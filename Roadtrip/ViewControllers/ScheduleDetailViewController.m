@@ -47,7 +47,6 @@
     self.scheduleCoverImage.image = image;
     
     [self.scheduleView setDaysToShow:1];
-    self.scheduleView.weekFlowLayout.show24Hours = YES;
     self.scheduleView.daysToShowOnScreen = 1;
     self.scheduleView.daysToShow = 0;
     self.scheduleViewRect = self.scheduleView.frame;

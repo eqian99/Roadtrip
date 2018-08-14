@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Schedule.h"
 
-@interface ScheduleMembersViewController : UIViewController
+@interface ScheduleMembersViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *membersTableView;
 @property (strong, nonatomic) Schedule *schedule;
