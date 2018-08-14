@@ -9,6 +9,15 @@
 #import "ScheduleMembersViewController.h"
 #import "AddPeopleScheduleViewController.h"
 #import "Parse.h"
+#import "../utils/UIImage+FixOrientation.h"
+#import "../utils/UIImage+Crop.h"
+#import "../utils/ImageHelper/ImageHelper.h"
+#import "PersonFace.h"
+#import "PersistedFace.h"
+#import "MPOSimpleFaceCell.h"
+#import "MBProgressHUD.h"
+#import "PersonFace.h"
+#import <ProjectOxfordFace/MPOFaceServiceClient.h>
 
 @interface ScheduleMembersViewController () <UITableViewDelegate, UITableViewDataSource>
 

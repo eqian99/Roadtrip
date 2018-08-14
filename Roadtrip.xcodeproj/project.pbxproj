@@ -54,6 +54,11 @@
 		F6A23AEA20EFE04D002384E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A23AE920EFE04D002384E8 /* main.m */; };
 		F6D0027C2114D7CB008C7C17 /* DGActivityIndicatorView in Resources */ = {isa = PBXBuildFile; fileRef = F6D0027B2114D7CB008C7C17 /* DGActivityIndicatorView */; };
 		F6E33623212382AA0065D14F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6E33622212382A90065D14F /* Assets.xcassets */; };
+		F6E336282123940C0065D14F /* utils in Resources */ = {isa = PBXBuildFile; fileRef = F6E336272123940C0065D14F /* utils */; };
+		F6E3362E2123941B0065D14F /* MPOSimpleFaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E3362A212394190065D14F /* MPOSimpleFaceCell.m */; };
+		F6E3362F2123941B0065D14F /* PersistedFace.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E3362C2123941A0065D14F /* PersistedFace.m */; };
+		F6E336302123941B0065D14F /* MPOSimpleFaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E3362D2123941B0065D14F /* MPOSimpleFaceCell.xib */; };
+		F6E3363421239C3D0065D14F /* PersonFace.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E3363321239C3C0065D14F /* PersonFace.m */; };
 		F6F77C4020FB256600836D65 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C3F20FB256600836D65 /* LoginViewController.m */; };
 		F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4420FC6D7600836D65 /* SignupViewController.m */; };
 		F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4820FD353800836D65 /* CategoryViewController.m */; };
@@ -154,6 +159,15 @@
 		F6A23AE920EFE04D002384E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F6D0027B2114D7CB008C7C17 /* DGActivityIndicatorView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DGActivityIndicatorView; sourceTree = "<group>"; };
 		F6E33622212382A90065D14F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F6E336272123940C0065D14F /* utils */ = {isa = PBXFileReference; lastKnownFileType = folder; path = utils; sourceTree = "<group>"; };
+		F6E33629212394190065D14F /* MPOSimpleFaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOSimpleFaceCell.h; sourceTree = "<group>"; };
+		F6E3362A212394190065D14F /* MPOSimpleFaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOSimpleFaceCell.m; sourceTree = "<group>"; };
+		F6E3362B2123941A0065D14F /* PersistedFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersistedFace.h; sourceTree = "<group>"; };
+		F6E3362C2123941A0065D14F /* PersistedFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistedFace.m; sourceTree = "<group>"; };
+		F6E3362D2123941B0065D14F /* MPOSimpleFaceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPOSimpleFaceCell.xib; sourceTree = "<group>"; };
+		F6E3363121239AC50065D14F /* ProjectOxfordFace-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProjectOxfordFace-Prefix.pch"; sourceTree = "<group>"; };
+		F6E3363221239C3C0065D14F /* PersonFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonFace.h; path = "../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.h"; sourceTree = "<group>"; };
+		F6E3363321239C3C0065D14F /* PersonFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonFace.m; path = "../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.m"; sourceTree = "<group>"; };
 		F6F77C3E20FB256600836D65 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		F6F77C3F20FB256600836D65 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		F6F77C4420FC6D7600836D65 /* SignupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
@@ -307,6 +321,15 @@
 				5306477A20FEEE6A0062432D /* GoogleMapsManager.m */,
 				537945962118B3A00078D95F /* WeatherMapManager.h */,
 				537945972118B3A00078D95F /* WeatherMapManager.m */,
+				F6E33629212394190065D14F /* MPOSimpleFaceCell.h */,
+				F6E3362A212394190065D14F /* MPOSimpleFaceCell.m */,
+				F6E3362D2123941B0065D14F /* MPOSimpleFaceCell.xib */,
+				F6E3362B2123941A0065D14F /* PersistedFace.h */,
+				F6E3362C2123941A0065D14F /* PersistedFace.m */,
+				F6E3363121239AC50065D14F /* ProjectOxfordFace-Prefix.pch */,
+				F6E3363221239C3C0065D14F /* PersonFace.h */,
+				F6E3363321239C3C0065D14F /* PersonFace.m */,
+				F6E336272123940C0065D14F /* utils */,
 			);
 			path = Roadtrip;
 			sourceTree = "<group>";
@@ -426,6 +449,8 @@
 				F6A23AE720EFE04D002384E8 /* LaunchScreen.storyboard in Resources */,
 				F6D0027C2114D7CB008C7C17 /* DGActivityIndicatorView in Resources */,
 				5379458F2110F90E0078D95F /* RestaurantsView.xib in Resources */,
+				F6E336302123941B0065D14F /* MPOSimpleFaceCell.xib in Resources */,
+				F6E336282123940C0065D14F /* utils in Resources */,
 				F6E33623212382AA0065D14F /* Assets.xcassets in Resources */,
 				D68C739320FC46D700364D35 /* SWRevealViewController in Resources */,
 				F6A23AE220EFE04C002384E8 /* Main.storyboard in Resources */,
@@ -497,16 +522,19 @@
 				D67ACB28210FD45900EA1815 /* ScheduleMembersViewController.m in Sources */,
 				D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */,
 				F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */,
+				F6E3363421239C3D0065D14F /* PersonFace.m in Sources */,
 				D67ACB22210BB8C100EA1815 /* ScheduleEventCell.m in Sources */,
 				537945982118B3A00078D95F /* WeatherMapManager.m in Sources */,
 				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,
 				5306478A210154010062432D /* EventDetailsViewController.m in Sources */,
+				F6E3362E2123941B0065D14F /* MPOSimpleFaceCell.m in Sources */,
 				537945922110FA1C0078D95F /* RestaurantChooserView.m in Sources */,
 				D6A6C5052114D3A80096A283 /* TripCell.m in Sources */,
 				537945952114F8B80078D95F /* SearchBarViewController.m in Sources */,
 				D67ACB1C210A93B300EA1815 /* UserScheduleCell.m in Sources */,
 				5329930321068C8C0058D428 /* ProfileViewController.m in Sources */,
 				D67ACB162109016D00EA1815 /* UserCell.m in Sources */,
+				F6E3362F2123941B0065D14F /* PersistedFace.m in Sources */,
 				F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */,
 				D680BC1020FFF96200C0EBC4 /* LocationTableViewController.m in Sources */,
 				F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */,
