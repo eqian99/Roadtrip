@@ -601,7 +601,7 @@
                         <viewLayoutGuide key="safeArea" id="0Cx-JP-Jhv"/>
                     </view>
                     <navigationItem key="navigationItem" title="Restaurants" id="8rd-vG-LxQ">
-                        <barButtonItem key="rightBarButtonItem" image="save" id="DE7-RE-lCk">
+                        <barButtonItem key="rightBarButtonItem" title="Save Restaurant" id="DE7-RE-lCk">
                             <connections>
                                 <action selector="didPressSave:" destination="kMx-lf-YlQ" id="KDw-mQ-325"/>
                             </connections>
@@ -1621,7 +1621,7 @@
                         <outlet property="profilePic" destination="jWb-Nw-mI6" id="WYb-QT-3a5"/>
                         <outlet property="tripsCollectionView" destination="Krb-yc-FSE" id="H0v-cm-TWb"/>
                         <outlet property="usernameLabel" destination="Sh6-vp-uMe" id="Imi-P2-nqP"/>
-                        <segue destination="1aA-ER-UCc" kind="presentation" identifier="searchPeopleSegue" id="k2C-vf-8Ww"/>
+                        <segue destination="1aA-ER-UCc" kind="show" identifier="searchPeopleSegue" id="k2C-vf-8Ww"/>
                         <segue destination="uL5-Oj-1sd" kind="show" identifier="showUserSchedules" id="f6E-fj-0cZ"/>
                     </connections>
                 </viewController>
@@ -1686,7 +1686,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="shd-fn-9bJ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="CRA-RL-Gv6"/>
                     <connections>
                         <outlet property="peopleSearchBar" destination="auF-G4-oLT" id="vof-EK-8hs"/>
                         <outlet property="usersTableView" destination="WsF-xX-IXE" id="GcH-L7-qw5"/>
@@ -1811,6 +1810,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RDT-4F-kit"/>
-        <segue reference="jvd-JJ-Jlm"/>
+        <segue reference="eNk-Lg-BIr"/>
     </inferredMetricsTieBreakers>
 </document>

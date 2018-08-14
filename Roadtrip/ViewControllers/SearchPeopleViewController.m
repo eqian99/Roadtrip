@@ -19,14 +19,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.navigationController.navigationItem.title = @"Search";
+    NSLog(@"Current title:%@", self.navigationController.navigationItem.title);
     self.usersTableView.delegate = self;
     self.usersTableView.dataSource = self;
     self.usersTableView.rowHeight = 95;
     self.peopleSearchBar.delegate = self;
+    /*
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(dismissController)];
     self.navigationItem.leftBarButtonItem = backButton;
     self.navigationController.navigationItem.leftBarButtonItem = backButton;
+     */
 }
 
 -(void) dismissController {
@@ -111,13 +114,12 @@
         if (error) {
             NSLog(@"%@ %@", error, [error userInfo]);
         } else {
-            [self dismissViewControllerAnimated:YES completion:nil];
             [self.searchDelegate fetchFriends];
             
         }
     }];
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
     //Trigger cloud code for the user that is not currently logged in
 //    [PFCloud callFunction:@"editUser" withParameters:@{
 //                                                       @"userId": userToAdd.objectId
