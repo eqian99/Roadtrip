@@ -300,7 +300,7 @@
 {
     CGRect frame = self.frame;
     frame.origin.x = left;
-    self.frame = frame;
+    //self.frame = frame;
 }
 
 - (CGFloat)right

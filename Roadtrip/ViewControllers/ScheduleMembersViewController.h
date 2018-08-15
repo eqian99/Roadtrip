@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *membersTableView;
 @property (strong, nonatomic) Schedule *schedule;
 @property (strong, nonatomic) NSArray *members;
+@property (strong, nonatomic) NSArray *friends;
+@property (strong, nonatomic) NSMutableDictionary *picturesDictionary;
 
 
 

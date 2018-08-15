@@ -23,3 +23,4 @@
 @property (assign, nonatomic)NSTimeInterval lunchUnixTime;
 @property (assign, nonatomic)NSTimeInterval dinnerUnixTime;
 @end
+

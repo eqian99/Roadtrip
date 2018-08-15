@@ -22,6 +22,7 @@
 		537945982118B3A00078D95F /* WeatherMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 537945972118B3A00078D95F /* WeatherMapManager.m */; };
 		537A5DE721019D3300890FEF /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537A5DE621019D3300890FEF /* EventKit.framework */; };
 		5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386C9032107E5D7002AA967 /* ScheduleCell.m */; };
+		53F080982123D8AA001AC908 /* PersonFace.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F080962123D8A9001AC908 /* PersonFace.m */; };
 		835B207537901FC306B680D3 /* libPods-Roadtrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1702C94B0AA0834EE7F145 /* libPods-Roadtrip.a */; };
 		D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED8D20FD320600D7BAFD /* YelpManager.m */; };
 		D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED9020FD3B0800D7BAFD /* TestingViewController.m */; };
@@ -48,7 +49,6 @@
 		D6A6C50C211D09C50096A283 /* EventCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C50B211D09C50096A283 /* EventCollectionCell.m */; };
 		D6A6C50F211D19030096A283 /* MemberCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C50E211D19030096A283 /* MemberCollectionCell.m */; };
 		D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA0A692108F4E40074456B /* FriendCell.m */; };
-		F63B964F2123C8DC001C63B5 /* PersonFace.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B964D2123C8DC001C63B5 /* PersonFace.m */; };
 		F63B96692123D2F7001C63B5 /* ViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96532123D2F6001C63B5 /* ViewUtils.m */; };
 		F63B966A2123D2F7001C63B5 /* CommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96542123D2F6001C63B5 /* CommonUtil.m */; };
 		F63B966B2123D2F7001C63B5 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96572123D2F6001C63B5 /* UIViewController+BackButtonHandler.m */; };
@@ -109,6 +109,8 @@
 		537A5DE621019D3300890FEF /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		5386C9022107E5D7002AA967 /* ScheduleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleCell.h; sourceTree = "<group>"; };
 		5386C9032107E5D7002AA967 /* ScheduleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleCell.m; sourceTree = "<group>"; };
+		53F080962123D8A9001AC908 /* PersonFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonFace.m; path = "../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.m"; sourceTree = "<group>"; };
+		53F080972123D8A9001AC908 /* PersonFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonFace.h; path = "../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.h"; sourceTree = "<group>"; };
 		8E1702C94B0AA0834EE7F145 /* libPods-Roadtrip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Roadtrip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C10D3723941B140CC23B1156 /* Pods-Roadtrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roadtrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roadtrip/Pods-Roadtrip.release.xcconfig"; sourceTree = "<group>"; };
 		D656ED8C20FD320600D7BAFD /* YelpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YelpManager.h; sourceTree = "<group>"; };
@@ -160,8 +162,6 @@
 		D6A6C50E211D19030096A283 /* MemberCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MemberCollectionCell.m; sourceTree = "<group>"; };
 		D6AA0A682108F4E40074456B /* FriendCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FriendCell.h; sourceTree = "<group>"; };
 		D6AA0A692108F4E40074456B /* FriendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FriendCell.m; sourceTree = "<group>"; };
-		F63B964D2123C8DC001C63B5 /* PersonFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonFace.m; path = "../../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.m"; sourceTree = "<group>"; };
-		F63B964E2123C8DC001C63B5 /* PersonFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonFace.h; path = "../../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.h"; sourceTree = "<group>"; };
 		F63B96512123D2F6001C63B5 /* UIViewController+DismissKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DismissKeyboard.h"; sourceTree = "<group>"; };
 		F63B96522123D2F6001C63B5 /* UIImage+Crop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Crop.h"; sourceTree = "<group>"; };
 		F63B96532123D2F6001C63B5 /* ViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewUtils.m; sourceTree = "<group>"; };
@@ -409,8 +409,8 @@
 				F6E3362B2123941A0065D14F /* PersistedFace.h */,
 				F6E3362C2123941A0065D14F /* PersistedFace.m */,
 				F6E3363121239AC50065D14F /* ProjectOxfordFace-Prefix.pch */,
-				F63B964E2123C8DC001C63B5 /* PersonFace.h */,
-				F63B964D2123C8DC001C63B5 /* PersonFace.m */,
+				53F080972123D8A9001AC908 /* PersonFace.h */,
+				53F080962123D8A9001AC908 /* PersonFace.m */,
 				F63B96502123D2F6001C63B5 /* utils */,
 			);
 			path = Roadtrip;
@@ -605,7 +605,6 @@
 				D67ACB28210FD45900EA1815 /* ScheduleMembersViewController.m in Sources */,
 				D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */,
 				F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */,
-				F63B964F2123C8DC001C63B5 /* PersonFace.m in Sources */,
 				D67ACB22210BB8C100EA1815 /* ScheduleEventCell.m in Sources */,
 				537945982118B3A00078D95F /* WeatherMapManager.m in Sources */,
 				F63B96692123D2F7001C63B5 /* ViewUtils.m in Sources */,
@@ -613,6 +612,7 @@
 				5306478A210154010062432D /* EventDetailsViewController.m in Sources */,
 				F6E3362E2123941B0065D14F /* MPOSimpleFaceCell.m in Sources */,
 				537945922110FA1C0078D95F /* RestaurantChooserView.m in Sources */,
+				53F080982123D8AA001AC908 /* PersonFace.m in Sources */,
 				D6A6C5052114D3A80096A283 /* TripCell.m in Sources */,
 				537945952114F8B80078D95F /* SearchBarViewController.m in Sources */,
 				D67ACB1C210A93B300EA1815 /* UserScheduleCell.m in Sources */,
@@ -791,14 +791,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T43H6FGZD6;
+				DEVELOPMENT_TEAM = 6RN4LVMY9S;
 				INFOPLIST_FILE = Roadtrip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip9777;
+				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip977;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -811,14 +811,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T43H6FGZD6;
+				DEVELOPMENT_TEAM = 6RN4LVMY9S;
 				INFOPLIST_FILE = Roadtrip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip9777;
+				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip977;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

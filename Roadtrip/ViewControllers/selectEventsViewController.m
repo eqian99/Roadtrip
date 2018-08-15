@@ -119,7 +119,7 @@ static int const INDICATOR_SIZE = 200;
     // set light purple color
     UIColor *color = [UIColor colorWithRed:190.0f/255.0f green:169.0f/255.0f blue:247.0f/255.0f alpha:1.0];
     // create indicator
-    self.activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple
+    self.activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeThreeDots
                                                                                          tintColor:color size:INDICATOR_SIZE];
     // set indicator to be center of frame
     self.activityIndicatorView.frame = CGRectMake(self.view.frame.size.width/2 - INDICATOR_SIZE/2, self.view.frame.size.height/2 -

@@ -20,9 +20,26 @@
 #import "UIImageView+AFNetworking.h"
 #import <Lottie/Lottie.h>
 #import "ScheduleDetailViewController.h"
+#import <ProjectOxfordFace/MPOFaceServiceClient.h>
+#import "PersonFace.h"
+#import "PersistedFace.h"
+#import "UIImage+FixOrientation.h"
+#import "UIImage+Crop.h"
 
 
-@interface ProfileViewController () <UIImagePickerControllerDelegate, SearchPeopleDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ProfileViewController () <UIImagePickerControllerDelegate, SearchPeopleDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource> {
+    
+    NSMutableArray<PersistedFace*> * _selectedFaces;
+    NSMutableArray<PersonFace*> * _baseFaces;
+    UICollectionView * _imageContainer0;
+    UICollectionView * _imageContainer1;
+    UIScrollView * _resultContainer;
+    UIButton * _findBtn;
+    UILabel * _imageCountLabel;
+    NSInteger _selectIndex;
+    NSInteger _selectedTargetIndex;
+    NSString * _largrFaceListId;
+}
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePic;
 @property (weak, nonatomic) IBOutlet UIButton *invitesButton;
@@ -32,6 +49,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *friendsCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *tripsCollectionView;
 @property (strong, nonatomic) PFUser *currUser;
+@property (strong, nonatomic) NSString *largrFaceListId;
+
 
 @end
 
@@ -44,6 +63,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.schedules = [NSMutableArray new];
+    _largrFaceListId = @"8c641dc3-b437-43c5-afec-5eb8089cd462";
+    
+    _baseFaces = [NSMutableArray new];
+    _selectedFaces = [NSMutableArray new];
     
     self.friendsCollectionView.delegate = self;
     self.friendsCollectionView.dataSource = self;
@@ -163,10 +186,76 @@
     [self.currUser setValue:profilePicFile forKey:@"profilePic"];
     
     [self.currUser saveInBackground];
-    // Do something with the images (based on your use case)
     
-    // Dismiss UIImagePickerController to go back to your original view controller
-    [self dismissViewControllerAnimated:YES completion:nil];
+    UIImage * _selectedImage;
+    if (info[UIImagePickerControllerEditedImage])
+        _selectedImage = info[UIImagePickerControllerEditedImage];
+    else
+        _selectedImage = info[UIImagePickerControllerOriginalImage];
+    [_selectedImage fixOrientation];
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    NSData *data = UIImageJPEGRepresentation(_selectedImage, 0.8);
+    if(_selectIndex != 0){
+        MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"https://westcentralus.api.cognitive.microsoft.com/face/v1.0" key:@"8bbc65bcabcd4cb9976ca05de721eb5b"];
+        [client detectWithData:data returnFaceId:YES returnFaceLandmarks:YES returnFaceAttributes:@[] completionBlock:^(NSArray<MPOFace *> *collection, NSError *error) {
+            if (error) {
+                // [CommonUtil showSimpleHUD:@"Detection failed" forController:self.navigationController];
+                return;
+            }
+            
+            NSMutableArray * faces = [[NSMutableArray alloc] init];
+            
+            for (MPOFace *face in collection) {
+                UIImage *croppedImage = [_selectedImage crop:CGRectMake(face.faceRectangle.left.floatValue, face.faceRectangle.top.floatValue, face.faceRectangle.width.floatValue, face.faceRectangle.height.floatValue)];
+                PersonFace *obj = [[PersonFace alloc] init];
+                obj.image = croppedImage;
+                obj.face = face;
+                [faces addObject:obj];
+            }
+            
+            [_baseFaces removeAllObjects];
+            [_baseFaces addObjectsFromArray:faces];
+            _findBtn.enabled = NO;
+            _selectedTargetIndex = -1;
+            NSLog(@"Faces in Wander!!!! : %lu" , collection.count);
+            NSLog(@"%d faces in total", _baseFaces.count);
+            _imageCountLabel.text =  [NSString stringWithFormat:@"%d faces in total", (int32_t)_selectedFaces.count];
+            [_imageContainer0 reloadData];
+            [_imageContainer1 reloadData];
+            if (collection.count == 0) {
+                // [CommonUtil showSimpleHUD:@"No face detected." forController:self.navigationController];
+            }
+        }];
+    }else {
+        [self addFace:data image:_selectedImage];
+    }
+}
+
+
+
+    
+- (void)addFace:data image:(UIImage *) image{
+    MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"https://westcentralus.api.cognitive.microsoft.com/face/v1.0" key:@"8bbc65bcabcd4cb9976ca05de721eb5b"];
+    [client addFaceInLargeFaceList:_largrFaceListId data:data userData:nil faceRectangle:nil  completionBlock:^(MPOAddPersistedFaceResult *addPersistedFaceResult, NSError *error) {
+        if (error) {
+            // [CommonUtil showSimpleHUD:@"Failed in adding face" forController:self.navigationController];
+            return;
+        }
+        // [CommonUtil showSimpleHUD:@"Successed in adding face" forController:self.navigationController];
+        
+        PersistedFace *obj = [[PersistedFace alloc] init];
+        obj.image = image;
+        obj.persistedFaceId = addPersistedFaceResult.persistedFaceId;
+        
+        [_selectedFaces addObject:obj];
+        NSLog(@"%d faces in total", (int32_t)_selectedFaces.count);
+        _imageCountLabel.text =  [NSString stringWithFormat:@"%d faces in total", (int32_t)_selectedFaces.count];
+        [_imageContainer0 reloadData];
+        [_imageContainer1 reloadData];
+        
+    }];
 }
 
 -(PFFile *)getPFFileFromImage: (UIImage * _Nullable)image {
@@ -212,6 +301,7 @@
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self presentViewController:imagePickerVC animated:YES completion:nil];
+        _selectIndex = 1;
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
