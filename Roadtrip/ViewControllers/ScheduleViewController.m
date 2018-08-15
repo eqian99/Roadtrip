@@ -16,7 +16,7 @@
 #import "YelpManager.h"
 #import "RestaurantChooserViewController.h"
 #import "MSWeekViewDecoratorFactory.h"
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 
 @interface ScheduleViewController () <UITableViewDataSource, UITableViewDelegate, RestaurantChooserViewControllerDelegate, MSWeekViewDelegate>
 
@@ -134,7 +134,7 @@
     
     Event *myEvent = self.eventsSelected[self.index];
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     double latitude;
     double longitude;
     if(self.eventsSelected.count == 0){
@@ -195,7 +195,7 @@
                     [restaurantNames addObject:restaurantsArray[i][@"name"]];
                 }
             }
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //[MBProgressHUD hideHUDForView:self.view animated:YES];
             [self performSegueWithIdentifier:@"foodSegue" sender:nil];
         }
     }];
@@ -208,7 +208,7 @@
     self.index = indexPath.row;
     if([self.eventsSelected[indexPath.row] isKindOfClass:[Event class]] && ((Event *)self.eventsSelected[indexPath.row]).isMeal){
         Event *myEvent = self.eventsSelected[indexPath.row];
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
         double latitude;
         double longitude;
         if(self.eventsSelected.count == 0){
@@ -269,7 +269,7 @@
                         [restaurantNames addObject:restaurantsArray[i][@"name"]];
                     }
                 }
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                //[MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self performSegueWithIdentifier:@"foodSegue" sender:nil];
             }
         }];

@@ -8,7 +8,7 @@
 
 #import "SignupViewController.h"
 #import <Parse/Parse.h>
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 #import "JVFloatLabeledTextField.h"
 #import "JVFloatLabeledTextView.h"
 
@@ -165,10 +165,10 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     }
     
     // call sign up function on the object
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //[MBProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"Error: %@", error.localizedDescription);
             
             // there was an error so call helper method to build error message
@@ -185,7 +185,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
                 [self createError:@"User already exists for that username"];
             }
         } else {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //[MBProgressHUD hideHUDForView:self.view animated:YES];
             [self dismissViewControllerAnimated:true completion:nil];
             [self.delegate didSignUp];
             

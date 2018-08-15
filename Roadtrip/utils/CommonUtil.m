@@ -30,7 +30,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "CommonUtil.h"
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 
 @implementation CommonUtil
 + (NSString*)DataToJsonString:(id)object
@@ -76,10 +76,10 @@
     
     [alertView show];
 }
-
+/*
 + (void)showSuccessHUD:(NSString*)message forController:(UIViewController*)controller
 {
-    MBProgressHUD * HUD = [[MBProgressHUD alloc] initWithView:controller.view];
+    //MBProgressHUD * HUD = [[MBProgressHUD alloc] initWithView:controller.view];
     [controller.view addSubview:HUD];
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]] ;
     HUD.mode = MBProgressHUDModeCustomView;
@@ -97,5 +97,5 @@
     [HUD show:YES];
     [HUD hide:YES afterDelay:1.5];
 }
-
+*/
 @end

@@ -24,6 +24,7 @@
  */
 
 #import "ImageHelper.h"
+#import <UIKit/UIKit.h>
 
 
 @implementation ImageHelper

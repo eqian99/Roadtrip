@@ -9,15 +9,15 @@
 #import "ScheduleMembersViewController.h"
 #import "AddPeopleScheduleViewController.h"
 #import "Parse.h"
-#import "../utils/UIImage+FixOrientation.h"
-#import "../utils/UIImage+Crop.h"
-#import "../utils/ImageHelper/ImageHelper.h"
+#import "UIImage+FixOrientation.h"
+#import "UIImage+Crop.h"
+#import "ImageHelper.h"
 #import "PersonFace.h"
 #import "PersistedFace.h"
 #import "MPOSimpleFaceCell.h"
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 #import "PersonFace.h"
-#import "../utils/ViewUtils.h"
+#import "ViewUtils.h"
 #import <ProjectOxfordFace/MPOFaceServiceClient.h>
 
 @interface ScheduleMembersViewController () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate, UICollectionViewDataSource> {
@@ -39,8 +39,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+    _baseFaces = [[NSMutableArray alloc] init];
+    _selectedFaces = [[NSMutableArray alloc] init];
+    _selectedTargetIndex = -1;
     self.membersTableView.delegate = self;
     self.membersTableView.dataSource = self;
     [self.membersTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"memberCell"];
@@ -57,12 +58,15 @@
         [self performSegueWithIdentifier:@"addFriendsSegue" sender:self];
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"Add by photo" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
         UIImagePickerController *imagePickerVC = [UIImagePickerController new];
         imagePickerVC.delegate = self;
         imagePickerVC.allowsEditing = YES;
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self presentViewController:imagePickerVC animated:YES completion:nil];
+         
+        //[self chooseImage:self];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
@@ -72,6 +76,17 @@
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
     [self performSegueWithIdentifier:@"addFriendsSegue" sender:self];
+}
+
+- (void)chooseImage: (id)sender {
+    _selectIndex = [(UIView*)sender tag];
+    UIActionSheet * choose_photo_sheet = [[UIActionSheet alloc]
+                                          initWithTitle:@"Select Image"
+                                          delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          destructiveButtonTitle:nil
+                                          otherButtonTitles:@"Select from album", @"Take a photo",nil];
+    [choose_photo_sheet showInView:self.view];
 }
 
 -(void) fetchMembersOfSchedule {
@@ -91,13 +106,13 @@
 
 - (void)trainLargeFaceList {
     MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"https://westcentralus.api.cognitive.microsoft.com/face/v1.0" key:@"8bbc65bcabcd4cb9976ca05de721eb5b"];
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-    [self.navigationController.view addSubview:HUD];
-    HUD.labelText = @"Training large face list";
-    [HUD show: YES];
+    //MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    //[self.navigationController.view addSubview:HUD];
+    //HUD.labelText = @"Training large face list";
+    //[HUD show: YES];
     
     [client trainLargeFaceList:_largrFaceListId completionBlock:^(NSError *error) {
-        [HUD removeFromSuperview];
+        //[HUD removeFromSuperview];
         if (error) {
             //[CommonUtil showSimpleHUD:@"Failed in training large face list." forController:self.navigationController];
         } else {
@@ -108,16 +123,15 @@
 
 - (void)findSimilarFace {
     
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    /*MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:HUD];
     HUD.labelText = @"Finding similar faces";
     [HUD show: YES];
-    
-    
+    */
     MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"https://westcentralus.api.cognitive.microsoft.com/face/v1.0" key:@"8bbc65bcabcd4cb9976ca05de721eb5b"];
     
     [client findSimilarWithFaceId:_baseFaces[_selectedTargetIndex].face.faceId largeFaceListId:_largrFaceListId completionBlock:^(NSArray<MPOSimilarPersistedFace *> *collection, NSError *error) {
-        [HUD removeFromSuperview];
+        //[HUD removeFromSuperview];
         
         if (error) {
             //[CommonUtil showSimpleHUD:@"Failed to find similar faces" forController:self.navigationController];
@@ -187,18 +201,87 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
-    // Get the image captured by the UIImagePickerController
-    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-    //self.profilePic.image = editedImage;
-    //PFFile *profilePicFile = [self getPFFileFromImage:self.profilePic.image];
-    //[self.currUser setValue:profilePicFile forKey:@"profilePic"];
+    UIImage * _selectedImage;
+    if (info[UIImagePickerControllerEditedImage])
+        _selectedImage = info[UIImagePickerControllerEditedImage];
+    else
+        _selectedImage = info[UIImagePickerControllerOriginalImage];
+    [_selectedImage fixOrientation];
     
-    //[self.currUser saveInBackground];
-    // Do something with the images (based on your use case)
+    [picker dismissViewControllerAnimated:YES completion:nil];
     
-    // Dismiss UIImagePickerController to go back to your original view controller
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    NSData *data = UIImageJPEGRepresentation(_selectedImage, 0.8);
+    if(_selectIndex != 0){
+       /* MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:HUD];
+        HUD.labelText = @"Detecting faces";
+        [HUD show: YES];*/
+    MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"https://westcentralus.api.cognitive.microsoft.com/face/v1.0" key:@"8bbc65bcabcd4cb9976ca05de721eb5b"];
+        
+        [client detectWithData:data returnFaceId:YES returnFaceLandmarks:YES returnFaceAttributes:@[] completionBlock:^(NSArray<MPOFace *> *collection, NSError *error) {
+           // [HUD removeFromSuperview];
+            if (error) {
+                //[CommonUtil showSimpleHUD:@"Detection failed" forController:self.navigationController];
+                return;
+            }
+            
+            NSMutableArray * faces = [[NSMutableArray alloc] init];
+            
+            for (MPOFace *face in collection) {
+                UIImage *croppedImage = [_selectedImage crop:CGRectMake(face.faceRectangle.left.floatValue, face.faceRectangle.top.floatValue, face.faceRectangle.width.floatValue, face.faceRectangle.height.floatValue)];
+                PersonFace *obj = [[PersonFace alloc] init];
+                obj.image = croppedImage;
+                obj.face = face;
+                [faces addObject:obj];
+            }
+            
+            [_baseFaces removeAllObjects];
+            [_baseFaces addObjectsFromArray:faces];
+            _findBtn.enabled = NO;
+            _selectedTargetIndex = -1;
+            
+            _imageCountLabel.text =  [NSString stringWithFormat:@"%d faces in total", (int32_t)_selectedFaces.count];
+            [_imageContainer0 reloadData];
+            [_imageContainer1 reloadData];
+            if (collection.count == 0) {
+                //[CommonUtil showSimpleHUD:@"No face detected." forController:self.navigationController];
+            }
+        }];
+    }else {
+        [self addFace:data image:_selectedImage];
+    }
 }
+
+- (void)addFace:data image:(UIImage *) image{
+    /*MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:HUD];
+    HUD.labelText = @"Adding faces";
+    [HUD show: YES];
+    */
+    MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"https://westcentralus.api.cognitive.microsoft.com/face/v1.0" key:@"8bbc65bcabcd4cb9976ca05de721eb5b"];
+    
+    [client addFaceInLargeFaceList:_largrFaceListId data:data userData:nil faceRectangle:nil  completionBlock:^(MPOAddPersistedFaceResult *addPersistedFaceResult, NSError *error) {
+        //[HUD removeFromSuperview];
+        if (error) {
+            //[CommonUtil showSimpleHUD:@"Failed in adding face" forController:self.navigationController];
+            return;
+        }
+        //[CommonUtil showSimpleHUD:@"Successed in adding face" forController:self.navigationController];
+        
+        PersistedFace *obj = [[PersistedFace alloc] init];
+        obj.image = image;
+        obj.persistedFaceId = addPersistedFaceResult.persistedFaceId;
+        
+        [_selectedFaces addObject:obj];
+        
+        _imageCountLabel.text =  [NSString stringWithFormat:@"%d faces in total", (int32_t)_selectedFaces.count];
+        [_imageContainer0 reloadData];
+        [_imageContainer1 reloadData];
+        
+    }];
+}
+
 
 #pragma mark - Navigation
 

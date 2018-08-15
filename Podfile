@@ -9,7 +9,7 @@ target 'Roadtrip' do
     pod 'Parse'
     pod 'GoogleMaps'
     pod 'AFNetworking'
-    pod 'MBProgressHUD', '~> 1.1.0'
+    # pod 'MBProgressHUD', '~> 1.1.0'
     pod 'DGActivityIndicatorView'
     pod 'lottie-ios'
     pod 'RVCalendarWeekView'

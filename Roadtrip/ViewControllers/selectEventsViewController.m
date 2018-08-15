@@ -16,7 +16,7 @@
 #import "LandmarkCell.h"
 #import "EventDetailsViewController.h"
 #import "EventMapViewController.h"
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 #import "DGActivityIndicatorView.h"
 #import "UIImageView+AFNetworking.h"
 #import "ScheduleViewController.h"
@@ -430,7 +430,7 @@ static int const INDICATOR_SIZE = 200;
     NSInteger activitySelected = self.eventsLandmarksControl.selectedSegmentIndex;
     if(activitySelected == (long)EVENTS) {
         if(self.didLoad && self.events.count == 0){
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //[MBProgressHUD hideHUDForView:self.view animated:YES];
             [self createError:@"There are no events happening today"];
         }
         NSArray *eventsTemp = [self.events copy];

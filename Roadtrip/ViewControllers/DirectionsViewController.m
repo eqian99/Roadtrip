@@ -8,7 +8,7 @@
 
 #import "DirectionsViewController.h"
 #import <MapKit/MapKit.h>
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 #import "GoogleMapsManager.h"
 #import "Landmark.h"
 #import <CoreLocation/CoreLocation.h>
@@ -147,7 +147,7 @@ typedef void (^completionGetPointsAlongWay)(void);
 
 -(NSArray *)getLandmarks:(int)radius withLocation:(CLLocationCoordinate2D) coordinate{
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     GoogleMapsManager *myManagerGoogle = [GoogleMapsManager new];
     
@@ -162,7 +162,7 @@ typedef void (^completionGetPointsAlongWay)(void);
              
              landmarks = [NSMutableArray arrayWithArray: [Landmark sortLandmarkByRating:landmarks]];
              
-             [MBProgressHUD hideHUDForView:self.view animated:YES];
+             //[MBProgressHUD hideHUDForView:self.view animated:YES];
          }
          else
          {

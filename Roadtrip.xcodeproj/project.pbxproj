@@ -49,13 +49,23 @@
 		D6A6C50F211D19030096A283 /* MemberCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C50E211D19030096A283 /* MemberCollectionCell.m */; };
 		D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA0A692108F4E40074456B /* FriendCell.m */; };
 		F63B964F2123C8DC001C63B5 /* PersonFace.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B964D2123C8DC001C63B5 /* PersonFace.m */; };
+		F63B96692123D2F7001C63B5 /* ViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96532123D2F6001C63B5 /* ViewUtils.m */; };
+		F63B966A2123D2F7001C63B5 /* CommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96542123D2F6001C63B5 /* CommonUtil.m */; };
+		F63B966B2123D2F7001C63B5 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96572123D2F6001C63B5 /* UIViewController+BackButtonHandler.m */; };
+		F63B966C2123D2F7001C63B5 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F63B96592123D2F6001C63B5 /* LICENSE */; };
+		F63B966D2123D2F7001C63B5 /* Colours.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B965A2123D2F6001C63B5 /* Colours.m */; };
+		F63B966E2123D2F7001C63B5 /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B965D2123D2F6001C63B5 /* UIImage+Crop.m */; };
+		F63B966F2123D2F7001C63B5 /* UIViewController+DismissKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B965E2123D2F6001C63B5 /* UIViewController+DismissKeyboard.m */; };
+		F63B96702123D2F7001C63B5 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96612123D2F6001C63B5 /* MBProgressHUD.m */; };
+		F63B96712123D2F7001C63B5 /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96652123D2F6001C63B5 /* ImageHelper.m */; };
+		F63B96722123D2F7001C63B5 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96672123D2F6001C63B5 /* UIImage+FixOrientation.m */; };
+		F63B96732123D2F7001C63B5 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96682123D2F6001C63B5 /* UIImage+Resize.m */; };
 		F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A23ADB20EFE04C002384E8 /* AppDelegate.m */; };
 		F6A23AE220EFE04C002384E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE020EFE04C002384E8 /* Main.storyboard */; };
 		F6A23AE720EFE04D002384E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE520EFE04D002384E8 /* LaunchScreen.storyboard */; };
 		F6A23AEA20EFE04D002384E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A23AE920EFE04D002384E8 /* main.m */; };
 		F6D0027C2114D7CB008C7C17 /* DGActivityIndicatorView in Resources */ = {isa = PBXBuildFile; fileRef = F6D0027B2114D7CB008C7C17 /* DGActivityIndicatorView */; };
 		F6E33623212382AA0065D14F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6E33622212382A90065D14F /* Assets.xcassets */; };
-		F6E336282123940C0065D14F /* utils in Resources */ = {isa = PBXBuildFile; fileRef = F6E336272123940C0065D14F /* utils */; };
 		F6E3362E2123941B0065D14F /* MPOSimpleFaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E3362A212394190065D14F /* MPOSimpleFaceCell.m */; };
 		F6E3362F2123941B0065D14F /* PersistedFace.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E3362C2123941A0065D14F /* PersistedFace.m */; };
 		F6E336302123941B0065D14F /* MPOSimpleFaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E3362D2123941B0065D14F /* MPOSimpleFaceCell.xib */; };
@@ -152,6 +162,27 @@
 		D6AA0A692108F4E40074456B /* FriendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FriendCell.m; sourceTree = "<group>"; };
 		F63B964D2123C8DC001C63B5 /* PersonFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonFace.m; path = "../../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.m"; sourceTree = "<group>"; };
 		F63B964E2123C8DC001C63B5 /* PersonFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonFace.h; path = "../../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.h"; sourceTree = "<group>"; };
+		F63B96512123D2F6001C63B5 /* UIViewController+DismissKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DismissKeyboard.h"; sourceTree = "<group>"; };
+		F63B96522123D2F6001C63B5 /* UIImage+Crop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Crop.h"; sourceTree = "<group>"; };
+		F63B96532123D2F6001C63B5 /* ViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewUtils.m; sourceTree = "<group>"; };
+		F63B96542123D2F6001C63B5 /* CommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtil.m; sourceTree = "<group>"; };
+		F63B96552123D2F6001C63B5 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		F63B96562123D2F6001C63B5 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		F63B96572123D2F6001C63B5 /* UIViewController+BackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackButtonHandler.m"; sourceTree = "<group>"; };
+		F63B96592123D2F6001C63B5 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		F63B965A2123D2F6001C63B5 /* Colours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colours.m; sourceTree = "<group>"; };
+		F63B965B2123D2F6001C63B5 /* Colours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colours.h; sourceTree = "<group>"; };
+		F63B965C2123D2F6001C63B5 /* ViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewUtils.h; sourceTree = "<group>"; };
+		F63B965D2123D2F6001C63B5 /* UIImage+Crop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Crop.m"; sourceTree = "<group>"; };
+		F63B965E2123D2F6001C63B5 /* UIViewController+DismissKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DismissKeyboard.m"; sourceTree = "<group>"; };
+		F63B965F2123D2F6001C63B5 /* CommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtil.h; sourceTree = "<group>"; };
+		F63B96612123D2F6001C63B5 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		F63B96622123D2F6001C63B5 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		F63B96642123D2F6001C63B5 /* ImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageHelper.h; sourceTree = "<group>"; };
+		F63B96652123D2F6001C63B5 /* ImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageHelper.m; sourceTree = "<group>"; };
+		F63B96662123D2F6001C63B5 /* UIViewController+BackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BackButtonHandler.h"; sourceTree = "<group>"; };
+		F63B96672123D2F6001C63B5 /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
+		F63B96682123D2F6001C63B5 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		F6A23AD720EFE04C002384E8 /* Roadtrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roadtrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A23ADA20EFE04C002384E8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F6A23ADB20EFE04C002384E8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -161,7 +192,6 @@
 		F6A23AE920EFE04D002384E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F6D0027B2114D7CB008C7C17 /* DGActivityIndicatorView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DGActivityIndicatorView; sourceTree = "<group>"; };
 		F6E33622212382A90065D14F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F6E336272123940C0065D14F /* utils */ = {isa = PBXFileReference; lastKnownFileType = folder; path = utils; sourceTree = "<group>"; };
 		F6E33629212394190065D14F /* MPOSimpleFaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOSimpleFaceCell.h; sourceTree = "<group>"; };
 		F6E3362A212394190065D14F /* MPOSimpleFaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOSimpleFaceCell.m; sourceTree = "<group>"; };
 		F6E3362B2123941A0065D14F /* PersistedFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersistedFace.h; sourceTree = "<group>"; };
@@ -279,6 +309,58 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
+		F63B96502123D2F6001C63B5 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				F63B96512123D2F6001C63B5 /* UIViewController+DismissKeyboard.h */,
+				F63B96522123D2F6001C63B5 /* UIImage+Crop.h */,
+				F63B96532123D2F6001C63B5 /* ViewUtils.m */,
+				F63B96542123D2F6001C63B5 /* CommonUtil.m */,
+				F63B96552123D2F6001C63B5 /* UIImage+FixOrientation.h */,
+				F63B96562123D2F6001C63B5 /* UIImage+Resize.h */,
+				F63B96572123D2F6001C63B5 /* UIViewController+BackButtonHandler.m */,
+				F63B96582123D2F6001C63B5 /* Colours */,
+				F63B965C2123D2F6001C63B5 /* ViewUtils.h */,
+				F63B965D2123D2F6001C63B5 /* UIImage+Crop.m */,
+				F63B965E2123D2F6001C63B5 /* UIViewController+DismissKeyboard.m */,
+				F63B965F2123D2F6001C63B5 /* CommonUtil.h */,
+				F63B96602123D2F6001C63B5 /* MBProgressHUD */,
+				F63B96632123D2F6001C63B5 /* ImageHelper */,
+				F63B96662123D2F6001C63B5 /* UIViewController+BackButtonHandler.h */,
+				F63B96672123D2F6001C63B5 /* UIImage+FixOrientation.m */,
+				F63B96682123D2F6001C63B5 /* UIImage+Resize.m */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		F63B96582123D2F6001C63B5 /* Colours */ = {
+			isa = PBXGroup;
+			children = (
+				F63B96592123D2F6001C63B5 /* LICENSE */,
+				F63B965A2123D2F6001C63B5 /* Colours.m */,
+				F63B965B2123D2F6001C63B5 /* Colours.h */,
+			);
+			path = Colours;
+			sourceTree = "<group>";
+		};
+		F63B96602123D2F6001C63B5 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				F63B96612123D2F6001C63B5 /* MBProgressHUD.m */,
+				F63B96622123D2F6001C63B5 /* MBProgressHUD.h */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		F63B96632123D2F6001C63B5 /* ImageHelper */ = {
+			isa = PBXGroup;
+			children = (
+				F63B96642123D2F6001C63B5 /* ImageHelper.h */,
+				F63B96652123D2F6001C63B5 /* ImageHelper.m */,
+			);
+			path = ImageHelper;
+			sourceTree = "<group>";
+		};
 		F6A23ACE20EFE04C002384E8 = {
 			isa = PBXGroup;
 			children = (
@@ -329,7 +411,7 @@
 				F6E3363121239AC50065D14F /* ProjectOxfordFace-Prefix.pch */,
 				F63B964E2123C8DC001C63B5 /* PersonFace.h */,
 				F63B964D2123C8DC001C63B5 /* PersonFace.m */,
-				F6E336272123940C0065D14F /* utils */,
+				F63B96502123D2F6001C63B5 /* utils */,
 			);
 			path = Roadtrip;
 			sourceTree = "<group>";
@@ -448,9 +530,9 @@
 			files = (
 				F6A23AE720EFE04D002384E8 /* LaunchScreen.storyboard in Resources */,
 				F6D0027C2114D7CB008C7C17 /* DGActivityIndicatorView in Resources */,
+				F63B966C2123D2F7001C63B5 /* LICENSE in Resources */,
 				5379458F2110F90E0078D95F /* RestaurantsView.xib in Resources */,
 				F6E336302123941B0065D14F /* MPOSimpleFaceCell.xib in Resources */,
-				F6E336282123940C0065D14F /* utils in Resources */,
 				F6E33623212382AA0065D14F /* Assets.xcassets in Resources */,
 				D68C739320FC46D700364D35 /* SWRevealViewController in Resources */,
 				F6A23AE220EFE04C002384E8 /* Main.storyboard in Resources */,
@@ -514,6 +596,7 @@
 				F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */,
 				D6A6C50C211D09C50096A283 /* EventCollectionCell.m in Sources */,
 				F6F77C5320FFC3EB00836D65 /* LandmarkCell.m in Sources */,
+				F63B96702123D2F7001C63B5 /* MBProgressHUD.m in Sources */,
 				5306477E20FEF93D0062432D /* Landmark.m in Sources */,
 				D67ACB312112705500EA1815 /* InviteCell.m in Sources */,
 				F6F77C5C210016FE00836D65 /* SelectionViewController.m in Sources */,
@@ -525,6 +608,7 @@
 				F63B964F2123C8DC001C63B5 /* PersonFace.m in Sources */,
 				D67ACB22210BB8C100EA1815 /* ScheduleEventCell.m in Sources */,
 				537945982118B3A00078D95F /* WeatherMapManager.m in Sources */,
+				F63B96692123D2F7001C63B5 /* ViewUtils.m in Sources */,
 				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,
 				5306478A210154010062432D /* EventDetailsViewController.m in Sources */,
 				F6E3362E2123941B0065D14F /* MPOSimpleFaceCell.m in Sources */,
@@ -534,24 +618,32 @@
 				D67ACB1C210A93B300EA1815 /* UserScheduleCell.m in Sources */,
 				5329930321068C8C0058D428 /* ProfileViewController.m in Sources */,
 				D67ACB162109016D00EA1815 /* UserCell.m in Sources */,
+				F63B96732123D2F7001C63B5 /* UIImage+Resize.m in Sources */,
 				F6E3362F2123941B0065D14F /* PersistedFace.m in Sources */,
 				F6F77C4D20FD4AC100836D65 /* SelectLocationViewController.m in Sources */,
+				F63B966A2123D2F7001C63B5 /* CommonUtil.m in Sources */,
 				D680BC1020FFF96200C0EBC4 /* LocationTableViewController.m in Sources */,
 				F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */,
 				5379458D2110ECF10078D95F /* RestaurantChooserViewController.m in Sources */,
 				D67ACB1F210A99D300EA1815 /* Schedule.m in Sources */,
+				F63B966B2123D2F7001C63B5 /* UIViewController+BackButtonHandler.m in Sources */,
 				D680BC132100156E00C0EBC4 /* EventbriteManager.m in Sources */,
+				F63B966E2123D2F7001C63B5 /* UIImage+Crop.m in Sources */,
 				5306477B20FEEE6A0062432D /* GoogleMapsManager.m in Sources */,
 				5306478420FFB33A0062432D /* EventCell.m in Sources */,
 				D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */,
 				F6F77C622109296B00836D65 /* DirectionsViewController.m in Sources */,
 				D67ACB2B210FD8A000EA1815 /* AddPeopleScheduleViewController.m in Sources */,
 				D6A6C5022114C1B20096A283 /* ProfileFriendCell.m in Sources */,
+				F63B966D2123D2F7001C63B5 /* Colours.m in Sources */,
 				5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */,
+				F63B96712123D2F7001C63B5 /* ImageHelper.m in Sources */,
 				D670B20C20FDC9DC0064755D /* Restaurant.m in Sources */,
+				F63B96722123D2F7001C63B5 /* UIImage+FixOrientation.m in Sources */,
 				D67ACB25210BB9F200EA1815 /* ScheduleDetailViewController.m in Sources */,
 				D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */,
 				D67ACB132108F9FF00EA1815 /* SearchPeopleViewController.m in Sources */,
+				F63B966F2123D2F7001C63B5 /* UIViewController+DismissKeyboard.m in Sources */,
 				D67ACB2E21126FF700EA1815 /* InvitesViewController.m in Sources */,
 				5306478720FFED150062432D /* RestaurantTimeViewController.m in Sources */,
 				F6F77C4020FB256600836D65 /* LoginViewController.m in Sources */,
@@ -699,14 +791,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6RN4LVMY9S;
+				DEVELOPMENT_TEAM = T43H6FGZD6;
 				INFOPLIST_FILE = Roadtrip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip977;
+				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip9777;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -719,14 +811,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6RN4LVMY9S;
+				DEVELOPMENT_TEAM = T43H6FGZD6;
 				INFOPLIST_FILE = Roadtrip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip977;
+				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip9777;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

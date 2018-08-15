@@ -15,7 +15,7 @@
 #import "Restaurant.h"
 #import "GoogleMapsManager.h"
 #import "Landmark.h"
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 #import "JVFloatLabeledTextField.h"
 #import "JVFloatLabeledTextView.h"
 #import "ZCDashLabel.h"
@@ -193,14 +193,14 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     NSLog(@"pressed");
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //[MBProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"User log in failed: %@", error.localizedDescription);
             [self createError:@"Incorrect username or password"];
         } else {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //[MBProgressHUD hideHUDForView:self.view animated:YES];
             [self performSegueWithIdentifier:@"mainSegue" sender:nil];
             // display view controller that needs to shown after successful login
         }
