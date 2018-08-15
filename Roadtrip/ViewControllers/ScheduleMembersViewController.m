@@ -40,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.picturesDictionary = [[NSMutableDictionary alloc] init];
+    self.detectedFaces = [[NSMutableDictionary alloc] init];
     // _largrFaceListId = @"8c641dc3-b437-43c5-afec-5eb8089cd462";
     _baseFaces = [[NSMutableArray alloc] init];
     _selectedFaces = [[NSMutableArray alloc] init];
@@ -139,10 +140,6 @@
 
 - (void)trainLargeFaceList {
     MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"https://westcentralus.api.cognitive.microsoft.com/face/v1.0" key:@"8bbc65bcabcd4cb9976ca05de721eb5b"];
-    //MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-    //[self.navigationController.view addSubview:HUD];
-    //HUD.labelText = @"Training large face list";
-    //[HUD show: YES];
     
     [client trainLargeFaceList:_largrFaceListId completionBlock:^(NSError *error) {
         //[HUD removeFromSuperview];
@@ -181,28 +178,14 @@
                 NSLog(@"ID: %@", result.persistedFaceId);
                 NSLog(@"Dictionary: %@", self.picturesDictionary);
                 NSLog(@"User: %@", [self.picturesDictionary valueForKey:result.persistedFaceId]);
-                UIImageView * imageView = [[UIImageView alloc] initWithImage:((PersistedFace*)[self faceForId:result.persistedFaceId]).image];
-                imageView.width = 50;
-                imageView.height = 50;
-                imageView.left = 5;
-                imageView.top = 5 + (50 + 5) * i;
-                imageView.clipsToBounds = YES;
-                imageView.contentMode = UIViewContentModeScaleAspectFit;
-                
-                UILabel * label = [[UILabel alloc] init];
-                label.text = [NSString stringWithFormat:@"confidence: %f", result.confidence.floatValue];
-                [label sizeToFit];
-                label.center = imageView.center;
-                label.left = imageView.right + 30;
-                
-                [_resultContainer addSubview:imageView];
-                [_resultContainer addSubview:label];
+                UIImage *pic = _baseFaces[i].image;
+                [self.detectedFaces setValue:pic forKey:[self.picturesDictionary valueForKey:result.persistedFaceId]];
             }
-            _resultContainer.contentSize = CGSizeMake(_resultContainer.width, 5 + collection.count * (5 + _resultContainer.width / 6));
             if (collection.count == 0) {
                 NSLog(@"No similar face");
                 //[CommonUtil showSimpleHUD:@"No similar faces." forController:self.navigationController];
             }
+            NSLog(@"Passing dictionary: %@", self.detectedFaces);
         }];
     }
 }

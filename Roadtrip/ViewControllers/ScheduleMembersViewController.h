@@ -16,7 +16,6 @@
 @property (strong, nonatomic) NSArray *members;
 @property (strong, nonatomic) NSArray *friends;
 @property (strong, nonatomic) NSMutableDictionary *picturesDictionary;
-
-
+@property (strong, nonatomic) NSMutableDictionary *detectedFaces;
 
 @end
