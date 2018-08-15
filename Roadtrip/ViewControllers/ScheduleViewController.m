@@ -543,6 +543,10 @@
                             parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
                             parseEvent[@"isEvent"] = [NSNumber numberWithBool:YES];
                             
+                            parseEvent[@"latitude"] = [NSNumber numberWithDouble:[event.latitude doubleValue]];
+                            parseEvent[@"longitude"] = [NSNumber numberWithDouble:[event.longitude doubleValue]];
+
+                            
                         }
                         else{
                             NSDate *startDate = [NSDate dateWithTimeIntervalSince1970: event.startTimeUnixTemp];
@@ -558,6 +562,9 @@
                             parseEvent[@"isMeal"] = [NSNumber numberWithBool:NO];
                             parseEvent[@"isLandmark"] = [NSNumber numberWithBool:NO];
                             parseEvent[@"isEvent"] = [NSNumber numberWithBool:NO];
+                            
+                            parseEvent[@"latitude"] = [NSNumber numberWithDouble:[event.latitude doubleValue]];
+                            parseEvent[@"longitude"] = [NSNumber numberWithDouble:[event.longitude doubleValue]];
                         }
                         
                     } else {
@@ -596,6 +603,9 @@
                     parseEvent[@"isMeal"] = [NSNumber numberWithBool:NO];
                     parseEvent[@"isLandmark"] = [NSNumber numberWithBool:YES];
                     parseEvent[@"isEvent"] = [NSNumber numberWithBool:NO];
+                    
+                    parseEvent[@"latitude"] = [NSNumber numberWithDouble:[landmark.latitude doubleValue]];
+                    parseEvent[@"longitude"] = [NSNumber numberWithDouble:[landmark.longitude doubleValue]];
                 }
                 
                 [parseEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {

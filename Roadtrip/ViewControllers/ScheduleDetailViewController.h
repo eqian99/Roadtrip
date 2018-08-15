@@ -40,4 +40,7 @@
 @property (assign, nonatomic)NSInteger indexSelected;
 @property (strong, nonatomic) MSWeekView *decoratedScheduleView;
 
+@property (assign, nonatomic) double latitudeSelected;
+@property (assign, nonatomic) double longitudeSelected;
+
 @end

@@ -32,6 +32,8 @@ typedef void (^completionGetPointsAlongWay)(void);
 @property (assign, nonatomic) double currentLongitude;
 @property (assign, nonatomic)int locationFetchCounter;
 
+
+
 @end
 
 @implementation DirectionsViewController
@@ -71,8 +73,7 @@ typedef void (^completionGetPointsAlongWay)(void);
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     
     MKPlacemark *placemarkSource = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.currentLatitude, self.currentLongitude) addressDictionary:nil];
-    MKPlacemark *placemarkDestination = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(34.0522, -118.2437) addressDictionary:nil];
-    
+    MKPlacemark *placemarkDestination = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.destinationLatitude, self.destinationLongitude) addressDictionary:nil];
     MKMapItem *source = [[MKMapItem alloc] initWithPlacemark:placemarkSource];
     MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:placemarkDestination];
     
@@ -91,17 +92,41 @@ typedef void (^completionGetPointsAlongWay)(void);
          if (error) {
              NSLog(@"%@", error);
          } else {
-             NSLog(@"hello");
              [self showRoute:response];
-             self.pointsAlongRoute = [self getPointsAlongRoute:response
-                                           withCompletionBlock:^() {
+             CLLocationCoordinate2D coordinateStart;
+             coordinateStart = CLLocationCoordinate2DMake(self.currentLatitude, self.currentLongitude);
+             MKPointAnnotation* annotation= [MKPointAnnotation new];
+             annotation.coordinate= coordinateStart;
+             [self.mapView addAnnotation: annotation];
+             
+             CLLocationCoordinate2D coordinateEnd;
+             coordinateEnd = CLLocationCoordinate2DMake(self.destinationLatitude, self.destinationLongitude);
+             MKPointAnnotation* annotationEnd = [MKPointAnnotation new];
+             annotationEnd.coordinate= coordinateEnd;
+             [self.mapView addAnnotation: annotationEnd];
+             //self.pointsAlongRoute = [self getPointsAlongRoute:response
+                                           //withCompletionBlock:^() {
                                             
-                                           }];
-             [self displayPointsAlongRoute];
+                                           //}];
+             //[self displayPointsAlongRoute];
          }
      }];
     
     [self.locationManager stopUpdatingLocation];
+}
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views {
+    MKMapRect zoomRect = MKMapRectNull;
+    for (id <MKAnnotation> annotation in mapView.annotations) {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
+        if (MKMapRectIsNull(zoomRect)) {
+            zoomRect = pointRect;
+        } else {
+            zoomRect = MKMapRectUnion(zoomRect, pointRect);
+        }
+    }
+    [mapView setVisibleMapRect:zoomRect animated:YES];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {

@@ -10,4 +10,14 @@
 
 @implementation EventCollectionCell
 
+
+- (IBAction)didPressDirections:(id)sender {
+    NSLog(@"Did press event from schedule dashboard");
+    
+    [self.delegate goToDirections:self];
+
+}
+
+
+
 @end

@@ -1,6 +1,7 @@
 
 #import "ScheduleDetailViewController.h"
 #import "EventDetailsViewController.h"
+#import "DirectionsViewController.h"
 #import "ScheduleMembersViewController.h"
 #import "ScheduleEventCell.h"
 #import "Parse.h"
@@ -10,7 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "EventCollectionCell.h"
 #import "MemberCollectionCell.h"
-@interface ScheduleDetailViewController () <UICollectionViewDelegate, UICollectionViewDataSource, MSWeekViewDelegate>
+@interface ScheduleDetailViewController () <UICollectionViewDelegate, UICollectionViewDataSource, MSWeekViewDelegate, EventCollectionCellDelegate>
 
 @end
 
@@ -84,6 +85,9 @@
                     landmark.endTimeUnixTemp = [endDate timeIntervalSince1970];
                     landmark.address = [activity valueForKey:@"address"];
                     landmark.rating = [activity valueForKey:@"rating"];
+                    landmark.latitude = [NSString stringWithFormat: @"%@", [activity valueForKey:@"latitude"]];
+                    NSLog(@"Landmark latitude : %@", landmark.latitude);
+                    landmark.longitude = [NSString stringWithFormat: @"%@", [activity valueForKey:@"longitude"]];
                     [self.events addObject:landmark];
                     MSEvent *landmarkEvent = [MSEvent make:startDate end:endDate title:name subtitle:landmark.address];
                     [self.podEvents addObject:landmarkEvent];
@@ -113,6 +117,8 @@
                     event.startTimeUnixTemp = [startDate timeIntervalSince1970];
                     event.endTimeUnixTemp = [endDate timeIntervalSince1970];
                     event.address = [activity valueForKey:@"address"];
+                    event.latitude = [NSString stringWithFormat: @"%@", [activity valueForKey:@"latitude"]];
+                    event.longitude = [NSString stringWithFormat: @"%@", [activity valueForKey:@"longitude"]];
                     [self.events addObject:event];
                     MSEvent *msEvent = [MSEvent make:startDate end:endDate title:name subtitle: event.address];
                     [self.podEvents addObject:msEvent];
@@ -216,6 +222,12 @@
 //        restaurantChooser.delegate = self;
 //        restaurantChooser.index = (int)self.index;
         
+    } else if([[segue identifier] isEqualToString:@"directionsSegue"]){
+        
+        DirectionsViewController *viewController = [segue destinationViewController];
+        viewController.destinationLatitude = self.latitudeSelected;
+        viewController.destinationLongitude = self.longitudeSelected;
+        
     }
 }
 
@@ -244,8 +256,10 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if(collectionView == self.eventsCollectionView){
         EventCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
+        cell.delegate = self;
         if([self.events[indexPath.row] isKindOfClass:[Event class]]){
             Event *event = self.events[indexPath.row];
+            cell.event = event;
             NSURL *posterURL = [NSURL URLWithString:event.imageUrl];
             [cell.eventImage setImageWithURL:posterURL];
             cell.nameLabel.text = event.name;
@@ -270,6 +284,23 @@
     cell.memberProfileImageView.layer.cornerRadius = cell.memberProfileImageView.frame.size.width / 2;
 
     return cell;
+}
+
+- (void)goToDirections:(EventCollectionCell *)cell {
+
+    NSLog(@"Cell latitude: %f", [cell.event.latitude doubleValue]);
+    
+    self.latitudeSelected = [cell.event.latitude doubleValue];
+    self.longitudeSelected = [cell.event.longitude doubleValue];
+    
+    [self performSegueWithIdentifier:@"directionsSegue" sender:self];
+
+}
+- (IBAction)didTapDirections:(id)sender {
+    
+//    EventCollectionCell *cell = (EventCollectionCell *) sender;
+//    NSLog(@"%@", cell.nameLabel.text);
+//    [self performSegueWithIdentifier:@"directionsSegue" sender:self];
 }
 
 @end

@@ -10,4 +10,7 @@
 
 @interface DirectionsViewController : UIViewController
 
+@property (assign, nonatomic) double destinationLatitude;
+@property (assign, nonatomic) double destinationLongitude;
+
 @end

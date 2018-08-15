@@ -576,7 +576,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2TI-UH-OjP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6573.6000000000004" y="-580.65967016491754"/>
+            <point key="canvasLocation" x="7090" y="-458"/>
         </scene>
         <!--Restaurants-->
         <scene sceneID="lC3-Qn-GLS">
@@ -1215,6 +1215,10 @@
                                                     <state key="normal" title="Directions">
                                                         <color key="titleColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didPressDirections:" destination="GwX-Ck-oj4" eventType="touchUpInside" id="pOf-ba-InD"/>
+                                                        <action selector="didTapDirections:" destination="Jmg-xU-BfW" eventType="touchUpInside" id="UCq-pq-yZ1"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>
@@ -1226,11 +1230,6 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OsZ-tq-xrL" customClass="MSWeekView">
-                                <rect key="frame" x="0.0" y="285" width="375" height="382"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amE-cY-cv2">
                                 <rect key="frame" x="238" y="71" width="121" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1270,6 +1269,11 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OsZ-tq-xrL" customClass="MSWeekView">
+                                <rect key="frame" x="0.0" y="291" width="375" height="382"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mcg-ec-7Ee"/>
@@ -1286,6 +1290,7 @@
                         <outlet property="segmentImageView" destination="c95-Dm-M5D" id="Htv-zq-Y1N"/>
                         <segue destination="cLY-R0-sch" kind="show" identifier="shareScheduleSegue" id="NnF-so-frq"/>
                         <segue destination="t23-fO-til" kind="show" identifier="eventDetailSegue" id="cQg-iJ-CkG"/>
+                        <segue destination="wE1-ZT-mam" kind="show" identifier="directionsSegue" id="VF8-rs-qhb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nHW-8s-8p5" userLabel="First Responder" sceneMemberID="firstResponder"/>

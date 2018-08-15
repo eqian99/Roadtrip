@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Event.h"
+#import "Landmark.h"
+
+@protocol EventCollectionCellDelegate;
 
 @interface EventCollectionCell : UICollectionViewCell
 
@@ -14,5 +18,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
+@property (nonatomic, strong) Event *event;
+@property (nonatomic, strong) Landmark *landmark;
 
+@property (nonatomic, weak) id<EventCollectionCellDelegate> delegate;
+
+@end
+
+@protocol EventCollectionCellDelegate
+-(void) goToDirections: (EventCollectionCell *) cell;
 @end
