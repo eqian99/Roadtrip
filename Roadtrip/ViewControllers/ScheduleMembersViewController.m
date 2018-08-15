@@ -17,9 +17,21 @@
 #import "MPOSimpleFaceCell.h"
 #import "MBProgressHUD.h"
 #import "PersonFace.h"
+#import "../utils/ViewUtils.h"
 #import <ProjectOxfordFace/MPOFaceServiceClient.h>
 
-@interface ScheduleMembersViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ScheduleMembersViewController () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate, UICollectionViewDataSource> {
+    NSMutableArray<PersistedFace*> * _selectedFaces;
+    NSMutableArray<PersonFace*> * _baseFaces;
+    UICollectionView * _imageContainer0;
+    UICollectionView * _imageContainer1;
+    UIScrollView * _resultContainer;
+    UIButton * _findBtn;
+    UILabel * _imageCountLabel;
+    NSInteger _selectIndex;
+    NSInteger _selectedTargetIndex;
+    NSString * _largrFaceListId;
+}
 
 @end
 
@@ -75,6 +87,79 @@
         
     }];
     
+}
+
+- (void)trainLargeFaceList {
+    MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"https://westcentralus.api.cognitive.microsoft.com/face/v1.0" key:@"8bbc65bcabcd4cb9976ca05de721eb5b"];
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:HUD];
+    HUD.labelText = @"Training large face list";
+    [HUD show: YES];
+    
+    [client trainLargeFaceList:_largrFaceListId completionBlock:^(NSError *error) {
+        [HUD removeFromSuperview];
+        if (error) {
+            //[CommonUtil showSimpleHUD:@"Failed in training large face list." forController:self.navigationController];
+        } else {
+            [self findSimilarFace];
+        }
+    }];
+}
+
+- (void)findSimilarFace {
+    
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:HUD];
+    HUD.labelText = @"Finding similar faces";
+    [HUD show: YES];
+    
+    
+    MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"https://westcentralus.api.cognitive.microsoft.com/face/v1.0" key:@"8bbc65bcabcd4cb9976ca05de721eb5b"];
+    
+    [client findSimilarWithFaceId:_baseFaces[_selectedTargetIndex].face.faceId largeFaceListId:_largrFaceListId completionBlock:^(NSArray<MPOSimilarPersistedFace *> *collection, NSError *error) {
+        [HUD removeFromSuperview];
+        
+        if (error) {
+            //[CommonUtil showSimpleHUD:@"Failed to find similar faces" forController:self.navigationController];
+            return;
+        }
+        
+        for (UIView * v in _resultContainer.subviews) {
+            [v removeFromSuperview];
+        }
+        for (int i = 0; i < collection.count; i++) {
+            MPOSimilarPersistedFace * result = collection[i];
+            UIImageView * imageView = [[UIImageView alloc] initWithImage:((PersistedFace*)[self faceForId:result.persistedFaceId]).image];
+            imageView.width = _resultContainer.width / 6;
+            imageView.height = imageView.width;
+            imageView.left = 5;
+            imageView.top = 5 + (imageView.height + 5) * i;
+            imageView.clipsToBounds = YES;
+            imageView.contentMode = UIViewContentModeScaleAspectFit;
+            
+            UILabel * label = [[UILabel alloc] init];
+            label.text = [NSString stringWithFormat:@"confidence: %f", result.confidence.floatValue];
+            [label sizeToFit];
+            label.center = imageView.center;
+            label.left = imageView.right + 30;
+            
+            [_resultContainer addSubview:imageView];
+            [_resultContainer addSubview:label];
+        }
+        _resultContainer.contentSize = CGSizeMake(_resultContainer.width, 5 + collection.count * (5 + _resultContainer.width / 6));
+        if (collection.count == 0) {
+            //[CommonUtil showSimpleHUD:@"No similar faces." forController:self.navigationController];
+        }
+    }];
+}
+
+- (PersistedFace*)faceForId:(NSString*)faceId {
+    for (PersistedFace * face in _selectedFaces) {
+        if ([face.persistedFaceId isEqualToString:faceId]) {
+            return face;
+        }
+    }
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

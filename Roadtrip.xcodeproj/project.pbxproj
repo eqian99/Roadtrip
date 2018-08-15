@@ -48,6 +48,7 @@
 		D6A6C50C211D09C50096A283 /* EventCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C50B211D09C50096A283 /* EventCollectionCell.m */; };
 		D6A6C50F211D19030096A283 /* MemberCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A6C50E211D19030096A283 /* MemberCollectionCell.m */; };
 		D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AA0A692108F4E40074456B /* FriendCell.m */; };
+		F63B964F2123C8DC001C63B5 /* PersonFace.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B964D2123C8DC001C63B5 /* PersonFace.m */; };
 		F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A23ADB20EFE04C002384E8 /* AppDelegate.m */; };
 		F6A23AE220EFE04C002384E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE020EFE04C002384E8 /* Main.storyboard */; };
 		F6A23AE720EFE04D002384E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE520EFE04D002384E8 /* LaunchScreen.storyboard */; };
@@ -58,7 +59,6 @@
 		F6E3362E2123941B0065D14F /* MPOSimpleFaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E3362A212394190065D14F /* MPOSimpleFaceCell.m */; };
 		F6E3362F2123941B0065D14F /* PersistedFace.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E3362C2123941A0065D14F /* PersistedFace.m */; };
 		F6E336302123941B0065D14F /* MPOSimpleFaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E3362D2123941B0065D14F /* MPOSimpleFaceCell.xib */; };
-		F6E3363421239C3D0065D14F /* PersonFace.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E3363321239C3C0065D14F /* PersonFace.m */; };
 		F6F77C4020FB256600836D65 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C3F20FB256600836D65 /* LoginViewController.m */; };
 		F6F77C4620FC6D7600836D65 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4420FC6D7600836D65 /* SignupViewController.m */; };
 		F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F77C4820FD353800836D65 /* CategoryViewController.m */; };
@@ -150,6 +150,8 @@
 		D6A6C50E211D19030096A283 /* MemberCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MemberCollectionCell.m; sourceTree = "<group>"; };
 		D6AA0A682108F4E40074456B /* FriendCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FriendCell.h; sourceTree = "<group>"; };
 		D6AA0A692108F4E40074456B /* FriendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FriendCell.m; sourceTree = "<group>"; };
+		F63B964D2123C8DC001C63B5 /* PersonFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonFace.m; path = "../../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.m"; sourceTree = "<group>"; };
+		F63B964E2123C8DC001C63B5 /* PersonFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonFace.h; path = "../../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.h"; sourceTree = "<group>"; };
 		F6A23AD720EFE04C002384E8 /* Roadtrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roadtrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A23ADA20EFE04C002384E8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F6A23ADB20EFE04C002384E8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -166,8 +168,6 @@
 		F6E3362C2123941A0065D14F /* PersistedFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistedFace.m; sourceTree = "<group>"; };
 		F6E3362D2123941B0065D14F /* MPOSimpleFaceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPOSimpleFaceCell.xib; sourceTree = "<group>"; };
 		F6E3363121239AC50065D14F /* ProjectOxfordFace-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProjectOxfordFace-Prefix.pch"; sourceTree = "<group>"; };
-		F6E3363221239C3C0065D14F /* PersonFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonFace.h; path = "../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.h"; sourceTree = "<group>"; };
-		F6E3363321239C3C0065D14F /* PersonFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonFace.m; path = "../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.m"; sourceTree = "<group>"; };
 		F6F77C3E20FB256600836D65 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		F6F77C3F20FB256600836D65 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		F6F77C4420FC6D7600836D65 /* SignupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
@@ -327,8 +327,8 @@
 				F6E3362B2123941A0065D14F /* PersistedFace.h */,
 				F6E3362C2123941A0065D14F /* PersistedFace.m */,
 				F6E3363121239AC50065D14F /* ProjectOxfordFace-Prefix.pch */,
-				F6E3363221239C3C0065D14F /* PersonFace.h */,
-				F6E3363321239C3C0065D14F /* PersonFace.m */,
+				F63B964E2123C8DC001C63B5 /* PersonFace.h */,
+				F63B964D2123C8DC001C63B5 /* PersonFace.m */,
 				F6E336272123940C0065D14F /* utils */,
 			);
 			path = Roadtrip;
@@ -522,7 +522,7 @@
 				D67ACB28210FD45900EA1815 /* ScheduleMembersViewController.m in Sources */,
 				D6AA0A6A2108F4E40074456B /* FriendCell.m in Sources */,
 				F6F77C5020FFC2D900836D65 /* SelectLandmarksViewController.m in Sources */,
-				F6E3363421239C3D0065D14F /* PersonFace.m in Sources */,
+				F63B964F2123C8DC001C63B5 /* PersonFace.m in Sources */,
 				D67ACB22210BB8C100EA1815 /* ScheduleEventCell.m in Sources */,
 				537945982118B3A00078D95F /* WeatherMapManager.m in Sources */,
 				5306478120FFABD10062432D /* selectEventsViewController.m in Sources */,

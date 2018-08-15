@@ -54,7 +54,7 @@ DEPENDENCIES:
   - JVFloatLabeledTextField
   - lottie-ios
   - LUNSegmentedControl
-  - MBProgressHUD
+  - MBProgressHUD (~> 1.1.0)
   - Parse
   - ProjectOxfordFace
   - RVCalendarWeekView
@@ -103,6 +103,6 @@ SPEC CHECKSUMS:
   UIColor-HexString: fadc2e1389db19147ac99dee92222d3bd8bfec4a
   ZCAnimatedLabel: 519b688bef4403fd356bc785f9b61cdfd8e6472d
 
-PODFILE CHECKSUM: e2771d8f76ba9707af5f61ad519176fc9e332e75
+PODFILE CHECKSUM: dde10b2a1432a1e2721e9920a338511e76d1df7a
 
 COCOAPODS: 1.5.3
