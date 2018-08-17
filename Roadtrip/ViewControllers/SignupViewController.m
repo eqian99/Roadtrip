@@ -100,7 +100,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     
     self.confirmPasswordField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     self.confirmPasswordField.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Confirm email", @"")
+    [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Confirm password", @"")
                                     attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.confirmPasswordField.floatingLabelFont = [UIFont boldSystemFontOfSize:kJVFieldFloatingLabelFontSize];
     self.confirmPasswordField.floatingLabelTextColor = floatingLabelColor;

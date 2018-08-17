@@ -23,6 +23,10 @@
 		537A5DE721019D3300890FEF /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537A5DE621019D3300890FEF /* EventKit.framework */; };
 		5386C9042107E5D7002AA967 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5386C9032107E5D7002AA967 /* ScheduleCell.m */; };
 		835B207537901FC306B680D3 /* libPods-Roadtrip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1702C94B0AA0834EE7F145 /* libPods-Roadtrip.a */; };
+		D62888D521241DD00009DE49 /* PersonFace.h in Sources */ = {isa = PBXBuildFile; fileRef = D62888D221241B580009DE49 /* PersonFace.h */; };
+		D62888D621241DD00009DE49 /* PersonFace.m in Sources */ = {isa = PBXBuildFile; fileRef = D62888D321241B580009DE49 /* PersonFace.m */; };
+		D62888D9212424FA0009DE49 /* RecognizedFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D62888D8212424FA0009DE49 /* RecognizedFriendCell.m */; };
+		D62888DC212425790009DE49 /* RecognizedFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D62888DB212425790009DE49 /* RecognizedFriendsViewController.m */; };
 		D656ED8E20FD320600D7BAFD /* YelpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED8D20FD320600D7BAFD /* YelpManager.m */; };
 		D656ED9120FD3B0800D7BAFD /* TestingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED9020FD3B0800D7BAFD /* TestingViewController.m */; };
 		D656ED9420FD446F00D7BAFD /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = D656ED9320FD446F00D7BAFD /* Event.m */; };
@@ -59,7 +63,6 @@
 		F63B96712123D2F7001C63B5 /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96652123D2F6001C63B5 /* ImageHelper.m */; };
 		F63B96722123D2F7001C63B5 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96672123D2F6001C63B5 /* UIImage+FixOrientation.m */; };
 		F63B96732123D2F7001C63B5 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B96682123D2F6001C63B5 /* UIImage+Resize.m */; };
-		F63B9676212417F6001C63B5 /* PersonFace.m in Sources */ = {isa = PBXBuildFile; fileRef = F63B9674212417F5001C63B5 /* PersonFace.m */; };
 		F6A23ADC20EFE04C002384E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A23ADB20EFE04C002384E8 /* AppDelegate.m */; };
 		F6A23AE220EFE04C002384E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE020EFE04C002384E8 /* Main.storyboard */; };
 		F6A23AE720EFE04D002384E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A23AE520EFE04D002384E8 /* LaunchScreen.storyboard */; };
@@ -111,6 +114,13 @@
 		5386C9032107E5D7002AA967 /* ScheduleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleCell.m; sourceTree = "<group>"; };
 		8E1702C94B0AA0834EE7F145 /* libPods-Roadtrip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Roadtrip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C10D3723941B140CC23B1156 /* Pods-Roadtrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roadtrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roadtrip/Pods-Roadtrip.release.xcconfig"; sourceTree = "<group>"; };
+		D62888CF2123CD8E0009DE49 /* PersonFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonFace.m; path = "../../Cognitive-Face-iOS-master/Example/ProjectOxfordFace/PersonFace.m"; sourceTree = "<group>"; };
+		D62888D221241B580009DE49 /* PersonFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonFace.h; path = "../../Cognitive-Face-iOS-master/Example/ProjectOxfordFace/PersonFace.h"; sourceTree = "<group>"; };
+		D62888D321241B580009DE49 /* PersonFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonFace.m; path = "../../Cognitive-Face-iOS-master/Example/ProjectOxfordFace/PersonFace.m"; sourceTree = "<group>"; };
+		D62888D7212424FA0009DE49 /* RecognizedFriendCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecognizedFriendCell.h; sourceTree = "<group>"; };
+		D62888D8212424FA0009DE49 /* RecognizedFriendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecognizedFriendCell.m; sourceTree = "<group>"; };
+		D62888DA212425790009DE49 /* RecognizedFriendsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecognizedFriendsViewController.h; sourceTree = "<group>"; };
+		D62888DB212425790009DE49 /* RecognizedFriendsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecognizedFriendsViewController.m; sourceTree = "<group>"; };
 		D656ED8C20FD320600D7BAFD /* YelpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YelpManager.h; sourceTree = "<group>"; };
 		D656ED8D20FD320600D7BAFD /* YelpManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YelpManager.m; sourceTree = "<group>"; };
 		D656ED8F20FD3B0800D7BAFD /* TestingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestingViewController.h; sourceTree = "<group>"; };
@@ -181,8 +191,6 @@
 		F63B96662123D2F6001C63B5 /* UIViewController+BackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BackButtonHandler.h"; sourceTree = "<group>"; };
 		F63B96672123D2F6001C63B5 /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
 		F63B96682123D2F6001C63B5 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
-		F63B9674212417F5001C63B5 /* PersonFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonFace.m; path = "../../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.m"; sourceTree = "<group>"; };
-		F63B9675212417F5001C63B5 /* PersonFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonFace.h; path = "../../../Cognitive-Face-iOS/Example/ProjectOxfordFace/PersonFace.h"; sourceTree = "<group>"; };
 		F6A23AD720EFE04C002384E8 /* Roadtrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roadtrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A23ADA20EFE04C002384E8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F6A23ADB20EFE04C002384E8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -260,6 +268,8 @@
 				D6A6C50B211D09C50096A283 /* EventCollectionCell.m */,
 				D6A6C50D211D19030096A283 /* MemberCollectionCell.h */,
 				D6A6C50E211D19030096A283 /* MemberCollectionCell.m */,
+				D62888D7212424FA0009DE49 /* RecognizedFriendCell.h */,
+				D62888D8212424FA0009DE49 /* RecognizedFriendCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -290,6 +300,14 @@
 				C10D3723941B140CC23B1156 /* Pods-Roadtrip.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		D62888D121241B170009DE49 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				D62888CF2123CD8E0009DE49 /* PersonFace.m */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		D6CDFAB020FE5D78001F6A61 /* Objects */ = {
@@ -368,6 +386,7 @@
 				F6A23AD820EFE04C002384E8 /* Products */,
 				B4574B3D1F9F9AEE236E3730 /* Pods */,
 				FABB7E2BF1D36441DEE86EAE /* Frameworks */,
+				D62888D121241B170009DE49 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -409,8 +428,8 @@
 				F6E3362B2123941A0065D14F /* PersistedFace.h */,
 				F6E3362C2123941A0065D14F /* PersistedFace.m */,
 				F6E3363121239AC50065D14F /* ProjectOxfordFace-Prefix.pch */,
-				F63B9675212417F5001C63B5 /* PersonFace.h */,
-				F63B9674212417F5001C63B5 /* PersonFace.m */,
+				D62888D221241B580009DE49 /* PersonFace.h */,
+				D62888D321241B580009DE49 /* PersonFace.m */,
 				F63B96502123D2F6001C63B5 /* utils */,
 			);
 			path = Roadtrip;
@@ -455,6 +474,8 @@
 				D67ACB2D21126FF700EA1815 /* InvitesViewController.m */,
 				537945932114F8B80078D95F /* SearchBarViewController.h */,
 				537945942114F8B80078D95F /* SearchBarViewController.m */,
+				D62888DA212425790009DE49 /* RecognizedFriendsViewController.h */,
+				D62888DB212425790009DE49 /* RecognizedFriendsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -589,6 +610,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D62888D521241DD00009DE49 /* PersonFace.h in Sources */,
+				D62888D621241DD00009DE49 /* PersonFace.m in Sources */,
 				D6A6C50F211D19030096A283 /* MemberCollectionCell.m in Sources */,
 				F6A23AEA20EFE04D002384E8 /* main.m in Sources */,
 				F6F77C4920FD353800836D65 /* CategoryViewController.m in Sources */,
@@ -612,7 +635,6 @@
 				5306478A210154010062432D /* EventDetailsViewController.m in Sources */,
 				F6E3362E2123941B0065D14F /* MPOSimpleFaceCell.m in Sources */,
 				537945922110FA1C0078D95F /* RestaurantChooserView.m in Sources */,
-				F63B9676212417F6001C63B5 /* PersonFace.m in Sources */,
 				D6A6C5052114D3A80096A283 /* TripCell.m in Sources */,
 				537945952114F8B80078D95F /* SearchBarViewController.m in Sources */,
 				D67ACB1C210A93B300EA1815 /* UserScheduleCell.m in Sources */,
@@ -627,6 +649,7 @@
 				5379458D2110ECF10078D95F /* RestaurantChooserViewController.m in Sources */,
 				D67ACB1F210A99D300EA1815 /* Schedule.m in Sources */,
 				F63B966B2123D2F7001C63B5 /* UIViewController+BackButtonHandler.m in Sources */,
+				D62888D9212424FA0009DE49 /* RecognizedFriendCell.m in Sources */,
 				D680BC132100156E00C0EBC4 /* EventbriteManager.m in Sources */,
 				F63B966E2123D2F7001C63B5 /* UIImage+Crop.m in Sources */,
 				5306477B20FEEE6A0062432D /* GoogleMapsManager.m in Sources */,
@@ -645,6 +668,7 @@
 				D67ACB132108F9FF00EA1815 /* SearchPeopleViewController.m in Sources */,
 				F63B966F2123D2F7001C63B5 /* UIViewController+DismissKeyboard.m in Sources */,
 				D67ACB2E21126FF700EA1815 /* InvitesViewController.m in Sources */,
+				D62888DC212425790009DE49 /* RecognizedFriendsViewController.m in Sources */,
 				5306478720FFED150062432D /* RestaurantTimeViewController.m in Sources */,
 				F6F77C4020FB256600836D65 /* LoginViewController.m in Sources */,
 				F6F77C5F21003A2500836D65 /* ScheduleViewController.m in Sources */,
@@ -791,14 +815,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T43H6FGZD6;
+				DEVELOPMENT_TEAM = ZN4X58VYZ4;
 				INFOPLIST_FILE = Roadtrip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip9777;
+				PRODUCT_BUNDLE_IDENTIFIER = com.heh17.Roadtrip9777;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -811,14 +835,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T43H6FGZD6;
+				DEVELOPMENT_TEAM = ZN4X58VYZ4;
 				INFOPLIST_FILE = Roadtrip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = heh17.Roadtrip9777;
+				PRODUCT_BUNDLE_IDENTIFIER = com.heh17.Roadtrip9777;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

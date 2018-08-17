@@ -184,7 +184,7 @@
     self.profilePic.image = editedImage;
     PFFile *profilePicFile = [self getPFFileFromImage:self.profilePic.image];
     [self.currUser setValue:profilePicFile forKey:@"profilePic"];
-    
+
     [self.currUser saveInBackground];
     
     UIImage * _selectedImage;

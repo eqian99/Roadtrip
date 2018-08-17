@@ -8,6 +8,7 @@
 
 #import "ScheduleMembersViewController.h"
 #import "AddPeopleScheduleViewController.h"
+#import "RecognizedFriendsViewController.h"
 #import "Parse.h"
 #import "UIImage+FixOrientation.h"
 #import "UIImage+Crop.h"
@@ -21,6 +22,7 @@
 #import <ProjectOxfordFace/MPOFaceServiceClient.h>
 
 @interface ScheduleMembersViewController () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate, UICollectionViewDataSource> {
+    
     NSMutableArray<PersistedFace*> * _selectedFaces;
     NSMutableArray<PersonFace*> * _baseFaces;
     UICollectionView * _imageContainer0;
@@ -31,11 +33,16 @@
     NSInteger _selectIndex;
     NSInteger _selectedTargetIndex;
     NSString * _largrFaceListId;
+
 }
 
 @end
 
 @implementation ScheduleMembersViewController
+
+    NSString *const ProjectOxfordFaceEndpoint = @"https://westcentralus.api.cognitive.microsoft.com/face/v1.0";
+    NSString *const ProjectOxfordFaceSubscriptionKey = @"8bbc65bcabcd4cb9976ca05de721eb5b";
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -84,6 +91,8 @@
         }
     }];
 }
+
+
 
 -(void) didClickAddButton {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Source" message:@"Where do you want to save your schedule to?" preferredStyle: UIAlertControllerStyleActionSheet];
@@ -138,19 +147,43 @@
     
 }
 
+- (void)addFace:data image:(UIImage *) image{
+    
+    MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"" key:@""];
+    
+    [client addFaceInLargeFaceList:_largrFaceListId data:data userData:nil faceRectangle:nil  completionBlock:^(MPOAddPersistedFaceResult *addPersistedFaceResult, NSError *error) {
+        if (error) {
+            return;
+        }
+        
+        PersistedFace *obj = [[PersistedFace alloc] init];
+        obj.image = image;
+        obj.persistedFaceId = addPersistedFaceResult.persistedFaceId;
+        
+        [_selectedFaces addObject:obj];
+        
+        _imageCountLabel.text =  [NSString stringWithFormat:@"%d faces in total", (int32_t)_selectedFaces.count];
+        [_imageContainer0 reloadData];
+        [_imageContainer1 reloadData];
+        
+    }];
+}
+
 - (void)trainLargeFaceList {
     MPOFaceServiceClient *client = [[MPOFaceServiceClient alloc] initWithEndpointAndSubscriptionKey:@"https://westcentralus.api.cognitive.microsoft.com/face/v1.0" key:@"8bbc65bcabcd4cb9976ca05de721eb5b"];
-    
+
     [client trainLargeFaceList:_largrFaceListId completionBlock:^(NSError *error) {
         //[HUD removeFromSuperview];
         if (error) {
-            //[CommonUtil showSimpleHUD:@"Failed in training large face list." forController:self.navigationController];
+            
         } else {
             [self findSimilarFace];
             NSLog(@"Base face size: %lu", _baseFaces.count);
         }
     }];
 }
+
+
 
 - (void)findSimilarFace {
     
@@ -173,14 +206,20 @@
             for (UIView * v in _resultContainer.subviews) {
                 [v removeFromSuperview];
             }
-            for (int i = 0; i < collection.count; i++) {
-                MPOSimilarPersistedFace * result = collection[i];
+            for (int j = 0; j < collection.count; j++) {
+                MPOSimilarPersistedFace * result = collection[j];
                 NSLog(@"ID: %@", result.persistedFaceId);
                 NSLog(@"Dictionary: %@", self.picturesDictionary);
                 NSLog(@"User: %@", [self.picturesDictionary valueForKey:result.persistedFaceId]);
                 UIImage *pic = _baseFaces[i].image;
                 [self.detectedFaces setValue:pic forKey:[self.picturesDictionary valueForKey:result.persistedFaceId]];
             }
+            
+            if(i == collection.count - 1){
+                NSLog(@"This");
+                [self performSegueWithIdentifier:@"recognizedFriendsSegue" sender:self];
+            }
+            
             if (collection.count == 0) {
                 NSLog(@"No similar face");
                 //[CommonUtil showSimpleHUD:@"No similar faces." forController:self.navigationController];
@@ -223,7 +262,7 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    
+
     UIImage * _selectedImage;
     if (info[UIImagePickerControllerEditedImage])
         _selectedImage = info[UIImagePickerControllerEditedImage];
@@ -310,6 +349,7 @@
             [_baseFaces addObjectsFromArray:faces];
         }];
     }
+    
 }
 
 - (void)addFace:data image:(UIImage *) image withUser:(NSString *)username{
@@ -366,11 +406,11 @@
         PFFile *imageFile = [friend valueForKey:@"profilePic"];
         [imageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
             UIImage *profileImage = [UIImage imageWithData:imageData];
-            
-            //[self add]
+        
         }];
     }
 }
+     
 
 
 #pragma mark - Navigation
@@ -384,6 +424,11 @@
         AddPeopleScheduleViewController *viewController = [segue destinationViewController];
         viewController.schedule = self.schedule;
         
+    } else if([[segue identifier] isEqualToString:@"recognizedFriendsSegue"]) {
+        RecognizedFriendsViewController *vc = [segue destinationViewController];
+        vc.friends = self.friends;
+        vc.schedule = self.schedule;
+        vc.userPhotosDictionary = self.detectedFaces;
     }
     
 }

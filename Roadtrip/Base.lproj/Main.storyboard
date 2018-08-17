@@ -1387,6 +1387,75 @@
             </objects>
             <point key="canvasLocation" x="2393" y="986"/>
         </scene>
+        <!--Recognized Friends View Controller-->
+        <scene sceneID="mcj-DC-ZlR">
+            <objects>
+                <viewController id="OJN-pu-WBi" customClass="RecognizedFriendsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QF5-jP-m3p">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gdy-2M-O4a">
+                                <rect key="frame" x="0.0" y="140" width="375" height="527"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recognizedCell" rowHeight="225" id="YmR-aZ-rrg" customClass="RecognizedFriendCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="225"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YmR-aZ-rrg" id="a3U-wb-ZtT">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="224.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cellBackground" translatesAutoresizingMaskIntoConstraints="NO" id="FkX-f0-R3u">
+                                                    <rect key="frame" x="15" y="11" width="345" height="201"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OTj-5m-qIn">
+                                                    <rect key="frame" x="41" y="72" width="75" height="75"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zei-cJ-a7m">
+                                                    <rect key="frame" x="231" y="96" width="105" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="right-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="lSe-mQ-nuK">
+                                                    <rect key="frame" x="144" y="79" width="69" height="65"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="photoTaken" destination="OTj-5m-qIn" id="wfo-TE-hgP"/>
+                                            <outlet property="usernameLabel" destination="Zei-cJ-a7m" id="a2C-4n-tNx"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6G-ZA-LHz">
+                                <rect key="frame" x="114" y="78" width="147" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="35"/>
+                                <state key="normal" title="Invite All"/>
+                                <connections>
+                                    <action selector="didPressInviteAll:" destination="OJN-pu-WBi" eventType="touchUpInside" id="tQo-Tn-0ar"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="RR9-GQ-3ad"/>
+                    </view>
+                    <connections>
+                        <outlet property="recognizedTableView" destination="gdy-2M-O4a" id="t6g-c0-H8N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9pf-HW-0oq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="807.20000000000005" y="1729.385307346327"/>
+        </scene>
         <!--Members-->
         <scene sceneID="KU6-K8-IsA">
             <objects>
@@ -1407,6 +1476,7 @@
                     <connections>
                         <outlet property="membersTableView" destination="93W-00-aVA" id="c9c-Up-Nu6"/>
                         <segue destination="omb-x4-Q5v" kind="show" identifier="addFriendsSegue" id="E5Y-zk-UuS"/>
+                        <segue destination="OJN-pu-WBi" kind="show" identifier="recognizedFriendsSegue" id="kXi-q0-Hu3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dyC-hn-rEh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1442,7 +1512,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cY1-se-Aen" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="1687"/>
+            <point key="canvasLocation" x="2393" y="1727"/>
         </scene>
         <!--Profile-->
         <scene sceneID="mof-IC-OnD">
@@ -1798,6 +1868,7 @@
         <image name="placeholder" width="1280" height="960"/>
         <image name="profileShadow" width="115" height="112"/>
         <image name="profile_blank" width="720" height="720"/>
+        <image name="right-arrow" width="256" height="256"/>
         <image name="save" width="24" height="24"/>
         <image name="scheduleIconWhite" width="33" height="33"/>
         <image name="segmentBackground" width="248" height="78"/>
